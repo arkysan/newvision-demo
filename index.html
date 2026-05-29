@@ -24,6 +24,7 @@
       --radius:   12px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; font-family: inherit; }
@@ -74,12 +75,11 @@
       display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0 auto 28px;
     }
     .hero-logo-arc {
-      width: 220px; height: 54px; position: relative; margin-bottom: 4px;
+      width: 220px; height: 58px; position: relative; margin-bottom: 4px;
     }
     .hero-logo-arc svg { width: 100%; height: 100%; }
     .hero-logo-name {
       font-size: 38px; font-weight: 900; letter-spacing: 8px; color: var(--green2);
-      text-shadow: 0 0 60px rgba(76,175,80,0.45), 0 0 120px rgba(76,175,80,0.2);
       font-family: 'Arial Black', 'Segoe UI Black', sans-serif;
       font-style: italic;
     }
@@ -126,7 +126,7 @@
     .trust-text span { font-size: 11px; color: var(--muted); }
 
     /* ── SECTION ── */
-    section { padding: 48px 24px; max-width: 1280px; margin: 0 auto; }
+    section { padding: 48px 24px; max-width: 1400px; margin: 0 auto; }
     .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; gap: 12px; flex-wrap: wrap; }
     .section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
     .section-title span { color: var(--green); }
@@ -139,10 +139,10 @@
     .filter-select { padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted2); font-size: 13px; outline: none; }
 
     /* ── VEHICLE GRID ── */
-    .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 16px; }
+    .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 20px; }
     .vehicle-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all .25s; cursor: pointer; }
-    .vehicle-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(76,175,80,0.1); }
-    .vehicle-img { position: relative; height: 190px; background: var(--surface2); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .vehicle-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(46,125,50,0.13); }
+    .vehicle-img { position: relative; aspect-ratio: 16/9; background: var(--surface2); overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .vehicle-img-placeholder { font-size: 56px; }
     .vehicle-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
     .vehicle-card:hover .vehicle-img img { transform: scale(1.04); }
@@ -212,7 +212,7 @@
     .cert-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
     /* ── CTA ── */
-    .cta-block { background: linear-gradient(135deg, rgba(46,125,50,0.12), rgba(76,175,80,0.05)); border: 1px solid rgba(76,175,80,0.2); border-radius: 16px; padding: 40px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+    .cta-block { background: linear-gradient(135deg, rgba(46,125,50,0.08), rgba(76,175,80,0.03)); border: 1px solid rgba(76,175,80,0.25); border-left: 4px solid var(--green); border-radius: 16px; padding: 40px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
     .cta-text h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
     .cta-text p { color: var(--muted2); max-width: 400px; }
     .cta-actions { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
@@ -277,7 +277,7 @@
     .trust-item-sm::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
 
     /* ── TOAST ── */
-    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--green); border-radius: 10px; padding: 13px 18px; font-size: 14px; font-weight: 500; z-index: 300; display: none; align-items: center; gap: 9px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--green); border-radius: 10px; padding: 13px 18px; font-size: 14px; font-weight: 500; z-index: 300; display: none; align-items: center; gap: 9px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
     .toast.show { display: flex; animation: slide-in .25s ease; }
     @keyframes slide-in { from { transform: translateX(60px); opacity: 0; } to { transform: none; opacity: 1; } }
 
@@ -300,9 +300,13 @@
       nav { padding: 0 14px; gap: 10px; }
       .nav-links, .nav-search, .nav-lang { display: none; }
       .hero { padding: 40px 14px 48px; }
+      .hero-logo-name { font-size: 28px; letter-spacing: 5px; }
+      .hero-logo-arc { width: 160px; }
+      .hero-logo-zh { font-size: 14px; }
       .hero-search { flex-direction: column; }
       section { padding: 36px 14px; }
-      .steps { grid-template-columns: 1fr 1fr; }
+      .vehicle-grid { grid-template-columns: 1fr; gap: 14px; }
+      .steps { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 20px; }
     }
   </style>
