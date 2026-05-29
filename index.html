@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Vision 新视界 — China Car Export | Buy Direct</title>
+  <title>New Vision 新视界 — China Car Export | Buy Direct from Yiwu</title>
+  <meta name="description" content="New Vision — Yiwu's trusted vehicle export company since 2019. Buy BYD, Tesla, BMW, Mercedes, Li Auto and 16+ brands direct from China. FOB pricing, full export docs, 50+ countries served.">
+  <meta property="og:title" content="New Vision 新视界 — China Car Export">
+  <meta property="og:description" content="Buy Chinese vehicles direct. BYD, Tesla, BMW, Li Auto, Xiaomi and 16+ brands. Full export service from Yiwu to your port.">
+  <meta property="og:type" content="website">
+  <link rel="preload" href="img/v01-tesla.webp" as="image">
+  <link rel="preload" href="img/v02-byd-seal.webp" as="image">
   <style>
     :root {
       --bg:       #FFFFFF;
@@ -355,6 +361,7 @@
   </button>
 </nav>
 
+<main>
 <!-- ── DEMO BANNER ── -->
 <div style="background:rgba(76,175,80,0.07);border-bottom:1px solid rgba(76,175,80,0.15);padding:7px 24px;font-size:12px;color:var(--muted2);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">
   <span>📋 <strong style="color:var(--green2)">Demo Site</strong> — Sample inventory for illustration purposes.</span>
@@ -390,22 +397,23 @@
 
   <div class="hero-badge">🚗 Live Inventory — 3,200+ vehicles ready for export</div>
   <h1>Buy Cars <span>Direct from China</span><br>Delivered to Your Country</h1>
-  <p class="hero-sub">Focusing on green and smart travel. Full-chain solutions for new energy vehicles — BYD, Tesla, BMW, Mercedes, Toyota and 15+ brands.</p>
+  <p class="hero-sub">Focusing on green and smart travel since 2019. Full-chain export solutions — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO and 16+ brands.</p>
 
   <div class="hero-search">
-    <select id="heroMake" onchange="applyFilters()">
+    <select id="heroMake" aria-label="Filter by brand" onchange="applyFilters()">
       <option value="">All Brands</option>
       <option>BYD</option><option>Tesla</option><option>BMW</option>
       <option>Mercedes-Benz</option><option>Toyota</option><option>Volkswagen</option>
       <option>Li Auto</option><option>Xiaomi</option><option>Changan</option>
       <option>Chery</option><option>Geely</option><option>Leapmotor</option>
       <option>Wuling</option><option>Yadea</option>
+      <option>MAEXTRO</option><option>Trumpchi</option><option>Jetour</option>
     </select>
-    <select id="heroType" onchange="applyFilters()">
+    <select id="heroType" aria-label="Filter by type" onchange="applyFilters()">
       <option value="">All Types</option>
       <option>EV</option><option>SUV</option><option>Sedan</option><option>Premium</option>
     </select>
-    <select id="heroCondition" onchange="applyFilters()">
+    <select id="heroCondition" aria-label="Filter by condition" onchange="applyFilters()">
       <option value="">New & Used</option>
       <option>New</option><option>Used</option>
     </select>
@@ -446,13 +454,13 @@
 <div class="stats">
   <div class="stat"><div class="stat-num" id="cVehicles">3,200</div><div class="stat-label">Vehicles Available</div></div>
   <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Countries Served</div></div>
-  <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Brand Partners</div></div>
+  <div class="stat"><div class="stat-num">16+</div><div class="stat-label">Brand Partners</div></div>
   <div class="stat"><div class="stat-num" id="cShipping">138</div><div class="stat-label">Active Shipments</div></div>
 </div>
 
 <!-- ── TRUST ── -->
 <div class="trust">
-  <div class="trust-item"><div class="trust-icon">🏅</div><div class="trust-text"><strong>9 Integrity Certificates</strong><span>Model Unit for Business Integrity</span></div></div>
+  <div class="trust-item"><div class="trust-icon">🏅</div><div class="trust-text"><strong>10 Integrity Certificates</strong><span>Model Unit for Business Integrity</span></div></div>
   <div class="trust-item"><div class="trust-icon">📋</div><div class="trust-text"><strong>MOFCOM Licensed</strong><span>Ministry of Commerce export license</span></div></div>
   <div class="trust-item"><div class="trust-icon">🔍</div><div class="trust-text"><strong>200-Point Inspection</strong><span>Third-party pre-export verification</span></div></div>
   <div class="trust-item"><div class="trust-icon">🚢</div><div class="trust-text"><strong>Door-to-Port Logistics</strong><span>Shanghai port, full customs handling</span></div></div>
@@ -464,8 +472,8 @@
 <section>
   <div class="section-header">
     <div>
-      <div class="section-title">Brand <span>Partners</span></div>
-      <div class="section-sub">15+ global automotive brands — new energy + traditional + premium</div>
+      <h2 class="section-title">Brand <span>Partners</span></h2>
+      <div class="section-sub">16+ global automotive brands — new energy · traditional · premium · engineering</div></div>
     </div>
   </div>
   <div class="brands-grid" id="brandGrid">
@@ -486,6 +494,9 @@
     <div class="brand-pill" onclick="filterByBrand('Audi',this)">Audi</div>
     <div class="brand-pill" onclick="filterByBrand('Wuling',this)">Wuling 五菱</div>
     <div class="brand-pill" onclick="filterByBrand('Yadea',this)">Yadea 雅迪</div>
+    <div class="brand-pill" onclick="filterByBrand('MAEXTRO',this)">MAEXTRO 問界</div>
+    <div class="brand-pill" onclick="filterByBrand('Trumpchi',this)">Trumpchi 传祺</div>
+    <div class="brand-pill" onclick="filterByBrand('Jetour',this)">Jetour 捷途</div>
   </div>
 </section>
 
@@ -494,10 +505,10 @@
 <section id="inventory">
   <div class="section-header">
     <div>
-      <div class="section-title">Vehicle <span>Inventory</span> <span id="resultCount" style="font-size:15px;color:var(--muted2)"></span></div>
+      <h2 class="section-title">Vehicle <span>Inventory</span> <span id="resultCount" style="font-size:15px;color:var(--muted2)"></span></div>
       <div class="section-sub">FOB Shanghai pricing · 180-day export eligible · Updated daily</div>
     </div>
-    <select class="filter-select" id="sortBy" onchange="applyFilters()">
+    <select class="filter-select" id="sortBy" aria-label="Sort vehicles" onchange="applyFilters()">
       <option value="latest">Latest Arrivals</option>
       <option value="price-asc">Price: Low → High</option>
       <option value="price-desc">Price: High → Low</option>
@@ -531,8 +542,8 @@
       <div class="showroom-stats">
         <div class="showroom-stat"><div class="showroom-stat-num">2019</div><div class="showroom-stat-label">Founded in Yiwu</div></div>
         <div class="showroom-stat"><div class="showroom-stat-num">50+</div><div class="showroom-stat-label">Countries Reached</div></div>
-        <div class="showroom-stat"><div class="showroom-stat-num">15+</div><div class="showroom-stat-label">Brand Partners</div></div>
-        <div class="showroom-stat"><div class="showroom-stat-num">9</div><div class="showroom-stat-label">Integrity Certificates</div></div>
+        <div class="showroom-stat"><div class="showroom-stat-num">16+</div><div class="showroom-stat-label">Brand Partners</div></div>
+        <div class="showroom-stat"><div class="showroom-stat-num">10</div><div class="showroom-stat-label">Integrity Certificates</div></div>
       </div>
       <button class="btn-lg btn-green" onclick="openWA('Hi, I want to learn more about New Vision Car Export. Please contact me.')">Contact Our Team →</button>
     </div>
@@ -543,7 +554,7 @@
 <div class="how-bg" id="how">
   <section style="padding-top:40px;padding-bottom:40px;">
     <div class="section-header" style="margin-bottom:28px;">
-      <div class="section-title">How It <span>Works</span></div>
+      <h2 class="section-title">How It <span>Works</span></h2>
       <div style="font-size:13px;color:var(--muted2)">Shanghai to your port in 15–35 days</div>
     </div>
     <div class="steps">
@@ -559,7 +570,7 @@
 <!-- ── ROUTES ── -->
 <section id="routes">
   <div class="section-header">
-    <div class="section-title">Active <span>Shipping Routes</span></div>
+    <h2 class="section-title">Active <span>Shipping Routes</span></h2>
     <div style="font-size:13px;color:var(--green2);display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse-dot 2s infinite;"></span>Live shipments in transit now</div>
   </div>
   <div class="routes-grid">
@@ -579,14 +590,18 @@
 <!-- ── CERTS ── -->
 <div style="background:var(--surface);border-top:1px solid var(--border)">
 <section>
-  <div class="section-header"><div class="section-title">Trust & <span>Certifications</span></div></div>
+  <div class="section-header"><h2 class="section-title">Trust & <span>Certifications</span></h2></div>
   <div class="certs">
-    <div class="cert-card"><div class="cert-icon">🏅</div><div><div class="cert-text">Model Unit for Integrity in Business</div><div class="cert-sub">Credit rating certification</div></div></div>
+    <div class="cert-card"><div class="cert-icon">🏅</div><div><div class="cert-text">Model Unit for Integrity in Business</div><div class="cert-sub">Business integrity award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">🤝</div><div><div class="cert-text">Integrity Entrepreneur</div><div class="cert-sub">Personal integrity award</div></div></div>
     <div class="cert-card"><div class="cert-icon">⭐</div><div><div class="cert-text">Enterprise Credit Rating</div><div class="cert-sub">AAA credit standing</div></div></div>
-    <div class="cert-card"><div class="cert-icon">✅</div><div><div class="cert-text">Service-Oriented & Credit-Abiding</div><div class="cert-sub">Industry integrity award</div></div></div>
-    <div class="cert-card"><div class="cert-icon">📋</div><div><div class="cert-text">MOFCOM Export License</div><div class="cert-sub">Ministry of Commerce certified</div></div></div>
-    <div class="cert-card"><div class="cert-icon">🌐</div><div><div class="cert-text">ISO Quality Management</div><div class="cert-sub">International standard</div></div></div>
-    <div class="cert-card"><div class="cert-icon">🛡️</div><div><div class="cert-text">+ 4 Additional Certificates</div><div class="cert-sub">Business integrity & quality</div></div></div>
+    <div class="cert-card"><div class="cert-icon">📊</div><div><div class="cert-text">Enterprise Creditworthiness Rating</div><div class="cert-sub">Financial credibility</div></div></div>
+    <div class="cert-card"><div class="cert-icon">✅</div><div><div class="cert-text">Quality Service & Integrity Enterprise</div><div class="cert-sub">Service excellence award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">🎖️</div><div><div class="cert-text">Service-Oriented & Credit-Abiding</div><div class="cert-sub">Industry integrity award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">📜</div><div><div class="cert-text">Contract-Respecting & Promise-Keeping</div><div class="cert-sub">Commitment to buyers</div></div></div>
+    <div class="cert-card"><div class="cert-icon">🔍</div><div><div class="cert-text">Quality-Focused & Creditworthy Unit</div><div class="cert-sub">Quality management</div></div></div>
+    <div class="cert-card"><div class="cert-icon">🛡️</div><div><div class="cert-text">Trusted Supplier</div><div class="cert-sub">Verified export partner</div></div></div>
+    <div class="cert-card"><div class="cert-icon">👤</div><div><div class="cert-text">Integrity Manager Award</div><div class="cert-sub">Leadership recognition</div></div></div>
   </div>
 </section>
 </div>
@@ -622,7 +637,7 @@
           <div class="footer-contact">📞 <span><strong>+86 579 8554 1664</strong></span></div>
           <div class="footer-contact">💬 <span><strong>+86 137 3561 1862</strong> (WhatsApp)</span></div>
           <div class="footer-contact">🌐 <span>nvncar.com</span></div>
-          <div class="footer-contact">📍 <span>Chouzhou North Road, Yiwu, Zhejiang 322000</span></div>
+          <div class="footer-contact">📍 <span>525-527 Workers' North Road, Yiwu, Zhejiang 322000</span></div>
         </div>
       </div>
       <div class="footer-col">
@@ -656,6 +671,7 @@
     </div>
   </div>
 </footer>
+</main>
 
 <!-- ── MODAL ── -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
@@ -739,22 +755,22 @@
 <script>
 // ── VEHICLE DATA ──────────────────────────────────────────────────────────────
 const vehicles = [
-  { id:1,  make:'Tesla',        model:'Model Y L 2026',          year:2026, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'SUV',       price:28900, emoji:'🚗', img:'img/v01-tesla.jpg',                                                                                                                                ev:true,  hot:true,  premium:true,  trans:'1-Speed Auto', engine:'250kW Dual Motor', drive:'AWD', doors:4, seats:5, range_km:688  },
-  { id:2,  make:'BYD',          model:'Seal 2024 Long Range',    year:2024, mileage:6200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:15200, emoji:'🚗', img:'img/v02-byd-seal.jpg',                                                                                                                             ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'230kW Electric',   drive:'RWD', doors:4, seats:5, range_km:700  },
-  { id:3,  make:'BMW',          model:'X3 2025 xDrive30L',       year:2025, mileage:8500,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'SUV',       price:42000, emoji:'🚙', img:'img/v03-bmw-x3.jpg',                                                                                                                 ev:false, hot:false, premium:true,  trans:'8-Speed Auto', engine:'2.0T 245hp',       drive:'AWD', doors:4, seats:5, range_km:null },
-  { id:4,  make:'Mercedes-Benz',model:'C 260 L 2025',            year:2025, mileage:4100,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:38500, emoji:'🚗', img:'img/v04-mercedes.jpg',                                                                                                   ev:false, hot:false, premium:true,  trans:'9G-Tronic',    engine:'1.5T 204hp',       drive:'RWD', doors:4, seats:5, range_km:null },
-  { id:5,  make:'Li Auto',      model:'L7 2025 Pro',             year:2025, mileage:3200,  condition:'Used', type:'EV',      fuel:'PHEV',     body:'SUV',       price:32000, emoji:'🚙', img:'img/v05-li-auto.jpg',                                                                                                                           ev:true,  hot:true,  premium:false, trans:'2-Speed DHT',  engine:'PHEV 449hp',       drive:'AWD', doors:4, seats:5, range_km:1315 },
-  { id:6,  make:'Volkswagen',   model:'Passat 2025 Premium',     year:2025, mileage:7800,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:22000, emoji:'🚗', img:'img/v06-passat.jpg',                                       ev:false, hot:false, premium:true,  trans:'DSG 7-Speed',  engine:'2.0T 220hp',       drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:7,  make:'Changan',      model:'CS75 Plus 2024',          year:2024, mileage:18400, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:9800,  emoji:'🚙', img:'img/v07-changan.jpg',                                                                                                       ev:false, hot:false, premium:false, trans:'Automatic',    engine:'1.5T 184hp',       drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:8,  make:'BYD',          model:'Atto 3 2024',             year:2024, mileage:9100,  condition:'Used', type:'EV',      fuel:'Electric', body:'SUV',       price:13800, emoji:'🚙', img:'img/v08-byd-atto3.jpg',                                                                                                                 ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'150kW Electric',   drive:'FWD', doors:4, seats:5, range_km:480  },
-  { id:9,  make:'Xiaomi',       model:'SU7 2024 Standard',       year:2024, mileage:2200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:24500, emoji:'🚗', img:'img/v09-xiaomi-su7.jpg',                                                                                                         ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'220kW Electric',   drive:'RWD', doors:4, seats:5, range_km:700  },
-  { id:10, make:'Leapmotor',    model:'C11 2024 Extended Range', year:2024, mileage:11200, condition:'Used', type:'EV',      fuel:'PHEV',     body:'SUV',       price:14200, emoji:'🚙', img:'img/v10-leapmotor.jpg',                                                                                                                                             ev:true,  hot:false, premium:false, trans:'2-Speed DHT',  engine:'PHEV 290hp',       drive:'AWD', doors:4, seats:5, range_km:1100 },
-  { id:11, make:'Chery',        model:'Tiggo 8 Pro Max 2024',    year:2024, mileage:14300, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:10500, emoji:'🚙', img:'img/v11-chery-t8.jpg',                                                                                                                                       ev:false, hot:false, premium:false, trans:'CVT',          engine:'2.0T 254hp',       drive:'FWD', doors:4, seats:7, range_km:null },
-  { id:12, make:'Geely',        model:'Monjaro 2024 2.0T',       year:2024, mileage:5800,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:16200, emoji:'🚙', img:'img/v12-geely.jpg',                                                                                                                                               ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0T 238hp',       drive:'AWD', doors:4, seats:5, range_km:null },
-  { id:13, make:'BYD',          model:'Han EV 2025 AWD',         year:2025, mileage:1800,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:31500, emoji:'🚗', img:'img/v13-byd-han.jpg',                                                                                                                                                     ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'380kW Dual Motor', drive:'AWD', doors:4, seats:5, range_km:715  },
-  { id:14, make:'Chery',        model:'Omoda E5 2024',           year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'SUV',       price:18500, emoji:'🚙', img:'img/v14-omoda-e5.jpg',                                                                                                                                                   ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'150kW Electric',   drive:'FWD', doors:4, seats:5, range_km:500  },
-  { id:15, make:'Wuling',       model:'Hongguang Mini EV 2024',  year:2024, mileage:3400,  condition:'Used', type:'EV',      fuel:'Electric', body:'Hatchback', price:4800,  emoji:'🚗', img:'img/v15-wuling.jpg',                                                                                                                   ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'30kW Electric',    drive:'RWD', doors:2, seats:4, range_km:170  },
-  { id:16, make:'Yadea',        model:'G6 Electric Motorcycle',  year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'Motorcycle',price:1100,  emoji:'🏍️', img:'img/v16-yadea.jpg',                                                                                                                                  ev:true,  hot:false, premium:false, trans:'Direct Drive', engine:'1.8kW Hub Motor', drive:'RWD', doors:0, seats:2, range_km:150  },
+  { id:1,  make:'Tesla',        model:'Model Y L 2026',          year:2026, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'SUV',       price:28900, emoji:'🚗', img:'img/v01-tesla.webp',                                                                                                                                ev:true,  hot:true,  premium:true,  trans:'1-Speed Auto', engine:'250kW Dual Motor', drive:'AWD', doors:4, seats:5, range_km:688  },
+  { id:2,  make:'BYD',          model:'Seal 2024 Long Range',    year:2024, mileage:6200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:15200, emoji:'🚗', img:'img/v02-byd-seal.webp',                                                                                                                             ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'230kW Electric',   drive:'RWD', doors:4, seats:5, range_km:700  },
+  { id:3,  make:'BMW',          model:'X3 2025 xDrive30L',       year:2025, mileage:8500,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'SUV',       price:42000, emoji:'🚙', img:'img/v03-bmw-x3.webp',                                                                                                                 ev:false, hot:false, premium:true,  trans:'8-Speed Auto', engine:'2.0T 245hp',       drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:4,  make:'Mercedes-Benz',model:'C 260 L 2025',            year:2025, mileage:4100,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:38500, emoji:'🚗', img:'img/v04-mercedes.webp',                                                                                                   ev:false, hot:false, premium:true,  trans:'9G-Tronic',    engine:'1.5T 204hp',       drive:'RWD', doors:4, seats:5, range_km:null },
+  { id:5,  make:'Li Auto',      model:'L7 2025 Pro',             year:2025, mileage:3200,  condition:'Used', type:'EV',      fuel:'PHEV',     body:'SUV',       price:32000, emoji:'🚙', img:'img/v05-li-auto.webp',                                                                                                                           ev:true,  hot:true,  premium:false, trans:'2-Speed DHT',  engine:'PHEV 449hp',       drive:'AWD', doors:4, seats:5, range_km:1315 },
+  { id:6,  make:'Volkswagen',   model:'Passat 2025 Premium',     year:2025, mileage:7800,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:22000, emoji:'🚗', img:'img/v06-passat.webp',                                       ev:false, hot:false, premium:true,  trans:'DSG 7-Speed',  engine:'2.0T 220hp',       drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:7,  make:'Changan',      model:'CS75 Plus 2024',          year:2024, mileage:18400, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:9800,  emoji:'🚙', img:'img/v07-changan.webp',                                                                                                       ev:false, hot:false, premium:false, trans:'Automatic',    engine:'1.5T 184hp',       drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:8,  make:'BYD',          model:'Atto 3 2024',             year:2024, mileage:9100,  condition:'Used', type:'EV',      fuel:'Electric', body:'SUV',       price:13800, emoji:'🚙', img:'img/v08-byd-atto3.webp',                                                                                                                 ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'150kW Electric',   drive:'FWD', doors:4, seats:5, range_km:480  },
+  { id:9,  make:'Xiaomi',       model:'SU7 2024 Standard',       year:2024, mileage:2200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:24500, emoji:'🚗', img:'img/v09-xiaomi-su7.webp',                                                                                                         ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'220kW Electric',   drive:'RWD', doors:4, seats:5, range_km:700  },
+  { id:10, make:'Leapmotor',    model:'C11 2024 Extended Range', year:2024, mileage:11200, condition:'Used', type:'EV',      fuel:'PHEV',     body:'SUV',       price:14200, emoji:'🚙', img:'img/v10-leapmotor.webp',                                                                                                                                             ev:true,  hot:false, premium:false, trans:'2-Speed DHT',  engine:'PHEV 290hp',       drive:'AWD', doors:4, seats:5, range_km:1100 },
+  { id:11, make:'Chery',        model:'Tiggo 8 Pro Max 2024',    year:2024, mileage:14300, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:10500, emoji:'🚙', img:'img/v11-chery-t8.webp',                                                                                                                                       ev:false, hot:false, premium:false, trans:'CVT',          engine:'2.0T 254hp',       drive:'FWD', doors:4, seats:7, range_km:null },
+  { id:12, make:'Geely',        model:'Monjaro 2024 2.0T',       year:2024, mileage:5800,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:16200, emoji:'🚙', img:'img/v12-geely.webp',                                                                                                                                               ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0T 238hp',       drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:13, make:'BYD',          model:'Han EV 2025 AWD',         year:2025, mileage:1800,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:31500, emoji:'🚗', img:'img/v13-byd-han.webp',                                                                                                                                                     ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'380kW Dual Motor', drive:'AWD', doors:4, seats:5, range_km:715  },
+  { id:14, make:'Chery',        model:'Omoda E5 2024',           year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'SUV',       price:18500, emoji:'🚙', img:'img/v14-omoda-e5.webp',                                                                                                                                                   ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'150kW Electric',   drive:'FWD', doors:4, seats:5, range_km:500  },
+  { id:15, make:'Wuling',       model:'Hongguang Mini EV 2024',  year:2024, mileage:3400,  condition:'Used', type:'EV',      fuel:'Electric', body:'Hatchback', price:4800,  emoji:'🚗', img:'img/v15-wuling.webp',                                                                                                                   ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'30kW Electric',    drive:'RWD', doors:2, seats:4, range_km:170  },
+  { id:16, make:'Yadea',        model:'G6 Electric Motorcycle',  year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'Motorcycle',price:1100,  emoji:'🏍️', img:'img/v16-yadea.webp',                                                                                                                                  ev:true,  hot:false, premium:false, trans:'Direct Drive', engine:'1.8kW Hub Motor', drive:'RWD', doors:0, seats:2, range_km:150  },
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
@@ -763,7 +779,8 @@ let typeFilter='all', priceFilter='all', makeFilter='', selV=null;
 function fmt(n) { return '$'+n.toLocaleString(); }
 
 // ── RENDER ────────────────────────────────────────────────────────────────
-function buildCard(v) {
+function buildCard(v, idx) {
+  const eager = idx < 4;
   const badges = [
     v.condition==='New' ? '<span class="badge badge-new">New</span>' : '<span class="badge badge-used">Used</span>',
     v.ev ? '<span class="badge badge-ev">⚡ EV/PHEV</span>' : '',
@@ -773,7 +790,7 @@ function buildCard(v) {
   const mil = v.condition==='New' ? '0 km' : v.mileage.toLocaleString()+' km';
   return `<div class="vehicle-card" onclick="openModal(${v.id})">
     <div class="vehicle-img">
-      ${v.img ? `<img src="${v.img}" alt="${v.year} ${v.make} ${v.model}" onerror="this.style.display='none';this.parentNode.querySelector('.vehicle-img-placeholder').style.display='flex'"><div class="vehicle-img-placeholder" style="display:none">${v.emoji}</div>` : `<div class="vehicle-img-placeholder">${v.emoji}</div>`}
+      ${v.img ? `<img src="${v.img}" alt="${v.year} ${v.make} ${v.model}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'} onerror="this.style.display='none';this.parentNode.querySelector('.vehicle-img-placeholder').style.display='flex'"><div class="vehicle-img-placeholder" style="display:none">${v.emoji}</div>` : `<div class="vehicle-img-placeholder">${v.emoji}</div>`}
       <div class="vehicle-badges">${badges}</div>
     </div>
     <div class="vehicle-body">
@@ -796,7 +813,7 @@ function renderGrid(list) {
   const g = document.getElementById('vehicleGrid');
   const c = document.getElementById('resultCount');
   if (!list.length) { g.innerHTML='<div class="no-results">🔍<br><br>No vehicles match. Try adjusting filters.</div>'; c.textContent=''; return; }
-  g.innerHTML = list.map(buildCard).join('');
+  g.innerHTML = list.map((v,i) => buildCard(v,i)).join('');
   c.textContent = `(${list.length})`;
 }
 
