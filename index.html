@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Vision Auto Export — Buy Cars Direct from China</title>
+  <style>
+    :root {
+      --bg: #080C14;
+      --surface: #0F1520;
+      --surface2: #141C2E;
+      --border: #1E2A40;
+      --border2: #243050;
+      --gold: #F59E0B;
+      --gold2: #D97706;
+      --green: #10B981;
+      --red: #EF4444;
+      --blue: #3B82F6;
+      --text: #F1F5F9;
+      --muted: #64748B;
+      --muted2: #94A3B8;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(8,12,20,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; height: 64px; gap: 24px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, var(--gold), var(--gold2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; color: #000; }
+    .nav-logo-text { font-weight: 700; font-size: 17px; letter-spacing: -0.3px; }
+    .nav-logo-text span { color: var(--gold); }
+    .nav-search { flex: 1; max-width: 400px; position: relative; }
+    .nav-search input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px 8px 40px; color: var(--text); font-size: 14px; outline: none; transition: border-color .2s; }
+    .nav-search input:focus { border-color: var(--gold); }
+    .nav-search input::placeholder { color: var(--muted); }
+    .nav-search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 15px; }
+    .nav-links { display: flex; gap: 4px; margin-left: auto; }
+    .nav-link { padding: 7px 14px; border-radius: 8px; font-size: 14px; color: var(--muted2); transition: all .2s; }
+    .nav-link:hover { background: var(--surface2); color: var(--text); }
+    .nav-lang { display: flex; gap: 4px; }
+    .lang-btn { padding: 5px 10px; border-radius: 6px; font-size: 13px; background: none; border: 1px solid var(--border); color: var(--muted2); transition: all .2s; }
+    .lang-btn.active, .lang-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(245,158,11,0.08); }
+    .btn-wa { display: flex; align-items: center; gap: 7px; padding: 8px 16px; background: #25D366; border: none; border-radius: 8px; color: #fff; font-weight: 600; font-size: 14px; transition: background .2s; flex-shrink: 0; }
+    .btn-wa:hover { background: #22BF5C; }
+    .btn-wa svg { flex-shrink: 0; }
+
+    /* ── HERO ── */
+    .hero { position: relative; overflow: hidden; padding: 72px 24px 80px; text-align: center; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(245,158,11,0.12), transparent), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(16,185,129,0.06), transparent); pointer-events: none; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); border-radius: 20px; padding: 5px 14px; font-size: 13px; color: var(--gold); margin-bottom: 20px; }
+    .hero-badge::before { content: '●'; font-size: 8px; animation: pulse-dot 2s infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 18px; }
+    .hero h1 span { background: linear-gradient(135deg, var(--gold), #FCD34D); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 18px; color: var(--muted2); max-width: 560px; margin: 0 auto 36px; }
+    .hero-search { display: flex; max-width: 700px; margin: 0 auto 16px; background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; padding: 8px; gap: 8px; }
+    .hero-search select { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; color: var(--text); font-size: 14px; outline: none; }
+    .hero-search select:focus { border-color: var(--gold); }
+    .hero-search-btn { padding: 10px 28px; background: var(--gold); border: none; border-radius: 8px; color: #000; font-weight: 700; font-size: 15px; transition: background .2s; white-space: nowrap; }
+    .hero-search-btn:hover { background: #FCD34D; }
+    .hero-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .hero-tag { padding: 5px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; font-size: 13px; color: var(--muted2); cursor: pointer; transition: all .2s; }
+    .hero-tag:hover, .hero-tag.active { border-color: var(--gold); color: var(--gold); background: rgba(245,158,11,0.07); }
+
+    /* ── STATS ── */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stat { background: var(--surface); padding: 20px 24px; text-align: center; }
+    .stat-num { font-size: 28px; font-weight: 800; color: var(--gold); letter-spacing: -1px; }
+    .stat-label { font-size: 13px; color: var(--muted2); margin-top: 3px; }
+
+    /* ── TRUST BAR ── */
+    .trust { display: flex; gap: 0; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; padding: 0 24px; }
+    .trust-item { display: flex; align-items: center; gap: 10px; padding: 16px 20px; white-space: nowrap; border-right: 1px solid var(--border); flex-shrink: 0; }
+    .trust-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(245,158,11,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .trust-text strong { display: block; font-size: 13px; font-weight: 600; }
+    .trust-text span { font-size: 12px; color: var(--muted); }
+
+    /* ── SECTION ── */
+    section { padding: 56px 24px; max-width: 1280px; margin: 0 auto; }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; gap: 16px; flex-wrap: wrap; }
+    .section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+    .section-title span { color: var(--gold); }
+    .section-link { font-size: 14px; color: var(--gold); }
+
+    /* ── FILTERS ── */
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .filter-btn { padding: 7px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted2); font-size: 13px; transition: all .2s; }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(245,158,11,0.07); }
+    .filter-select { padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted2); font-size: 13px; outline: none; }
+    .filter-select:focus { border-color: var(--gold); }
+
+    /* ── VEHICLE GRID ── */
+    .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .vehicle-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all .25s; cursor: pointer; }
+    .vehicle-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,158,11,0.12); }
+    .vehicle-img { position: relative; height: 192px; background: var(--surface2); overflow: hidden; }
+    .vehicle-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .vehicle-card:hover .vehicle-img img { transform: scale(1.04); }
+    .vehicle-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 5px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .badge-new { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.25); }
+    .badge-used { background: rgba(100,116,139,0.15); color: var(--muted2); border: 1px solid rgba(100,116,139,0.2); }
+    .badge-ev { background: rgba(59,130,246,0.15); color: #60A5FA; border: 1px solid rgba(59,130,246,0.25); }
+    .badge-hot { background: rgba(239,68,68,0.15); color: #F87171; border: 1px solid rgba(239,68,68,0.25); }
+    .vehicle-badges { position: absolute; top: 10px; left: 10px; display: flex; gap: 5px; flex-wrap: wrap; }
+    .vehicle-body { padding: 14px 16px; }
+    .vehicle-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .vehicle-meta { display: flex; gap: 12px; font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+    .vehicle-meta span::before { content: ''; }
+    .vehicle-price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+    .vehicle-fob { font-size: 18px; font-weight: 800; color: var(--gold); }
+    .vehicle-fob small { font-size: 11px; font-weight: 400; color: var(--muted); margin-left: 3px; }
+    .vehicle-cif { font-size: 12px; color: var(--muted2); }
+    .vehicle-actions { display: flex; gap: 8px; margin-top: 12px; }
+    .btn-primary { flex: 1; padding: 8px; background: var(--gold); border: none; border-radius: 7px; color: #000; font-weight: 700; font-size: 13px; transition: background .2s; }
+    .btn-primary:hover { background: #FCD34D; }
+    .btn-secondary { padding: 8px 12px; background: none; border: 1px solid var(--border); border-radius: 7px; color: var(--muted2); font-size: 13px; transition: all .2s; }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── HOW IT WORKS ── */
+    .how-bg { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; }
+    .step { padding: 32px 24px; text-align: center; border-right: 1px solid var(--border); position: relative; }
+    .step:last-child { border-right: none; }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; background: rgba(245,158,11,0.1); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; color: var(--gold); margin: 0 auto 14px; }
+    .step h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .step p { font-size: 13px; color: var(--muted); }
+    .step-arrow { position: absolute; right: -12px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted2); z-index: 1; }
+    .step:last-child .step-arrow { display: none; }
+
+    /* ── ROUTES ── */
+    .routes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .route-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: flex; align-items: center; gap: 12px; transition: all .2s; }
+    .route-card:hover { border-color: var(--gold); }
+    .route-flag { font-size: 28px; flex-shrink: 0; }
+    .route-info strong { display: block; font-size: 14px; font-weight: 700; }
+    .route-info span { font-size: 12px; color: var(--muted); }
+    .route-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-left: auto; flex-shrink: 0; animation: pulse-dot 2s infinite; }
+
+    /* ── QUOTE CTA ── */
+    .quote-cta { background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(16,185,129,0.04)); border: 1px solid rgba(245,158,11,0.2); border-radius: 16px; padding: 40px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+    .quote-cta-text h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+    .quote-cta-text p { color: var(--muted2); max-width: 420px; }
+    .quote-cta-actions { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+    .btn-large { padding: 13px 28px; border-radius: 10px; font-weight: 700; font-size: 15px; border: none; transition: all .2s; }
+    .btn-gold { background: var(--gold); color: #000; }
+    .btn-gold:hover { background: #FCD34D; }
+    .btn-outline { background: none; border: 1px solid var(--border2); color: var(--text); }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 40px 24px; }
+    .footer-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+    .footer-brand p { color: var(--muted); font-size: 14px; margin: 12px 0; max-width: 300px; }
+    .footer-contacts { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .footer-contact { font-size: 13px; color: var(--muted2); display: flex; align-items: center; gap: 8px; }
+    .footer-contact strong { color: var(--text); }
+    .footer-col h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin-bottom: 14px; }
+    .footer-col a { display: block; font-size: 14px; color: var(--muted2); margin-bottom: 8px; transition: color .2s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 13px; color: var(--muted); }
+    .icp { font-size: 12px; color: var(--muted); }
+
+    /* ── MODAL ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 20px; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 900px; margin: auto; overflow: hidden; position: relative; }
+    .modal-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); color: var(--muted2); font-size: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: all .2s; }
+    .modal-close:hover { background: var(--border); color: var(--text); }
+    .modal-gallery { position: relative; height: 340px; background: var(--surface2); overflow: hidden; }
+    .modal-gallery img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-gallery-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 80px; }
+    .modal-gallery-badges { position: absolute; top: 14px; left: 14px; display: flex; gap: 7px; }
+    .modal-body { display: grid; grid-template-columns: 1fr 320px; gap: 0; }
+    .modal-info { padding: 24px; border-right: 1px solid var(--border); }
+    .modal-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+    .modal-subtitle { font-size: 14px; color: var(--muted2); margin-bottom: 20px; }
+    .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .spec-item { background: var(--surface2); border-radius: 8px; padding: 10px 12px; }
+    .spec-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 3px; }
+    .spec-value { font-size: 14px; font-weight: 600; }
+    .modal-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+    .modal-tab { padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--muted); border-bottom: 2px solid transparent; cursor: pointer; transition: all .2s; }
+    .modal-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .modal-sidebar { padding: 24px; }
+    .price-box { background: var(--surface2); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+    .price-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .price-row:last-child { border-bottom: none; }
+    .price-row.total { font-weight: 800; font-size: 16px; color: var(--gold); margin-top: 4px; }
+    .port-selector { margin-bottom: 16px; }
+    .port-selector label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .5px; }
+    .port-selector select { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; color: var(--text); font-size: 14px; outline: none; }
+    .port-selector select:focus { border-color: var(--gold); }
+    .modal-btns { display: flex; flex-direction: column; gap: 10px; }
+    .btn-full { width: 100%; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 14px; border: none; transition: all .2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-full-gold { background: var(--gold); color: #000; }
+    .btn-full-gold:hover { background: #FCD34D; }
+    .btn-full-wa { background: #25D366; color: #fff; }
+    .btn-full-wa:hover { background: #22BF5C; }
+    .btn-full-outline { background: none; border: 1px solid var(--border); color: var(--muted2); }
+    .btn-full-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .trust-checks { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+    .trust-check { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted2); }
+    .trust-check::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* ── INSPECTION BANNER ── */
+    .inspect-banner { background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 13px; }
+    .inspect-banner-icon { font-size: 18px; }
+    .inspect-banner strong { color: var(--green); }
+
+    /* ── NO RESULTS ── */
+    .no-results { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--muted); }
+    .no-results-icon { font-size: 48px; margin-bottom: 12px; }
+
+    /* ── TOAST ── */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--green); border-radius: 10px; padding: 14px 20px; font-size: 14px; font-weight: 500; z-index: 300; display: none; align-items: center; gap: 10px; box-shadow: var(--shadow); }
+    .toast.show { display: flex; animation: slide-in .3s ease; }
+    @keyframes slide-in { from { transform: translateX(80px); opacity: 0; } to { transform: none; opacity: 1; } }
+    .toast-icon { font-size: 18px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .modal-body { grid-template-columns: 1fr; }
+      .modal-info { border-right: none; border-bottom: 1px solid var(--border); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; gap: 12px; }
+      .nav-links, .nav-search, .nav-lang { display: none; }
+      .hero { padding: 48px 16px 56px; }
+      .hero-search { flex-direction: column; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      section { padding: 40px 16px; }
+      .steps { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid var(--border); }
+      .step:last-child { border-bottom: none; }
+      .step-arrow { display: none; }
+      .quote-cta { padding: 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">NV</div>
+    <div class="nav-logo-text">New<span>Vision</span></div>
+  </div>
+  <div class="nav-search">
+    <span class="nav-search-icon">🔍</span>
+    <input type="text" placeholder="Search BYD, Haval, Geely…" id="navSearch">
+  </div>
+  <div class="nav-links">
+    <a class="nav-link" href="#inventory" onclick="scrollTo('#inventory')">Inventory</a>
+    <a class="nav-link" href="#">Inspection</a>
+    <a class="nav-link" href="#">Logistics</a>
+    <a class="nav-link" href="#">About</a>
+  </div>
+  <div class="nav-lang">
+    <button class="lang-btn active" onclick="setLang('EN')">EN</button>
+    <button class="lang-btn" onclick="setLang('AR')">AR</button>
+    <button class="lang-btn" onclick="setLang('FR')">FR</button>
+  </div>
+  <button class="btn-wa" onclick="openWA('Hi, I found your platform and I want to buy a car from China.')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </button>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge">🚗 Live — 3,240 vehicles ready to export</div>
+  <h1>Buy Cars <span>Direct from China</span><br>Delivered to Your Country</h1>
+  <p class="hero-sub">New Vision connects you to verified Chinese dealers. FOB pricing, pre-shipment inspection, full export documentation, door-to-port delivery.</p>
+  <div class="hero-search">
+    <select id="heroMake" onchange="applyFilters()">
+      <option value="">All Brands</option>
+      <option>BYD</option><option>Haval</option><option>Geely</option>
+      <option>Chery</option><option>GAC Aion</option><option>Changan</option>
+      <option>SAIC MG</option><option>Zeekr</option><option>Wuling</option>
+    </select>
+    <select id="heroType" onchange="applyFilters()">
+      <option value="">All Types</option>
+      <option>EV</option><option>SUV</option><option>Sedan</option>
+      <option>Motorcycle</option><option>Engineering</option>
+    </select>
+    <select id="heroCondition" onchange="applyFilters()">
+      <option value="">New & Used</option>
+      <option>New</option><option>Used</option>
+    </select>
+    <button class="hero-search-btn" onclick="applyFilters()">Search →</button>
+  </div>
+  <div class="hero-tags">
+    <span class="hero-tag" onclick="filterTag('EV')">⚡ Electric Vehicles</span>
+    <span class="hero-tag" onclick="filterTag('SUV')">🚙 SUVs</span>
+    <span class="hero-tag" onclick="filterTag('BYD')">BYD</span>
+    <span class="hero-tag" onclick="filterTag('Haval')">Haval</span>
+    <span class="hero-tag" onclick="filterTag('New')">Brand New</span>
+    <span class="hero-tag" onclick="filterTag('Under $10K')">Under $10,000</span>
+  </div>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="stat"><div class="stat-num" id="counterVehicles">3,240</div><div class="stat-label">Vehicles Available</div></div>
+  <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Countries Served</div></div>
+  <div class="stat"><div class="stat-num">6</div><div class="stat-label">Years in Export</div></div>
+  <div class="stat"><div class="stat-num" id="counterShipping">142</div><div class="stat-label">Active Shipments</div></div>
+</div>
+
+<!-- ── TRUST BAR ── -->
+<div class="trust">
+  <div class="trust-item"><div class="trust-icon">📋</div><div class="trust-text"><strong>MOFCOM Licensed</strong><span>Ministry of Commerce export license</span></div></div>
+  <div class="trust-item"><div class="trust-icon">🔍</div><div class="trust-text"><strong>200-Point Inspection</strong><span>Third-party verified condition report</span></div></div>
+  <div class="trust-item"><div class="trust-icon">🚢</div><div class="trust-text"><strong>Door-to-Port Logistics</strong><span>Shanghai, Tianjin, Guangzhou</span></div></div>
+  <div class="trust-item"><div class="trust-icon">📄</div><div class="trust-text"><strong>Full Documentation</strong><span>B/L, CoO, customs clearance, invoice</span></div></div>
+  <div class="trust-item"><div class="trust-icon">💬</div><div class="trust-text"><strong>Multilingual Support</strong><span>Arabic, French, English, Chinese</span></div></div>
+  <div class="trust-item"><div class="trust-icon">✅</div><div class="trust-text"><strong>180-Day Export Rule</strong><span>All vehicles export-eligible</span></div></div>
+</div>
+
+<!-- ── INVENTORY ── -->
+<section id="inventory">
+  <div class="section-header">
+    <div>
+      <div class="section-title">Available Inventory <span id="resultCount"></span></div>
+      <div style="font-size:13px;color:var(--muted);margin-top:4px;">FOB Shanghai · Pre-shipment inspection available · Updated daily</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <select class="filter-select" id="sortBy" onchange="applyFilters()">
+        <option value="latest">Latest Arrivals</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="mileage">Lowest Mileage</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="filters" id="filterBar">
+    <button class="filter-btn active" onclick="setTypeFilter('all',this)">All</button>
+    <button class="filter-btn" onclick="setTypeFilter('EV',this)">⚡ EV</button>
+    <button class="filter-btn" onclick="setTypeFilter('SUV',this)">SUV</button>
+    <button class="filter-btn" onclick="setTypeFilter('Sedan',this)">Sedan</button>
+    <button class="filter-btn" onclick="setTypeFilter('New',this)">Brand New</button>
+    <button class="filter-btn" onclick="setPriceFilter('under10k',this)">Under $10K</button>
+    <button class="filter-btn" onclick="setPriceFilter('10k-20k',this)">$10K–$20K</button>
+    <button class="filter-btn" onclick="setPriceFilter('over20k',this)">$20K+</button>
+  </div>
+
+  <div class="vehicle-grid" id="vehicleGrid"></div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<div class="how-bg">
+  <section style="padding-top:48px;padding-bottom:48px;">
+    <div class="section-header" style="margin-bottom:32px;">
+      <div class="section-title">How It <span>Works</span></div>
+      <div style="font-size:14px;color:var(--muted2);">From search to delivery in 30–45 days</div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Browse & Select</h3>
+        <p>Search 3,000+ vehicles by brand, model, budget, and destination country.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Request Quote</h3>
+        <p>Get your FOB price + CIF estimate to your port within 2 hours via WhatsApp.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Inspect & Confirm</h3>
+        <p>Optional 200-point third-party inspection. Pay deposit after you approve the report.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Export & Ship</h3>
+        <p>We handle customs, export docs, vessel booking, and container loading.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <h3>Track & Receive</h3>
+        <p>Real-time tracking. Full documents (B/L, CoO, customs) on delivery.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── ACTIVE ROUTES ── -->
+<section>
+  <div class="section-header">
+    <div class="section-title">Active <span>Shipping Routes</span></div>
+    <div style="font-size:13px;color:var(--green);display:flex;align-items:center;gap:6px;"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse-dot 2s infinite;"></span>Live shipments in transit</div>
+  </div>
+  <div class="routes-grid">
+    <div class="route-card"><div class="route-flag">🇬🇭</div><div class="route-info"><strong>Ghana</strong><span>Tema Port · 28 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇩🇿</div><div class="route-info"><strong>Algeria</strong><span>Algiers Port · 22 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇸🇦</div><div class="route-info"><strong>Saudi Arabia</strong><span>Jeddah Port · 18 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇦🇪</div><div class="route-info"><strong>UAE</strong><span>Jebel Ali Port · 16 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇪🇬</div><div class="route-info"><strong>Egypt</strong><span>Port Said · 20 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇰🇭</div><div class="route-info"><strong>Cambodia</strong><span>Sihanoukville · 12 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇲🇦</div><div class="route-info"><strong>Morocco</strong><span>Casablanca · 20 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇳🇬</div><div class="route-info"><strong>Nigeria</strong><span>Lagos Port · 30 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇰🇿</div><div class="route-info"><strong>Kazakhstan</strong><span>Almaty · Rail 14 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇧🇬</div><div class="route-info"><strong>Bulgaria</strong><span>Burgas Port · 28 days</span></div><div class="route-dot"></div></div>
+  </div>
+</section>
+
+<!-- ── QUOTE CTA ── -->
+<section>
+  <div class="quote-cta">
+    <div class="quote-cta-text">
+      <h2>Ready to import? Get your quote in 2 hours.</h2>
+      <p>Tell us the model, quantity, and destination port. Our team responds on WhatsApp with FOB price, CIF estimate, and inspection options. No commitment required.</p>
+    </div>
+    <div class="quote-cta-actions">
+      <button class="btn-large btn-gold" onclick="openWA('Hi New Vision, I want to get a quote for importing cars from China. Please send me pricing.')">WhatsApp Quote →</button>
+      <button class="btn-large btn-outline" onclick="showToast('📧 Email: service@newvision-auto.com')">Email Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="margin-bottom:0">
+        <div class="nav-logo-icon">NV</div>
+        <div class="nav-logo-text">New<span style="color:var(--gold)">Vision</span></div>
+      </div>
+      <p>China's trusted car export partner since 2019. Connecting global buyers to verified Chinese dealers with full-service logistics and export documentation.</p>
+      <div class="footer-contacts">
+        <div class="footer-contact">📞 <span><strong>+86 579 8554 1664</strong> (Office)</span></div>
+        <div class="footer-contact">💬 <span><strong>+86 137 3561 1862</strong> (WhatsApp)</span></div>
+        <div class="footer-contact">📍 <span>Chouzhou North Road, Yiwu, Zhejiang, China 322000</span></div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Vehicles</h4>
+      <a href="#">Used Cars</a>
+      <a href="#">New Cars</a>
+      <a href="#">Electric Vehicles</a>
+      <a href="#">SUVs & Crossovers</a>
+      <a href="#">Commercial Vehicles</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#">Pre-Export Inspection</a>
+      <a href="#">Export Documentation</a>
+      <a href="#">Ocean Freight</a>
+      <a href="#">Shipment Tracking</a>
+      <a href="#">Customs Support</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About New Vision</a>
+      <a href="#">Safety & Licensing</a>
+      <a href="#">Export Regulations</a>
+      <a href="#">Dealer Partners</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 New Vision Auto Export (义乌新视界汽车销售有限公司). All rights reserved.</p>
+    <div class="icp">沪ICP备 · MOFCOM Export License · Yiwu, Zhejiang</div>
+  </div>
+</footer>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-gallery">
+      <div class="modal-gallery-placeholder" id="modalEmoji"></div>
+      <div class="modal-gallery-badges" id="modalBadges"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-info">
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-subtitle" id="modalSubtitle"></div>
+        <div class="modal-tabs">
+          <div class="modal-tab active" onclick="switchTab('specs',this)">Specifications</div>
+          <div class="modal-tab" onclick="switchTab('docs',this)">Documents</div>
+          <div class="modal-tab" onclick="switchTab('shipping',this)">Shipping</div>
+        </div>
+        <div id="tabSpecs">
+          <div class="specs-grid" id="modalSpecs"></div>
+        </div>
+        <div id="tabDocs" style="display:none">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px;"><span>🪪 Vehicle Title / Ownership Certificate</span><span style="color:var(--green);font-size:12px;font-weight:600;">Included</span></div>
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px;"><span>📋 Export Declaration (MOFCOM)</span><span style="color:var(--green);font-size:12px;font-weight:600;">Included</span></div>
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px;"><span>🚢 Bill of Lading (B/L)</span><span style="color:var(--green);font-size:12px;font-weight:600;">Included</span></div>
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px;"><span>🌐 Certificate of Origin (CoO)</span><span style="color:var(--green);font-size:12px;font-weight:600;">Included</span></div>
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px;"><span>📊 Commercial Invoice + Packing List</span><span style="color:var(--green);font-size:12px;font-weight:600;">Included</span></div>
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px;"><span>🔍 200-Point Inspection Report</span><span style="color:var(--gold);font-size:12px;font-weight:600;">+ $120 optional</span></div>
+          </div>
+        </div>
+        <div id="tabShipping" style="display:none">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:14px;"><strong>Port of Loading:</strong> <span style="color:var(--muted2)">Shanghai, China</span></div>
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:14px;"><strong>Transit Time:</strong> <span style="color:var(--muted2)">14–35 days depending on destination</span></div>
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:14px;"><strong>Shipping Mode:</strong> <span style="color:var(--muted2)">RORO or 20ft Container (FCL)</span></div>
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:14px;"><strong>Insurance:</strong> <span style="color:var(--muted2)">Included in CIF quote</span></div>
+            <div style="background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:14px;"><strong>Active Routes:</strong> <span style="color:var(--muted2)">Ghana · Algeria · Egypt · UAE · Saudi · Cambodia · Morocco · Nigeria</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-sidebar">
+        <div class="inspect-banner">
+          <div class="inspect-banner-icon">🔍</div>
+          <div><strong>Inspection Available</strong><br><span style="color:var(--muted2);font-size:12px;">$120 · Third-party · Report in 48hrs</span></div>
+        </div>
+        <div class="price-box">
+          <div class="price-row"><span>FOB Shanghai</span><span id="modalFob" style="color:var(--gold);font-weight:700;"></span></div>
+          <div class="price-row"><span>Ocean Freight (est.)</span><span id="modalFreight" style="color:var(--muted2);"></span></div>
+          <div class="price-row"><span>Insurance (est.)</span><span style="color:var(--muted2);">~$180</span></div>
+          <div class="price-row total"><span>CIF Est. Total</span><span id="modalCif"></span></div>
+        </div>
+        <div class="port-selector">
+          <label>Destination Port</label>
+          <select id="portSelect" onchange="updateFreight()">
+            <option value="ghana">Tema, Ghana (+$980)</option>
+            <option value="egypt">Port Said, Egypt (+$850)</option>
+            <option value="uae">Jebel Ali, UAE (+$720)</option>
+            <option value="saudi">Jeddah, Saudi Arabia (+$740)</option>
+            <option value="algeria">Algiers, Algeria (+$890)</option>
+            <option value="cambodia">Sihanoukville, Cambodia (+$560)</option>
+            <option value="nigeria">Apapa, Lagos (+$1,050)</option>
+            <option value="morocco">Casablanca, Morocco (+$860)</option>
+          </select>
+        </div>
+        <div class="modal-btns">
+          <button class="btn-full btn-full-wa" id="modalWABtn" onclick="openWAForModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Request Quote on WhatsApp
+          </button>
+          <button class="btn-full btn-full-gold" onclick="showToast('📋 Quote request sent! We\'ll respond within 2 hours.')">Send Inquiry</button>
+          <button class="btn-full btn-full-outline" onclick="showToast('🔍 Inspection request submitted. We\'ll contact you to arrange.')">Book Inspection ($120)</button>
+        </div>
+        <div class="trust-checks">
+          <div class="trust-check">180-day export eligibility verified</div>
+          <div class="trust-check">MOFCOM licensed export entity</div>
+          <div class="trust-check">Full documentation included</div>
+          <div class="trust-check">Dedicated agent assigned on order</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"><span class="toast-icon">✅</span><span id="toastMsg"></span></div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const vehicles = [
+  { id:1, make:'BYD', model:'Seal', year:2023, mileage:8200, condition:'Used', type:'EV', fuel:'Electric', body:'Sedan', color:'Black', price:14800, vin:'LSVNB2183PE012341', emoji:'🚗', hot:true, badge_ev:true, trans:'Automatic', engine:'200kW Electric', drive:'RWD', doors:4, seats:5, range_km:550 },
+  { id:2, make:'BYD', model:'Atto 3', year:2023, mileage:11500, condition:'Used', type:'EV', fuel:'Electric', body:'SUV', color:'White', price:13200, vin:'LSVNB1183PE019822', emoji:'🚙', badge_ev:true, trans:'Automatic', engine:'150kW Electric', drive:'FWD', doors:4, seats:5, range_km:480 },
+  { id:3, make:'Haval', model:'H6 3rd Gen', year:2022, mileage:28400, condition:'Used', type:'SUV', fuel:'Petrol', body:'SUV', color:'Silver', price:7800, vin:'LGWGF4B38NA012388', emoji:'🚙', trans:'DCT 7-Speed', engine:'1.5T 150hp', drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:4, make:'Geely', model:'Monjaro', year:2023, mileage:5200, condition:'Used', type:'SUV', fuel:'Petrol', body:'SUV', color:'Blue', price:15400, vin:'L6T4AC2E0PE009912', emoji:'🚙', hot:true, trans:'DCT 7-Speed', engine:'2.0T 238hp', drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:5, make:'Chery', model:'Tiggo 8 Pro', year:2022, mileage:22100, condition:'Used', type:'SUV', fuel:'Petrol', body:'SUV', color:'Red', price:8500, vin:'LVCB2D2DXPE021455', emoji:'🚙', trans:'CVT', engine:'1.6T 197hp', drive:'FWD', doors:4, seats:7, range_km:null },
+  { id:6, make:'GAC Aion', model:'S Plus', year:2023, mileage:0, condition:'New', type:'EV', fuel:'Electric', body:'Sedan', color:'White', price:11200, vin:'NEW2023GACSPE00001', emoji:'🚗', badge_ev:true, trans:'Automatic', engine:'135kW Electric', drive:'FWD', doors:4, seats:5, range_km:510 },
+  { id:7, make:'BYD', model:'Han EV', year:2022, mileage:18300, condition:'Used', type:'EV', fuel:'Electric', body:'Sedan', color:'Midnight Blue', price:18900, vin:'LSVNB4183NE022771', emoji:'🚗', badge_ev:true, trans:'Automatic', engine:'2×180kW Electric', drive:'AWD', doors:4, seats:5, range_km:605 },
+  { id:8, make:'Changan', model:'CS75 Plus', year:2022, mileage:31200, condition:'Used', type:'SUV', fuel:'Petrol', body:'SUV', color:'Grey', price:7200, vin:'LFP1N3B08NE011833', emoji:'🚙', trans:'Automatic', engine:'1.5T 184hp', drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:9, make:'BYD', model:'Yuan Plus', year:2023, mileage:6100, condition:'Used', type:'EV', fuel:'Electric', body:'SUV', color:'Orange', price:10800, vin:'LSVNB5193PE031222', emoji:'🚙', badge_ev:true, trans:'Automatic', engine:'150kW Electric', drive:'FWD', doors:4, seats:5, range_km:430 },
+  { id:10, make:'Zeekr', model:'001', year:2023, mileage:9400, condition:'Used', type:'EV', fuel:'Electric', body:'Sedan', color:'White', price:22400, vin:'L6TVAB2E0PE044881', emoji:'🚗', badge_ev:true, hot:true, trans:'Automatic', engine:'2×200kW Electric', drive:'AWD', doors:4, seats:4, range_km:600 },
+  { id:11, make:'SAIC MG', model:'MG4 Electric', year:2023, mileage:7500, condition:'Used', type:'EV', fuel:'Electric', body:'Hatchback', color:'Cyan', price:12600, vin:'LSJA24B08PE012993', emoji:'🚗', badge_ev:true, trans:'Automatic', engine:'150kW Electric', drive:'RWD', doors:4, seats:5, range_km:450 },
+  { id:12, make:'Wuling', model:'Hongguang Mini EV', year:2022, mileage:14200, condition:'Used', type:'EV', fuel:'Electric', body:'Hatchback', color:'Yellow', price:4800, vin:'LZWGB2B06NE091044', emoji:'🚗', badge_ev:true, trans:'Automatic', engine:'20kW Electric', drive:'RWD', doors:2, seats:4, range_km:170 },
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+let typeFilter = 'all', priceFilter = 'all', selectedVehicle = null;
+const freightRates = { ghana:980, egypt:850, uae:720, saudi:740, algeria:890, cambodia:560, nigeria:1050, morocco:860 };
+
+// ── RENDER ─────────────────────────────────────────────────────────────────
+function fmt(n) { return '$' + n.toLocaleString(); }
+
+function buildCard(v) {
+  const badges = [
+    v.condition === 'New' ? '<span class="badge badge-new">New</span>' : '<span class="badge badge-used">Used</span>',
+    v.badge_ev ? '<span class="badge badge-ev">⚡ EV</span>' : '',
+    v.hot ? '<span class="badge badge-hot">🔥 Hot</span>' : '',
+  ].join('');
+  const mileageLabel = v.condition === 'New' ? '0 km' : v.mileage.toLocaleString() + ' km';
+  const freightEst = 850;
+  const cifEst = v.price + freightEst + 180;
+  return `
+    <div class="vehicle-card" onclick="openModal(${v.id})">
+      <div class="vehicle-img">
+        <div class="vehicle-img-placeholder">${v.emoji}</div>
+        <div class="vehicle-badges">${badges}</div>
+      </div>
+      <div class="vehicle-body">
+        <div class="vehicle-name">${v.year} ${v.make} ${v.model}</div>
+        <div class="vehicle-meta">
+          <span>${mileageLabel}</span>
+          <span>${v.fuel}</span>
+          <span>${v.trans?.split(' ')[0]}</span>
+          <span>${v.color}</span>
+        </div>
+        <div class="vehicle-price-row">
+          <div class="vehicle-fob">${fmt(v.price)}<small>FOB</small></div>
+          <div class="vehicle-cif">CIF est. ${fmt(cifEst)}</div>
+        </div>
+        <div class="vehicle-actions">
+          <button class="btn-primary" onclick="event.stopPropagation();openWA('Hi, I am interested in the ${v.year} ${v.make} ${v.model} (FOB ${fmt(v.price)}). Please send me a quote.')">Quote →</button>
+          <button class="btn-secondary" onclick="event.stopPropagation();openModal(${v.id})">Details</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderGrid(list) {
+  const grid = document.getElementById('vehicleGrid');
+  const count = document.getElementById('resultCount');
+  if (!list.length) {
+    grid.innerHTML = '<div class="no-results"><div class="no-results-icon">🔍</div><p>No vehicles match your filters. Try adjusting your search.</p></div>';
+    count.textContent = '';
+    return;
+  }
+  grid.innerHTML = list.map(buildCard).join('');
+  count.textContent = `(${list.length})`;
+}
+
+function applyFilters() {
+  let list = [...vehicles];
+  const make = document.getElementById('heroMake').value;
+  const type = document.getElementById('heroType').value;
+  const cond = document.getElementById('heroCondition').value;
+  const sort = document.getElementById('sortBy').value;
+  const search = document.getElementById('navSearch').value.toLowerCase();
+
+  if (make) list = list.filter(v => v.make === make);
+  if (cond) list = list.filter(v => v.condition === cond);
+  if (type) list = list.filter(v => v.type === type || v.fuel === type);
+  if (typeFilter !== 'all') {
+    if (typeFilter === 'EV') list = list.filter(v => v.badge_ev);
+    else if (typeFilter === 'SUV') list = list.filter(v => v.body === 'SUV');
+    else if (typeFilter === 'Sedan') list = list.filter(v => v.body === 'Sedan');
+    else if (typeFilter === 'New') list = list.filter(v => v.condition === 'New');
+  }
+  if (priceFilter === 'under10k') list = list.filter(v => v.price < 10000);
+  else if (priceFilter === '10k-20k') list = list.filter(v => v.price >= 10000 && v.price <= 20000);
+  else if (priceFilter === 'over20k') list = list.filter(v => v.price > 20000);
+  if (search) list = list.filter(v => (v.make + ' ' + v.model + ' ' + v.year).toLowerCase().includes(search));
+
+  if (sort === 'price-asc') list.sort((a,b) => a.price - b.price);
+  else if (sort === 'price-desc') list.sort((a,b) => b.price - a.price);
+  else if (sort === 'mileage') list.sort((a,b) => a.mileage - b.mileage);
+
+  renderGrid(list);
+}
+
+function setTypeFilter(f, btn) {
+  typeFilter = f; priceFilter = 'all';
+  document.querySelectorAll('#filterBar .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function setPriceFilter(f, btn) {
+  priceFilter = f; typeFilter = 'all';
+  document.querySelectorAll('#filterBar .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function filterTag(tag) {
+  if (tag === 'EV') setTypeFilter('EV', document.querySelectorAll('#filterBar .filter-btn')[1]);
+  else if (tag === 'SUV') setTypeFilter('SUV', document.querySelectorAll('#filterBar .filter-btn')[2]);
+  else if (tag === 'New') setTypeFilter('New', document.querySelectorAll('#filterBar .filter-btn')[4]);
+  else if (tag === 'Under $10K') setPriceFilter('under10k', document.querySelectorAll('#filterBar .filter-btn')[5]);
+  else if (tag === 'BYD') { document.getElementById('heroMake').value='BYD'; applyFilters(); }
+  else if (tag === 'Haval') { document.getElementById('heroMake').value='Haval'; applyFilters(); }
+  document.getElementById('inventory').scrollIntoView({behavior:'smooth'});
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────
+function openModal(id) {
+  const v = vehicles.find(x => x.id === id);
+  if (!v) return;
+  selectedVehicle = v;
+  document.getElementById('modalEmoji').textContent = v.emoji;
+  document.getElementById('modalTitle').textContent = `${v.year} ${v.make} ${v.model}`;
+  document.getElementById('modalSubtitle').textContent = `${v.color} · ${v.fuel} · ${v.body} · VIN: ${v.vin}`;
+
+  const badges = [
+    v.condition === 'New' ? '<span class="badge badge-new">New</span>' : '<span class="badge badge-used">Used</span>',
+    v.badge_ev ? '<span class="badge badge-ev">⚡ EV</span>' : '',
+    v.hot ? '<span class="badge badge-hot">🔥 Hot</span>' : '',
+  ].join('');
+  document.getElementById('modalBadges').innerHTML = badges;
+
+  const specs = [
+    ['Year', v.year], ['Mileage', v.condition==='New'?'0 km':v.mileage.toLocaleString()+' km'],
+    ['Fuel Type', v.fuel], ['Transmission', v.trans],
+    ['Engine', v.engine], ['Drive', v.drive],
+    ['Body Type', v.body], ['Doors / Seats', `${v.doors} / ${v.seats}`],
+    ['Condition', v.condition], v.range_km ? ['EV Range', v.range_km+'km NEDC'] : ['Color', v.color],
+  ];
+  document.getElementById('modalSpecs').innerHTML = specs.map(([l,val]) => `<div class="spec-item"><div class="spec-label">${l}</div><div class="spec-value">${val}</div></div>`).join('');
+
+  document.getElementById('modalFob').textContent = fmt(v.price);
+  updateFreight();
+  switchTab('specs', document.querySelector('.modal-tab'));
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function updateFreight() {
+  if (!selectedVehicle) return;
+  const port = document.getElementById('portSelect').value;
+  const freight = freightRates[port] || 850;
+  const total = selectedVehicle.price + freight + 180;
+  document.getElementById('modalFreight').textContent = fmt(freight);
+  document.getElementById('modalCif').textContent = fmt(total);
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOnOverlay(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
+function switchTab(tab, btn) {
+  ['tabSpecs','tabDocs','tabShipping'].forEach(t => document.getElementById(t).style.display='none');
+  document.getElementById('tab'+tab.charAt(0).toUpperCase()+tab.slice(1)).style.display='';
+  document.querySelectorAll('.modal-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+// ── WHATSAPP ───────────────────────────────────────────────────────────────
+function openWA(msg) {
+  const phone = '8613735611862';
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+function openWAForModal() {
+  if (!selectedVehicle) return;
+  const v = selectedVehicle;
+  const port = document.getElementById('portSelect').options[document.getElementById('portSelect').selectedIndex].text;
+  const msg = `Hi New Vision Team,\n\nI'm interested in the following vehicle:\n\n🚗 ${v.year} ${v.make} ${v.model}\n💰 FOB: ${fmt(v.price)}\n📍 Destination: ${port}\n🔢 VIN: ${v.vin}\n\nPlease send me a full quote including freight, inspection, and documentation. Thank you.`;
+  openWA(msg);
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ── LANG ──────────────────────────────────────────────────────────────────
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  if (lang === 'AR') showToast('🌐 Arabic version coming soon. Contact us on WhatsApp for Arabic support.');
+  if (lang === 'FR') showToast('🌐 Version française bientôt disponible. Contactez-nous sur WhatsApp.');
+}
+
+// ── NAV SEARCH ─────────────────────────────────────────────────────────────
+document.getElementById('navSearch').addEventListener('input', applyFilters);
+
+// ── COUNTER ANIMATION ──────────────────────────────────────────────────────
+function animateCounter(id, target, duration) {
+  const el = document.getElementById(id);
+  let start = 0; const step = target / (duration / 16);
+  const t = setInterval(() => {
+    start += step; if (start >= target) { el.textContent = target.toLocaleString(); clearInterval(t); return; }
+    el.textContent = Math.floor(start).toLocaleString();
+  }, 16);
+}
+
+// ── KEYBOARD ───────────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── INIT ───────────────────────────────────────────────────────────────────
+renderGrid(vehicles);
+setTimeout(() => { animateCounter('counterVehicles', 3240, 1200); animateCounter('counterShipping', 142, 800); }, 400);
+</script>
+</body>
+</html>
