@@ -35,6 +35,7 @@
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; font-family: inherit; }
     ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    :focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
 
     /* ── LOGO SVG ── */
     .logo-svg { display: flex; align-items: center; gap: 10px; }
@@ -147,6 +148,7 @@
     /* ── VEHICLE GRID ── */
     .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 20px; }
     .vehicle-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all .25s; cursor: pointer; }
+    .vehicle-card { will-change: transform; }
     .vehicle-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(46,125,50,0.13); }
     .vehicle-img { position: relative; aspect-ratio: 16/9; background: var(--surface2); overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .vehicle-img-placeholder { font-size: 56px; }
@@ -408,6 +410,7 @@
       <option>Chery</option><option>Geely</option><option>Leapmotor</option>
       <option>Wuling</option><option>Yadea</option>
       <option>MAEXTRO</option><option>Trumpchi</option><option>Jetour</option>
+      <option>Great Wall</option><option>Livan</option>
     </select>
     <select id="heroType" aria-label="Filter by type" onchange="applyFilters()">
       <option value="">All Types</option>
@@ -478,25 +481,27 @@
   </div>
   <div class="brands-grid" id="brandGrid">
     <div class="brand-pill active" onclick="filterByBrand('',this)">All Brands</div>
-    <div class="brand-pill" onclick="filterByBrand('BYD',this)">BYD</div>
-    <div class="brand-pill" onclick="filterByBrand('Tesla',this)">Tesla</div>
-    <div class="brand-pill" onclick="filterByBrand('BMW',this)">BMW</div>
-    <div class="brand-pill" onclick="filterByBrand('Mercedes-Benz',this)">Mercedes-Benz</div>
-    <div class="brand-pill" onclick="filterByBrand('Volkswagen',this)">Volkswagen</div>
-    <div class="brand-pill" onclick="filterByBrand('Toyota',this)">Toyota</div>
-    <div class="brand-pill" onclick="filterByBrand('Li Auto',this)">Li Auto 理想</div>
-    <div class="brand-pill" onclick="filterByBrand('Xiaomi',this)">Xiaomi 小米</div>
-    <div class="brand-pill" onclick="filterByBrand('Changan',this)">Changan 长安</div>
-    <div class="brand-pill" onclick="filterByBrand('Chery',this)">Chery 奇瑞</div>
-    <div class="brand-pill" onclick="filterByBrand('Geely',this)">Geely 吉利</div>
-    <div class="brand-pill" onclick="filterByBrand('Leapmotor',this)">Leapmotor 零跑</div>
-    <div class="brand-pill" onclick="filterByBrand('Honda',this)">Honda</div>
-    <div class="brand-pill" onclick="filterByBrand('Audi',this)">Audi</div>
-    <div class="brand-pill" onclick="filterByBrand('Wuling',this)">Wuling 五菱</div>
-    <div class="brand-pill" onclick="filterByBrand('Yadea',this)">Yadea 雅迪</div>
-    <div class="brand-pill" onclick="filterByBrand('MAEXTRO',this)">MAEXTRO 問界</div>
-    <div class="brand-pill" onclick="filterByBrand('Trumpchi',this)">Trumpchi 传祺</div>
-    <div class="brand-pill" onclick="filterByBrand('Jetour',this)">Jetour 捷途</div>
+    <div class="brand-pill" onclick="filterByBrand('BYD',this)" data-brand="BYD">BYD</div>
+    <div class="brand-pill" onclick="filterByBrand('Tesla',this)" data-brand="Tesla">Tesla</div>
+    <div class="brand-pill" onclick="filterByBrand('BMW',this)" data-brand="BMW">BMW</div>
+    <div class="brand-pill" onclick="filterByBrand('Mercedes-Benz',this)" data-brand="Mercedes-Benz">Mercedes-Benz</div>
+    <div class="brand-pill" onclick="filterByBrand('Volkswagen',this)" data-brand="Volkswagen">Volkswagen</div>
+    <div class="brand-pill" onclick="filterByBrand('Toyota',this)" data-brand="Toyota">Toyota</div>
+    <div class="brand-pill" onclick="filterByBrand('Li Auto',this)" data-brand="Li Auto">Li Auto 理想</div>
+    <div class="brand-pill" onclick="filterByBrand('Xiaomi',this)" data-brand="Xiaomi">Xiaomi 小米</div>
+    <div class="brand-pill" onclick="filterByBrand('Changan',this)" data-brand="Changan">Changan 长安</div>
+    <div class="brand-pill" onclick="filterByBrand('Chery',this)" data-brand="Chery">Chery 奇瑞</div>
+    <div class="brand-pill" onclick="filterByBrand('Geely',this)" data-brand="Geely">Geely 吉利</div>
+    <div class="brand-pill" onclick="filterByBrand('Leapmotor',this)" data-brand="Leapmotor">Leapmotor 零跑</div>
+    <div class="brand-pill" onclick="filterByBrand('Honda',this)" data-brand="Honda">Honda</div>
+    <div class="brand-pill" onclick="filterByBrand('Audi',this)" data-brand="Audi">Audi</div>
+    <div class="brand-pill" onclick="filterByBrand('Wuling',this)" data-brand="Wuling">Wuling 五菱</div>
+    <div class="brand-pill" onclick="filterByBrand('Yadea',this)" data-brand="Yadea">Yadea 雅迪</div>
+    <div class="brand-pill" onclick="filterByBrand('MAEXTRO',this)" data-brand="MAEXTRO">MAEXTRO 問界</div>
+    <div class="brand-pill" onclick="filterByBrand('Trumpchi',this)" data-brand="Trumpchi">Trumpchi 传祺</div>
+    <div class="brand-pill" onclick="filterByBrand('Jetour',this)" data-brand="Jetour">Jetour 捷途</div>
+    <div class="brand-pill" onclick="filterByBrand('Great Wall',this)" data-brand="Great Wall">Great Wall 长城</div>
+    <div class="brand-pill" onclick="filterByBrand('Livan',this)" data-brand="Livan">Livan 睿蓝</div>
   </div>
 </section>
 
@@ -505,8 +510,8 @@
 <section id="inventory">
   <div class="section-header">
     <div>
-      <h2 class="section-title">Vehicle <span>Inventory</span> <span id="resultCount" style="font-size:15px;color:var(--muted2)"></span></div>
-      <div class="section-sub">FOB Shanghai pricing · 180-day export eligible · Updated daily</div>
+      <h2 class="section-title">Vehicle <span>Inventory</span> <span id="resultCount" style="font-size:15px;color:var(--muted2)"></span></h2>
+      <div class="section-sub">FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for live stock</div>
     </div>
     <select class="filter-select" id="sortBy" aria-label="Sort vehicles" onchange="applyFilters()">
       <option value="latest">Latest Arrivals</option>
@@ -618,7 +623,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         WhatsApp Quote Now
       </button>
-      <button class="btn-lg btn-outline" onclick="showToast('📧 Email: service@nvncar.com')">Email Us</button>
+      <button class="btn-lg btn-outline" onclick="window.location.href='mailto:info@n-vision.com.cn'">Email Us</button>
     </div>
   </div>
 </section>
@@ -658,15 +663,15 @@
       </div>
       <div class="footer-col">
         <h4>Company</h4>
-        <a href="https://www.nvncar.com/about-us/" target="_blank">About New Vision</a>
+        <a href="https://www.nvncar.com/about-us/" target="_blank" rel="noopener noreferrer">About New Vision</a>
         <a href="#">Safety & Licensing</a>
         <a href="#">Export Regulations</a>
         <a href="#">Dealer Partnership</a>
-        <a href="https://www.nvncar.com" target="_blank">nvncar.com ↗</a>
+        <a href="https://www.nvncar.com" target="_blank" rel="noopener noreferrer">nvncar.com ↗</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, China</p>
+      <p>© 2025–2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, China</p>
       <div style="font-size:11px;color:var(--muted)">MOFCOM Licensed · ICP Filing · Enterprise Credit AAA</div>
     </div>
   </div>
@@ -675,8 +680,8 @@
 
 <!-- ── MODAL ── -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
     <div class="modal-gallery">
       <img id="modalImg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" onerror="this.style.display='none';document.getElementById('modalEmoji').style.display='flex'">
       <div id="modalEmoji" style="font-size:80px;display:flex;align-items:center;justify-content:center;width:100%;height:100%;"></div>
@@ -753,27 +758,27 @@
 <div class="toast" id="toast"><span>✅</span><span id="toastMsg"></span></div>
 
 <script>
-// ── VEHICLE DATA ──────────────────────────────────────────────────────────────
+// ── VEHICLE DATA — sourced from nvncar.com ────────────────────────────────────
 const vehicles = [
-  { id:1,  make:'Tesla',        model:'Model Y L 2026',          year:2026, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'SUV',       price:28900, emoji:'🚗', img:'img/v01-tesla.webp',                                                                                                                                ev:true,  hot:true,  premium:true,  trans:'1-Speed Auto', engine:'250kW Dual Motor', drive:'AWD', doors:4, seats:5, range_km:688  },
-  { id:2,  make:'BYD',          model:'Seal 2024 Long Range',    year:2024, mileage:6200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:15200, emoji:'🚗', img:'img/v02-byd-seal.webp',                                                                                                                             ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'230kW Electric',   drive:'RWD', doors:4, seats:5, range_km:700  },
-  { id:3,  make:'BMW',          model:'X3 2025 xDrive30L',       year:2025, mileage:8500,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'SUV',       price:42000, emoji:'🚙', img:'img/v03-bmw-x3.webp',                                                                                                                 ev:false, hot:false, premium:true,  trans:'8-Speed Auto', engine:'2.0T 245hp',       drive:'AWD', doors:4, seats:5, range_km:null },
-  { id:4,  make:'Mercedes-Benz',model:'C 260 L 2025',            year:2025, mileage:4100,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:38500, emoji:'🚗', img:'img/v04-mercedes.webp',                                                                                                   ev:false, hot:false, premium:true,  trans:'9G-Tronic',    engine:'1.5T 204hp',       drive:'RWD', doors:4, seats:5, range_km:null },
-  { id:5,  make:'Li Auto',      model:'L7 2025 Pro',             year:2025, mileage:3200,  condition:'Used', type:'EV',      fuel:'PHEV',     body:'SUV',       price:32000, emoji:'🚙', img:'img/v05-li-auto.webp',                                                                                                                           ev:true,  hot:true,  premium:false, trans:'2-Speed DHT',  engine:'PHEV 449hp',       drive:'AWD', doors:4, seats:5, range_km:1315 },
-  { id:6,  make:'Volkswagen',   model:'Passat 2025 Premium',     year:2025, mileage:7800,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:22000, emoji:'🚗', img:'img/v06-passat.webp',                                       ev:false, hot:false, premium:true,  trans:'DSG 7-Speed',  engine:'2.0T 220hp',       drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:7,  make:'Changan',      model:'CS75 Plus 2024',          year:2024, mileage:18400, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:9800,  emoji:'🚙', img:'img/v07-changan.webp',                                                                                                       ev:false, hot:false, premium:false, trans:'Automatic',    engine:'1.5T 184hp',       drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:8,  make:'BYD',          model:'Atto 3 2024',             year:2024, mileage:9100,  condition:'Used', type:'EV',      fuel:'Electric', body:'SUV',       price:13800, emoji:'🚙', img:'img/v08-byd-atto3.webp',                                                                                                                 ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'150kW Electric',   drive:'FWD', doors:4, seats:5, range_km:480  },
-  { id:9,  make:'Xiaomi',       model:'SU7 2024 Standard',       year:2024, mileage:2200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:24500, emoji:'🚗', img:'img/v09-xiaomi-su7.webp',                                                                                                         ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'220kW Electric',   drive:'RWD', doors:4, seats:5, range_km:700  },
-  { id:10, make:'Leapmotor',    model:'C11 2024 Extended Range', year:2024, mileage:11200, condition:'Used', type:'EV',      fuel:'PHEV',     body:'SUV',       price:14200, emoji:'🚙', img:'img/v10-leapmotor.webp',                                                                                                                                             ev:true,  hot:false, premium:false, trans:'2-Speed DHT',  engine:'PHEV 290hp',       drive:'AWD', doors:4, seats:5, range_km:1100 },
-  { id:11, make:'Chery',        model:'Tiggo 8 Pro Max 2024',    year:2024, mileage:14300, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:10500, emoji:'🚙', img:'img/v11-chery-t8.webp',                                                                                                                                       ev:false, hot:false, premium:false, trans:'CVT',          engine:'2.0T 254hp',       drive:'FWD', doors:4, seats:7, range_km:null },
-  { id:12, make:'Geely',        model:'Monjaro 2024 2.0T',       year:2024, mileage:5800,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:16200, emoji:'🚙', img:'img/v12-geely.webp',                                                                                                                                               ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0T 238hp',       drive:'AWD', doors:4, seats:5, range_km:null },
-  { id:13, make:'BYD',          model:'Han EV 2025 AWD',         year:2025, mileage:1800,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:31500, emoji:'🚗', img:'img/v13-byd-han.webp',                                                                                                                                                     ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'380kW Dual Motor', drive:'AWD', doors:4, seats:5, range_km:715  },
-  { id:14, make:'Chery',        model:'Omoda E5 2024',           year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'SUV',       price:18500, emoji:'🚙', img:'img/v14-omoda-e5.webp',                                                                                                                                                   ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'150kW Electric',   drive:'FWD', doors:4, seats:5, range_km:500  },
-  { id:15, make:'Wuling',       model:'Hongguang Mini EV 2024',  year:2024, mileage:3400,  condition:'Used', type:'EV',      fuel:'Electric', body:'Hatchback', price:4800,  emoji:'🚗', img:'img/v15-wuling.webp',                                                                                                                   ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'30kW Electric',    drive:'RWD', doors:2, seats:4, range_km:170  },
-  { id:16, make:'Yadea',    model:'G6 Electric Motorcycle',   year:2024, mileage:0,    condition:'New',  type:'EV',      fuel:'Electric', body:'Motorcycle', price:1100,  emoji:'🏍️', img:'img/v16-yadea.webp',  ev:true,  hot:false, premium:false, trans:'Direct Drive', engine:'1.8kW Hub Motor', drive:'RWD', doors:0, seats:2, range_km:150  },
-  { id:17, make:'MAEXTRO', model:'S800 2025 Extended Range', year:2025, mileage:0,    condition:'New',  type:'EV',      fuel:'EREV',     body:'Sedan',    price:68000, emoji:'🚗',                   ev:true,  hot:true,  premium:true,  trans:'2-Speed DHT',  engine:'EREV 800V 1216hp', drive:'AWD', doors:4, seats:4, range_km:1200 },
-  { id:18, make:'Trumpchi', model:'ES9 2025 AWD',            year:2025, mileage:2100, condition:'Used', type:'Premium', fuel:'Petrol',   body:'SUV',      price:24500, emoji:'🚙',                   ev:false, hot:false, premium:true,  trans:'8-Speed Auto', engine:'2.0T 252hp',       drive:'AWD', doors:4, seats:7, range_km:null },
-  { id:19, make:'Jetour',   model:'X70 Plus 2026',           year:2026, mileage:0,    condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',      price:11800, emoji:'🚙',                   ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 156hp',       drive:'FWD', doors:4, seats:7, range_km:null },
+  { id:1,  make:'Tesla',         model:'Model Y L 2026 Standard Range',              year:2026, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'SUV',       price:28900, emoji:'🚗', img:'img/v01-tesla.webp',      ev:true,  hot:true,  premium:true,  trans:'1-Speed Auto', engine:'250kW Dual Motor', drive:'AWD', doors:4, seats:6, range_km:751  },
+  { id:2,  make:'BYD',           model:'Seal 2024 Long Range',                       year:2024, mileage:6200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:15200, emoji:'🚗', img:'img/v02-byd-seal.webp',   ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'230kW Electric',    drive:'RWD', doors:4, seats:5, range_km:700  },
+  { id:3,  make:'BMW',           model:'X3 2025 xDrive30L M Sport',                  year:2025, mileage:8500,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'SUV',       price:42000, emoji:'🚙', img:'img/v03-bmw-x3.webp',     ev:false, hot:false, premium:true,  trans:'8-Speed Auto', engine:'2.0T 190kW/400Nm',  drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:4,  make:'Mercedes-Benz', model:'C 260 L 2025 Night Edition Sport',           year:2025, mileage:4100,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:38500, emoji:'🚗', img:'img/v04-mercedes.webp',   ev:false, hot:false, premium:true,  trans:'9G-Tronic',    engine:'1.5T 150kW+48V',    drive:'RWD', doors:4, seats:5, range_km:null },
+  { id:5,  make:'Li Auto',       model:'L9 2025 Ultra Smart Refresh',                year:2025, mileage:3200,  condition:'Used', type:'EV',      fuel:'EREV',     body:'SUV',       price:54000, emoji:'🚙', img:'img/v05-li-auto.webp',    ev:true,  hot:true,  premium:true,  trans:'2-Speed DHT',  engine:'EREV 330kW Dual',   drive:'AWD', doors:4, seats:6, range_km:1315 },
+  { id:6,  make:'Volkswagen',    model:'Passat 2025 280TSI Business',                year:2025, mileage:7800,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:18500, emoji:'🚗', img:'img/v06-passat.webp',     ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'1.4T 110kW/250Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:7,  make:'Changan',       model:'Lantouzhe Pickup 2023 2.0T 4WD',             year:2023, mileage:18400, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'Pickup',    price:13800, emoji:'🚙', img:'img/v07-changan.webp',    ev:false, hot:false, premium:false, trans:'8-Speed Auto', engine:'2.0T 171kW/390Nm',  drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:8,  make:'BYD',           model:'Atto 3 2024 Standard Range',                 year:2024, mileage:9100,  condition:'Used', type:'EV',      fuel:'Electric', body:'SUV',       price:13800, emoji:'🚙', img:'img/v08-byd-atto3.webp',  ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'150kW Electric',    drive:'FWD', doors:4, seats:5, range_km:480  },
+  { id:9,  make:'Xiaomi',        model:'SU7 2024 Long Range RWD',                    year:2024, mileage:2200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:24500, emoji:'🚗', img:'img/v09-xiaomi-su7.webp', ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'220kW/400Nm',       drive:'RWD', doors:4, seats:5, range_km:700  },
+  { id:10, make:'Leapmotor',     model:'Leopard 5 2025 Laser Qiankun Edition PHEV',  year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:21000, emoji:'🚙', img:'img/v10-leapmotor.webp',  ev:true,  hot:true,  premium:false, trans:'DHT Dual Motor', engine:'505kW 687ps',      drive:'AWD', doors:4, seats:5, range_km:125  },
+  { id:11, make:'Jetour',        model:'ShanHai T2 2025 PHEV 206km AWD Wilderness',  year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:28500, emoji:'🚙', img:'img/v11-chery-t8.webp',   ev:true,  hot:true,  premium:false, trans:'DHT Triple Motor', engine:'462ps CATL 43kWh', drive:'AWD', doors:4, seats:5, range_km:206  },
+  { id:12, make:'Geely',         model:'Monjaro 2024 2.0T AWD',                      year:2024, mileage:5800,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:16200, emoji:'🚙', img:'img/v12-geely.webp',      ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0T 238hp',        drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:13, make:'Great Wall',    model:'Tank 700 2024 Hi4-T Arctic Edition',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:78000, emoji:'🚙', img:'img/v20-tank700.webp',    ev:true,  hot:true,  premium:true,  trans:'10-Speed Auto', engine:'3.0T V6+163ps Motor', drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:14, make:'Jetour',        model:'Da Sheng 2026 1.5T DCT Black Knight',        year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:10500, emoji:'🚙', img:'img/v14-omoda-e5.webp',   ev:false, hot:false, premium:false, trans:'DCT 6-Speed',  engine:'1.5T 115kW/230Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:15, make:'Volkswagen',    model:'Tuyue 2025 300TSI',                          year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:13500, emoji:'🚙', img:'img/v21-vw-tuyue.webp',   ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 118kW/250Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:16, make:'Livan',         model:'X3 Pro 2024 1.5L CVT',                       year:2024, mileage:8200,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:7200,  emoji:'🚙', img:'img/v22-livan.webp',      ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L 83kW/143Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:17, make:'MAEXTRO',       model:'S800 2025 Extended Range Star Glory',        year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'Sedan',     price:68000, emoji:'🚗', img:'img/v17-maextro.webp',    ev:true,  hot:true,  premium:true,  trans:'Triple Motor', engine:'635kW EREV 65kWh CATL', drive:'AWD', doors:4, seats:4, range_km:965  },
+  { id:18, make:'Trumpchi',      model:'Xiangwang S7 2025 PHEV AWD',                 year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:32000, emoji:'🚙', img:'img/v18-trumpchi.webp',   ev:true,  hot:false, premium:false, trans:'DHT Dual Motor', engine:'368kW 501ps LFP 36kWh', drive:'AWD', doors:4, seats:5, range_km:180  },
+  { id:19, make:'Jetour',        model:'X70 Plus 2026 1.5T DCT 7-Seat',             year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, emoji:'🚙', img:'img/v19-jetour.webp',     ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 135kW/290Nm',  drive:'FWD', doors:4, seats:7, range_km:null },
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
@@ -827,7 +832,9 @@ function applyFilters() {
   const cond = document.getElementById('heroCondition').value;
   const sort = document.getElementById('sortBy').value;
   const search = document.getElementById('navSearch').value.toLowerCase();
-  if (make || makeFilter) list = list.filter(v => v.make === (make || makeFilter));
+  if (make) makeFilter = '';  // hero dropdown takes precedence, clears pill selection
+  const activeMake = make || makeFilter;
+  if (activeMake) list = list.filter(v => v.make === activeMake);
   if (cond) list = list.filter(v => v.condition===cond);
   if (type === 'EV') list = list.filter(v => v.ev);
   else if (type === 'SUV') list = list.filter(v => v.body==='SUV');
@@ -877,8 +884,8 @@ function filterTag(tag) {
   else if (tag==='Premium') setTypeFilter('Premium',fb[4]);
   else if (tag==='New') setTypeFilter('New',fb[5]);
   else if (tag==='Under $15K') setPriceFilter('under15k',fb[6]);
-  else if (tag==='BYD') filterByBrand('BYD',document.querySelector('.brand-pill:nth-child(2)'));
-  else if (tag==='Tesla') filterByBrand('Tesla',document.querySelector('.brand-pill:nth-child(3)'));
+  else if (tag==='BYD') filterByBrand('BYD',document.querySelector('.brand-pill[data-brand="BYD"]'));
+  else if (tag==='Tesla') filterByBrand('Tesla',document.querySelector('.brand-pill[data-brand="Tesla"]'));
   scrollToInventory();
 }
 function scrollToInventory() { document.getElementById('inventory').scrollIntoView({behavior:'smooth'}); }
@@ -896,7 +903,7 @@ function openModal(id) {
     emojiEl.textContent=v.emoji;
   }
   document.getElementById('modalTitle').textContent=`${v.year} ${v.make} ${v.model}`;
-  document.getElementById('modalSubtitle').textContent=`${v.color||v.fuel} · ${v.body} · ${v.fuel}`;
+  document.getElementById('modalSubtitle').textContent=`${v.fuel} · ${v.body} · ${v.drive}`;
   const badges=[
     v.condition==='New'?'<span class="badge badge-new">New</span>':'<span class="badge badge-used">Used</span>',
     v.ev?'<span class="badge badge-ev">⚡ EV/PHEV</span>':'',
