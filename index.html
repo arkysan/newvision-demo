@@ -346,10 +346,10 @@
     <input type="text" placeholder="Search BYD, Tesla, BMW, Mercedes…" id="navSearch">
   </div>
   <div class="nav-links">
-    <a class="nav-link" href="#inventory">Inventory</a>
-    <a class="nav-link" href="#how">Process</a>
-    <a class="nav-link" href="#routes">Routes</a>
-    <a class="nav-link" href="#">About</a>
+    <a class="nav-link" href="#inventory" data-i18n="nav_inventory">Inventory</a>
+    <a class="nav-link" href="#how" data-i18n="nav_process">Process</a>
+    <a class="nav-link" href="#routes" data-i18n="nav_routes">Routes</a>
+    <a class="nav-link" href="#" data-i18n="nav_about">About</a>
   </div>
   <div class="nav-lang">
     <button class="lang-btn active" onclick="setLang('EN',this)">EN</button>
@@ -366,8 +366,8 @@
 <main>
 <!-- ── DEMO BANNER ── -->
 <div style="background:rgba(76,175,80,0.07);border-bottom:1px solid rgba(76,175,80,0.15);padding:7px 24px;font-size:12px;color:var(--muted2);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">
-  <span>📋 <strong style="color:var(--green2)">Demo Site</strong> — Sample inventory for illustration purposes.</span>
-  <a onclick="openWA('Hi New Vision, I want to see your full available stock list. Please send details.')" style="color:var(--green);cursor:pointer;text-decoration:underline;font-weight:600;">Contact us on WhatsApp for live stock & pricing →</a>
+  <span>📋 <strong style="color:var(--green2)" data-i18n="demo_label">Demo Site</strong> — <span data-i18n="demo_notice">Sample inventory for illustration purposes.</span></span>
+  <a onclick="openWA('Hi New Vision, I want to see your full available stock list. Please send details.')" style="color:var(--green);cursor:pointer;text-decoration:underline;font-weight:600;" data-i18n="demo_cta">Contact us on WhatsApp for live stock & pricing →</a>
 </div>
 
 <!-- ── HERO ── -->
@@ -397,9 +397,9 @@
     <div class="hero-logo-zh">新 &nbsp; 视 &nbsp; 界</div>
   </div>
 
-  <div class="hero-badge">🚗 Live Inventory — 3,200+ vehicles ready for export</div>
-  <h1>Buy Cars <span>Direct from China</span><br>Delivered to Your Country</h1>
-  <p class="hero-sub">Focusing on green and smart travel since 2019. Full-chain export solutions — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO and 16+ brands.</p>
+  <div class="hero-badge">🚗 <span data-i18n="hero_badge">Live Inventory — 3,200+ vehicles ready for export</span></div>
+  <h1 data-i18n-html="hero_h1">Buy Cars <span>Direct from China</span><br>Delivered to Your Country</h1>
+  <p class="hero-sub" data-i18n="hero_sub">Focusing on green and smart travel since 2019. Full-chain export solutions — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO and 16+ brands.</p>
 
   <div class="hero-search">
     <select id="heroMake" aria-label="Filter by brand" onchange="applyFilters()">
@@ -514,20 +514,20 @@
       <div class="section-sub">FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for live stock</div>
     </div>
     <select class="filter-select" id="sortBy" aria-label="Sort vehicles" onchange="applyFilters()">
-      <option value="latest">Latest Arrivals</option>
-      <option value="price-asc">Price: Low → High</option>
-      <option value="price-desc">Price: High → Low</option>
-      <option value="mileage">Lowest Mileage</option>
+      <option value="latest" data-i18n="sort_latest">Latest Arrivals</option>
+      <option value="price-asc" data-i18n="sort_price_asc">Price: Low → High</option>
+      <option value="price-desc" data-i18n="sort_price_desc">Price: High → Low</option>
+      <option value="mileage" data-i18n="sort_mileage">Lowest Mileage</option>
     </select>
   </div>
 
   <div class="filters" id="filterBar">
-    <button class="filter-btn active" onclick="setTypeFilter('all',this)">All</button>
-    <button class="filter-btn" onclick="setTypeFilter('EV',this)">⚡ New Energy</button>
-    <button class="filter-btn" onclick="setTypeFilter('SUV',this)">SUV</button>
-    <button class="filter-btn" onclick="setTypeFilter('Sedan',this)">Sedan</button>
-    <button class="filter-btn" onclick="setTypeFilter('Premium',this)">Premium</button>
-    <button class="filter-btn" onclick="setTypeFilter('New',this)">Brand New</button>
+    <button class="filter-btn active" onclick="setTypeFilter('all',this)" data-i18n="filter_all">All</button>
+    <button class="filter-btn" onclick="setTypeFilter('EV',this)" data-i18n="filter_ev">⚡ New Energy</button>
+    <button class="filter-btn" onclick="setTypeFilter('SUV',this)" data-i18n="filter_suv">SUV</button>
+    <button class="filter-btn" onclick="setTypeFilter('Sedan',this)" data-i18n="filter_sedan">Sedan</button>
+    <button class="filter-btn" onclick="setTypeFilter('Premium',this)" data-i18n="filter_premium">Premium</button>
+    <button class="filter-btn" onclick="setTypeFilter('New',this)" data-i18n="filter_new">Brand New</button>
     <button class="filter-btn" onclick="setPriceFilter('under15k',this)">Under $15K</button>
     <button class="filter-btn" onclick="setPriceFilter('15k-30k',this)">$15K–$30K</button>
     <button class="filter-btn" onclick="setPriceFilter('over30k',this)">$30K+</button>
@@ -563,11 +563,11 @@
       <div style="font-size:13px;color:var(--muted2)">Shanghai to your port in 15–35 days</div>
     </div>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><h3>Browse & Select</h3><p>Search 3,200+ vehicles by brand, type, budget</p></div>
-      <div class="step"><div class="step-num">2</div><h3>Get Your Quote</h3><p>FOB + CIF estimate to your port within 2 hours via WhatsApp</p></div>
-      <div class="step"><div class="step-num">3</div><h3>Inspection</h3><p>Optional 200-point third-party report. Approve before paying</p></div>
-      <div class="step"><div class="step-num">4</div><h3>Export & Ship</h3><p>We handle customs, MOFCOM docs, vessel booking, loading</p></div>
-      <div class="step"><div class="step-num">5</div><h3>Track & Receive</h3><p>Live tracking + full documents (B/L, CoO, customs) at delivery</p></div>
+      <div class="step"><div class="step-num">1</div><h3 data-i18n="step1_h">Browse & Select</h3><p data-i18n="step1_p">Search 3,200+ vehicles by brand, type, budget</p></div>
+      <div class="step"><div class="step-num">2</div><h3 data-i18n="step2_h">Get Your Quote</h3><p data-i18n="step2_p">FOB + CIF estimate to your port within 2 hours via WhatsApp</p></div>
+      <div class="step"><div class="step-num">3</div><h3 data-i18n="step3_h">Inspection</h3><p data-i18n="step3_p">Optional 200-point third-party report. Approve before paying</p></div>
+      <div class="step"><div class="step-num">4</div><h3 data-i18n="step4_h">Export & Ship</h3><p data-i18n="step4_p">We handle customs, MOFCOM docs, vessel booking, loading</p></div>
+      <div class="step"><div class="step-num">5</div><h3 data-i18n="step5_h">Track & Receive</h3><p data-i18n="step5_p">Live tracking + full documents (B/L, CoO, customs) at delivery</p></div>
     </div>
   </section>
 </div>
@@ -615,8 +615,8 @@
 <section>
   <div class="cta-block">
     <div class="cta-text">
-      <h2>Ready to import? Get your quote in 2 hours.</h2>
-      <p>Tell us the model, quantity, and destination port. We respond on WhatsApp with FOB price, CIF estimate, and inspection options. No commitment required.</p>
+      <h2 data-i18n="cta_h">Ready to import? Get your quote in 2 hours.</h2>
+      <p data-i18n="cta_p">Tell us the model, quantity, and destination port. We respond on WhatsApp with FOB price, CIF estimate, and inspection options. No commitment required.</p>
     </div>
     <div class="cta-actions">
       <button class="btn-lg btn-green" onclick="openWA('Hi New Vision team, I want to import cars from China. Please send me pricing and available stock.')">
@@ -758,6 +758,95 @@
 <div class="toast" id="toast"><span>✅</span><span id="toastMsg"></span></div>
 
 <script>
+// ── TRANSLATIONS ─────────────────────────────────────────────────────────────
+const T = {
+  EN: {
+    nav_inventory:'Inventory', nav_process:'Process', nav_routes:'Routes', nav_about:'About',
+    demo_label:'Demo Site', demo_notice:'Sample inventory for illustration purposes.',
+    demo_cta:'Contact us on WhatsApp for live stock & pricing →',
+    hero_badge:'Live Inventory — 3,200+ vehicles ready for export',
+    hero_h1:'Buy Cars <span>Direct from China</span><br>Delivered to Your Country',
+    hero_sub:'Focusing on green and smart travel since 2019. Full-chain export solutions — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO and 16+ brands.',
+    filter_all:'All', filter_ev:'⚡ New Energy', filter_suv:'SUV', filter_sedan:'Sedan', filter_premium:'Premium', filter_new:'Brand New',
+    sort_latest:'Latest Arrivals', sort_price_asc:'Price: Low → High', sort_price_desc:'Price: High → Low', sort_mileage:'Lowest Mileage',
+    step1_h:'Browse & Select', step1_p:'Search 3,200+ vehicles by brand, type, budget',
+    step2_h:'Get Your Quote', step2_p:'FOB + CIF estimate to your port within 2 hours via WhatsApp',
+    step3_h:'Inspection', step3_p:'Optional 200-point third-party report. Approve before paying',
+    step4_h:'Export & Ship', step4_p:'We handle customs, MOFCOM docs, vessel booking, loading',
+    step5_h:'Track & Receive', step5_p:'Live tracking + full documents (B/L, CoO, customs) at delivery',
+    cta_h:'Ready to import? Get your quote in 2 hours.',
+    cta_p:'Tell us the model, quantity, and destination port. We respond on WhatsApp with FOB price, CIF estimate, and inspection options. No commitment required.',
+    card_quote:'Quote →', card_details:'Details', fob:'FOB', cif_prefix:'CIF ~',
+    wa_generic:'Hi New Vision, I want to buy a car from China. Please help me.',
+    wa_stock:'Hi New Vision, I want to see your full available stock list. Please send details.',
+    dir:'ltr'
+  },
+  FR: {
+    nav_inventory:'Inventaire', nav_process:'Processus', nav_routes:'Routes', nav_about:'À propos',
+    demo_label:'Site Démo', demo_notice:'Inventaire d\'exemple à titre illustratif.',
+    demo_cta:'Contactez-nous sur WhatsApp pour le stock réel →',
+    hero_badge:'Stock en ligne — 3 200+ véhicules disponibles à l\'export',
+    hero_h1:'Achetez des voitures <span>Directement de Chine</span><br>Livrées dans votre pays',
+    hero_sub:'Spécialiste de la mobilité verte depuis 2019. Solutions d\'export complètes — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO et 16+ marques.',
+    filter_all:'Tous', filter_ev:'⚡ Électrique', filter_suv:'SUV', filter_sedan:'Berline', filter_premium:'Premium', filter_new:'Neuf',
+    sort_latest:'Dernières arrivées', sort_price_asc:'Prix croissant', sort_price_desc:'Prix décroissant', sort_mileage:'Kilométrage min.',
+    step1_h:'Parcourir & Choisir', step1_p:'Rechercher parmi 3 200+ véhicules par marque, type, budget',
+    step2_h:'Obtenir un devis', step2_p:'Estimation FOB + CIF vers votre port sous 2h via WhatsApp',
+    step3_h:'Inspection', step3_p:'Rapport d\'inspection optionnel 200 points. Approuvez avant de payer',
+    step4_h:'Export & Expédition', step4_p:'Nous gérons la douane, documents MOFCOM, réservation navire',
+    step5_h:'Suivre & Recevoir', step5_p:'Suivi en direct + documents complets (B/L, CoO, douane) à livraison',
+    cta_h:'Prêt à importer ? Devis en 2 heures.',
+    cta_p:'Indiquez le modèle, la quantité et le port de destination. Nous répondons sur WhatsApp avec le prix FOB, l\'estimation CIF et les options d\'inspection.',
+    card_quote:'Devis →', card_details:'Détails', fob:'FOB', cif_prefix:'CIF ~',
+    wa_generic:'Bonjour New Vision, je voudrais acheter une voiture de Chine. Pouvez-vous m\'aider ?',
+    wa_stock:'Bonjour New Vision, je voudrais voir votre liste de stock disponible. Envoyez-moi les détails.',
+    dir:'ltr'
+  },
+  AR: {
+    nav_inventory:'المخزون', nav_process:'العملية', nav_routes:'المسارات', nav_about:'عن الشركة',
+    demo_label:'موقع تجريبي', demo_notice:'مخزون نموذجي للتوضيح.',
+    demo_cta:'تواصل معنا عبر واتساب للمخزون الحقيقي →',
+    hero_badge:'مخزون مباشر — أكثر من 3,200 مركبة جاهزة للتصدير',
+    hero_h1:'اشتر سيارات <span>مباشرة من الصين</span><br>توصيل إلى بلدك',
+    hero_sub:'متخصصون في التنقل الأخضر منذ 2019. حلول تصدير متكاملة — BYD، تسلا، BMW، مرسيدس، لي أوتو، MAEXTRO و16+ علامة.',
+    filter_all:'الكل', filter_ev:'⚡ طاقة جديدة', filter_suv:'SUV', filter_sedan:'سيدان', filter_premium:'فاخر', filter_new:'جديد',
+    sort_latest:'أحدث الواردات', sort_price_asc:'السعر: الأقل أولاً', sort_price_desc:'السعر: الأعلى أولاً', sort_mileage:'أقل عداد',
+    step1_h:'تصفح واختر', step1_p:'ابحث في 3,200+ مركبة حسب العلامة والنوع والميزانية',
+    step2_h:'احصل على عرض', step2_p:'تقدير FOB + CIF لميناؤك خلال ساعتين عبر واتساب',
+    step3_h:'الفحص', step3_p:'تقرير فحص اختياري 200 نقطة. وافق قبل الدفع',
+    step4_h:'التصدير والشحن', step4_p:'نتولى الجمارك ووثائق MOFCOM وحجز السفينة',
+    step5_h:'التتبع والاستلام', step5_p:'تتبع مباشر + وثائق كاملة عند التسليم',
+    cta_h:'هل أنت مستعد للاستيراد؟ احصل على عرضك في ساعتين.',
+    cta_p:'أخبرنا بالموديل والكمية وميناء الوجهة. سنرد عبر واتساب بسعر FOB وتقدير CIF وخيارات الفحص. لا التزام مطلوب.',
+    card_quote:'عرض ←', card_details:'التفاصيل', fob:'FOB', cif_prefix:'CIF ~',
+    wa_generic:'مرحباً New Vision، أريد شراء سيارة من الصين. هل يمكنك مساعدتي؟',
+    wa_stock:'مرحباً New Vision، أريد رؤية قائمة المخزون الكامل. يرجى إرسال التفاصيل.',
+    dir:'rtl'
+  },
+  ZH: {
+    nav_inventory:'车辆库存', nav_process:'购车流程', nav_routes:'航运路线', nav_about:'关于我们',
+    demo_label:'演示网站', demo_notice:'示例库存，仅供参考。',
+    demo_cta:'请通过WhatsApp联系我们获取实时库存 →',
+    hero_badge:'实时库存 — 3,200+辆车随时可出口',
+    hero_h1:'直接从中国<span>购买汽车</span><br>送达您的国家',
+    hero_sub:'专注绿色智慧出行，自2019年起提供全链条新能源汽车出口服务——比亚迪、特斯拉、宝马、奔驰、理想及16+品牌。',
+    filter_all:'全部', filter_ev:'⚡ 新能源', filter_suv:'SUV', filter_sedan:'轿车', filter_premium:'豪华', filter_new:'新车',
+    sort_latest:'最新到港', sort_price_asc:'价格从低到高', sort_price_desc:'价格从高到低', sort_mileage:'最低里程',
+    step1_h:'浏览选车', step1_p:'按品牌、类型、预算搜索3,200+辆车',
+    step2_h:'获取报价', step2_p:'2小时内通过WhatsApp提供FOB+CIF到港报价',
+    step3_h:'验车检测', step3_p:'可选200点第三方检测报告，确认后再付款',
+    step4_h:'出口发运', step4_p:'我们处理海关、商务部文件、订舱及装船',
+    step5_h:'跟踪收货', step5_p:'实时跟踪+交付时提供完整单据（提单、原产地证等）',
+    cta_h:'准备进口？2小时内获取报价。',
+    cta_p:'告诉我们车型、数量和目的港，我们将通过WhatsApp回复FOB价格、CIF估算及检测方案，无需承诺。',
+    card_quote:'询价 →', card_details:'详情', fob:'离岸价', cif_prefix:'到岸约',
+    wa_generic:'您好，新视界，我想从中国购车，请帮助我。',
+    wa_stock:'您好，新视界，我想了解您的完整库存清单，请发送详情。',
+    dir:'ltr'
+  }
+};
+let lang = 'EN';
+
 // ── VEHICLE DATA — sourced from nvncar.com ────────────────────────────────────
 const vehicles = [
   { id:1,  make:'Tesla',         model:'Model Y L 2026 Standard Range',              year:2026, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'SUV',       price:28900, emoji:'🚗', img:'img/v01-tesla.webp',      ev:true,  hot:true,  premium:true,  trans:'1-Speed Auto', engine:'250kW Dual Motor', drive:'AWD', doors:4, seats:6, range_km:751  },
@@ -810,8 +899,8 @@ function buildCard(v, idx) {
         <div class="vehicle-cif">CIF ~${fmt(v.price+850+180)}</div>
       </div>
       <div class="vehicle-actions">
-        <button class="btn-primary" onclick="event.stopPropagation();openWA('Hi New Vision, I am interested in: ${v.year} ${v.make} ${v.model} at FOB ${fmt(v.price)}. Please send me a quote.')">Quote →</button>
-        <button class="btn-secondary" onclick="event.stopPropagation();openModal(${v.id})">Details</button>
+        <button class="btn-primary" onclick="event.stopPropagation();openWA('Hi New Vision, I am interested in: ${v.year} ${v.make} ${v.model} at FOB ${fmt(v.price)}. Please send a quote.')">${(T[lang]||T.EN).card_quote}</button>
+        <button class="btn-secondary" onclick="event.stopPropagation();openModal(${v.id})">${(T[lang]||T.EN).card_details}</button>
       </div>
     </div>
   </div>`;
@@ -950,11 +1039,31 @@ function showToast(msg) {
   const t=document.getElementById('toast'); document.getElementById('toastMsg').textContent=msg;
   t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3200);
 }
-function setLang(lang,btn) {
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
-  if(lang==='AR') showToast('🌐 Arabic version coming soon — WhatsApp us for Arabic support');
-  if(lang==='FR') showToast('🌐 Version française bientôt — contactez-nous sur WhatsApp');
-  if(lang==='ZH') showToast('🌐 中文版即将上线 — 请通过微信联系我们');
+function setLang(l, btn) {
+  lang = l;
+  const t = T[l] || T.EN;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Direction
+  document.documentElement.dir = t.dir;
+  document.documentElement.lang = l.toLowerCase();
+  // Translate all data-i18n text elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  // Translate data-i18n-html elements (preserves inner HTML / spans)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  // Translate select options
+  document.querySelectorAll('option[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  // Re-render grid so card buttons use new language
+  applyFilters();
 }
 
 // ── COUNTER ANIM ─────────────────────────────────────────────────────────
