@@ -403,7 +403,7 @@
 
   <div class="hero-search">
     <select id="heroMake" aria-label="Filter by brand" onchange="applyFilters()">
-      <option value="">All Brands</option>
+      <option value="" data-i18n="opt_allbrands">All Brands</option>
       <option>BYD</option><option>Tesla</option><option>BMW</option>
       <option>Mercedes-Benz</option><option>Toyota</option><option>Volkswagen</option>
       <option>Li Auto</option><option>Xiaomi</option><option>Changan</option>
@@ -413,12 +413,12 @@
       <option>Great Wall</option><option>Livan</option>
     </select>
     <select id="heroType" aria-label="Filter by type" onchange="applyFilters()">
-      <option value="">All Types</option>
-      <option>EV</option><option>SUV</option><option>Sedan</option><option>Premium</option>
+      <option value="" data-i18n="opt_alltypes">All Types</option>
+      <option data-i18n="opt_ev">EV</option><option data-i18n="opt_suv">SUV</option><option data-i18n="opt_sedan">Sedan</option><option data-i18n="opt_premium">Premium</option>
     </select>
     <select id="heroCondition" aria-label="Filter by condition" onchange="applyFilters()">
       <option value="">New & Used</option>
-      <option>New</option><option>Used</option>
+      <option data-i18n="opt_new">New</option><option data-i18n="opt_used">Used</option>
     </select>
     <button class="hero-search-btn" onclick="applyFilters();scrollToInventory()">Search →</button>
   </div>
@@ -426,9 +426,9 @@
     <span class="hero-tag" onclick="filterTag('EV')">⚡ New Energy</span>
     <span class="hero-tag" onclick="filterTag('BYD')">BYD</span>
     <span class="hero-tag" onclick="filterTag('Tesla')">Tesla</span>
-    <span class="hero-tag" onclick="filterTag('Premium')">Premium Brands</span>
-    <span class="hero-tag" onclick="filterTag('New')">Brand New</span>
-    <span class="hero-tag" onclick="filterTag('Under $15K')">Under $15,000</span>
+    <span class="hero-tag" onclick="filterTag('Premium')" data-i18n="htag_prem">Premium Brands</span>
+    <span class="hero-tag" onclick="filterTag('New')" data-i18n="htag_new">Brand New</span>
+    <span class="hero-tag" onclick="filterTag('Under $15K')" data-i18n="htag_under">Under $15,000</span>
   </div>
 </div>
 
@@ -475,7 +475,7 @@
 <section>
   <div class="section-header">
     <div>
-      <h2 class="section-title">Brand <span>Partners</span></h2>
+      <h2 class="section-title" data-i18n-html="sec_brands">Brand <span>Partners</span></h2>
       <div class="section-sub" data-i18n="brand_sub">16+ global automotive brands — new energy · traditional · premium · engineering</div></div>
     </div>
   </div>
@@ -510,7 +510,7 @@
 <section id="inventory">
   <div class="section-header">
     <div>
-      <h2 class="section-title">Vehicle <span>Inventory</span> <span id="resultCount" style="font-size:15px;color:var(--muted2)"></span></h2>
+      <h2 class="section-title"><span data-i18n="st_vehicle">Vehicle</span> <span>Inventory</span> <span id="resultCount" style="font-size:15px;color:var(--muted2)"></span></h2>
       <div class="section-sub" data-i18n="inv_sub">FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for live stock</div>
     </div>
     <select class="filter-select" id="sortBy" aria-label="Sort vehicles" onchange="applyFilters()">
@@ -559,7 +559,7 @@
 <div class="how-bg" id="how">
   <section style="padding-top:40px;padding-bottom:40px;">
     <div class="section-header" style="margin-bottom:28px;">
-      <h2 class="section-title">How It <span>Works</span></h2>
+      <h2 class="section-title" data-i18n-html="sec_how">How It <span>Works</span></h2>
       <div style="font-size:13px;color:var(--muted2)" data-i18n="how_sub">Shanghai to your port in 15–35 days</div>
     </div>
     <div class="steps">
@@ -575,20 +575,20 @@
 <!-- ── ROUTES ── -->
 <section id="routes">
   <div class="section-header">
-    <h2 class="section-title">Active <span>Shipping Routes</span></h2>
+    <h2 class="section-title" data-i18n-html="sec_routes">Active <span>Shipping Routes</span></h2>
     <div style="font-size:13px;color:var(--green2);display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse-dot 2s infinite;"></span>Live shipments in transit now</div>
   </div>
   <div class="routes-grid">
-    <div class="route-card"><div class="route-flag">🇬🇭</div><div class="route-info"><strong>Ghana</strong><span>Tema Port · 28 days</span></div><div class="route-dot"></div></div>
-    <div class="route-card"><div class="route-flag">🇩🇿</div><div class="route-info"><strong>Algeria</strong><span>Algiers · 22 days</span></div><div class="route-dot"></div></div>
-    <div class="route-card"><div class="route-flag">🇸🇦</div><div class="route-info"><strong>Saudi Arabia</strong><span>Jeddah · 18 days</span></div><div class="route-dot"></div></div>
-    <div class="route-card"><div class="route-flag">🇦🇪</div><div class="route-info"><strong>UAE</strong><span>Jebel Ali · 16 days</span></div><div class="route-dot"></div></div>
-    <div class="route-card"><div class="route-flag">🇪🇬</div><div class="route-info"><strong>Egypt</strong><span>Port Said · 20 days</span></div><div class="route-dot"></div></div>
-    <div class="route-card"><div class="route-flag">🇰🇭</div><div class="route-info"><strong>Cambodia</strong><span>Sihanoukville · 12 days</span></div><div class="route-dot"></div></div>
-    <div class="route-card"><div class="route-flag">🇲🇦</div><div class="route-info"><strong>Morocco</strong><span>Casablanca · 20 days</span></div><div class="route-dot"></div></div>
-    <div class="route-card"><div class="route-flag">🇳🇬</div><div class="route-info"><strong>Nigeria</strong><span>Lagos · 30 days</span></div><div class="route-dot"></div></div>
-    <div class="route-card"><div class="route-flag">🇿🇦</div><div class="route-info"><strong>South Africa</strong><span>Durban · 32 days</span></div><div class="route-dot"></div></div>
-    <div class="route-card"><div class="route-flag">🇮🇷</div><div class="route-info"><strong>Iran</strong><span>Bandar Abbas · 14 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇬🇭</div><div class="route-info"><strong data-i18n="r1_c">Ghana</strong><span data-i18n="r1_p">Tema Port · 28 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇩🇿</div><div class="route-info"><strong data-i18n="r2_c">Algeria</strong><span data-i18n="r2_p">Algiers · 22 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇸🇦</div><div class="route-info"><strong data-i18n="r3_c">Saudi Arabia</strong><span data-i18n="r3_p">Jeddah · 18 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇦🇪</div><div class="route-info"><strong data-i18n="r4_c">UAE</strong><span data-i18n="r4_p">Jebel Ali · 16 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇪🇬</div><div class="route-info"><strong data-i18n="r5_c">Egypt</strong><span data-i18n="r5_p">Port Said · 20 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇰🇭</div><div class="route-info"><strong data-i18n="r6_c">Cambodia</strong><span data-i18n="r6_p">Sihanoukville · 12 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇲🇦</div><div class="route-info"><strong data-i18n="r7_c">Morocco</strong><span data-i18n="r7_p">Casablanca · 20 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇳🇬</div><div class="route-info"><strong data-i18n="r8_c">Nigeria</strong><span data-i18n="r8_p">Lagos · 30 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇿🇦</div><div class="route-info"><strong data-i18n="r9_c">South Africa</strong><span data-i18n="r9_p">Durban · 32 days</span></div><div class="route-dot"></div></div>
+    <div class="route-card"><div class="route-flag">🇮🇷</div><div class="route-info"><strong data-i18n="r10_c">Iran</strong><span data-i18n="r10_p">Bandar Abbas · 14 days</span></div><div class="route-dot"></div></div>
   </div>
 </section>
 
@@ -597,16 +597,16 @@
 <section>
   <div class="section-header"><h2 class="section-title">Trust & <span>Certifications</span></h2></div>
   <div class="certs">
-    <div class="cert-card"><div class="cert-icon">🏅</div><div><div class="cert-text">Model Unit for Integrity in Business</div><div class="cert-sub">Business integrity award</div></div></div>
-    <div class="cert-card"><div class="cert-icon">🤝</div><div><div class="cert-text">Integrity Entrepreneur</div><div class="cert-sub">Personal integrity award</div></div></div>
-    <div class="cert-card"><div class="cert-icon">⭐</div><div><div class="cert-text">Enterprise Credit Rating</div><div class="cert-sub">AAA credit standing</div></div></div>
-    <div class="cert-card"><div class="cert-icon">📊</div><div><div class="cert-text">Enterprise Creditworthiness Rating</div><div class="cert-sub">Financial credibility</div></div></div>
-    <div class="cert-card"><div class="cert-icon">✅</div><div><div class="cert-text">Quality Service & Integrity Enterprise</div><div class="cert-sub">Service excellence award</div></div></div>
-    <div class="cert-card"><div class="cert-icon">🎖️</div><div><div class="cert-text">Service-Oriented & Credit-Abiding</div><div class="cert-sub">Industry integrity award</div></div></div>
-    <div class="cert-card"><div class="cert-icon">📜</div><div><div class="cert-text">Contract-Respecting & Promise-Keeping</div><div class="cert-sub">Commitment to buyers</div></div></div>
-    <div class="cert-card"><div class="cert-icon">🔍</div><div><div class="cert-text">Quality-Focused & Creditworthy Unit</div><div class="cert-sub">Quality management</div></div></div>
-    <div class="cert-card"><div class="cert-icon">🛡️</div><div><div class="cert-text">Trusted Supplier</div><div class="cert-sub">Verified export partner</div></div></div>
-    <div class="cert-card"><div class="cert-icon">👤</div><div><div class="cert-text">Integrity Manager Award</div><div class="cert-sub">Leadership recognition</div></div></div>
+    <div class="cert-card"><div class="cert-icon">🏅</div><div><div class="cert-text" data-i18n="cert1_t">Model Unit for Integrity in Business</div><div class="cert-sub" data-i18n="cert1_s">Business integrity award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">🤝</div><div><div class="cert-text" data-i18n="cert2_t">Integrity Entrepreneur</div><div class="cert-sub" data-i18n="cert2_s">Personal integrity award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">⭐</div><div><div class="cert-text" data-i18n="cert3_t">Enterprise Credit Rating</div><div class="cert-sub" data-i18n="cert3_s">AAA credit standing</div></div></div>
+    <div class="cert-card"><div class="cert-icon">📊</div><div><div class="cert-text" data-i18n="cert4_t">Enterprise Creditworthiness Rating</div><div class="cert-sub" data-i18n="cert4_s">Financial credibility</div></div></div>
+    <div class="cert-card"><div class="cert-icon">✅</div><div><div class="cert-text" data-i18n="cert5_t">Quality Service & Integrity Enterprise</div><div class="cert-sub" data-i18n="cert5_s">Service excellence award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">🎖️</div><div><div class="cert-text" data-i18n="cert6_t">Service-Oriented & Credit-Abiding</div><div class="cert-sub" data-i18n="cert6_s">Industry integrity award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">📜</div><div><div class="cert-text" data-i18n="cert7_t">Contract-Respecting & Promise-Keeping</div><div class="cert-sub" data-i18n="cert7_s">Commitment to buyers</div></div></div>
+    <div class="cert-card"><div class="cert-icon">🔍</div><div><div class="cert-text" data-i18n="cert8_t">Quality-Focused & Creditworthy Unit</div><div class="cert-sub" data-i18n="cert8_s">Quality management</div></div></div>
+    <div class="cert-card"><div class="cert-icon">🛡️</div><div><div class="cert-text" data-i18n="cert9_t">Trusted Supplier</div><div class="cert-sub" data-i18n="cert9_s">Verified export partner</div></div></div>
+    <div class="cert-card"><div class="cert-icon">👤</div><div><div class="cert-text" data-i18n="cert10_t">Integrity Manager Award</div><div class="cert-sub" data-i18n="cert10_s">Leadership recognition</div></div></div>
   </div>
 </section>
 </div>
@@ -671,8 +671,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025–2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, China</p>
-      <div style="font-size:11px;color:var(--muted)">MOFCOM Licensed · ICP Filing · Enterprise Credit AAA</div>
+      <p data-i18n="foot_copy">© 2025–2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, China</p>
+      <div style="font-size:11px;color:var(--muted)" data-i18n="foot_cert">MOFCOM Licensed · ICP Filing · Enterprise Credit AAA</div>
     </div>
   </div>
 </footer>
@@ -809,7 +809,29 @@ const T = {
     pr_fob:'FOB Shanghai', pr_freight:'Ocean Freight (est.)', pr_insurance:'Insurance', pr_cif:'CIF Total (est.)',
     port_label:'Destination Port',
     mbtn_wa:'WhatsApp Quote', mbtn_inquiry:'Send Inquiry', mbtn_inspect:'Book Inspection ($120)',
-    mt1:'180-day MOFCOM export eligibility verified', mt2:'MOFCOM licensed export entity', mt3:'Full documentation package included', mt4:'Dedicated agent on every order'
+    mt1:'180-day MOFCOM export eligibility verified', mt2:'MOFCOM licensed export entity', mt3:'Full documentation package included', mt4:'Dedicated agent on every order',
+    sec_brands:'Brand <span>Partners</span>', sec_how:'How It <span>Works</span>',
+    sec_routes:'Active <span>Shipping Routes</span>', sec_certs:'Trust &amp; <span>Certifications</span>',
+    st_vehicle:'Vehicle',
+    htag_prem:'Premium Brands', htag_new:'Brand New', htag_under:'Under $15,000',
+    opt_allbrands:'All Brands', opt_alltypes:'All Types', opt_allcond:'New & Used', opt_new:'New', opt_used:'Used', opt_ev:'EV', opt_suv:'SUV', opt_sedan:'Sedan', opt_premium:'Premium',
+    cert1_t:'Model Unit for Integrity in Business', cert1_s:'Business integrity award',
+    cert2_t:'Integrity Entrepreneur', cert2_s:'Personal integrity award',
+    cert3_t:'Enterprise Credit Rating', cert3_s:'AAA credit standing',
+    cert4_t:'Enterprise Creditworthiness Rating', cert4_s:'Financial credibility',
+    cert5_t:'Quality Service & Integrity Enterprise', cert5_s:'Service excellence award',
+    cert6_t:'Service-Oriented & Credit-Abiding', cert6_s:'Industry integrity award',
+    cert7_t:'Contract-Respecting & Promise-Keeping', cert7_s:'Commitment to buyers',
+    cert8_t:'Quality-Focused & Creditworthy Unit', cert8_s:'Quality management',
+    cert9_t:'Trusted Supplier', cert9_s:'Verified export partner',
+    cert10_t:'Integrity Manager Award', cert10_s:'Leadership recognition',
+    r1_c:'Ghana', r1_p:'Tema Port · 28 days', r2_c:'Algeria', r2_p:'Algiers · 22 days',
+    r3_c:'Saudi Arabia', r3_p:'Jeddah · 18 days', r4_c:'UAE', r4_p:'Jebel Ali · 16 days',
+    r5_c:'Egypt', r5_p:'Port Said · 20 days', r6_c:'Cambodia', r6_p:'Sihanoukville · 12 days',
+    r7_c:'Morocco', r7_p:'Casablanca · 20 days', r8_c:'Nigeria', r8_p:'Lagos · 30 days',
+    r9_c:'South Africa', r9_p:'Durban · 32 days', r10_c:'Iran', r10_p:'Bandar Abbas · 14 days',
+    foot_copy:'© 2025–2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, China',
+    foot_cert:'MOFCOM Licensed · ICP Filing · Enterprise Credit AAA'
   },
   FR: {
     nav_inventory:'Inventaire', nav_process:'Processus', nav_routes:'Routes', nav_about:'À propos',
@@ -860,7 +882,29 @@ const T = {
     pr_fob:'FOB Shanghai', pr_freight:'Fret Maritime (est.)', pr_insurance:'Assurance', pr_cif:'Total CIF (est.)',
     port_label:'Port de Destination',
     mbtn_wa:'Devis WhatsApp', mbtn_inquiry:'Envoyer Demande', mbtn_inspect:'Réserver Inspection (120$)',
-    mt1:'Éligibilité export MOFCOM 180 jours vérifiée', mt2:'Entité export agréée MOFCOM', mt3:'Package documentation complet inclus', mt4:'Agent dédié sur chaque commande'
+    mt1:'Éligibilité export MOFCOM 180 jours vérifiée', mt2:'Entité export agréée MOFCOM', mt3:'Package documentation complet inclus', mt4:'Agent dédié sur chaque commande',
+    sec_brands:'Marques <span>Partenaires</span>', sec_how:'Comment ça <span>Marche</span>',
+    sec_routes:'Routes de <span>Livraison</span>', sec_certs:'Confiance & <span>Certifications</span>',
+    st_vehicle:'Véhicules',
+    htag_prem:'Marques Premium', htag_new:'Neuf', htag_under:'Moins de 15 000 $',
+    opt_allbrands:'Toutes Marques', opt_alltypes:'Tous Types', opt_allcond:'Neuf & Occasion', opt_new:'Neuf', opt_used:'Occasion', opt_ev:'Électrique', opt_suv:'SUV', opt_sedan:'Berline', opt_premium:'Premium',
+    cert1_t:'Unité Modèle d\'Intégrité', cert1_s:'Certification intégrité commerciale',
+    cert2_t:'Entrepreneur Intègre', cert2_s:'Distinction personnelle',
+    cert3_t:'Notation de Crédit Entreprise', cert3_s:'Crédit AAA',
+    cert4_t:'Évaluation de Solvabilité', cert4_s:'Crédibilité financière',
+    cert5_t:'Entreprise Qualité & Intégrité', cert5_s:'Excellence de service',
+    cert6_t:'Entreprise Orientée Service', cert6_s:'Prix intégrité sectoriel',
+    cert7_t:'Respect Contrats & Promesses', cert7_s:'Engagement envers les acheteurs',
+    cert8_t:'Unité Qualité & Crédibilité', cert8_s:'Gestion de la qualité',
+    cert9_t:'Fournisseur de Confiance', cert9_s:'Partenaire export vérifié',
+    cert10_t:'Prix Manager Intègre', cert10_s:'Reconnaissance du leadership',
+    r1_c:'Ghana', r1_p:'Port Tema · 28 jours', r2_c:'Algérie', r2_p:'Alger · 22 jours',
+    r3_c:'Arabie Saoudite', r3_p:'Djeddah · 18 jours', r4_c:'Émirats Arabes Unis', r4_p:'Jebel Ali · 16 jours',
+    r5_c:'Égypte', r5_p:'Port-Saïd · 20 jours', r6_c:'Cambodge', r6_p:'Sihanoukville · 12 jours',
+    r7_c:'Maroc', r7_p:'Casablanca · 20 jours', r8_c:'Nigéria', r8_p:'Lagos · 30 jours',
+    r9_c:'Afrique du Sud', r9_p:'Durban · 32 jours', r10_c:'Iran', r10_p:'Bandar Abbas · 14 jours',
+    foot_copy:'© 2025–2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, Chine',
+    foot_cert:'Agréé MOFCOM · Enregistrement ICP · Crédit Entreprise AAA'
   },
   AR: {
     nav_inventory:'المخزون', nav_process:'العملية', nav_routes:'المسارات', nav_about:'عن الشركة',
@@ -911,7 +955,29 @@ const T = {
     pr_fob:'سعر FOB شنغهاي', pr_freight:'الشحن البحري (تقديري)', pr_insurance:'التأمين', pr_cif:'إجمالي CIF (تقديري)',
     port_label:'ميناء الوجهة',
     mbtn_wa:'عرض واتساب', mbtn_inquiry:'إرسال استفسار', mbtn_inspect:'حجز فحص (120$)',
-    mt1:'أهلية تصدير MOFCOM 180 يوم موثقة', mt2:'جهة تصدير مرخصة من MOFCOM', mt3:'حزمة وثائق كاملة مشمولة', mt4:'مندوب مخصص لكل طلب'
+    mt1:'أهلية تصدير MOFCOM 180 يوم موثقة', mt2:'جهة تصدير مرخصة من MOFCOM', mt3:'حزمة وثائق كاملة مشمولة', mt4:'مندوب مخصص لكل طلب',
+    sec_brands:'شركاء <span>العلامات</span>', sec_how:'كيف <span>يعمل</span>',
+    sec_routes:'مسارات <span>الشحن الفعالة</span>', sec_certs:'الثقة و<span>الشهادات</span>',
+    st_vehicle:'مركبات',
+    htag_prem:'علامات فاخرة', htag_new:'جديد', htag_under:'أقل من 15,000 $',
+    opt_allbrands:'كل العلامات', opt_alltypes:'كل الأنواع', opt_allcond:'جديد ومستعمل', opt_new:'جديد', opt_used:'مستعمل', opt_ev:'كهربائي', opt_suv:'SUV', opt_sedan:'سيدان', opt_premium:'فاخر',
+    cert1_t:'وحدة نموذجية لنزاهة الأعمال', cert1_s:'شهادة تصنيف الائتمان',
+    cert2_t:'رجل أعمال نزيه', cert2_s:'تكريم شخصي للنزاهة',
+    cert3_t:'تصنيف ائتمان المؤسسة', cert3_s:'وضع ائتماني AAA',
+    cert4_t:'تقييم جدارة ائتمان المؤسسة', cert4_s:'المصداقية المالية',
+    cert5_t:'مؤسسة خدمة جودة ونزاهة', cert5_s:'جائزة التميز في الخدمة',
+    cert6_t:'مؤسسة موجهة للخدمة وملتزمة بالائتمان', cert6_s:'جائزة نزاهة القطاع',
+    cert7_t:'احترام العقود والالتزام بالوعود', cert7_s:'التزام تجاه المشترين',
+    cert8_t:'وحدة تركز على الجودة والجدارة الائتمانية', cert8_s:'إدارة الجودة',
+    cert9_t:'مورد موثوق', cert9_s:'شريك تصدير معتمد',
+    cert10_t:'جائزة مدير النزاهة', cert10_s:'تقدير القيادة',
+    r1_c:'غانا', r1_p:'ميناء تيما · 28 يوم', r2_c:'الجزائر', r2_p:'الجزائر العاصمة · 22 يوم',
+    r3_c:'المملكة العربية السعودية', r3_p:'جدة · 18 يوم', r4_c:'الإمارات', r4_p:'جبل علي · 16 يوم',
+    r5_c:'مصر', r5_p:'بورسعيد · 20 يوم', r6_c:'كمبوديا', r6_p:'سيهانوكفيل · 12 يوم',
+    r7_c:'المغرب', r7_p:'الدار البيضاء · 20 يوم', r8_c:'نيجيريا', r8_p:'لاغوس · 30 يوم',
+    r9_c:'جنوب أفريقيا', r9_p:'دوربان · 32 يوم', r10_c:'إيران', r10_p:'بندر عباس · 14 يوم',
+    foot_copy:'© 2025–2026 义乌新视界汽车销售有限公司 · يوو، تشيجيانغ، الصين',
+    foot_cert:'مرخص MOFCOM · تسجيل ICP · تصنيف ائتماني AAA'
   },
   ZH: {
     nav_inventory:'车辆库存', nav_process:'购车流程', nav_routes:'航运路线', nav_about:'关于我们',
@@ -962,7 +1028,29 @@ const T = {
     pr_fob:'上海离岸价', pr_freight:'海运费（估算）', pr_insurance:'保险费', pr_cif:'到岸总价（估算）',
     port_label:'目的港',
     mbtn_wa:'WhatsApp询价', mbtn_inquiry:'发送询盘', mbtn_inspect:'预约检测（$120）',
-    mt1:'已核实180天商务部出口资质', mt2:'持有商务部出口许可', mt3:'包含完整文件包', mt4:'每单配专属服务顾问'
+    mt1:'已核实180天商务部出口资质', mt2:'持有商务部出口许可', mt3:'包含完整文件包', mt4:'每单配专属服务顾问',
+    sec_brands:'品牌 <span>合作伙伴</span>', sec_how:'购车 <span>流程</span>',
+    sec_routes:'在途 <span>航运路线</span>', sec_certs:'资质 <span>认证</span>',
+    st_vehicle:'车辆',
+    htag_prem:'豪华品牌', htag_new:'新车', htag_under:'15,000美元以下',
+    opt_allbrands:'全部品牌', opt_alltypes:'全部类型', opt_allcond:'新车&二手', opt_new:'新车', opt_used:'二手', opt_ev:'电动车', opt_suv:'SUV', opt_sedan:'轿车', opt_premium:'豪华',
+    cert1_t:'商务诚信模范单位', cert1_s:'信用评级认证',
+    cert2_t:'诚信企业家', cert2_s:'个人诚信荣誉',
+    cert3_t:'企业信用等级', cert3_s:'AAA信用评级',
+    cert4_t:'企业信用评估', cert4_s:'财务信誉证明',
+    cert5_t:'质量服务诚信企业', cert5_s:'服务卓越奖',
+    cert6_t:'服务型守信企业', cert6_s:'行业诚信奖',
+    cert7_t:'重合同守信用单位', cert7_s:'对买家的承诺',
+    cert8_t:'重质量讲信誉单位', cert8_s:'质量管理认证',
+    cert9_t:'可信赖供应商', cert9_s:'认证出口合作伙伴',
+    cert10_t:'诚信经理人奖', cert10_s:'领导力认可',
+    r1_c:'加纳', r1_p:'特马港 · 28天', r2_c:'阿尔及利亚', r2_p:'阿尔及尔 · 22天',
+    r3_c:'沙特阿拉伯', r3_p:'吉达 · 18天', r4_c:'阿联酋', r4_p:'杰贝阿里 · 16天',
+    r5_c:'埃及', r5_p:'塞得港 · 20天', r6_c:'柬埔寨', r6_p:'西哈努克港 · 12天',
+    r7_c:'摩洛哥', r7_p:'卡萨布兰卡 · 20天', r8_c:'尼日利亚', r8_p:'拉各斯 · 30天',
+    r9_c:'南非', r9_p:'德班 · 32天', r10_c:'伊朗', r10_p:'班达尔阿巴斯 · 14天',
+    foot_copy:'© 2025–2026 义乌新视界汽车销售有限公司 · 中国浙江义乌',
+    foot_cert:'商务部出口许可 · ICP备案 · 企业信用AAA'
   }
 };
 let lang = 'EN';
