@@ -628,6 +628,108 @@
   </div>
 </section>
 
+<!-- ── QUOTE FORM ── -->
+<section id="quote" style="background:var(--surface);border-top:1px solid var(--border);padding:64px 24px;">
+  <div style="max-width:640px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:36px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(46,125,50,0.08);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;">
+        📩 Request a Quote
+      </div>
+      <h2 style="font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.2;margin-bottom:10px;">Get Pricing in 24 Hours</h2>
+      <p style="color:var(--muted);font-size:14px;">Fill in your details and we'll send FOB pricing, photos, and available stock directly to you.</p>
+    </div>
+
+    <form id="quoteForm" style="display:flex;flex-direction:column;gap:14px;" onsubmit="submitQuote(event)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Your Name *</label>
+          <input id="qName" required placeholder="John Smith" style="width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'" />
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Country *</label>
+          <input id="qCountry" required placeholder="Nigeria, UAE, Brazil…" style="width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'" />
+        </div>
+      </div>
+
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Vehicle of Interest</label>
+        <select id="qVehicle" style="width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;appearance:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'">
+          <option value="">Any / Not sure yet</option>
+          <option>Tesla Model Y L 2026</option>
+          <option>BYD Seal 2024</option>
+          <option>BMW X3 2025</option>
+          <option>Mercedes-Benz C 260 L 2025</option>
+          <option>Li Auto L9 2025 Ultra</option>
+          <option>Xiaomi SU7 2024</option>
+          <option>MAEXTRO S800 2025</option>
+          <option>Leapmotor Ti7 2025 PHEV</option>
+          <option>Great Wall Tank 700 2024</option>
+          <option>Jetour ShanHai T2 2025 PHEV</option>
+          <option>Jetour X70 Plus 2026</option>
+          <option>Leapmotor Leopard 5 2025</option>
+          <option>Trumpchi Xiangwang S7 2025</option>
+          <option>Volkswagen Passat 2025</option>
+          <option>Volkswagen Tuyue 2025</option>
+          <option>MG5 2023</option>
+          <option>Multiple vehicles / Fleet order</option>
+          <option>Other (specify in message)</option>
+        </select>
+      </div>
+
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Destination Port</label>
+        <input id="qPort" placeholder="Lagos, Dubai, Mombasa, Santos…" style="width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'" />
+      </div>
+
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Message / Quantity</label>
+        <textarea id="qMsg" rows="3" placeholder="How many units? Any specific trim, color, or requirements?" style="width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;resize:vertical;font-family:inherit;transition:border-color .2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+      </div>
+
+      <button type="submit" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s;width:100%;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Send Quote Request via WhatsApp
+      </button>
+
+      <p style="text-align:center;font-size:12px;color:var(--muted);">Your request opens WhatsApp with a pre-filled message. We respond within 24 hours.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ── FLOATING WHATSAPP ── -->
+<a id="floatWA" href="https://wa.me/8613735611862?text=Hi%20New%20Vision%2C%20I%20want%20to%20buy%20a%20car%20from%20China.%20Please%20help%20me." target="_blank" rel="noopener"
+  style="display:none;position:fixed;bottom:24px;right:24px;z-index:999;background:#25D366;color:#fff;border-radius:50px;padding:12px 20px 12px 14px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.45);align-items:center;gap:9px;transition:transform .2s,box-shadow .2s;">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  WhatsApp
+</a>
+<style>
+  #floatWA:hover { transform: scale(1.05); box-shadow: 0 6px 28px rgba(37,211,102,0.55); }
+  @keyframes wa-pulse { 0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45); } 50% { box-shadow: 0 4px 28px rgba(37,211,102,0.7); } }
+  #floatWA.pulse { animation: wa-pulse 2s ease-in-out infinite; }
+</style>
+<script>
+(function() {
+  const btn = document.getElementById('floatWA');
+  let shown = false;
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 320 && !shown) { btn.style.display = 'flex'; btn.classList.add('pulse'); shown = true; }
+  }, { passive: true });
+})();
+</script>
+
+<script>
+function submitQuote(e) {
+  e.preventDefault();
+  const name    = document.getElementById('qName').value.trim();
+  const country = document.getElementById('qCountry').value.trim();
+  const vehicle = document.getElementById('qVehicle').value || 'Not specified';
+  const port    = document.getElementById('qPort').value.trim() || 'Not specified';
+  const msg     = document.getElementById('qMsg').value.trim() || 'No additional details';
+  const text = `Hi New Vision team,\n\nI would like a quote:\n\n👤 Name: ${name}\n🌍 Country: ${country}\n🚗 Vehicle: ${vehicle}\n🚢 Destination Port: ${port}\n📝 Details: ${msg}\n\nPlease send me FOB pricing and available stock. Thank you.`;
+  openWA(text);
+}
+</script>
+
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
@@ -804,6 +906,12 @@ const T = {
     fl_insp:'Pre-Export Inspection', fl_docs:'Export Documentation', fl_freight:'Ocean Freight', fl_customs:'Customs Clearance', fl_after:'After-Sales Support',
     fl_safety:'Safety & Licensing', fl_regs:'Export Regulations', fl_dealer:'Dealer Partnership',
     tab_specs:'Specifications', tab_docs:'Documents', tab_ship:'Shipping',
+    quote_badge:'📩 Request a Quote', quote_h:'Get Pricing in 24 Hours',
+    quote_sub:'Fill in your details and we\'ll send FOB pricing, photos, and available stock directly to you.',
+    quote_name:'Your Name', quote_country:'Country', quote_vehicle:'Vehicle of Interest',
+    quote_port:'Destination Port', quote_msg:'Message / Quantity',
+    quote_submit:'Send Quote Request via WhatsApp',
+    quote_footer:'Your request opens WhatsApp with a pre-filled message. We respond within 24 hours.',
     doc1:'Vehicle Title & Ownership Transfer', doc2:'MOFCOM Export Declaration', doc3:'Bill of Lading (B/L)', doc4:'Certificate of Origin (CoO)', doc5:'Commercial Invoice + Packing List', doc6:'200-Point Inspection Report',
     doc_incl:'Included', doc_opt:'+ $120 optional',
     pr_fob:'FOB Shanghai', pr_freight:'Ocean Freight (est.)', pr_insurance:'Insurance', pr_cif:'CIF Total (est.)',
@@ -877,6 +985,12 @@ const T = {
     fl_insp:'Inspection Pré-Export', fl_docs:'Documentation Export', fl_freight:'Fret Maritime', fl_customs:'Dédouanement', fl_after:'Support Après-Vente',
     fl_safety:'Sécurité & Licences', fl_regs:'Réglementations Export', fl_dealer:'Partenariat Revendeur',
     tab_specs:'Spécifications', tab_docs:'Documents', tab_ship:'Expédition',
+    quote_badge:'📩 Demande de Devis', quote_h:'Recevez un Prix sous 24h',
+    quote_sub:'Remplissez le formulaire et nous vous envoyons le prix FOB, les photos et le stock disponible.',
+    quote_name:'Votre Nom', quote_country:'Pays', quote_vehicle:'Véhicule Souhaité',
+    quote_port:'Port de Destination', quote_msg:'Message / Quantité',
+    quote_submit:'Envoyer la Demande via WhatsApp',
+    quote_footer:'Votre demande ouvre WhatsApp avec un message pré-rempli. Réponse sous 24h.',
     doc1:'Titre de Propriété & Transfert', doc2:'Déclaration Export MOFCOM', doc3:'Connaissement (B/L)', doc4:'Certificat d\'Origine (CoO)', doc5:'Facture Commerciale + Liste de Colisage', doc6:'Rapport d\'Inspection 200 Points',
     doc_incl:'Inclus', doc_opt:'+ 120$ optionnel',
     pr_fob:'FOB Shanghai', pr_freight:'Fret Maritime (est.)', pr_insurance:'Assurance', pr_cif:'Total CIF (est.)',
@@ -950,6 +1064,12 @@ const T = {
     fl_insp:'فحص ما قبل التصدير', fl_docs:'وثائق التصدير', fl_freight:'الشحن البحري', fl_customs:'التخليص الجمركي', fl_after:'خدمة ما بعد البيع',
     fl_safety:'الأمان والترخيص', fl_regs:'لوائح التصدير', fl_dealer:'شراكة الموزعين',
     tab_specs:'المواصفات', tab_docs:'الوثائق', tab_ship:'الشحن',
+    quote_badge:'📩 طلب عرض سعر', quote_h:'احصل على السعر خلال 24 ساعة',
+    quote_sub:'أدخل بياناتك وسنرسل لك سعر FOB والصور والمخزون المتاح مباشرة.',
+    quote_name:'اسمك', quote_country:'البلد', quote_vehicle:'السيارة المطلوبة',
+    quote_port:'ميناء الوصول', quote_msg:'رسالة / الكمية',
+    quote_submit:'إرسال الطلب عبر واتساب',
+    quote_footer:'سيفتح طلبك واتساب برسالة جاهزة. نرد خلال 24 ساعة.',
     doc1:'سند الملكية ونقل الملكية', doc2:'إقرار تصدير MOFCOM', doc3:'بوليصة الشحن (B/L)', doc4:'شهادة المنشأ (CoO)', doc5:'الفاتورة التجارية + قائمة التعبئة', doc6:'تقرير فحص 200 نقطة',
     doc_incl:'مشمول', doc_opt:'+ 120$ اختياري',
     pr_fob:'سعر FOB شنغهاي', pr_freight:'الشحن البحري (تقديري)', pr_insurance:'التأمين', pr_cif:'إجمالي CIF (تقديري)',
@@ -1023,6 +1143,12 @@ const T = {
     fl_insp:'出口前检测', fl_docs:'出口文件', fl_freight:'海运服务', fl_customs:'清关服务', fl_after:'售后支持',
     fl_safety:'安全与许可', fl_regs:'出口法规', fl_dealer:'经销商合作',
     tab_specs:'规格参数', tab_docs:'出口文件', tab_ship:'运输信息',
+    quote_badge:'📩 询价', quote_h:'24小时内获取报价',
+    quote_sub:'填写信息，我们将直接发送FOB价格、车辆照片和现货库存给您。',
+    quote_name:'您的姓名', quote_country:'国家/地区', quote_vehicle:'意向车型',
+    quote_port:'目的港', quote_msg:'留言 / 数量',
+    quote_submit:'通过WhatsApp发送询价',
+    quote_footer:'点击后将在WhatsApp中自动填写您的询价内容，我们24小时内回复。',
     doc1:'车辆所有权转让证明', doc2:'商务部出口申报', doc3:'提单（B/L）', doc4:'原产地证（CoO）', doc5:'商业发票+装箱单', doc6:'200点检测报告',
     doc_incl:'已包含', doc_opt:'+$120 可选',
     pr_fob:'上海离岸价', pr_freight:'海运费（估算）', pr_insurance:'保险费', pr_cif:'到岸总价（估算）',
@@ -1070,12 +1196,19 @@ const vehicles = [
   { id:11, make:'Jetour',        model:'ShanHai T2 2025 PHEV 206km AWD Wilderness',  year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:28500, emoji:'🚙', img:'img/v11-chery-t8.webp',   ev:true,  hot:true,  premium:false, trans:'DHT Triple Motor', engine:'462ps CATL 43kWh', drive:'AWD', doors:4, seats:5, range_km:206  },
   { id:12, make:'Geely',         model:'Monjaro 2024 2.0T AWD',                      year:2024, mileage:5800,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:16200, emoji:'🚙', img:'img/v12-geely.webp',      ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0T 238hp',        drive:'AWD', doors:4, seats:5, range_km:null },
   { id:13, make:'Great Wall',    model:'Tank 700 2024 Hi4-T Arctic Edition',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:78000, emoji:'🚙', img:'img/v20-tank700.webp',    ev:true,  hot:true,  premium:true,  trans:'10-Speed Auto', engine:'3.0T V6+163ps Motor', drive:'4WD', doors:4, seats:5, range_km:null },
-  { id:14, make:'Jetour',        model:'Da Sheng 2026 1.5T DCT Black Knight',        year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:10500, emoji:'🚙', img:'img/v14-omoda-e5.webp',   ev:false, hot:false, premium:false, trans:'DCT 6-Speed',  engine:'1.5T 115kW/230Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:14, make:'Jetour',        model:'Da Sheng 2026 1.5T DCT Black Knight',        year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:10500, emoji:'🚙', img:'https://www.nvncar.com/data/watermark/main/20251009/68e7836de8872_.webp', ev:false, hot:false, premium:false, trans:'DCT 6-Speed',  engine:'1.5T 115kW/230Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
   { id:15, make:'Volkswagen',    model:'Tuyue 2025 300TSI',                          year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:13500, emoji:'🚙', img:'img/v21-vw-tuyue.webp',   ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 118kW/250Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
   { id:16, make:'Livan',         model:'X3 Pro 2024 1.5L CVT',                       year:2024, mileage:8200,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:7200,  emoji:'🚙', img:'img/v22-livan.webp',      ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L 83kW/143Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
   { id:17, make:'MAEXTRO',       model:'S800 2025 Extended Range Star Glory',        year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'Sedan',     price:68000, emoji:'🚗', img:'img/v17-maextro.webp',    ev:true,  hot:true,  premium:true,  trans:'Triple Motor', engine:'635kW EREV 65kWh CATL', drive:'AWD', doors:4, seats:4, range_km:965  },
   { id:18, make:'Trumpchi',      model:'Xiangwang S7 2025 PHEV AWD',                 year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:32000, emoji:'🚙', img:'img/v18-trumpchi.webp',   ev:true,  hot:false, premium:false, trans:'DHT Dual Motor', engine:'368kW 501ps LFP 36kWh', drive:'AWD', doors:4, seats:5, range_km:180  },
   { id:19, make:'Jetour',        model:'X70 Plus 2026 1.5T DCT 7-Seat',             year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, emoji:'🚙', img:'img/v19-jetour.webp',     ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 135kW/290Nm',  drive:'FWD', doors:4, seats:7, range_km:null },
+  { id:20, make:'MG',           model:'MG5 2023 Trophy 1.5T DCT',                  year:2023, mileage:21000, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'Sedan',     price:8900,  emoji:'🚗', img:'https://www.nvncar.com/data/watermark/main/20251011/68e9cd93033c2_.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 110kW/220Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:21, make:'Leapmotor',    model:'Formula Leopard Ti7 2025 PHEV Performance', year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, emoji:'🚙', img:'https://www.nvncar.com/data/watermark/main/20251015/68ef5a6e6892a_.webp', ev:true,  hot:true,  premium:false, trans:'DHT Triple Motor', engine:'540kW 734ps CATL LFP', drive:'AWD', doors:4, seats:5, range_km:160  },
+  { id:22, make:'BYD',          model:'Han EV 2024 Long Range AWD',               year:2024, mileage:4200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:22800, emoji:'🚗', img:null, ev:true,  hot:true,  premium:true,  trans:'1-Speed Auto', engine:'380kW Dual Motor',    drive:'AWD', doors:4, seats:5, range_km:605  },
+  { id:23, make:'BYD',          model:'Dolphin 2024 Standard Range',               year:2024, mileage:7600,  condition:'Used', type:'EV',      fuel:'Electric', body:'Hatchback', price:9800,  emoji:'🚗', img:null, ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'70kW Electric',       drive:'FWD', doors:4, seats:5, range_km:301  },
+  { id:24, make:'Chery',        model:'Tiggo 8 Pro Max 2024 2.0T AWD 7-Seat',     year:2024, mileage:9500,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:16800, emoji:'🚙', img:null, ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0T 197kW/390Nm',   drive:'AWD', doors:4, seats:7, range_km:null },
+  { id:25, make:'Honda',        model:'CR-V 2024 1.5T 4WD',                       year:2024, mileage:6300,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:19500, emoji:'🚙', img:null, ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5T 142kW/243Nm',   drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:26, make:'Toyota',       model:'Camry 2024 2.5G Luxury',                   year:2024, mileage:5100,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:21500, emoji:'🚗', img:null, ev:false, hot:false, premium:true,  trans:'8-Speed Auto', engine:'2.5L 152kW/243Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────

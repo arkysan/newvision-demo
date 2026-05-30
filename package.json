@@ -1,0 +1,26 @@
+{
+  "name": "newvision-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arkysan/newvision-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/arkysan/newvision-demo/issues"
+  },
+  "homepage": "https://github.com/arkysan/newvision-demo#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "lighthouse": "^13.3.0",
+    "sharp": "^0.34.5"
+  }
+}
