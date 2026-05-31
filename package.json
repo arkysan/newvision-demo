@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preview": "node scripts/serve-static.js",
+    "test": "node scripts/newvision-static-check.js",
+    "check:pcmaster": "node scripts/pcmaster-contract-check.js"
   },
   "repository": {
     "type": "git",
@@ -17,10 +19,13 @@
   "bugs": {
     "url": "https://github.com/arkysan/newvision-demo/issues"
   },
-  "homepage": "https://github.com/arkysan/newvision-demo#readme",
+  "homepage": "https://arkysan.github.io/newvision-demo/",
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "lighthouse": "^13.3.0",
     "sharp": "^0.34.5"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.4.0"
   }
 }

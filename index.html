@@ -6,10 +6,10 @@
   <title>New Vision 新视界 — China Car Export | Buy Direct from Yiwu</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="/manifest.webmanifest" />
-  <link rel="canonical" href="https://newvision-demo.vercel.app/" />
-  <link rel="alternate" hreflang="en" href="https://newvision-demo.vercel.app/" />
-  <link rel="alternate" hreflang="zh-CN" href="https://newvision-demo.vercel.app/?lang=zh-CN" />
-  <link rel="alternate" hreflang="x-default" href="https://newvision-demo.vercel.app/" />
+  <link rel="canonical" href="https://arkysan.github.io/newvision-demo/" />
+  <link rel="alternate" hreflang="en" href="https://arkysan.github.io/newvision-demo/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://arkysan.github.io/newvision-demo/?lang=zh-CN" />
+  <link rel="alternate" hreflang="x-default" href="https://arkysan.github.io/newvision-demo/" />
   <meta name="theme-color" content="#0f1f12" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -22,17 +22,17 @@
   <meta property="og:title" content="New Vision 新视界 — China Car Export">
   <meta property="og:description" content="Buy Chinese vehicles direct. BYD, Tesla, BMW, Li Auto, Xiaomi and 16+ brands. Full export service from Yiwu to your port.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://newvision-demo.vercel.app/">
+  <meta property="og:url" content="https://arkysan.github.io/newvision-demo/">
   <meta property="og:site_name" content="New Vision 新视界">
-  <meta property="og:image" content="https://newvision-demo.vercel.app/og-image-20260531.png">
-  <meta property="og:image:secure_url" content="https://newvision-demo.vercel.app/og-image-20260531.png">
+  <meta property="og:image" content="https://arkysan.github.io/newvision-demo/og-image-20260531.png">
+  <meta property="og:image:secure_url" content="https://arkysan.github.io/newvision-demo/og-image-20260531.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="New Vision 新视界 — China Car Export">
   <meta name="twitter:description" content="Buy Chinese vehicles direct. BYD, Tesla, BMW, Li Auto, Xiaomi and 16+ brands. Full export service from Yiwu to your port.">
-  <meta name="twitter:image" content="https://newvision-demo.vercel.app/og-image-20260531.png">
+  <meta name="twitter:image" content="https://arkysan.github.io/newvision-demo/og-image-20260531.png">
   <link rel="preload" href="img/thumbs/v01-tesla.webp" as="image">
   <link rel="preload" href="img/thumbs/v02-byd-seal.webp" as="image">
   <style>
@@ -56,6 +56,7 @@
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    section, .info-card { scroll-margin-top: 82px; }
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; }
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; font-family: inherit; }
@@ -89,7 +90,7 @@
     .nav-link { padding: 7px 13px; border-radius: 7px; font-size: 14px; color: var(--muted2); transition: all .2s; }
     .nav-link:hover { background: var(--surface2); color: var(--text); }
     .nav-lang { display: flex; gap: 4px; }
-    .lang-btn { padding: 5px 9px; border-radius: 6px; font-size: 12px; background: none; border: 1px solid var(--border); color: var(--muted2); transition: all .2s; }
+    .lang-btn { min-width: 36px; min-height: 36px; padding: 5px 9px; border-radius: 6px; font-size: 12px; background: none; border: 1px solid var(--border); color: var(--muted2); transition: all .2s; }
     .lang-btn.active, .lang-btn:hover { border-color: var(--green); color: var(--green); background: rgba(76,175,80,0.08); }
     #google_translate_element{position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden}
     iframe.goog-te-banner-frame{display:none!important}
@@ -100,7 +101,7 @@
     .btn-cn:hover { background: var(--green); }
     .china-strip { background: #f7fbf7; border-bottom: 1px solid var(--border); padding: 8px 24px; font-size: 12px; color: var(--muted2); display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
     .china-strip strong { color: var(--green2); }
-    .china-strip button { border: 1px solid var(--border2); background: #fff; color: var(--green2); border-radius: 999px; padding: 5px 11px; font-size: 12px; font-weight: 700; }
+    .china-strip button { min-height: 36px; border: 1px solid var(--border2); background: #fff; color: var(--green2); border-radius: 999px; padding: 5px 11px; font-size: 12px; font-weight: 700; }
 
     /* ── HERO ── */
     .hero { position: relative; overflow: hidden; padding: 64px 24px 72px; text-align: center; }
@@ -300,16 +301,40 @@
 
     /* ── MOBILE APP BAR ── */
     .mobile-app-bar { display: none; }
-    .mobile-app-btn { text-decoration: none; border: none; background: transparent; color: var(--muted2); font: 700 11px 'Plus Jakarta Sans', system-ui, sans-serif; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border-radius: 12px; padding: 6px 4px; cursor: pointer; }
-    .mobile-app-btn span { width: 24px; height: 24px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: var(--surface2); color: var(--green2); font-size: 9px; font-weight: 900; letter-spacing: 0; }
-    .mobile-app-btn.primary { background: var(--green3); color: #fff; }
-    .mobile-app-btn.primary span { background: rgba(255,255,255,.18); color: #fff; }
+    .mobile-app-btn { text-decoration: none; border: 1px solid transparent; background: transparent; color: var(--muted2); font: 800 10px 'Plus Jakarta Sans', system-ui, sans-serif; min-width: 0; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border-radius: 17px; padding: 5px 2px; cursor: pointer; transition: background .18s, color .18s, border-color .18s, transform .18s, box-shadow .18s; }
+    .mnav-icon { width: 21px; height: 21px; display: block; flex: 0 0 auto; stroke: currentColor; stroke-width: 2.15; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .mobile-app-btn strong { line-height: 1; white-space: nowrap; letter-spacing: 0; font-size: 10px; }
+    .mobile-app-btn:active { transform: translateY(1px); }
+    .mobile-app-btn.primary { background: linear-gradient(180deg, var(--green3), var(--green)); border-color: rgba(27,94,32,.12); color: #fff; box-shadow: 0 12px 24px rgba(46,125,50,.22); transform: translateY(-6px); min-height: 58px; border-radius: 20px; }
+    .mobile-lang-panel { display: none; }
+    .mobile-lang-panel.open { display: grid; }
+    .mobile-lang-choice { border: 1px solid var(--border); background: #fff; color: var(--muted2); border-radius: 13px; min-height: 42px; font-weight: 800; font-size: 12px; }
+    .mobile-lang-choice.active { border-color: var(--green); color: var(--green); background: rgba(76,175,80,.08); }
+    body.modal-open .mobile-app-bar, body.modal-open .mobile-lang-panel { display: none !important; }
+
+    /* ── QUOTE FORM ── */
+    .quote-section { background: var(--surface); border-top: 1px solid var(--border); padding: 64px 24px; }
+    .quote-shell { max-width: 640px; margin: 0 auto; }
+    .quote-head { text-align: center; margin-bottom: 36px; }
+    .quote-kicker { display: inline-flex; align-items: center; gap: 8px; background: rgba(46,125,50,.08); border: 1px solid var(--border2); border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 14px; }
+    .quote-title { font-size: clamp(22px,4vw,32px); font-weight: 800; line-height: 1.2; margin-bottom: 10px; }
+    .quote-sub { color: var(--muted); font-size: 14px; }
+    .quote-form { display: flex; flex-direction: column; gap: 14px; }
+    .quote-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .quote-label { display: block; font-size: 12px; font-weight: 800; color: var(--muted2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .06em; }
+    .quote-input { width: 100%; background: #fff; border: 1.5px solid var(--border); border-radius: 9px; padding: 11px 14px; font-size: 14px; color: var(--text); outline: none; transition: border-color .2s, box-shadow .2s; font-family: inherit; }
+    .quote-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(76,175,80,.10); }
+    textarea.quote-input { resize: vertical; min-height: 96px; }
+    .quote-submit { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--green); color: #fff; border: none; border-radius: 11px; padding: 14px 24px; font-size: 15px; font-weight: 800; cursor: pointer; transition: background .2s; width: 100%; }
+    .quote-submit:hover { background: var(--green2); }
+    .quote-dispatch { display: none; border: 1px solid var(--border); border-radius: 10px; background: #fff; padding: 12px; gap: 8px; flex-direction: column; }
+    .quote-foot { text-align: center; font-size: 12px; color: var(--muted); }
 
     /* ── MODAL ── */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 200; display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 20px; }
     .modal-overlay.open { display: flex; }
     .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 880px; margin: auto; overflow: hidden; position: relative; }
-    .modal-close { position: absolute; top: 12px; right: 12px; width: 30px; height: 30px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); color: var(--muted2); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; font-size: 15px; }
+    .modal-close { position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); color: var(--muted2); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; font-size: 15px; }
     .modal-close:hover { color: var(--text); }
     .modal-gallery { height: 300px; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 80px; position: relative; overflow: hidden; }
     .modal-gallery img { width: 100%; height: 100%; object-fit: cover; }
@@ -355,6 +380,14 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
+      nav { gap: 12px; }
+      .nav-search, .nav-links { display: none; }
+      .nav-lang { margin-left: auto; }
+      .btn-wa { margin-left: 0; }
+      .trust { flex-wrap: wrap; overflow-x: visible; padding: 0 14px; }
+      .trust-item { flex: 1 1 260px; min-width: 0; }
+      .trust-text { min-width: 0; }
+      .trust-text strong, .trust-text span { white-space: normal; }
       .stats { grid-template-columns: repeat(2,1fr); }
       .showroom-inner { grid-template-columns: 1fr; }
       .showroom-photo { height: 260px; }
@@ -366,14 +399,13 @@
       .categories { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
-      body { padding-bottom: 88px; }
+      body { padding-bottom: 78px; }
+      section, .info-card { scroll-margin-top: 74px; }
       nav { height: 58px; padding: 0 14px; gap: 10px; }
       .nav-brand { gap: 8px; }
       .nav-brand svg { width: 36px; height: 30px; }
       .nav-brand-en { font-size: 14px; letter-spacing: 1.4px; }
       .nav-brand-zh { font-size: 10px; }
-      .nav-links, .nav-search { display: none; }
-      .nav-lang { margin-left: auto; }
       .btn-wa, .btn-cn { display: none; }
       .lang-btn { padding: 5px 7px; font-size: 11px; }
       .demo-banner, .china-strip { display: none !important; }
@@ -388,6 +420,14 @@
       .hero-tags { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
       .hero-tags::-webkit-scrollbar { display: none; }
       .hero-tag { flex: 0 0 auto; }
+      .category-band, .stats, .trust, .brand-section { display: none !important; }
+      #inventory { padding-top: 18px; }
+      #inventory .section-header { margin-bottom: 12px; }
+      #inventory .section-sub { display: none; }
+      #inventory .filter-select { width: 100%; min-height: 40px; }
+      #filterBar { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; margin-bottom: 12px; scrollbar-width: none; }
+      #filterBar::-webkit-scrollbar { display: none; }
+      #filterBar .filter-btn { flex: 0 0 auto; min-height: 38px; padding: 7px 12px; }
       .categories { padding: 12px 14px 18px; gap: 8px; }
       .cat-card { padding: 13px; border-radius: 10px; }
       .cat-icon { width: 36px; height: 36px; }
@@ -401,20 +441,43 @@
       #floatWA { display: none !important; }
       .mobile-app-bar {
         position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        left: 10px;
+        right: 10px;
+        bottom: 8px;
         z-index: 99998;
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: .9fr .9fr 1.24fr .9fr;
         gap: 6px;
-        min-height: 72px;
-        padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
-        background: rgba(255,255,255,.96);
-        border-top: 1px solid var(--border);
-        box-shadow: 0 -10px 28px rgba(27,94,32,.10);
-        backdrop-filter: blur(14px);
+        min-height: 68px;
+        padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+        background: rgba(255,255,255,.98);
+        border: 1px solid rgba(219,229,219,.95);
+        border-radius: 24px;
+        box-shadow: 0 14px 34px rgba(27,94,32,.16);
+        backdrop-filter: blur(16px);
       }
+      .mobile-app-btn:hover, .mobile-app-btn:focus-visible { background: rgba(27,94,32,.06); border-color: rgba(27,94,32,.12); }
+      .mobile-app-btn.primary:hover, .mobile-app-btn.primary:focus-visible { background: var(--green2); color: #fff; }
+      .mobile-lang-panel {
+        position: fixed;
+        left: 14px;
+        right: 14px;
+        bottom: 88px;
+        z-index: 99999;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        padding: 10px;
+        background: rgba(255,255,255,.98);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: 0 14px 34px rgba(27,94,32,.16);
+        backdrop-filter: blur(16px);
+      }
+      .quote-section { padding: 36px 14px 104px; }
+      .quote-head { text-align: left; margin-bottom: 22px; }
+      .quote-row { grid-template-columns: 1fr; gap: 12px; }
+      .quote-form { gap: 12px; }
+      .quote-submit { min-height: 52px; }
     }
   </style>
 </head>
@@ -457,25 +520,44 @@
     <button class="lang-btn" data-lang="FR" onclick="setLang('FR',this)">FR</button>
     <button class="lang-btn" data-lang="ZH" onclick="setLang('ZH',this)">中文</button>
   </div>
-  <button class="btn-wa" onclick="openWA('Hi New Vision, I want to buy a car from China. Please help me.')">
+  <button class="btn-wa" onclick="goToQuote({ message: 'Hi New Vision, I want to buy a car from China. Please help me.' })">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
     WhatsApp
   </button>
   <button class="btn-cn" onclick="copyChinaContact()">微信/电话</button>
 </nav>
 
+<div class="mobile-lang-panel" id="mobileLangPanel" aria-hidden="true">
+  <button class="mobile-lang-choice active" data-lang-choice="EN" type="button" onclick="setLang('EN', document.querySelector('.lang-btn[data-lang=&quot;EN&quot;]'))">EN</button>
+  <button class="mobile-lang-choice" data-lang-choice="AR" type="button" onclick="setLang('AR', document.querySelector('.lang-btn[data-lang=&quot;AR&quot;]'))">AR</button>
+  <button class="mobile-lang-choice" data-lang-choice="FR" type="button" onclick="setLang('FR', document.querySelector('.lang-btn[data-lang=&quot;FR&quot;]'))">FR</button>
+  <button class="mobile-lang-choice" data-lang-choice="ZH" type="button" onclick="setLang('ZH', document.querySelector('.lang-btn[data-lang=&quot;ZH&quot;]'))">中文</button>
+</div>
+
 <div class="mobile-app-bar" role="navigation" aria-label="Mobile app actions">
-  <a class="mobile-app-btn" href="#inventory"><span>CAR</span><strong data-i18n="mnav_cars">Cars</strong></a>
-  <button class="mobile-app-btn" type="button" onclick="openMobileFilters()"><span>FLT</span><strong data-i18n="mnav_filter">Filter</strong></button>
-  <button class="mobile-app-btn primary" type="button" onclick="openWA('Hi New Vision, I want current stock and pricing. Please send details.')"><span>WA</span><strong data-i18n="mnav_quote">Quote</strong></button>
-  <a class="mobile-app-btn" href="#info-safety"><span>DOC</span><strong data-i18n="mnav_trust">Trust</strong></a>
+  <a class="mobile-app-btn" href="#inventory" aria-label="Cars">
+    <svg class="mnav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l1.4-4.2A2.5 2.5 0 0 1 8.8 6h6.4a2.5 2.5 0 0 1 2.4 1.8L19 12"/><path d="M4 12h16v5H4z"/><path d="M7 17v1.5M17 17v1.5"/><circle cx="7.5" cy="14.5" r="1"/><circle cx="16.5" cy="14.5" r="1"/></svg>
+    <strong data-i18n="mnav_cars">Cars</strong>
+  </a>
+  <button class="mobile-app-btn" type="button" onclick="openMobileFilters()" aria-label="Filter">
+    <svg class="mnav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10"/><path d="M18 7h2"/><circle cx="16" cy="7" r="2"/><path d="M4 17h2"/><path d="M10 17h10"/><circle cx="8" cy="17" r="2"/></svg>
+    <strong data-i18n="mnav_filter">Filter</strong>
+  </button>
+  <button class="mobile-app-btn primary" type="button" onclick="goToQuote({ message: 'Hi New Vision, I want current stock and pricing. Please send details.' })" aria-label="Quote">
+    <svg class="mnav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.7 8.7 0 0 1-3.9-.9L3 20l1.4-4.5A8.2 8.2 0 0 1 3.5 12a8.5 8.5 0 0 1 17 0Z"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>
+    <strong data-i18n="mnav_quote">Quote</strong>
+  </button>
+  <button class="mobile-app-btn" type="button" onclick="toggleMobileLanguage()" aria-label="Language">
+    <svg class="mnav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h10"/><path d="M9 5c-.2 3.8-1.7 6.8-5 9"/><path d="M6 9c1.2 2 3 3.7 5.5 5"/><path d="M13 19l4-9 4 9"/><path d="M14.5 16h5"/></svg>
+    <strong data-i18n="mnav_lang">Lang</strong>
+  </button>
 </div>
 
 <main>
 <!-- ── DEMO BANNER ── -->
 <div class="demo-banner" style="background:rgba(76,175,80,0.07);border-bottom:1px solid rgba(76,175,80,0.15);padding:7px 24px;font-size:12px;color:var(--muted2);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">
   <span><strong style="color:var(--green2)" data-i18n="demo_label">Demo Site</strong> — <span data-i18n="demo_notice">Sample inventory for illustration purposes.</span></span>
-  <a onclick="openWA('Hi New Vision, I want to see your full available stock list. Please send details.')" style="color:var(--green);cursor:pointer;text-decoration:underline;font-weight:600;" data-i18n="demo_cta">Contact us on WhatsApp for current stock & pricing →</a>
+  <a onclick="goToQuote({ message: 'Hi New Vision, I want to see your full available stock list. Please send details.' })" style="color:var(--green);cursor:pointer;text-decoration:underline;font-weight:600;" data-i18n="demo_cta">Contact us on WhatsApp for current stock & pricing →</a>
 </div>
 <div class="china-strip">
   <span><strong>中国访问优化</strong> · 中文内容本地加载 · 微信/电话：+86 137 3561 1862 · 地址：义乌市工人北路525-527号</span>
@@ -546,7 +628,7 @@
 </div>
 
 <!-- ── CATEGORIES ── -->
-<div style="background:var(--surface);border-bottom:1px solid var(--border)">
+<div class="category-band" style="background:var(--surface);border-bottom:1px solid var(--border)">
   <div class="categories">
     <div class="cat-card" onclick="filterTag('EV')">
       <div class="cat-icon">EV</div>
@@ -585,7 +667,7 @@
 </div>
 
 <!-- ── BRAND PARTNERS ── -->
-<section>
+<section class="brand-section">
   <div class="section-header">
     <div>
       <h2 class="section-title" data-i18n-html="sec_brands">Brand <span>Partners</span></h2>
@@ -663,7 +745,7 @@
         <div class="showroom-stat"><div class="showroom-stat-num">16+</div><div class="showroom-stat-label" data-i18n="ss_brands">Brand Partners</div></div>
         <div class="showroom-stat"><div class="showroom-stat-num">10</div><div class="showroom-stat-label" data-i18n="ss_certs">Integrity Certificates</div></div>
       </div>
-      <button class="btn-lg btn-green" onclick="openWA((T[lang]||T.EN).wa_generic)" data-i18n="showroom_btn">Contact Our Team →</button>
+      <button class="btn-lg btn-green" onclick="goToQuote({ message: (T[lang]||T.EN).wa_generic })" data-i18n="showroom_btn">Contact Our Team →</button>
     </div>
   </div>
 </div>
@@ -684,6 +766,79 @@
     </div>
   </section>
 </div>
+
+<!-- QUOTE FORM -->
+<section id="quote" class="quote-section">
+  <div class="quote-shell">
+    <div class="quote-head">
+      <div class="quote-kicker" data-i18n="quote_badge">Request a Quote</div>
+      <h2 class="quote-title" data-i18n="quote_h">Get Pricing in 24 Hours</h2>
+      <p class="quote-sub" data-i18n="quote_sub">Fill in your details and we'll send FOB pricing, photos, and available stock directly to you.</p>
+    </div>
+
+    <form id="quoteForm" class="quote-form" onsubmit="submitQuote(event)">
+      <div class="quote-row">
+        <div>
+          <label class="quote-label" for="qName"><span data-i18n="quote_name">Your Name</span> *</label>
+          <input id="qName" class="quote-input" required autocomplete="name" placeholder="John Smith" data-i18n-placeholder="qph_name" />
+        </div>
+        <div>
+          <label class="quote-label" for="qCountry"><span data-i18n="quote_country">Country</span> *</label>
+          <input id="qCountry" class="quote-input" required autocomplete="country-name" placeholder="Nigeria, UAE, Brazil..." data-i18n-placeholder="qph_country" />
+        </div>
+      </div>
+
+      <div class="quote-row">
+        <div>
+          <label class="quote-label" for="qContact"><span data-i18n="quote_contact">WhatsApp / Phone</span> *</label>
+          <input id="qContact" class="quote-input" required autocomplete="tel" inputmode="tel" placeholder="+234 800 000 0000" data-i18n-placeholder="qph_contact" />
+        </div>
+        <div>
+          <label class="quote-label" for="qPort"><span data-i18n="quote_port">Destination Port</span> *</label>
+          <input id="qPort" class="quote-input" required placeholder="Lagos, Dubai, Mombasa, Santos..." data-i18n-placeholder="qph_port" />
+        </div>
+      </div>
+
+      <div>
+        <label class="quote-label" for="qVehicle"><span data-i18n="quote_vehicle">Vehicle of Interest</span> *</label>
+        <select id="qVehicle" class="quote-input" required>
+          <option value="">Select vehicle or fleet order</option>
+          <option>Tesla Model Y L 2026</option>
+          <option>BYD Seal 2024</option>
+          <option>BMW X3 2025</option>
+          <option>Mercedes-Benz C 260 L 2025</option>
+          <option>Li Auto L9 2025 Ultra</option>
+          <option>Xiaomi SU7 2024</option>
+          <option>MAEXTRO S800 2025</option>
+          <option>Leapmotor Ti7 2025 PHEV</option>
+          <option>Great Wall Tank 700 2024</option>
+          <option>Jetour ShanHai T2 2025 PHEV</option>
+          <option>Jetour X70 Plus 2026</option>
+          <option>Leapmotor Leopard 5 2025</option>
+          <option>Trumpchi Xiangwang S7 2025</option>
+          <option>Volkswagen Passat 2025</option>
+          <option>Volkswagen Tuyue 2025</option>
+          <option>MG5 2023</option>
+          <option>Multiple vehicles / Fleet order</option>
+          <option>Other (specify in message)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="quote-label" for="qMsg"><span data-i18n="quote_msg">Message / Quantity</span> *</label>
+        <textarea id="qMsg" class="quote-input" required rows="3" placeholder="How many units? Any specific trim, color, or requirements?" data-i18n-placeholder="qph_msg"></textarea>
+      </div>
+
+      <button class="quote-submit" type="submit">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        <span data-i18n="quote_submit">Send Quote Request via WhatsApp</span>
+      </button>
+
+      <div id="quoteDispatch" class="quote-dispatch"></div>
+      <p class="quote-foot" data-i18n="quote_footer">Your request opens WhatsApp with a pre-filled message. We respond within 24 hours.</p>
+    </form>
+  </div>
+</section>
 
 <!-- ── ROUTES ── -->
 <section id="routes">
@@ -790,7 +945,7 @@
       <p data-i18n="cta_p">Tell us the model, quantity, and destination port. We respond on WhatsApp with FOB price, CIF estimate, and inspection options. No commitment required.</p>
     </div>
     <div class="cta-actions">
-      <button class="btn-lg btn-green" onclick="openWA('Hi New Vision team, I want to import cars from China. Please send me pricing and available stock.')">
+      <button class="btn-lg btn-green" onclick="goToQuote({ message: 'Hi New Vision team, I want to import cars from China. Please send me pricing and available stock.' })">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         WhatsApp Quote Now
       </button>
@@ -900,76 +1055,8 @@
   </div>
 </section>
 
-<!-- ── QUOTE FORM ── -->
-<section id="quote" style="background:var(--surface);border-top:1px solid var(--border);padding:64px 24px;">
-  <div style="max-width:640px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:36px;">
-      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(46,125,50,0.08);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;">
-        Request a Quote
-      </div>
-      <h2 style="font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.2;margin-bottom:10px;">Get Pricing in 24 Hours</h2>
-      <p style="color:var(--muted);font-size:14px;">Fill in your details and we'll send FOB pricing, photos, and available stock directly to you.</p>
-    </div>
-
-    <form id="quoteForm" style="display:flex;flex-direction:column;gap:14px;" onsubmit="submitQuote(event)">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-        <div>
-          <label style="display:block;font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Your Name *</label>
-          <input id="qName" required placeholder="John Smith" style="width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'" />
-        </div>
-        <div>
-          <label style="display:block;font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Country *</label>
-          <input id="qCountry" required placeholder="Nigeria, UAE, Brazil…" style="width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'" />
-        </div>
-      </div>
-
-      <div>
-        <label style="display:block;font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Vehicle of Interest</label>
-        <select id="qVehicle" style="width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;appearance:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'">
-          <option value="">Any / Not sure yet</option>
-          <option>Tesla Model Y L 2026</option>
-          <option>BYD Seal 2024</option>
-          <option>BMW X3 2025</option>
-          <option>Mercedes-Benz C 260 L 2025</option>
-          <option>Li Auto L9 2025 Ultra</option>
-          <option>Xiaomi SU7 2024</option>
-          <option>MAEXTRO S800 2025</option>
-          <option>Leapmotor Ti7 2025 PHEV</option>
-          <option>Great Wall Tank 700 2024</option>
-          <option>Jetour ShanHai T2 2025 PHEV</option>
-          <option>Jetour X70 Plus 2026</option>
-          <option>Leapmotor Leopard 5 2025</option>
-          <option>Trumpchi Xiangwang S7 2025</option>
-          <option>Volkswagen Passat 2025</option>
-          <option>Volkswagen Tuyue 2025</option>
-          <option>MG5 2023</option>
-          <option>Multiple vehicles / Fleet order</option>
-          <option>Other (specify in message)</option>
-        </select>
-      </div>
-
-      <div>
-        <label style="display:block;font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Destination Port</label>
-        <input id="qPort" placeholder="Lagos, Dubai, Mombasa, Santos…" style="width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'" />
-      </div>
-
-      <div>
-        <label style="display:block;font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Message / Quantity</label>
-        <textarea id="qMsg" rows="3" placeholder="How many units? Any specific trim, color, or requirements?" style="width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;resize:vertical;font-family:inherit;transition:border-color .2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'"></textarea>
-      </div>
-
-      <button type="submit" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s;width:100%;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-        Send Quote Request via WhatsApp
-      </button>
-
-      <p style="text-align:center;font-size:12px;color:var(--muted);">Your request opens WhatsApp with a pre-filled message. We respond within 24 hours.</p>
-    </form>
-  </div>
-</section>
-
 <!-- ── FLOATING WHATSAPP ── -->
-<a id="floatWA" href="https://wa.me/8613735611862?text=Hi%20New%20Vision%2C%20I%20want%20to%20buy%20a%20car%20from%20China.%20Please%20help%20me." target="_blank" rel="noopener"
+<a id="floatWA" href="#quote" onclick="event.preventDefault();goToQuote({ message: 'Hi New Vision, I want to buy a car from China. Please help me.' })"
   style="display:none;position:fixed;bottom:24px;right:24px;z-index:999;background:#25D366;color:#fff;border-radius:50px;padding:12px 20px 12px 14px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.45);align-items:center;gap:9px;transition:transform .2s,box-shadow .2s;">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
   WhatsApp
@@ -990,15 +1077,151 @@
 </script>
 
 <script>
+const SALES_WHATSAPP_RECIPIENTS = [
+  { name: 'New Vision Sales', number: '8613735611862' },
+  { name: 'Eissah', number: '15558694441' },
+  { name: 'Andy', number: '15595107788' },
+];
+let lastQuoteText = '';
+
+function whatsappUrl(number, msg) {
+  return `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
+function copyLastQuoteMessage() {
+  if (!lastQuoteText) return;
+  navigator.clipboard?.writeText(lastQuoteText)
+    .then(() => showToast((T[lang] || T.EN).quote_copied || T.EN.quote_copied))
+    .catch(() => showToast(lastQuoteText));
+}
+
+function appendQuoteMessage(message) {
+  const field = document.getElementById('qMsg');
+  if (!field || !message) return;
+  if (!field.value.trim()) field.value = message;
+  else if (!field.value.includes(message)) field.value = `${field.value.trim()}\n${message}`;
+}
+
+function quoteVehicleLabel(v) {
+  return `${v.year} ${v.make} ${v.model}`;
+}
+
+function populateQuoteVehicles() {
+  const field = document.getElementById('qVehicle');
+  if (!field || !Array.isArray(vehicles)) return;
+  const previous = field.value;
+  field.innerHTML = '';
+  const t = T[lang] || T.EN;
+  const selectOption = new Option(t.qopt_select_vehicle || T.EN.qopt_select_vehicle, '');
+  selectOption.dataset.i18n = 'qopt_select_vehicle';
+  field.appendChild(selectOption);
+  vehicles.forEach(v => {
+    const label = quoteVehicleLabel(v);
+    field.appendChild(new Option(label, label));
+  });
+  const fleetOption = new Option(t.qopt_fleet || T.EN.qopt_fleet, t.qopt_fleet || T.EN.qopt_fleet);
+  fleetOption.dataset.i18n = 'qopt_fleet';
+  field.appendChild(fleetOption);
+  const otherOption = new Option(t.qopt_other || T.EN.qopt_other, t.qopt_other || T.EN.qopt_other);
+  otherOption.dataset.i18n = 'qopt_other';
+  field.appendChild(otherOption);
+  if (previous && Array.from(field.options).some(opt => opt.value === previous)) field.value = previous;
+}
+
+function currentVisibleVehicle() {
+  const cards = Array.from(document.querySelectorAll('.vehicle-card[data-vehicle-id]'));
+  if (!cards.length) return null;
+  const visible = cards
+    .map(card => ({ card, rect: card.getBoundingClientRect() }))
+    .filter(item => item.rect.bottom > 90 && item.rect.top < window.innerHeight - 110)
+    .sort((a, b) => Math.abs(a.rect.top - 96) - Math.abs(b.rect.top - 96))[0];
+  if (!visible) return null;
+  const id = Number(visible.card.dataset.vehicleId);
+  return vehicles.find(v => v.id === id) || null;
+}
+
+function setQuoteVehicleValue(vehicleName) {
+  const field = document.getElementById('qVehicle');
+  if (!field || !vehicleName) return;
+  const match = Array.from(field.options).find(opt => opt.textContent.trim() === vehicleName || opt.value === vehicleName);
+  if (match) {
+    field.value = match.value || match.textContent;
+    return;
+  }
+  const other = Array.from(field.options).find(opt => opt.dataset.i18n === 'qopt_other' || /Other/i.test(opt.textContent));
+  if (other) field.value = other.value || other.textContent;
+  appendQuoteMessage(`Vehicle requested: ${vehicleName}`);
+}
+
+function goToQuote(prefill = {}) {
+  if (typeof closeModal === 'function') closeModal();
+  const quote = document.getElementById('quote');
+  const visibleVehicle = prefill.vehicle ? null : currentVisibleVehicle();
+  if (prefill.vehicle) setQuoteVehicleValue(prefill.vehicle);
+  else if (visibleVehicle) {
+    const vehicle = quoteVehicleLabel(visibleVehicle);
+    setQuoteVehicleValue(vehicle);
+    appendQuoteMessage(`Interested in: ${vehicle} at FOB ${fmt(visibleVehicle.price)}. Please send a full quote.`);
+  }
+  if (prefill.port) document.getElementById('qPort').value = prefill.port;
+  if (prefill.message) appendQuoteMessage(prefill.message);
+  if (quote) {
+    const top = Math.max(0, quote.getBoundingClientRect().top + window.scrollY - 84);
+    window.scrollTo({ top, behavior: 'smooth' });
+    setTimeout(() => {
+      if (Math.abs(quote.getBoundingClientRect().top - 84) > 96) window.scrollTo({ top, behavior: 'auto' });
+      document.getElementById('qName')?.focus({ preventScroll: true });
+    }, 260);
+    setTimeout(() => {
+      if (Math.abs(quote.getBoundingClientRect().top - 84) > 140) window.scrollTo({ top, behavior: 'auto' });
+    }, 900);
+  }
+}
+
+function renderQuoteDispatch(text) {
+  const box = document.getElementById('quoteDispatch');
+  if (!box) return;
+  lastQuoteText = text;
+  const title = (T[lang] || T.EN).quote_dispatch || T.EN.quote_dispatch;
+  const copy = (T[lang] || T.EN).quote_copy || T.EN.quote_copy;
+  const links = SALES_WHATSAPP_RECIPIENTS.map(person =>
+    `<a href="${whatsappUrl(person.number, text)}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;border:1px solid var(--border2);border-radius:8px;padding:9px 10px;color:var(--green);font-weight:800;text-decoration:none;">${escapeHtml(person.name)}</a>`
+  ).join('');
+  box.innerHTML = `<div style="font-size:12px;color:var(--muted);line-height:1.45;">${escapeHtml(title)}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:8px;">${links}</div><button type="button" onclick="copyLastQuoteMessage()" style="border:1px solid var(--border2);border-radius:8px;padding:9px 10px;background:var(--surface);color:var(--text);font-weight:800;cursor:pointer;">${escapeHtml(copy)}</button>`;
+  box.style.display = 'flex';
+}
+
 function submitQuote(e) {
   e.preventDefault();
+  const form = document.getElementById('quoteForm');
+  if (form && !form.checkValidity()) {
+    form.reportValidity();
+    showToast((T[lang] || T.EN).quote_required || T.EN.quote_required);
+    return;
+  }
   const name    = document.getElementById('qName').value.trim();
   const country = document.getElementById('qCountry').value.trim();
-  const vehicle = document.getElementById('qVehicle').value || 'Not specified';
-  const port    = document.getElementById('qPort').value.trim() || 'Not specified';
-  const msg     = document.getElementById('qMsg').value.trim() || 'No additional details';
-  const text = `Hi New Vision team,\n\nI would like a quote:\n\nName: ${name}\nCountry: ${country}\nVehicle: ${vehicle}\nDestination Port: ${port}\nDetails: ${msg}\n\nPlease send me FOB pricing and available stock. Thank you.`;
+  const contact = document.getElementById('qContact').value.trim();
+  const vehicle = document.getElementById('qVehicle').value.trim();
+  const port    = document.getElementById('qPort').value.trim();
+  const msg     = document.getElementById('qMsg').value.trim();
+  const text = `Hi New Vision team,\n\nI would like a quote.\n\nName: ${name}\nCountry: ${country}\nWhatsApp / Phone: ${contact}\nVehicle: ${vehicle}\nDestination Port: ${port}\nMessage / Quantity: ${msg}\n\nPlease send FOB pricing, freight/CIF estimate, photos, inspection options, and available stock. Thank you.`;
+  renderQuoteDispatch(text);
   openWA(text);
+}
+
+function quoteVehicle(id) {
+  const v = vehicles.find(x => x.id === id);
+  if (!v) return;
+  const vehicle = quoteVehicleLabel(v);
+  goToQuote({
+    vehicle,
+    message: `Interested in: ${vehicle} at FOB ${fmt(v.price)}. Please send a full quote.`,
+  });
 }
 </script>
 
@@ -1115,8 +1338,8 @@ function submitQuote(e) {
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
             WhatsApp Quote
           </button>
-          <button class="btn-fw btn-fw-green" onclick="showToast('Inquiry sent. We respond within 2 hours.')" data-i18n="mbtn_inquiry">Send Inquiry</button>
-          <button class="btn-fw btn-fw-out" onclick="showToast('Inspection booked. We will contact you to arrange.')" data-i18n="mbtn_inspect">Book Inspection ($120)</button>
+          <button class="btn-fw btn-fw-green" onclick="showToast(trUi('toast_inquiry'))" data-i18n="mbtn_inquiry">Send Inquiry</button>
+          <button class="btn-fw btn-fw-out" onclick="showToast(trUi('toast_inspection'))" data-i18n="mbtn_inspect">Book Inspection ($120)</button>
         </div>
         <div class="trust-list">
           <div class="trust-item-sm" data-i18n="mt1">180-day MOFCOM export eligibility verified</div>
@@ -1138,7 +1361,7 @@ const T = {
     nav_inventory:'Inventory', nav_process:'Process', nav_routes:'Routes', nav_about:'About',
     demo_label:'Demo Site', demo_notice:'Sample inventory for illustration purposes.',
     demo_cta:'Contact us on WhatsApp for current stock & pricing →',
-    mnav_cars:'Cars', mnav_filter:'Filter', mnav_quote:'Quote', mnav_trust:'Trust',
+    mnav_cars:'Cars', mnav_filter:'Filter', mnav_quote:'Quote', mnav_trust:'Trust', mnav_lang:'Lang',
     hero_badge:'Demo inventory - contact for current stock',
     hero_h1:'Buy Cars <span>Direct from China</span><br>Delivered to Your Country',
     hero_sub:'Focusing on green and smart travel since 2019. Full-chain export solutions — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO and 16+ brands.',
@@ -1181,10 +1404,16 @@ const T = {
     tab_specs:'Specifications', tab_docs:'Documents', tab_ship:'Shipping',
     quote_badge:'Request a Quote', quote_h:'Get Pricing in 24 Hours',
     quote_sub:'Fill in your details and we\'ll send FOB pricing, photos, and available stock directly to you.',
-    quote_name:'Your Name', quote_country:'Country', quote_vehicle:'Vehicle of Interest',
+    quote_name:'Your Name', quote_country:'Country', quote_contact:'WhatsApp / Phone', quote_vehicle:'Vehicle of Interest',
     quote_port:'Destination Port', quote_msg:'Message / Quantity',
+    qph_name:'John Smith', qph_country:'Nigeria, UAE, Brazil...', qph_contact:'+234 800 000 0000', qph_port:'Lagos, Dubai, Mombasa, Santos...', qph_msg:'How many units? Any specific trim, color, or requirements?',
+    qopt_select_vehicle:'Select vehicle or fleet order', qopt_fleet:'Multiple vehicles / Fleet order', qopt_other:'Other (specify in message)',
     quote_submit:'Send Quote Request via WhatsApp',
     quote_footer:'Your request opens WhatsApp with a pre-filled message. We respond within 24 hours.',
+    quote_dispatch:'Your completed request is ready for the sales team. Primary WhatsApp opens first; use the same completed request links below to notify Eissah and Andy too.',
+    quote_copy:'Copy completed request',
+    quote_copied:'Quote request copied',
+    quote_required:'Complete name, country, WhatsApp/phone, vehicle, destination port, and message before WhatsApp opens.',
     doc1:'Vehicle Title & Ownership Transfer', doc2:'MOFCOM Export Declaration', doc3:'Bill of Lading (B/L)', doc4:'Certificate of Origin (CoO)', doc5:'Commercial Invoice + Packing List', doc6:'200-Point Inspection Report',
     doc_incl:'Included', doc_opt:'+ $120 optional',
     pr_fob:'FOB Shanghai', pr_freight:'Ocean Freight (est.)', pr_insurance:'Insurance', pr_cif:'CIF Total (est.)',
@@ -1218,7 +1447,7 @@ const T = {
     nav_inventory:'Inventaire', nav_process:'Processus', nav_routes:'Routes', nav_about:'À propos',
     demo_label:'Site Démo', demo_notice:'Inventaire d\'exemple à titre illustratif.',
     demo_cta:'Contactez-nous sur WhatsApp pour le stock réel →',
-    mnav_cars:'Voitures', mnav_filter:'Filtrer', mnav_quote:'Devis', mnav_trust:'Fiabilité',
+    mnav_cars:'Voitures', mnav_filter:'Filtrer', mnav_quote:'Devis', mnav_trust:'Fiabilité', mnav_lang:'Langue',
     hero_badge:'Inventaire démo - contactez-nous pour le stock réel',
     hero_h1:'Achetez des voitures <span>Directement de Chine</span><br>Livrées dans votre pays',
     hero_sub:'Spécialiste de la mobilité verte depuis 2019. Solutions d\'export complètes — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO et 16+ marques.',
@@ -1261,10 +1490,16 @@ const T = {
     tab_specs:'Spécifications', tab_docs:'Documents', tab_ship:'Expédition',
     quote_badge:'Demande de Devis', quote_h:'Recevez un Prix sous 24h',
     quote_sub:'Remplissez le formulaire et nous vous envoyons le prix FOB, les photos et le stock disponible.',
-    quote_name:'Votre Nom', quote_country:'Pays', quote_vehicle:'Véhicule Souhaité',
+    quote_name:'Votre Nom', quote_country:'Pays', quote_contact:'WhatsApp / Téléphone', quote_vehicle:'Véhicule Souhaité',
     quote_port:'Port de Destination', quote_msg:'Message / Quantité',
+    qph_name:'Jean Martin', qph_country:'Nigeria, EAU, Brésil...', qph_contact:'+33 6 00 00 00 00', qph_port:'Lagos, Dubai, Mombasa, Santos...', qph_msg:'Combien d unités ? Finition, couleur ou demande spéciale ?',
+    qopt_select_vehicle:'Choisir un véhicule ou une flotte', qopt_fleet:'Plusieurs véhicules / commande flotte', qopt_other:'Autre (précisez dans le message)',
     quote_submit:'Envoyer la Demande via WhatsApp',
     quote_footer:'Votre demande ouvre WhatsApp avec un message pré-rempli. Réponse sous 24h.',
+    quote_dispatch:'Votre demande complète est prête pour l equipe commerciale. Le WhatsApp principal s ouvre d abord; utilisez les liens ci-dessous pour notifier aussi Eissah et Andy.',
+    quote_copy:'Copier la demande complète',
+    quote_copied:'Demande copiée',
+    quote_required:'Complétez nom, pays, WhatsApp/téléphone, véhicule, port de destination et message avant WhatsApp.',
     doc1:'Titre de Propriété & Transfert', doc2:'Déclaration Export MOFCOM', doc3:'Connaissement (B/L)', doc4:'Certificat d\'Origine (CoO)', doc5:'Facture Commerciale + Liste de Colisage', doc6:'Rapport d\'Inspection 200 Points',
     doc_incl:'Inclus', doc_opt:'+ 120$ optionnel',
     pr_fob:'FOB Shanghai', pr_freight:'Fret Maritime (est.)', pr_insurance:'Assurance', pr_cif:'Total CIF (est.)',
@@ -1298,7 +1533,7 @@ const T = {
     nav_inventory:'المخزون', nav_process:'العملية', nav_routes:'المسارات', nav_about:'عن الشركة',
     demo_label:'موقع تجريبي', demo_notice:'مخزون نموذجي للتوضيح.',
     demo_cta:'تواصل معنا عبر واتساب للمخزون الحقيقي →',
-    mnav_cars:'سيارات', mnav_filter:'فلتر', mnav_quote:'عرض سعر', mnav_trust:'الثقة',
+    mnav_cars:'سيارات', mnav_filter:'فلتر', mnav_quote:'عرض سعر', mnav_trust:'الثقة', mnav_lang:'اللغة',
     hero_badge:'مخزون تجريبي - تواصل للمخزون الحالي',
     hero_h1:'اشتر سيارات <span>مباشرة من الصين</span><br>توصيل إلى بلدك',
     hero_sub:'متخصصون في التنقل الأخضر منذ 2019. حلول تصدير متكاملة — BYD، تسلا، BMW، مرسيدس، لي أوتو، MAEXTRO و16+ علامة.',
@@ -1341,10 +1576,16 @@ const T = {
     tab_specs:'المواصفات', tab_docs:'الوثائق', tab_ship:'الشحن',
     quote_badge:'طلب عرض سعر', quote_h:'احصل على السعر خلال 24 ساعة',
     quote_sub:'أدخل بياناتك وسنرسل لك سعر FOB والصور والمخزون المتاح مباشرة.',
-    quote_name:'اسمك', quote_country:'البلد', quote_vehicle:'السيارة المطلوبة',
+    quote_name:'اسمك', quote_country:'البلد', quote_contact:'واتساب / الهاتف', quote_vehicle:'السيارة المطلوبة',
     quote_port:'ميناء الوصول', quote_msg:'رسالة / الكمية',
+    qph_name:'الاسم الكامل', qph_country:'نيجيريا، الإمارات، البرازيل...', qph_contact:'+971 50 000 0000', qph_port:'لاغوس، دبي، مومباسا، سانتوس...', qph_msg:'كم سيارة؟ أي فئة أو لون أو طلب خاص؟',
+    qopt_select_vehicle:'اختر السيارة أو طلب الأسطول', qopt_fleet:'عدة سيارات / طلب أسطول', qopt_other:'أخرى (اكتبها في الرسالة)',
     quote_submit:'إرسال الطلب عبر واتساب',
     quote_footer:'سيفتح طلبك واتساب برسالة جاهزة. نرد خلال 24 ساعة.',
+    quote_dispatch:'طلبك الكامل جاهز لفريق المبيعات. يفتح واتساب الرئيسي أولا؛ استخدم الروابط أدناه لإبلاغ Eissah و Andy أيضا.',
+    quote_copy:'نسخ الطلب الكامل',
+    quote_copied:'تم نسخ طلب السعر',
+    quote_required:'أكمل الاسم والبلد وواتساب/الهاتف والسيارة وميناء الوصول والرسالة قبل فتح واتساب.',
     doc1:'سند الملكية ونقل الملكية', doc2:'إقرار تصدير MOFCOM', doc3:'بوليصة الشحن (B/L)', doc4:'شهادة المنشأ (CoO)', doc5:'الفاتورة التجارية + قائمة التعبئة', doc6:'تقرير فحص 200 نقطة',
     doc_incl:'مشمول', doc_opt:'+ 120$ اختياري',
     pr_fob:'سعر FOB شنغهاي', pr_freight:'الشحن البحري (تقديري)', pr_insurance:'التأمين', pr_cif:'إجمالي CIF (تقديري)',
@@ -1378,7 +1619,7 @@ const T = {
     nav_inventory:'车辆库存', nav_process:'购车流程', nav_routes:'航运路线', nav_about:'关于我们',
     demo_label:'演示网站', demo_notice:'示例库存，仅供参考。',
     demo_cta:'请通过WhatsApp联系我们确认当前库存 →',
-    mnav_cars:'车辆', mnav_filter:'筛选', mnav_quote:'询价', mnav_trust:'资质',
+    mnav_cars:'车辆', mnav_filter:'筛选', mnav_quote:'询价', mnav_trust:'资质', mnav_lang:'语言',
     hero_badge:'演示库存 - 请联系确认当前库存',
     hero_h1:'直接从中国<span>购买汽车</span><br>送达您的国家',
     hero_sub:'专注绿色智慧出行，自2019年起提供全链条新能源汽车出口服务——比亚迪、特斯拉、宝马、奔驰、理想及16+品牌。',
@@ -1421,10 +1662,16 @@ const T = {
     tab_specs:'规格参数', tab_docs:'出口文件', tab_ship:'运输信息',
     quote_badge:'询价', quote_h:'24小时内获取报价',
     quote_sub:'填写信息，我们将直接发送FOB价格、车辆照片和现货库存给您。',
-    quote_name:'您的姓名', quote_country:'国家/地区', quote_vehicle:'意向车型',
+    quote_name:'您的姓名', quote_country:'国家/地区', quote_contact:'WhatsApp / 电话', quote_vehicle:'意向车型',
     quote_port:'目的港', quote_msg:'留言 / 数量',
+    qph_name:'您的姓名', qph_country:'尼日利亚、阿联酋、巴西...', qph_contact:'+86 137 0000 0000', qph_port:'拉各斯、迪拜、蒙巴萨、桑托斯...', qph_msg:'需要几台？配置、颜色或特殊要求？',
+    qopt_select_vehicle:'选择车型或车队订单', qopt_fleet:'多辆车 / 车队订单', qopt_other:'其他（请在留言中说明）',
     quote_submit:'通过WhatsApp发送询价',
     quote_footer:'点击后将在WhatsApp中自动填写您的询价内容，我们24小时内回复。',
+    quote_dispatch:'完整询价已准备好发送给销售团队。主WhatsApp会先打开；也可使用下方同一询价链接通知Eissah和Andy。',
+    quote_copy:'复制完整询价',
+    quote_copied:'询价已复制',
+    quote_required:'请先填写姓名、国家、WhatsApp/电话、车型、目的港和留言，再打开WhatsApp。',
     doc1:'车辆所有权转让证明', doc2:'商务部出口申报', doc3:'提单（B/L）', doc4:'原产地证（CoO）', doc5:'商业发票+装箱单', doc6:'200点检测报告',
     doc_incl:'已包含', doc_opt:'+$120 可选',
     pr_fob:'上海离岸价', pr_freight:'海运费（估算）', pr_insurance:'保险费', pr_cif:'到岸总价（估算）',
@@ -1457,6 +1704,585 @@ const T = {
 };
 let lang = 'EN';
 let googleTranslateLoading = false;
+
+const I18N_EXTRA = {
+  EN: {
+    ui: {
+      photo_unavailable: 'Photo unavailable - request current stock photo',
+      no_results: 'No vehicles match.',
+      try_filters: 'Try adjusting filters.',
+      toast_inquiry: 'Inquiry sent. We respond within 2 hours.',
+      toast_inspection: 'Inspection booked. We will contact you to arrange.'
+    },
+    terms: {
+      badge: { ev: 'EV/PHEV', hot: 'Hot', premium: 'Premium' },
+      condition: { New: 'New', Used: 'Used' },
+      fuel: { Electric: 'Electric', Petrol: 'Petrol', PHEV: 'PHEV', EREV: 'EREV' },
+      body: { SUV: 'SUV', Sedan: 'Sedan', Pickup: 'Pickup', Hatchback: 'Hatchback' },
+      drive: { AWD: 'AWD', RWD: 'RWD', FWD: 'FWD', '4WD': '4WD' },
+      spec: { Year: 'Year', Mileage: 'Mileage', Fuel: 'Fuel', Transmission: 'Transmission', Engine: 'Engine', Drive: 'Drive', Body: 'Body', Seats: 'Seats', Condition: 'Condition', 'EV Range': 'EV Range', Doors: 'Doors' }
+    },
+    phrases: {}
+  },
+  FR: {
+    ui: {
+      photo_unavailable: 'Photo indisponible - demandez une photo du stock actuel',
+      no_results: 'Aucun véhicule ne correspond.',
+      try_filters: 'Essayez de modifier les filtres.',
+      toast_inquiry: 'Demande envoyée. Réponse sous 2 heures.',
+      toast_inspection: 'Inspection réservée. Nous vous contacterons pour organiser.'
+    },
+    terms: {
+      badge: { ev: 'EV/PHEV', hot: 'Populaire', premium: 'Premium' },
+      condition: { New: 'Neuf', Used: 'Occasion' },
+      fuel: { Electric: 'Électrique', Petrol: 'Essence', PHEV: 'PHEV', EREV: 'EREV' },
+      body: { SUV: 'SUV', Sedan: 'Berline', Pickup: 'Pick-up', Hatchback: 'Compacte' },
+      drive: { AWD: 'Intégrale', RWD: 'Propulsion', FWD: 'Traction', '4WD': '4x4' },
+      spec: { Year: 'Année', Mileage: 'Kilométrage', Fuel: 'Énergie', Transmission: 'Transmission', Engine: 'Moteur', Drive: 'Motricité', Body: 'Carrosserie', Seats: 'Places', Condition: 'État', 'EV Range': 'Autonomie EV', Doors: 'Portes' }
+    },
+    phrases: {
+      'Markets': 'Marchés',
+      '微信/电话': 'WeChat / Téléphone',
+      '中国访问优化 · 中文内容本地加载 · 微信/电话：+86 137 3561 1862 · 地址：义乌市工人北路525-527号': 'Accès Chine optimisé · Contenu chinois chargé localement · WeChat/Tél. : +86 137 3561 1862 · Adresse : 525-527 Workers North Road, Yiwu',
+      '复制微信/电话': 'Copier WeChat/Tél.',
+      '中文模式': 'Mode chinois',
+      'All Brands': 'Toutes Marques',
+      'Inventory': 'Inventaire',
+      'Under $15K': 'Moins de 15K $',
+      '$15K–$30K': '15K $–30K $',
+      '$30K+': '30K $+',
+      'Best Markets': 'Marchés Prioritaires',
+      'to Reach First': 'à cibler en premier',
+      'Start where demand for China vehicles is already strong, route friction is manageable, and buyers use WhatsApp or dealer-agent sourcing.': 'Commencez là où la demande pour les véhicules chinois est déjà forte, les routes restent gérables et les acheteurs utilisent WhatsApp ou des agents revendeurs.',
+      'Priority 1 · Sell now': 'Priorité 1 · Vendre maintenant',
+      'Priority 2 · Sell now': 'Priorité 2 · Vendre maintenant',
+      'Priority 3 · Dealer market': 'Priorité 3 · Marché revendeur',
+      'Priority 4 · Africa lane': 'Priorité 4 · Route Afrique',
+      'Priority 5 · North Africa': 'Priorité 5 · Afrique du Nord',
+      'Priority 6 · Southeast Asia': 'Priorité 6 · Asie du Sud-Est',
+      'Big market · Add later': 'Grand marché · Ajouter plus tard',
+      '🇦🇪 UAE': '🇦🇪 Émirats arabes unis',
+      '🇸🇦 Saudi Arabia': '🇸🇦 Arabie saoudite',
+      '🇳🇬 Nigeria': '🇳🇬 Nigéria',
+      '🇬🇭 Ghana': '🇬🇭 Ghana',
+      '🇲🇦 Morocco / 🇩🇿 Algeria / 🇪🇬 Egypt': '🇲🇦 Maroc / 🇩🇿 Algérie / 🇪🇬 Égypte',
+      '🇰🇭 Cambodia': '🇰🇭 Cambodge',
+      '🇲🇽 Mexico / 🇧🇷 Brazil': '🇲🇽 Mexique / 🇧🇷 Brésil',
+      '🇰🇿 Kazakhstan / 🇵🇭 Philippines': '🇰🇿 Kazakhstan / 🇵🇭 Philippines',
+      'Best first market. It is a high-volume China export destination and a regional resale/logistics hub for Gulf, Africa, and re-export buyers.': 'Meilleur premier marché. Destination à fort volume pour l’export chinois et hub régional de revente/logistique pour le Golfe, l’Afrique et la réexportation.',
+      'Strong Gulf demand, growing acceptance of Chinese brands, and a clear route to Jeddah. Good for SUVs, premium sedans, and new energy models.': 'Forte demande dans le Golfe, adoption croissante des marques chinoises et route claire vers Djeddah. Bon pour SUV, berlines premium et modèles新能源.',
+      'Good WhatsApp-led dealer market for value vehicles, used units, and multi-car sourcing. Lead quality matters: ask for port, budget, and quantity first.': 'Bon marché revendeur via WhatsApp pour véhicules économiques, occasions et achats multi-unités. Qualifiez d’abord port, budget et quantité.',
+      'Smaller than Nigeria but easier to message directly. Good for dealers who want clear FOB/CIF quotes and practical vehicles.': 'Plus petit que le Nigéria mais plus simple à contacter directement. Bon pour les revendeurs qui veulent des devis FOB/CIF clairs et des véhicules pratiques.',
+      'Good French/Arabic funnel. Best with translated landing copy, port-specific quotes, and stronger documentation messaging.': 'Bon tunnel français/arabe. Idéal avec contenu traduit, devis par port et messages plus forts sur les documents.',
+      'Close shipping lane and useful for regional dealer testing. Good as a low-friction pilot before expanding Southeast Asia campaigns.': 'Route maritime proche et utile pour tester les revendeurs régionaux. Bon pilote avant d’élargir les campagnes en Asie du Sud-Est.',
+      'Huge China-vehicle export demand, but this site needs Spanish/Portuguese copy, Latin America port pricing, and local compliance notes before running serious ads.': 'Très forte demande d’export de véhicules chinois, mais il faut du contenu espagnol/portugais, des prix port Amérique latine et des notes de conformité locales avant les grandes annonces.',
+      'Strong China-export destinations, but they need route-specific pages and buyer-language localization before they should be pushed hard.': 'Destinations solides pour l’export chinois, mais elles nécessitent des pages par route et une localisation dans la langue acheteur avant une forte promotion.',
+      'Jebel Ali route': 'Route Jebel Ali',
+      'Arabic + English': 'Arabe + anglais',
+      'Premium + EV': 'Premium + EV',
+      'Jeddah route': 'Route Djeddah',
+      'Arabic': 'Arabe',
+      'SUV + premium': 'SUV + premium',
+      'Lagos route': 'Route Lagos',
+      'English': 'Anglais',
+      'Used + value SUV': 'Occasion + SUV valeur',
+      'Tema route': 'Route Tema',
+      'Dealer buyers': 'Acheteurs revendeurs',
+      'Casablanca / Algiers / Port Said': 'Casablanca / Alger / Port-Saïd',
+      'Arabic + French': 'Arabe + français',
+      'Docs trust': 'Confiance documents',
+      'Sihanoukville route': 'Route Sihanoukville',
+      'Fast route': 'Route rapide',
+      'Dealer pilot': 'Pilote revendeur',
+      'High volume': 'Fort volume',
+      'Needs LATAM lane': 'Nécessite route LATAM',
+      'Spanish/Portuguese': 'Espagnol/portugais',
+      'Growth markets': 'Marchés de croissance',
+      'Need local pages': 'Pages locales nécessaires',
+      'Follow-up phase': 'Phase suivante',
+      'Trust &': 'Confiance &',
+      'Certifications': 'Certifications',
+      'Export Information': 'Centre d’information export',
+      'Center': 'Centre',
+      'Each footer item below opens a focused explanation for buyers, dealers, and fleet importers.': 'Chaque élément du pied de page ouvre une explication ciblée pour acheteurs, revendeurs et importateurs de flotte.',
+      'EV, PHEV, hybrid, range-extended, and smart vehicle sourcing from China, including BYD, Tesla China, Li Auto, Xiaomi, Leapmotor, Tank Hi4-T, and other fast-moving models.': 'Sourcing de véhicules EV, PHEV, hybrides, autonomie prolongée et intelligents depuis la Chine, incluant BYD, Tesla Chine, Li Auto, Xiaomi, Leapmotor, Tank Hi4-T et autres modèles demandés.',
+      'Battery/range notes included in quotes when available.': 'Notes batterie/autonomie incluses dans les devis si disponibles.',
+      'Best for importers targeting fuel savings, city fleets, and premium EV demand.': 'Idéal pour les importateurs visant économies de carburant, flottes urbaines et demande EV premium.',
+      'Gasoline and diesel vehicles for markets where fuel infrastructure, resale demand, or service support still favors combustion platforms.': 'Véhicules essence et diesel pour les marchés où l’infrastructure, la revente ou le service favorisent encore les moteurs thermiques.',
+      'Sedans, SUVs, pickups, commercial use vehicles.': 'Berlines, SUV, pick-up et véhicules utilitaires.',
+      'Quote requests should include market, emission rules, and preferred model year.': 'Les demandes de devis doivent préciser marché, normes d’émission et année modèle souhaitée.',
+      'Premium China-market and international-brand vehicles supplied from available stock or requested sourcing, with emphasis on condition, trim, mileage, and export suitability.': 'Véhicules premium du marché chinois et marques internationales fournis depuis le stock ou sur sourcing, avec attention à l’état, finition, kilométrage et exportabilité.',
+      'BMW, Mercedes-Benz, Tesla, Tank, Maextro, and similar listings.': 'BMW, Mercedes-Benz, Tesla, Tank, Maextro et modèles similaires.',
+      'Inspection photos and current stock confirmation are recommended before deposit.': 'Photos d’inspection et confirmation du stock actuel recommandées avant acompte.',
+      'Motorcycles, electric motorcycles, scooters, and tricycles for dealer or fleet buyers who need compact mobility products alongside cars.': 'Motos, motos électriques, scooters et tricycles pour revendeurs ou flottes qui veulent des produits compacts en plus des voitures.',
+      'Useful for last-mile delivery, urban transport, and resale channels.': 'Utile pour livraison dernier kilomètre, transport urbain et revente.',
+      'Quote should specify engine/electric type, quantity, and destination port.': 'Le devis doit préciser type moteur/électrique, quantité et port de destination.',
+      'Commercial, construction, and special-use vehicle sourcing where the buyer needs specific payload, application, attachment, or compliance requirements.': 'Sourcing de véhicules commerciaux, construction et usages spéciaux avec exigences de charge, application, équipement ou conformité.',
+      'Best handled as a custom quote with photos/spec sheets.': 'À traiter de préférence en devis personnalisé avec photos/fiches techniques.',
+      'Include operating environment, destination country, and required documents.': 'Inclure environnement d’utilisation, pays de destination et documents requis.',
+      'Before shipping, buyers can request photo/video checks, VIN confirmation, mileage/condition review, and loading documentation.': 'Avant expédition, les acheteurs peuvent demander contrôles photo/vidéo, confirmation VIN, vérification kilométrage/état et documents de chargement.',
+      'Recommended for used vehicles and premium units.': 'Recommandé pour les occasions et les unités premium.',
+      'Inspection scope should be agreed before final invoice.': 'Le périmètre d’inspection doit être validé avant facture finale.',
+      'Documents are prepared around the buyer, vehicle, route, and destination requirements. Typical packs may include invoice, packing details, vehicle records, and export clearance documents.': 'Les documents sont préparés selon l’acheteur, le véhicule, la route et la destination. Le pack peut inclure facture, détails de colisage, dossier véhicule et documents de dédouanement export.',
+      'Exact requirements depend on destination country.': 'Les exigences exactes dépendent du pays de destination.',
+      'Buyer should confirm import rules with local broker before purchase.': 'L’acheteur doit confirmer les règles d’import avec un transitaire local avant achat.',
+      'Freight can be quoted by destination port using available vessel routes, vehicle type, quantity, and loading method.': 'Le fret peut être coté par port de destination selon les routes navires disponibles, le type de véhicule, la quantité et la méthode de chargement.',
+      'FOB and CIF estimates are available on request.': 'Estimations FOB et CIF disponibles sur demande.',
+      'Final rate depends on current carrier schedules and port charges.': 'Le tarif final dépend des horaires transporteur et frais portuaires actuels.',
+      'New Vision can support export-side clearance and document flow. Import-side clearance is handled by the buyer or their local broker.': 'New Vision peut soutenir le dédouanement côté export et le flux documentaire. Le dédouanement import est géré par l’acheteur ou son courtier local.',
+      'Destination duties, taxes, and registration rules are buyer-side.': 'Droits, taxes et immatriculation destination sont à la charge de l’acheteur.',
+      'Use a licensed local broker before placing large orders.': 'Utilisez un courtier local agréé avant les grosses commandes.',
+      'After-sales support focuses on document follow-up, supplier coordination, parts sourcing support, and communication after shipment.': 'Le support après-vente couvre suivi documentaire, coordination fournisseur, aide sourcing pièces et communication après expédition.',
+      'Warranty terms vary by vehicle, seller, and destination.': 'Les garanties varient selon véhicule, vendeur et destination.',
+      'Confirm service expectations in writing before final purchase.': 'Confirmez les attentes de service par écrit avant achat final.',
+      'About New Vision': 'À propos de New Vision',
+      'Yiwu New Vision Car Sales Co., Ltd. focuses on green and smart travel, with full-chain vehicle export support from Yiwu, Zhejiang, China.': 'Yiwu New Vision Car Sales Co., Ltd. se concentre sur la mobilité verte et intelligente avec un support export automobile complet depuis Yiwu, Zhejiang, Chine.',
+      "Address: 525-527 Workers' North Road, Yiwu, Zhejiang 322000.": 'Adresse : 525-527 Workers North Road, Yiwu, Zhejiang 322000.',
+      'Founded/export positioning shown on this site: since 2019.': 'Positionnement présenté sur ce site : export depuis 2019.',
+      'The site presents New Vision as MOFCOM licensed with enterprise credit recognition and business integrity certificates. Buyers should request current license/certificate copies before payment.': 'Le site présente New Vision comme agréé MOFCOM avec reconnaissance crédit entreprise et certificats d’intégrité. Les acheteurs doivent demander les copies actuelles avant paiement.',
+      'Use verified company bank details only.': 'Utilisez uniquement les coordonnées bancaires vérifiées de la société.',
+      'Confirm contract, invoice, and recipient before deposit.': 'Confirmez contrat, facture et bénéficiaire avant acompte.',
+      'Export eligibility depends on vehicle condition, title/document status, destination country, emissions, battery rules, age limits, and local registration requirements.': 'L’éligibilité export dépend de l’état du véhicule, des titres/documents, du pays destination, émissions, règles batterie, âge limite et immatriculation locale.',
+      'New energy vehicles may require battery/shipping declarations.': 'Les véhicules新能源 peuvent exiger des déclarations batterie/transport.',
+      'Import laws must be verified in the destination country.': 'Les lois d’import doivent être vérifiées dans le pays de destination.',
+      'Dealer and fleet buyers can request repeat sourcing, multi-unit quotes, destination-port pricing, inspection workflows, and recurring stock updates.': 'Revendeurs et flottes peuvent demander sourcing récurrent, devis multi-unités, prix par port, inspections et mises à jour de stock.',
+      'Best fit: dealers, importers, fleet buyers, and sourcing agents.': 'Idéal pour revendeurs, importateurs, flottes et agents sourcing.',
+      'Send market, target models, volume, and preferred port.': 'Envoyez marché, modèles cibles, volume et port préféré.',
+      'The official company website is linked for buyers who want to review the broader New Vision presence and company pages outside this export demo.': 'Le site officiel est lié pour les acheteurs qui veulent consulter la présence New Vision au-delà de cette démo export.',
+      'Open nvncar.com': 'Ouvrir nvncar.com',
+      'Open About New Vision': 'Ouvrir À propos de New Vision',
+      'Your Name *': 'Votre nom *',
+      'Country *': 'Pays *',
+      'Select vehicle or fleet order': 'Sélectionnez un véhicule ou une commande flotte',
+      'Multiple vehicles / Fleet order': 'Plusieurs véhicules / commande flotte',
+      'Other (specify in message)': 'Autre (préciser dans le message)',
+      'John Smith': 'Jean Dupont',
+      'Nigeria, UAE, Brazil…': 'Nigéria, EAU, Brésil…',
+      'Lagos, Dubai, Mombasa, Santos…': 'Lagos, Dubaï, Mombasa, Santos…',
+      'How many units? Any specific trim, color, or requirements?': 'Combien d’unités ? Finition, couleur ou exigences spécifiques ?',
+      'WhatsApp': 'WhatsApp',
+      'Tel': 'Tél.',
+      'WA': 'WA',
+      'Web': 'Web',
+      'Addr': 'Adresse',
+      "525-527 Workers' North Road, Yiwu, Zhejiang 322000": '525-527 Workers North Road, Yiwu, Zhejiang 322000',
+      'Title:': 'Titre :',
+      'Export:': 'Export :',
+      'Invoice:': 'Facture :',
+      'QC:': 'QC :',
+      'Port of Loading:': 'Port de chargement :',
+      'Shanghai, China': 'Shanghai, Chine',
+      'Shipping Mode:': 'Mode d’expédition :',
+      'RORO or 20ft FCL Container': 'RORO ou conteneur FCL 20 pieds',
+      'Insurance:': 'Assurance :',
+      'Included in CIF quote': 'Inclus dans le devis CIF',
+      'Active Routes:': 'Routes actives :',
+      'Ghana · Algeria · Egypt · UAE · Saudi · Cambodia · Morocco · Nigeria · South Africa · Iran': 'Ghana · Algérie · Égypte · EAU · Arabie saoudite · Cambodge · Maroc · Nigéria · Afrique du Sud · Iran'
+    }
+  },
+  AR: {
+    ui: {
+      photo_unavailable: 'الصورة غير متوفرة - اطلب صورة المخزون الحالي',
+      no_results: 'لا توجد مركبات مطابقة.',
+      try_filters: 'جرّب تعديل الفلاتر.',
+      toast_inquiry: 'تم إرسال الاستفسار. نرد خلال ساعتين.',
+      toast_inspection: 'تم حجز الفحص. سنتواصل معك للتنسيق.'
+    },
+    terms: {
+      badge: { ev: 'كهربائي/هجين', hot: 'الأكثر طلباً', premium: 'فاخر' },
+      condition: { New: 'جديد', Used: 'مستعمل' },
+      fuel: { Electric: 'كهربائي', Petrol: 'بنزين', PHEV: 'هجين قابل للشحن', EREV: 'مدى ممتد' },
+      body: { SUV: 'دفع رياضي', Sedan: 'سيدان', Pickup: 'بيك أب', Hatchback: 'هاتشباك' },
+      drive: { AWD: 'دفع كلي', RWD: 'دفع خلفي', FWD: 'دفع أمامي', '4WD': 'دفع رباعي' },
+      spec: { Year: 'السنة', Mileage: 'المسافة', Fuel: 'الوقود', Transmission: 'ناقل الحركة', Engine: 'المحرك', Drive: 'الدفع', Body: 'الهيكل', Seats: 'المقاعد', Condition: 'الحالة', 'EV Range': 'مدى الكهرباء', Doors: 'الأبواب' }
+    },
+    phrases: {
+      'Markets': 'الأسواق',
+      '微信/电话': 'ويتشات / هاتف',
+      '中国访问优化 · 中文内容本地加载 · 微信/电话：+86 137 3561 1862 · 地址：义乌市工人北路525-527号': 'تحسين الوصول داخل الصين · تحميل المحتوى الصيني محلياً · ويتشات/هاتف: +86 137 3561 1862 · العنوان: 525-527 طريق ووركرز نورث، ييوو',
+      '复制微信/电话': 'نسخ ويتشات/الهاتف',
+      '中文模式': 'الوضع الصيني',
+      'All Brands': 'كل العلامات',
+      'Inventory': 'المخزون',
+      'Under $15K': 'أقل من 15 ألف دولار',
+      '$15K–$30K': '15 ألف–30 ألف دولار',
+      '$30K+': 'أكثر من 30 ألف دولار',
+      'Best Markets': 'أفضل الأسواق',
+      'to Reach First': 'للبدء بها',
+      'Start where demand for China vehicles is already strong, route friction is manageable, and buyers use WhatsApp or dealer-agent sourcing.': 'ابدأ حيث يكون الطلب على سيارات الصين قوياً، ومسار الشحن قابل للإدارة، والمشترون يستخدمون واتساب أو وكلاء الشراء.',
+      'Priority 1 · Sell now': 'الأولوية 1 · ابدأ البيع الآن',
+      'Priority 2 · Sell now': 'الأولوية 2 · ابدأ البيع الآن',
+      'Priority 3 · Dealer market': 'الأولوية 3 · سوق موزعين',
+      'Priority 4 · Africa lane': 'الأولوية 4 · مسار أفريقيا',
+      'Priority 5 · North Africa': 'الأولوية 5 · شمال أفريقيا',
+      'Priority 6 · Southeast Asia': 'الأولوية 6 · جنوب شرق آسيا',
+      'Big market · Add later': 'سوق كبير · يضاف لاحقاً',
+      '🇦🇪 UAE': '🇦🇪 الإمارات',
+      '🇸🇦 Saudi Arabia': '🇸🇦 السعودية',
+      '🇳🇬 Nigeria': '🇳🇬 نيجيريا',
+      '🇬🇭 Ghana': '🇬🇭 غانا',
+      '🇲🇦 Morocco / 🇩🇿 Algeria / 🇪🇬 Egypt': '🇲🇦 المغرب / 🇩🇿 الجزائر / 🇪🇬 مصر',
+      '🇰🇭 Cambodia': '🇰🇭 كمبوديا',
+      '🇲🇽 Mexico / 🇧🇷 Brazil': '🇲🇽 المكسيك / 🇧🇷 البرازيل',
+      '🇰🇿 Kazakhstan / 🇵🇭 Philippines': '🇰🇿 كازاخستان / 🇵🇭 الفلبين',
+      'Best first market. It is a high-volume China export destination and a regional resale/logistics hub for Gulf, Africa, and re-export buyers.': 'أفضل سوق أول. وجهة تصدير كبيرة للسيارات الصينية ومركز إقليمي لإعادة البيع واللوجستيات للخليج وأفريقيا وإعادة التصدير.',
+      'Strong Gulf demand, growing acceptance of Chinese brands, and a clear route to Jeddah. Good for SUVs, premium sedans, and new energy models.': 'طلب خليجي قوي، قبول متزايد للعلامات الصينية، ومسار واضح إلى جدة. مناسب للـSUV والسيدان الفاخرة والطاقة الجديدة.',
+      'Good WhatsApp-led dealer market for value vehicles, used units, and multi-car sourcing. Lead quality matters: ask for port, budget, and quantity first.': 'سوق موزعين جيد عبر واتساب للسيارات الاقتصادية والمستعملة والطلبات المتعددة. جودة العميل مهمة: اسأل أولاً عن الميناء والميزانية والكمية.',
+      'Smaller than Nigeria but easier to message directly. Good for dealers who want clear FOB/CIF quotes and practical vehicles.': 'أصغر من نيجيريا لكنه أسهل في التواصل المباشر. مناسب للموزعين الذين يريدون عروض FOB/CIF واضحة وسيارات عملية.',
+      'Good French/Arabic funnel. Best with translated landing copy, port-specific quotes, and stronger documentation messaging.': 'قناة جيدة بالفرنسية/العربية. الأفضل مع صفحة مترجمة، عروض حسب الميناء، ورسائل أقوى حول الوثائق.',
+      'Close shipping lane and useful for regional dealer testing. Good as a low-friction pilot before expanding Southeast Asia campaigns.': 'مسار شحن قريب ومفيد لاختبار الموزعين إقليمياً. مناسب كبداية سهلة قبل توسيع حملات جنوب شرق آسيا.',
+      'Huge China-vehicle export demand, but this site needs Spanish/Portuguese copy, Latin America port pricing, and local compliance notes before running serious ads.': 'طلب ضخم على تصدير السيارات الصينية، لكن الموقع يحتاج محتوى إسباني/برتغالي وأسعار موانئ أمريكا اللاتينية وملاحظات امتثال محلية قبل الإعلانات الجادة.',
+      'Strong China-export destinations, but they need route-specific pages and buyer-language localization before they should be pushed hard.': 'وجهات قوية للتصدير من الصين، لكنها تحتاج صفحات خاصة بالمسار وتعريب/ترجمة بلغة المشتري قبل الدفع الكبير.',
+      'Jebel Ali route': 'مسار جبل علي',
+      'Arabic + English': 'العربية + الإنجليزية',
+      'Premium + EV': 'فاخر + كهربائي',
+      'Jeddah route': 'مسار جدة',
+      'Arabic': 'العربية',
+      'SUV + premium': 'SUV + فاخر',
+      'Lagos route': 'مسار لاغوس',
+      'English': 'الإنجليزية',
+      'Used + value SUV': 'مستعمل + SUV اقتصادي',
+      'Tema route': 'مسار تيما',
+      'Dealer buyers': 'مشترون موزعون',
+      'Casablanca / Algiers / Port Said': 'الدار البيضاء / الجزائر / بورسعيد',
+      'Arabic + French': 'العربية + الفرنسية',
+      'Docs trust': 'ثقة الوثائق',
+      'Sihanoukville route': 'مسار سيهانوكفيل',
+      'Fast route': 'مسار سريع',
+      'Dealer pilot': 'تجربة موزعين',
+      'High volume': 'حجم كبير',
+      'Needs LATAM lane': 'يحتاج مسار أمريكا اللاتينية',
+      'Spanish/Portuguese': 'الإسبانية/البرتغالية',
+      'Growth markets': 'أسواق نمو',
+      'Need local pages': 'تحتاج صفحات محلية',
+      'Follow-up phase': 'مرحلة لاحقة',
+      'Trust &': 'الثقة و',
+      'Certifications': 'الشهادات',
+      'Export Information': 'معلومات التصدير',
+      'Center': 'المركز',
+      'Each footer item below opens a focused explanation for buyers, dealers, and fleet importers.': 'كل عنصر في الأسفل يفتح شرحاً مركزاً للمشترين والموزعين ومستوردي الأساطيل.',
+      'EV, PHEV, hybrid, range-extended, and smart vehicle sourcing from China, including BYD, Tesla China, Li Auto, Xiaomi, Leapmotor, Tank Hi4-T, and other fast-moving models.': 'توريد سيارات كهربائية وهجينة ومدى ممتد وذكية من الصين، بما في ذلك BYD وتسلا الصين ولي أوتو وشاومي وليب موتور وتانك وغيرها.',
+      'Battery/range notes included in quotes when available.': 'ملاحظات البطارية والمدى تضاف إلى العروض عند توفرها.',
+      'Best for importers targeting fuel savings, city fleets, and premium EV demand.': 'مناسب للمستوردين الذين يستهدفون توفير الوقود والأساطيل الحضرية والطلب الفاخر على الكهربائي.',
+      'Gasoline and diesel vehicles for markets where fuel infrastructure, resale demand, or service support still favors combustion platforms.': 'سيارات بنزين وديزل للأسواق التي ما زالت تفضل محركات الوقود بسبب البنية أو إعادة البيع أو الخدمة.',
+      'Sedans, SUVs, pickups, commercial use vehicles.': 'سيدان، SUV، بيك أب، ومركبات استخدام تجاري.',
+      'Quote requests should include market, emission rules, and preferred model year.': 'يجب أن تتضمن الطلبات السوق وقواعد الانبعاث وسنة الموديل المطلوبة.',
+      'Premium China-market and international-brand vehicles supplied from available stock or requested sourcing, with emphasis on condition, trim, mileage, and export suitability.': 'سيارات فاخرة من السوق الصيني والعلامات الدولية من المخزون أو حسب الطلب، مع التركيز على الحالة والفئة والمسافة وقابلية التصدير.',
+      'BMW, Mercedes-Benz, Tesla, Tank, Maextro, and similar listings.': 'BMW ومرسيدس وتسلا وتانك ومايكسترو وما شابه.',
+      'Inspection photos and current stock confirmation are recommended before deposit.': 'يوصى بصور الفحص وتأكيد المخزون الحالي قبل العربون.',
+      'Motorcycles, electric motorcycles, scooters, and tricycles for dealer or fleet buyers who need compact mobility products alongside cars.': 'دراجات نارية وكهربائية وسكوترات وثلاثيات للموزعين أو الأساطيل بجانب السيارات.',
+      'Useful for last-mile delivery, urban transport, and resale channels.': 'مفيدة للتوصيل الأخير والنقل الحضري وقنوات إعادة البيع.',
+      'Quote should specify engine/electric type, quantity, and destination port.': 'يجب أن يحدد العرض نوع المحرك/الكهرباء والكمية وميناء الوجهة.',
+      'Commercial, construction, and special-use vehicle sourcing where the buyer needs specific payload, application, attachment, or compliance requirements.': 'توريد مركبات تجارية وإنشائية وخاصة عندما يحتاج المشتري حمولة أو تطبيقاً أو ملحقاً أو امتثالاً محدداً.',
+      'Best handled as a custom quote with photos/spec sheets.': 'الأفضل التعامل معها كعرض مخصص مع صور ومواصفات.',
+      'Include operating environment, destination country, and required documents.': 'اذكر بيئة التشغيل وبلد الوجهة والوثائق المطلوبة.',
+      'Before shipping, buyers can request photo/video checks, VIN confirmation, mileage/condition review, and loading documentation.': 'قبل الشحن يمكن للمشتري طلب فحص صور/فيديو، تأكيد رقم الهيكل، مراجعة المسافة/الحالة، ووثائق التحميل.',
+      'Recommended for used vehicles and premium units.': 'موصى به للسيارات المستعملة والفاخرة.',
+      'Inspection scope should be agreed before final invoice.': 'يجب الاتفاق على نطاق الفحص قبل الفاتورة النهائية.',
+      'Documents are prepared around the buyer, vehicle, route, and destination requirements. Typical packs may include invoice, packing details, vehicle records, and export clearance documents.': 'تجهز الوثائق حسب المشتري والسيارة والمسار ومتطلبات الوجهة. قد تشمل الفاتورة والتعبئة وسجلات السيارة ووثائق التخليص.',
+      'Exact requirements depend on destination country.': 'المتطلبات الدقيقة تعتمد على بلد الوجهة.',
+      'Buyer should confirm import rules with local broker before purchase.': 'على المشتري تأكيد قواعد الاستيراد مع وسيط محلي قبل الشراء.',
+      'Freight can be quoted by destination port using available vessel routes, vehicle type, quantity, and loading method.': 'يمكن تسعير الشحن حسب ميناء الوجهة ومسارات السفن المتاحة ونوع السيارة والكمية وطريقة التحميل.',
+      'FOB and CIF estimates are available on request.': 'تتوفر تقديرات FOB وCIF عند الطلب.',
+      'Final rate depends on current carrier schedules and port charges.': 'السعر النهائي يعتمد على جداول الناقل ورسوم الميناء الحالية.',
+      'New Vision can support export-side clearance and document flow. Import-side clearance is handled by the buyer or their local broker.': 'يمكن لـNew Vision دعم التخليص في جانب التصدير وتدفق الوثائق. التخليص في جانب الاستيراد يتولاه المشتري أو وسيطه المحلي.',
+      'Destination duties, taxes, and registration rules are buyer-side.': 'الرسوم والضرائب والتسجيل في الوجهة على جانب المشتري.',
+      'Use a licensed local broker before placing large orders.': 'استخدم وسيطاً محلياً مرخصاً قبل الطلبات الكبيرة.',
+      'After-sales support focuses on document follow-up, supplier coordination, parts sourcing support, and communication after shipment.': 'دعم ما بعد البيع يركز على متابعة الوثائق وتنسيق الموردين ودعم قطع الغيار والتواصل بعد الشحن.',
+      'Warranty terms vary by vehicle, seller, and destination.': 'شروط الضمان تختلف حسب السيارة والبائع والوجهة.',
+      'Confirm service expectations in writing before final purchase.': 'أكد توقعات الخدمة كتابة قبل الشراء النهائي.',
+      'About New Vision': 'عن New Vision',
+      'Yiwu New Vision Car Sales Co., Ltd. focuses on green and smart travel, with full-chain vehicle export support from Yiwu, Zhejiang, China.': 'تركز شركة Yiwu New Vision Car Sales على التنقل الأخضر والذكي، مع دعم تصدير كامل من ييوو، تشجيانغ، الصين.',
+      "Address: 525-527 Workers' North Road, Yiwu, Zhejiang 322000.": 'العنوان: 525-527 طريق ووركرز نورث، ييوو، تشجيانغ 322000.',
+      'Founded/export positioning shown on this site: since 2019.': 'الموقع يعرض التأسيس/التصدير منذ 2019.',
+      'The site presents New Vision as MOFCOM licensed with enterprise credit recognition and business integrity certificates. Buyers should request current license/certificate copies before payment.': 'يعرض الموقع New Vision كجهة مرخصة من MOFCOM مع اعتماد ائتماني وشهادات نزاهة. يجب طلب نسخ الترخيص/الشهادات الحالية قبل الدفع.',
+      'Use verified company bank details only.': 'استخدم بيانات البنك المؤكدة للشركة فقط.',
+      'Confirm contract, invoice, and recipient before deposit.': 'أكد العقد والفاتورة والمستلم قبل العربون.',
+      'Export eligibility depends on vehicle condition, title/document status, destination country, emissions, battery rules, age limits, and local registration requirements.': 'أهلية التصدير تعتمد على حالة السيارة والملكية/الوثائق وبلد الوجهة والانبعاثات وقواعد البطارية وحدود العمر والتسجيل المحلي.',
+      'New energy vehicles may require battery/shipping declarations.': 'قد تتطلب سيارات الطاقة الجديدة إقرارات بطارية/شحن.',
+      'Import laws must be verified in the destination country.': 'يجب التحقق من قوانين الاستيراد في بلد الوجهة.',
+      'Dealer and fleet buyers can request repeat sourcing, multi-unit quotes, destination-port pricing, inspection workflows, and recurring stock updates.': 'يمكن للموزعين والأساطيل طلب توريد متكرر وعروض متعددة وأسعار حسب الميناء وفحوصات وتحديثات مخزون.',
+      'Best fit: dealers, importers, fleet buyers, and sourcing agents.': 'الأنسب: موزعون، مستوردون، مشترون للأساطيل، ووكلاء توريد.',
+      'Send market, target models, volume, and preferred port.': 'أرسل السوق والموديلات المستهدفة والكمية والميناء المفضل.',
+      'The official company website is linked for buyers who want to review the broader New Vision presence and company pages outside this export demo.': 'يوجد رابط الموقع الرسمي للمشترين الذين يريدون مراجعة حضور New Vision وصفحات الشركة خارج هذه الديمو.',
+      'Open nvncar.com': 'افتح nvncar.com',
+      'Open About New Vision': 'افتح صفحة عن New Vision',
+      'Your Name *': 'اسمك *',
+      'Country *': 'البلد *',
+      'Select vehicle or fleet order': 'اختر سيارة أو طلب أسطول',
+      'Multiple vehicles / Fleet order': 'عدة سيارات / طلب أسطول',
+      'Other (specify in message)': 'أخرى (اذكرها في الرسالة)',
+      'John Smith': 'محمد أحمد',
+      'Nigeria, UAE, Brazil…': 'نيجيريا، الإمارات، البرازيل…',
+      'Lagos, Dubai, Mombasa, Santos…': 'لاغوس، دبي، مومباسا، سانتوس…',
+      'How many units? Any specific trim, color, or requirements?': 'كم وحدة؟ هل لديك فئة أو لون أو متطلبات محددة؟',
+      'WhatsApp': 'واتساب',
+      'Tel': 'هاتف',
+      'WA': 'واتساب',
+      'Web': 'الموقع',
+      'Addr': 'العنوان',
+      "525-527 Workers' North Road, Yiwu, Zhejiang 322000": '525-527 طريق ووركرز نورث، ييوو، تشجيانغ 322000',
+      'Title:': 'الملكية:',
+      'Export:': 'التصدير:',
+      'Invoice:': 'الفاتورة:',
+      'QC:': 'الفحص:',
+      'Port of Loading:': 'ميناء التحميل:',
+      'Shanghai, China': 'شنغهاي، الصين',
+      'Shipping Mode:': 'طريقة الشحن:',
+      'RORO or 20ft FCL Container': 'RORO أو حاوية 20 قدم FCL',
+      'Insurance:': 'التأمين:',
+      'Included in CIF quote': 'مشمول في عرض CIF',
+      'Active Routes:': 'المسارات النشطة:',
+      'Ghana · Algeria · Egypt · UAE · Saudi · Cambodia · Morocco · Nigeria · South Africa · Iran': 'غانا · الجزائر · مصر · الإمارات · السعودية · كمبوديا · المغرب · نيجيريا · جنوب أفريقيا · إيران'
+    }
+  },
+  ZH: {
+    ui: {
+      photo_unavailable: '暂无照片 - 请索取当前库存实拍图',
+      no_results: '没有匹配车辆。',
+      try_filters: '请调整筛选条件。',
+      toast_inquiry: '询盘已发送，我们将在2小时内回复。',
+      toast_inspection: '检测预约已提交，我们会联系您安排。'
+    },
+    terms: {
+      badge: { ev: '新能源', hot: '热门', premium: '豪华' },
+      condition: { New: '新车', Used: '二手' },
+      fuel: { Electric: '纯电', Petrol: '汽油', PHEV: '插混', EREV: '增程' },
+      body: { SUV: 'SUV', Sedan: '轿车', Pickup: '皮卡', Hatchback: '两厢车' },
+      drive: { AWD: '四驱', RWD: '后驱', FWD: '前驱', '4WD': '四驱' },
+      spec: { Year: '年份', Mileage: '里程', Fuel: '能源', Transmission: '变速箱', Engine: '动力', Drive: '驱动', Body: '车身', Seats: '座位', Condition: '车况', 'EV Range': '纯电续航', Doors: '车门' }
+    },
+    phrases: {
+      'Markets': '市场',
+      '微信/电话': '微信/电话',
+      '中国访问优化 · 中文内容本地加载 · 微信/电话：+86 137 3561 1862 · 地址：义乌市工人北路525-527号': '中国访问优化 · 中文内容本地加载 · 微信/电话：+86 137 3561 1862 · 地址：义乌市工人北路525-527号',
+      '复制微信/电话': '复制微信/电话',
+      '中文模式': '中文模式',
+      'All Brands': '全部品牌',
+      'Inventory': '库存',
+      'Under $15K': '15,000美元以下',
+      '$15K–$30K': '15,000-30,000美元',
+      '$30K+': '30,000美元以上',
+      'Best Markets': '优先市场',
+      'to Reach First': '首批触达',
+      'Start where demand for China vehicles is already strong, route friction is manageable, and buyers use WhatsApp or dealer-agent sourcing.': '从中国车需求强、航线摩擦低、买家习惯使用WhatsApp或采购代理的市场开始。',
+      'Priority 1 · Sell now': '优先级1 · 立即销售',
+      'Priority 2 · Sell now': '优先级2 · 立即销售',
+      'Priority 3 · Dealer market': '优先级3 · 经销商市场',
+      'Priority 4 · Africa lane': '优先级4 · 非洲航线',
+      'Priority 5 · North Africa': '优先级5 · 北非',
+      'Priority 6 · Southeast Asia': '优先级6 · 东南亚',
+      'Big market · Add later': '大市场 · 后续加入',
+      '🇦🇪 UAE': '🇦🇪 阿联酋',
+      '🇸🇦 Saudi Arabia': '🇸🇦 沙特阿拉伯',
+      '🇳🇬 Nigeria': '🇳🇬 尼日利亚',
+      '🇬🇭 Ghana': '🇬🇭 加纳',
+      '🇲🇦 Morocco / 🇩🇿 Algeria / 🇪🇬 Egypt': '🇲🇦 摩洛哥 / 🇩🇿 阿尔及利亚 / 🇪🇬 埃及',
+      '🇰🇭 Cambodia': '🇰🇭 柬埔寨',
+      '🇲🇽 Mexico / 🇧🇷 Brazil': '🇲🇽 墨西哥 / 🇧🇷 巴西',
+      '🇰🇿 Kazakhstan / 🇵🇭 Philippines': '🇰🇿 哈萨克斯坦 / 🇵🇭 菲律宾',
+      'Best first market. It is a high-volume China export destination and a regional resale/logistics hub for Gulf, Africa, and re-export buyers.': '最适合作为第一个市场。中国车出口量高，也是面向海湾、非洲和再出口买家的区域转售与物流枢纽。',
+      'Strong Gulf demand, growing acceptance of Chinese brands, and a clear route to Jeddah. Good for SUVs, premium sedans, and new energy models.': '海湾需求强，中国品牌接受度提升，吉达航线清晰。适合SUV、豪华轿车和新能源车型。',
+      'Good WhatsApp-led dealer market for value vehicles, used units, and multi-car sourcing. Lead quality matters: ask for port, budget, and quantity first.': '适合通过WhatsApp开发经销商，主打高性价比、二手车和多车采购。先确认港口、预算和数量。',
+      'Smaller than Nigeria but easier to message directly. Good for dealers who want clear FOB/CIF quotes and practical vehicles.': '规模小于尼日利亚，但更容易直接沟通。适合需要清晰FOB/CIF报价和实用车型的经销商。',
+      'Good French/Arabic funnel. Best with translated landing copy, port-specific quotes, and stronger documentation messaging.': '适合法语/阿拉伯语转化。最好配合翻译落地页、按港口报价和更强的文件信任信息。',
+      'Close shipping lane and useful for regional dealer testing. Good as a low-friction pilot before expanding Southeast Asia campaigns.': '航线近，适合测试区域经销商。在扩大东南亚推广前可作为低摩擦试点。',
+      'Huge China-vehicle export demand, but this site needs Spanish/Portuguese copy, Latin America port pricing, and local compliance notes before running serious ads.': '中国车出口需求巨大，但在正式投放广告前需要西语/葡语内容、拉美港口价格和本地合规说明。',
+      'Strong China-export destinations, but they need route-specific pages and buyer-language localization before they should be pushed hard.': '是强需求出口目的地，但需要按航线页面和买家语言本地化后再重点推广。',
+      'Jebel Ali route': '杰贝阿里航线',
+      'Arabic + English': '阿拉伯语+英语',
+      'Premium + EV': '豪华+新能源',
+      'Jeddah route': '吉达航线',
+      'Arabic': '阿拉伯语',
+      'SUV + premium': 'SUV+豪华',
+      'Lagos route': '拉各斯航线',
+      'English': '英语',
+      'Used + value SUV': '二手+高性价比SUV',
+      'Tema route': '特马航线',
+      'Dealer buyers': '经销商买家',
+      'Casablanca / Algiers / Port Said': '卡萨布兰卡 / 阿尔及尔 / 塞得港',
+      'Arabic + French': '阿拉伯语+法语',
+      'Docs trust': '文件信任',
+      'Sihanoukville route': '西哈努克港航线',
+      'Fast route': '快速航线',
+      'Dealer pilot': '经销商试点',
+      'High volume': '高销量',
+      'Needs LATAM lane': '需要拉美航线',
+      'Spanish/Portuguese': '西语/葡语',
+      'Growth markets': '增长市场',
+      'Need local pages': '需要本地页面',
+      'Follow-up phase': '后续阶段',
+      'Trust &': '信任与',
+      'Certifications': '认证',
+      'Export Information': '出口信息',
+      'Center': '中心',
+      'Each footer item below opens a focused explanation for buyers, dealers, and fleet importers.': '下面每个页脚项目都会打开面向买家、经销商和车队进口商的说明。',
+      'EV, PHEV, hybrid, range-extended, and smart vehicle sourcing from China, including BYD, Tesla China, Li Auto, Xiaomi, Leapmotor, Tank Hi4-T, and other fast-moving models.': '从中国采购纯电、插混、混动、增程和智能汽车，包括比亚迪、特斯拉中国、理想、小米、零跑、坦克Hi4-T等热销车型。',
+      'Battery/range notes included in quotes when available.': '可用时在报价中包含电池/续航说明。',
+      'Best for importers targeting fuel savings, city fleets, and premium EV demand.': '适合面向节油、城市车队和高端电动车需求的进口商。',
+      'Gasoline and diesel vehicles for markets where fuel infrastructure, resale demand, or service support still favors combustion platforms.': '面向燃油基础设施、转售需求或服务支持仍偏向燃油车的平台市场。',
+      'Sedans, SUVs, pickups, commercial use vehicles.': '轿车、SUV、皮卡和商用车辆。',
+      'Quote requests should include market, emission rules, and preferred model year.': '询价应包含目标市场、排放规则和期望年份。',
+      'Premium China-market and international-brand vehicles supplied from available stock or requested sourcing, with emphasis on condition, trim, mileage, and export suitability.': '提供中国市场及国际品牌高端车型，可来自现货或定向采购，重点确认车况、配置、里程和出口适用性。',
+      'BMW, Mercedes-Benz, Tesla, Tank, Maextro, and similar listings.': '宝马、奔驰、特斯拉、坦克、尊界及类似车型。',
+      'Inspection photos and current stock confirmation are recommended before deposit.': '建议付款前确认检测照片和当前库存。',
+      'Motorcycles, electric motorcycles, scooters, and tricycles for dealer or fleet buyers who need compact mobility products alongside cars.': '为经销商或车队买家提供摩托车、电动摩托、踏板车和三轮车，补充汽车产品。',
+      'Useful for last-mile delivery, urban transport, and resale channels.': '适用于末端配送、城市交通和转售渠道。',
+      'Quote should specify engine/electric type, quantity, and destination port.': '询价应说明燃油/电动类型、数量和目的港。',
+      'Commercial, construction, and special-use vehicle sourcing where the buyer needs specific payload, application, attachment, or compliance requirements.': '为有载重、用途、附件或合规要求的买家采购商用、工程和专用车辆。',
+      'Best handled as a custom quote with photos/spec sheets.': '最好以带照片/参数表的定制报价处理。',
+      'Include operating environment, destination country, and required documents.': '请包含使用环境、目的国家和所需文件。',
+      'Before shipping, buyers can request photo/video checks, VIN confirmation, mileage/condition review, and loading documentation.': '发运前买家可要求照片/视频检查、VIN确认、里程/车况复核和装车文件。',
+      'Recommended for used vehicles and premium units.': '推荐用于二手车和高端车型。',
+      'Inspection scope should be agreed before final invoice.': '检测范围应在最终发票前确认。',
+      'Documents are prepared around the buyer, vehicle, route, and destination requirements. Typical packs may include invoice, packing details, vehicle records, and export clearance documents.': '文件根据买家、车辆、路线和目的地要求准备。常见文件包包括发票、装箱信息、车辆记录和出口清关文件。',
+      'Exact requirements depend on destination country.': '具体要求取决于目的国家。',
+      'Buyer should confirm import rules with local broker before purchase.': '买家应在购买前与当地清关代理确认进口规则。',
+      'Freight can be quoted by destination port using available vessel routes, vehicle type, quantity, and loading method.': '可根据目的港、可用船期、车辆类型、数量和装载方式报价海运费。',
+      'FOB and CIF estimates are available on request.': '可按需提供FOB和CIF估算。',
+      'Final rate depends on current carrier schedules and port charges.': '最终价格取决于当前船期和港口费用。',
+      'New Vision can support export-side clearance and document flow. Import-side clearance is handled by the buyer or their local broker.': 'New Vision可支持出口端清关和文件流转。进口端清关由买家或当地代理处理。',
+      'Destination duties, taxes, and registration rules are buyer-side.': '目的地关税、税费和注册规则由买家负责。',
+      'Use a licensed local broker before placing large orders.': '大批量下单前请使用有资质的当地代理。',
+      'After-sales support focuses on document follow-up, supplier coordination, parts sourcing support, and communication after shipment.': '售后支持重点包括文件跟进、供应商协调、配件采购支持和发运后沟通。',
+      'Warranty terms vary by vehicle, seller, and destination.': '质保条款因车辆、卖方和目的地而异。',
+      'Confirm service expectations in writing before final purchase.': '最终购买前请书面确认服务预期。',
+      'About New Vision': '关于新视界',
+      'Yiwu New Vision Car Sales Co., Ltd. focuses on green and smart travel, with full-chain vehicle export support from Yiwu, Zhejiang, China.': '义乌新视界汽车销售有限公司专注绿色智慧出行，从中国浙江义乌提供全链条汽车出口支持。',
+      "Address: 525-527 Workers' North Road, Yiwu, Zhejiang 322000.": '地址：义乌市工人北路525-527号，浙江322000。',
+      'Founded/export positioning shown on this site: since 2019.': '本网站展示的成立/出口定位：自2019年起。',
+      'The site presents New Vision as MOFCOM licensed with enterprise credit recognition and business integrity certificates. Buyers should request current license/certificate copies before payment.': '本网站展示New Vision拥有商务部许可、企业信用认可和诚信证书。买家付款前应索取当前许可证/证书副本。',
+      'Use verified company bank details only.': '仅使用已核实的公司银行信息。',
+      'Confirm contract, invoice, and recipient before deposit.': '付款前确认合同、发票和收款方。',
+      'Export eligibility depends on vehicle condition, title/document status, destination country, emissions, battery rules, age limits, and local registration requirements.': '出口资格取决于车况、产权/文件状态、目的国家、排放、电池规则、车龄限制和当地注册要求。',
+      'New energy vehicles may require battery/shipping declarations.': '新能源汽车可能需要电池/运输申报。',
+      'Import laws must be verified in the destination country.': '必须在目的国家核实进口法规。',
+      'Dealer and fleet buyers can request repeat sourcing, multi-unit quotes, destination-port pricing, inspection workflows, and recurring stock updates.': '经销商和车队买家可申请重复采购、多车报价、目的港价格、检测流程和定期库存更新。',
+      'Best fit: dealers, importers, fleet buyers, and sourcing agents.': '最适合：经销商、进口商、车队买家和采购代理。',
+      'Send market, target models, volume, and preferred port.': '请发送市场、目标车型、数量和偏好港口。',
+      'The official company website is linked for buyers who want to review the broader New Vision presence and company pages outside this export demo.': '这里链接公司官网，方便买家查看本出口演示以外的New Vision公司信息。',
+      'Open nvncar.com': '打开 nvncar.com',
+      'Open About New Vision': '打开关于新视界',
+      'Your Name *': '您的姓名 *',
+      'Country *': '国家/地区 *',
+      'Select vehicle or fleet order': '选择车型或车队订单',
+      'Multiple vehicles / Fleet order': '多辆车 / 车队订单',
+      'Other (specify in message)': '其他（请在留言说明）',
+      'John Smith': '张先生',
+      'Nigeria, UAE, Brazil…': '尼日利亚、阿联酋、巴西…',
+      'Lagos, Dubai, Mombasa, Santos…': '拉各斯、迪拜、蒙巴萨、桑托斯…',
+      'How many units? Any specific trim, color, or requirements?': '需要几台？是否有配置、颜色或其他要求？',
+      'WhatsApp': 'WhatsApp',
+      'Tel': '电话',
+      'WA': 'WhatsApp',
+      'Web': '官网',
+      'Addr': '地址',
+      "525-527 Workers' North Road, Yiwu, Zhejiang 322000": '义乌市工人北路525-527号，浙江322000',
+      'Title:': '产权：',
+      'Export:': '出口：',
+      'Invoice:': '发票：',
+      'QC:': '质检：',
+      'Port of Loading:': '装货港：',
+      'Shanghai, China': '中国上海',
+      'Shipping Mode:': '运输方式：',
+      'RORO or 20ft FCL Container': '滚装船或20尺整柜',
+      'Insurance:': '保险：',
+      'Included in CIF quote': '包含在CIF报价中',
+      'Active Routes:': '活跃航线：',
+      'Ghana · Algeria · Egypt · UAE · Saudi · Cambodia · Morocco · Nigeria · South Africa · Iran': '加纳 · 阿尔及利亚 · 埃及 · 阿联酋 · 沙特 · 柬埔寨 · 摩洛哥 · 尼日利亚 · 南非 · 伊朗'
+    }
+  }
+};
+
+const COMMON_PHRASE_KEYS = {
+  'WhatsApp Quote Now': 'btn_wa_quote',
+  'Email Us': 'btn_email',
+  'Vehicles': 'foot_col1',
+  'Services': 'foot_col2',
+  'Company': 'foot_col3',
+  'New Energy (EV/PHEV)': 'fl_ev',
+  'Traditional Fuel': 'fl_fuel',
+  'Premium Brands': 'fl_prem',
+  'Motorcycles': 'fl_moto',
+  'Engineering Vehicles': 'fl_eng',
+  'Pre-Export Inspection': 'fl_insp',
+  'Export Documentation': 'fl_docs',
+  'Ocean Freight': 'fl_freight',
+  'Customs Clearance': 'fl_customs',
+  'After-Sales Support': 'fl_after',
+  'Safety & Licensing': 'fl_safety',
+  'Export Regulations': 'fl_regs',
+  'Dealer Partnership': 'fl_dealer',
+  'Request a Quote': 'quote_badge',
+  'Get Pricing in 24 Hours': 'quote_h',
+  "Fill in your details and we'll send FOB pricing, photos, and available stock directly to you.": 'quote_sub',
+  'Vehicle of Interest': 'quote_vehicle',
+  'Destination Port': 'quote_port',
+  'Message / Quantity': 'quote_msg',
+  'Send Quote Request via WhatsApp': 'quote_submit',
+  'Your request opens WhatsApp with a pre-filled message. We respond within 24 hours.': 'quote_footer',
+  'WhatsApp Quote': 'mbtn_wa',
+  'Send Inquiry': 'mbtn_inquiry',
+  'Book Inspection ($120)': 'mbtn_inspect'
+};
+
+const translatedTextNodes = new WeakMap();
+const translatedPlaceholders = new WeakMap();
+
+function tr(key) {
+  const pack = T[lang] || T.EN;
+  return pack[key] !== undefined ? pack[key] : (T.EN[key] !== undefined ? T.EN[key] : key);
+}
+function extraPack() { return I18N_EXTRA[lang] || I18N_EXTRA.EN; }
+function trUi(key) { return extraPack().ui?.[key] || I18N_EXTRA.EN.ui[key] || key; }
+function trTerm(group, value) {
+  return extraPack().terms?.[group]?.[value] || I18N_EXTRA.EN.terms?.[group]?.[value] || value;
+}
+function normalizePhrase(text) { return String(text || '').trim().replace(/\s+/g, ' '); }
+function translateKnownPhrase(baseText) {
+  const normalized = normalizePhrase(baseText);
+  if (!normalized) return '';
+  const key = COMMON_PHRASE_KEYS[normalized];
+  if (key) return tr(key);
+  for (const value of Object.values(I18N_EXTRA.EN.ui)) {
+    if (normalized === value) {
+      const foundKey = Object.keys(I18N_EXTRA.EN.ui).find(k => I18N_EXTRA.EN.ui[k] === value);
+      return foundKey ? trUi(foundKey) : normalized;
+    }
+  }
+  return extraPack().phrases?.[normalized] || (lang === 'EN' ? normalized : '');
+}
+function applyStaticPhraseTranslations() {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const parent = node.parentElement;
+      if (!parent || !normalizePhrase(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+      if (parent.closest('script,style,svg,#google_translate_element,.skiptranslate,[data-i18n],[data-i18n-html]')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    if (!translatedTextNodes.has(node)) translatedTextNodes.set(node, node.nodeValue);
+    const base = translatedTextNodes.get(node);
+    const translated = translateKnownPhrase(base);
+    if (!translated) {
+      node.nodeValue = base;
+      return;
+    }
+    const leading = base.match(/^\s*/)?.[0] || '';
+    const trailing = base.match(/\s*$/)?.[0] || '';
+    node.nodeValue = `${leading}${translated}${trailing}`;
+  });
+  document.querySelectorAll('[placeholder]').forEach(el => {
+    if (el.hasAttribute('data-i18n-placeholder')) return;
+    if (!translatedPlaceholders.has(el)) translatedPlaceholders.set(el, el.getAttribute('placeholder') || '');
+    const base = translatedPlaceholders.get(el);
+    const translated = translateKnownPhrase(base);
+    el.setAttribute('placeholder', translated || base);
+  });
+}
 
 function googleTranslateElementInit(){
   if (!window.google || !google.translate) return;
@@ -1519,20 +2345,20 @@ const vehicles = [
   { id:19, make:'Jetour',        model:'X70 Plus 2026 1.5T DCT 7-Seat',             year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/v19-jetour.webp',     ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 135kW/290Nm',  drive:'FWD', doors:4, seats:7, range_km:null },
   { id:20, make:'MG',           model:'MG5 2023 Trophy 1.5T DCT',                  year:2023, mileage:21000, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'Sedan',     price:8900, img:'img/nvn-v20-mg5.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 110kW/220Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
   { id:21, make:'Leapmotor',    model:'Formula Leopard Ti7 2025 PHEV Performance', year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, img:'img/nvn-v21-formula-leopard.webp', ev:true,  hot:true,  premium:false, trans:'DHT Triple Motor', engine:'540kW 734ps CATL LFP', drive:'AWD', doors:4, seats:5, range_km:160  },
-  { id:22, make:'BYD',          model:'Song PLUS DM-i 2025 Premium',                year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:18500, img:'img/nvn-v22-byd-song-plus.jpg', ev:true,  hot:true,  premium:false, trans:'E-CVT',        engine:'DM-i PHEV',          drive:'FWD', doors:4, seats:5, range_km:112  },
-  { id:23, make:'Li Auto',      model:'Ideal L6 Pro 2024 Extended Range',           year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:36000, img:'img/nvn-v23-li-l6.jpg', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:215 },
-  { id:24, make:'Jetour',       model:'Traveler 2025 2.0TD DCT 4WD Silver Dragon',  year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:23500, img:'img/nvn-v24-jetour-traveler.jpg', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0TD',              drive:'4WD', doors:4, seats:5, range_km:null },
-  { id:25, make:'Toyota',       model:'Corolla 2024 1.2T S-CVT Pioneer',            year:2024, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:13500, img:'img/nvn-v25-toyota-corolla.jpg', ev:false, hot:false, premium:false, trans:'S-CVT',        engine:'1.2T',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:26, make:'Hyundai',      model:'Elantra 2023 1.5L CVT GLX Elite',            year:2023, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:10800, img:'img/nvn-v26-hyundai-elantra.jpg', ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:27, make:'Tank',         model:'700 New Energy 2024 Hi4-T Ultimate',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:76000, img:'img/nvn-v27-tank700-ultimate.jpg', ev:true,  hot:true,  premium:true,  trans:'Auto',         engine:'Hi4-T PHEV',         drive:'4WD', doors:4, seats:5, range_km:null },
-  { id:28, make:'Changan',      model:'UNI-Z 2025 Smart Blue Whale 500Bar MAX',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:16800, img:'img/nvn-v28-changan-uniz.jpg', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'Blue Whale PHEV',    drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:29, make:'MG',           model:'MG7 2025 1.5T 300 DCT Elegance',             year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:16000, img:'img/nvn-v29-mg7.jpg', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:30, make:'Kia',          model:'Seltos 2023 1.5L IVT Luxury',                year:2023, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:12500, img:'img/nvn-v30-kia-seltos.jpg', ev:false, hot:false, premium:false, trans:'IVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:31, make:'Formula Leopard', model:'Titanium 7 2025 190KM AWD Ultra',         year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, img:'img/nvn-v31-formula-leopard-t7.jpg', ev:true,  hot:true,  premium:false, trans:'DHT',          engine:'PHEV AWD',           drive:'AWD', doors:4, seats:5, range_km:190 },
-  { id:32, make:'Li Auto',      model:'Li L7 2025 Ultra Smart Refresh',             year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:46000, img:'img/nvn-v32-li-l7.jpg', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:null },
-  { id:33, make:'Volkswagen',   model:'Golf 2025 300TSI R-Line',                   year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Hatchback', price:20500, img:'img/nvn-v33-vw-golf.jpg', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'300TSI',             drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:34, make:'Jetour',       model:'Da Sheng 2026 1.5T DCT Flagship',            year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/nvn-v34-jetour-dasheng-flagship.jpg', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:35, make:'Jetour',       model:'ShanHai T2 Extended 206km XWD 7-Seater',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:30500, img:'img/nvn-v35-jetour-shanhai-t2.jpg', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'1.5TD PHEV',         drive:'AWD', doors:4, seats:7, range_km:206 },
+  { id:22, make:'BYD',          model:'Song PLUS DM-i 2025 Premium',                year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:18500, img:'img/nvn-v22-byd-song-plus.webp', ev:true,  hot:true,  premium:false, trans:'E-CVT',        engine:'DM-i PHEV',          drive:'FWD', doors:4, seats:5, range_km:112  },
+  { id:23, make:'Li Auto',      model:'Ideal L6 Pro 2024 Extended Range',           year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:36000, img:'img/nvn-v23-li-l6.webp', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:215 },
+  { id:24, make:'Jetour',       model:'Traveler 2025 2.0TD DCT 4WD Silver Dragon',  year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:23500, img:'img/nvn-v24-jetour-traveler.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0TD',              drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:25, make:'Toyota',       model:'Corolla 2024 1.2T S-CVT Pioneer',            year:2024, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:13500, img:'img/nvn-v25-toyota-corolla.webp', ev:false, hot:false, premium:false, trans:'S-CVT',        engine:'1.2T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:26, make:'Hyundai',      model:'Elantra 2023 1.5L CVT GLX Elite',            year:2023, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:10800, img:'img/nvn-v26-hyundai-elantra.webp', ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:27, make:'Tank',         model:'700 New Energy 2024 Hi4-T Ultimate',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:76000, img:'img/nvn-v27-tank700-ultimate.webp', ev:true,  hot:true,  premium:true,  trans:'Auto',         engine:'Hi4-T PHEV',         drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:28, make:'Changan',      model:'UNI-Z 2025 Smart Blue Whale 500Bar MAX',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:16800, img:'img/nvn-v28-changan-uniz.webp', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'Blue Whale PHEV',    drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:29, make:'MG',           model:'MG7 2025 1.5T 300 DCT Elegance',             year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:16000, img:'img/nvn-v29-mg7.webp', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:30, make:'Kia',          model:'Seltos 2023 1.5L IVT Luxury',                year:2023, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:12500, img:'img/nvn-v30-kia-seltos.webp', ev:false, hot:false, premium:false, trans:'IVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:31, make:'Formula Leopard', model:'Titanium 7 2025 190KM AWD Ultra',         year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, img:'img/nvn-v31-formula-leopard-t7.webp', ev:true,  hot:true,  premium:false, trans:'DHT',          engine:'PHEV AWD',           drive:'AWD', doors:4, seats:5, range_km:190 },
+  { id:32, make:'Li Auto',      model:'Li L7 2025 Ultra Smart Refresh',             year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:46000, img:'img/nvn-v32-li-l7.webp', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:33, make:'Volkswagen',   model:'Golf 2025 300TSI R-Line',                   year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Hatchback', price:20500, img:'img/nvn-v33-vw-golf.webp', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'300TSI',             drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:34, make:'Jetour',       model:'Da Sheng 2026 1.5T DCT Flagship',            year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/nvn-v34-jetour-dasheng-flagship.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:35, make:'Jetour',       model:'ShanHai T2 Extended 206km XWD 7-Seater',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:30500, img:'img/nvn-v35-jetour-shanhai-t2.webp', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'1.5TD PHEV',         drive:'AWD', doors:4, seats:7, range_km:206 },
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
@@ -1565,6 +2391,7 @@ function applyCmsState(state) {
   contentOverrides = Object.assign({}, state.content || {});
   if (Array.isArray(state.vehicles) && state.vehicles.length) {
     vehicles.splice(0, vehicles.length, ...state.vehicles);
+    populateQuoteVehicles();
   }
   applyContentOverrides();
   applyFilters();
@@ -1579,6 +2406,13 @@ async function loadCmsState() {
   } catch (err) {
     return { ok:false, message: err.message };
   }
+}
+
+function canAutoLoadCmsState() {
+  const host = location.hostname.toLowerCase();
+  if (!host || host === 'localhost' || host === '127.0.0.1' || host === '::1') return false;
+  if (host.endsWith('github.io')) return false;
+  return true;
 }
 
 window.newVisionCMS = {
@@ -1608,28 +2442,29 @@ function buildCard(v, idx) {
   const eager = idx < 2;
   const gridImg = cardImage(v.img);
   const badges = [
-    v.condition==='New' ? '<span class="badge badge-new">New</span>' : '<span class="badge badge-used">Used</span>',
-    v.ev ? '<span class="badge badge-ev">EV/PHEV</span>' : '',
-    v.hot ? '<span class="badge badge-hot">Hot</span>' : '',
-    v.premium ? '<span class="badge badge-premium">★ Premium</span>' : '',
+    v.condition==='New' ? `<span class="badge badge-new">${trTerm('condition','New')}</span>` : `<span class="badge badge-used">${trTerm('condition','Used')}</span>`,
+    v.ev ? `<span class="badge badge-ev">${trTerm('badge','ev')}</span>` : '',
+    v.hot ? `<span class="badge badge-hot">${trTerm('badge','hot')}</span>` : '',
+    v.premium ? `<span class="badge badge-premium">★ ${trTerm('badge','premium')}</span>` : '',
   ].join('');
   const mil = v.condition==='New' ? '0 km' : v.mileage.toLocaleString()+' km';
-  return `<div class="vehicle-card" onclick="openModal(${v.id})">
+  const photoFallback = trUi('photo_unavailable');
+  return `<div class="vehicle-card" data-vehicle-id="${v.id}" onclick="openModal(${v.id})">
     <div class="vehicle-img">
-      ${gridImg ? `<img src="${gridImg}" alt="${v.year} ${v.make} ${v.model}" width="640" height="426" decoding="async"${eager ? ' loading="eager" fetchpriority="high"' : ' loading="lazy" fetchpriority="low"'} onerror="this.style.display='none';this.parentNode.querySelector('.vehicle-photo-fallback').style.display='flex'"><div class="vehicle-photo-fallback" style="display:none">Photo unavailable - request current stock photo</div>` : `<div class="vehicle-photo-fallback">Photo unavailable - request current stock photo</div>`}
+      ${gridImg ? `<img src="${gridImg}" alt="${v.year} ${v.make} ${v.model}" width="640" height="426" decoding="async"${eager ? ' loading="eager" fetchpriority="high"' : ' loading="lazy" fetchpriority="low"'} onerror="this.style.display='none';this.parentNode.querySelector('.vehicle-photo-fallback').style.display='flex'"><div class="vehicle-photo-fallback" style="display:none">${photoFallback}</div>` : `<div class="vehicle-photo-fallback">${photoFallback}</div>`}
       <div class="vehicle-badges">${badges}</div>
     </div>
     <div class="vehicle-body">
       <div class="vehicle-brand">${v.make}</div>
       <div class="vehicle-name">${v.year} ${v.model}</div>
-      <div class="vehicle-meta"><span>${mil}</span><span>${v.fuel}</span><span>${v.body}</span></div>
+      <div class="vehicle-meta"><span>${mil}</span><span>${trTerm('fuel',v.fuel)}</span><span>${trTerm('body',v.body)}</span></div>
       <div class="vehicle-price-row">
-        <div class="vehicle-fob">${fmt(v.price)}<small>FOB</small></div>
-        <div class="vehicle-cif">CIF ~${fmt(v.price+850+180)}</div>
+        <div class="vehicle-fob">${fmt(v.price)}<small>${tr('fob')}</small></div>
+        <div class="vehicle-cif">${tr('cif_prefix')}${fmt(v.price+850+180)}</div>
       </div>
       <div class="vehicle-actions">
-        <button class="btn-primary" onclick="event.stopPropagation();openWA('Hi New Vision, I am interested in: ${v.year} ${v.make} ${v.model} at FOB ${fmt(v.price)}. Please send a quote.')">${(T[lang]||T.EN).card_quote}</button>
-        <button class="btn-secondary" onclick="event.stopPropagation();openModal(${v.id})">${(T[lang]||T.EN).card_details}</button>
+        <button class="btn-primary" onclick="event.stopPropagation();quoteVehicle(${v.id})">${tr('card_quote')}</button>
+        <button class="btn-secondary" onclick="event.stopPropagation();openModal(${v.id})">${tr('card_details')}</button>
       </div>
     </div>
   </div>`;
@@ -1638,7 +2473,7 @@ function buildCard(v, idx) {
 function renderGrid(list) {
   const g = document.getElementById('vehicleGrid');
   const c = document.getElementById('resultCount');
-  if (!list.length) { g.innerHTML='<div class="no-results">No vehicles match.<br><br>Try adjusting filters.</div>'; c.textContent=''; return; }
+  if (!list.length) { g.innerHTML=`<div class="no-results">${trUi('no_results')}<br><br>${trUi('try_filters')}</div>`; c.textContent=''; return; }
   g.innerHTML = list.map((v,i) => buildCard(v,i)).join('');
   c.textContent = `(${list.length})`;
 }
@@ -1706,7 +2541,16 @@ function filterTag(tag) {
   else if (tag==='Tesla') filterByBrand('Tesla',document.querySelector('.brand-pill[data-brand="Tesla"]'));
   scrollToInventory();
 }
-function scrollToInventory() { document.getElementById('inventory').scrollIntoView({behavior:'smooth'}); }
+function scrollToInventory() {
+  const isMobile = window.matchMedia('(max-width: 600px)').matches;
+  const target = isMobile
+    ? document.querySelector('.vehicle-card, .no-results, #vehicleGrid')
+    : document.getElementById('inventory');
+  if (!target) return;
+  const offset = isMobile ? 72 : 88;
+  const top = target.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+}
 function openMobileFilters() {
   const controls = document.querySelector('.hero-search');
   if (controls) controls.scrollIntoView({behavior:'smooth', block:'center'});
@@ -1722,29 +2566,32 @@ function openModal(id) {
     imgEl.src=v.img; imgEl.alt=`${v.year} ${v.make} ${v.model}`;
     imgEl.style.display='block'; photoFallbackEl.style.display='none';
   } else {
+    photoFallbackEl.textContent=trUi('photo_unavailable');
     imgEl.style.display='none'; photoFallbackEl.style.display='flex';
   }
   document.getElementById('modalTitle').textContent=`${v.year} ${v.make} ${v.model}`;
-  document.getElementById('modalSubtitle').textContent=`${v.fuel} · ${v.body} · ${v.drive}`;
+  document.getElementById('modalSubtitle').textContent=`${trTerm('fuel',v.fuel)} · ${trTerm('body',v.body)} · ${trTerm('drive',v.drive)}`;
   const badges=[
-    v.condition==='New'?'<span class="badge badge-new">New</span>':'<span class="badge badge-used">Used</span>',
-    v.ev?'<span class="badge badge-ev">EV/PHEV</span>':'',
-    v.premium?'<span class="badge badge-premium">★ Premium</span>':'',
+    v.condition==='New'?`<span class="badge badge-new">${trTerm('condition','New')}</span>`:`<span class="badge badge-used">${trTerm('condition','Used')}</span>`,
+    v.ev?`<span class="badge badge-ev">${trTerm('badge','ev')}</span>`:'',
+    v.premium?`<span class="badge badge-premium">★ ${trTerm('badge','premium')}</span>`:'',
   ].join('');
   document.getElementById('modalBadges').innerHTML=badges;
   const specs=[
     ['Year',v.year],['Mileage',v.condition==='New'?'0 km':v.mileage.toLocaleString()+' km'],
-    ['Fuel',v.fuel],['Transmission',v.trans],
-    ['Engine',v.engine],['Drive',v.drive],
-    ['Body',v.body],['Seats',v.seats],
-    ['Condition',v.condition],v.range_km?['EV Range',v.range_km+'km']:['Doors',v.doors],
+    ['Fuel',trTerm('fuel',v.fuel)],['Transmission',v.trans],
+    ['Engine',v.engine],['Drive',trTerm('drive',v.drive)],
+    ['Body',trTerm('body',v.body)],['Seats',v.seats],
+    ['Condition',trTerm('condition',v.condition)],v.range_km?['EV Range',v.range_km+'km']:['Doors',v.doors],
   ];
-  document.getElementById('modalSpecs').innerHTML=specs.map(([l,val])=>`<div class="spec-item"><div class="spec-label">${l}</div><div class="spec-value">${val}</div></div>`).join('');
+  document.getElementById('modalSpecs').innerHTML=specs.map(([l,val])=>`<div class="spec-item"><div class="spec-label">${trTerm('spec',l)}</div><div class="spec-value">${val}</div></div>`).join('');
   document.getElementById('mFob').textContent=fmt(v.price);
   updateFreight();
   switchTab('specs',document.querySelector('.modal-tab'));
   document.getElementById('modalOverlay').classList.add('open');
+  document.body.classList.add('modal-open');
   document.body.style.overflow='hidden';
+  applyStaticPhraseTranslations();
 }
 function updateFreight() {
   if(!selV) return;
@@ -1752,7 +2599,7 @@ function updateFreight() {
   document.getElementById('mFreight').textContent=fmt(fr);
   document.getElementById('mCif').textContent=fmt(selV.price+fr+180);
 }
-function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.classList.remove('modal-open'); document.body.style.overflow=''; }
 function closeModalOnOverlay(e) { if(e.target===document.getElementById('modalOverlay')) closeModal(); }
 function switchTab(tab,btn) {
   ['tabSpecs','tabDocs','tabShipping'].forEach(t=>document.getElementById(t).style.display='none');
@@ -1762,21 +2609,41 @@ function switchTab(tab,btn) {
 }
 
 // ── WA / UTILS ───────────────────────────────────────────────────────────
-function openWA(msg) { window.open(`https://wa.me/8613735611862?text=${encodeURIComponent(msg)}`,'_blank'); }
+function openWA(msg) { window.open(whatsappUrl(SALES_WHATSAPP_RECIPIENTS[0].number, msg),'_blank'); }
 function openWAModal() {
   if(!selV) return;
   const port=document.getElementById('portSelect').options[document.getElementById('portSelect').selectedIndex].text;
-  openWA(`Hi New Vision Team,\n\nInterested in:\nVehicle: ${selV.year} ${selV.make} ${selV.model}\nFOB: ${fmt(selV.price)}\nDestination: ${port}\n\nPlease send full quote with freight, inspection options, and documentation. Thank you.`);
+  const vehicle = `${selV.year} ${selV.make} ${selV.model}`;
+  goToQuote({
+    vehicle,
+    port,
+    message: `Interested in: ${vehicle} at FOB ${fmt(selV.price)}. Please send full quote with freight, inspection options, and documentation.`,
+  });
+}
+function toggleMobileLanguage() {
+  const panel = document.getElementById('mobileLangPanel');
+  if (!panel) return;
+  const open = !panel.classList.contains('open');
+  panel.classList.toggle('open', open);
+  panel.setAttribute('aria-hidden', String(!open));
+}
+function closeMobileLanguage() {
+  const panel = document.getElementById('mobileLangPanel');
+  if (!panel) return;
+  panel.classList.remove('open');
+  panel.setAttribute('aria-hidden', 'true');
 }
 function showToast(msg) {
   const t=document.getElementById('toast'); document.getElementById('toastMsg').textContent=msg;
   t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3200);
 }
 function setLang(l, btn) {
+  const modalWasOpen = document.getElementById('modalOverlay')?.classList.contains('open');
   lang = l;
   const t = T[l] || T.EN;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  (btn || document.querySelector(`.lang-btn[data-lang="${l}"]`))?.classList.add('active');
+  document.querySelectorAll('.mobile-lang-choice').forEach(b => b.classList.toggle('active', b.dataset.langChoice === l));
   // Direction
   document.documentElement.dir = t.dir;
   document.documentElement.lang = l.toLowerCase();
@@ -1803,7 +2670,10 @@ function setLang(l, btn) {
   applyContentOverrides();
   // Re-render grid so card buttons use new language
   applyFilters();
+  if (selV && modalWasOpen) openModal(selV.id);
+  applyStaticPhraseTranslations();
   applyWholePageTranslation(l);
+  closeMobileLanguage();
 }
 
 // ── COUNTER ANIM ─────────────────────────────────────────────────────────
@@ -1814,8 +2684,9 @@ function setCount(id,target) {
 
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 
+populateQuoteVehicles();
 renderGrid(vehicles);
-loadCmsState();
+if (canAutoLoadCmsState()) loadCmsState();
 setCount('cVehicles',3200);
 setCount('cShipping',138);
 (() => {
@@ -1828,7 +2699,7 @@ setCount('cShipping',138);
   }
 })();
 </script>
-<script src="arkreview.js?v=20260531-phone-app-2"></script>
+<script src="arkreview.js?v=20260601-review-actions"></script>
 <script src="admin.js"></script>
 <div id="google_translate_element" class="skiptranslate" aria-hidden="true"></div>
 </body>

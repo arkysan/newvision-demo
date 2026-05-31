@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arkysan.github.io/newvision-demo/sitemap.xml

@@ -1,0 +1,17 @@
+{
+  "name": "New Vision",
+  "short_name": "New Vision",
+  "theme_color": "#0f1f12",
+  "background_color": "#0f1f12",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "portrait",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
