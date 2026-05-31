@@ -1,6 +1,6 @@
 # Latest Status
 
-Generated: `2026-06-01 01:02 Asia/Shanghai`
+Generated: `2026-06-01 01:42 Asia/Shanghai`
 
 Project:
 - New Vision vehicle website
@@ -15,7 +15,9 @@ Status:
 - `PASS`: CMS review-patches publish API is syntax/static-guard verified and honest about token/storage requirements.
 - `PASS`: Review overlay quick-action chips are wired and locally verified.
 - `PASS`: Mobile quote/language/app-dock fix is implemented and locally verified.
-- `PARTIAL`: Production deploy is still not approved or run.
+- `PASS`: GitHub Pages is live at `https://arkysan.github.io/newvision-demo/?v=83e8c2e-live-qa`.
+- `PASS`: Vercel production is live at `https://newvision-demo.vercel.app/?v=83e8c2e-live-qa`.
+- `BLOCKED`: Vercel CMS publish is not enabled because `/api/cms?action=status` reports `adminConfigured:false` and `storageConfigured:false`.
 
 Current branch:
 - `master`
@@ -57,9 +59,12 @@ Verification:
 - Playwright quote/editor publish proof at `390x844`: PASS.
 - In-app browser phone review bottom-sheet proof at `390x844`: PASS.
 - Playwright FR/ZH language smoke: PASS.
+- Live GitHub Pages mobile proof at `390x844`: PASS; Leave Feedback opens, quote handoff prepares all three WhatsApp links, and console errors are `0`.
+- Live Vercel mobile proof at `390x844`: PASS; Leave Feedback opens, quote handoff prepares all three WhatsApp links, and console errors are `0`.
+- Vercel CMS status: PASS as honest blocker; `adminConfigured:false`, `storageConfigured:false`.
+- Vercel no-token publish probe: PASS as blocked; `PUT /api/cms?action=review-patches` returns `503 missing_admin_token`.
 - Console warnings/errors: `0`; missing resources: `0`.
 - Latest proof screenshot: `artifacts/phone-review-bottom-sheet-20260601.png`.
 
 Next gate:
-- Owner approval required before Vercel production deploy.
-- Deployed-site admin token and Vercel Blob storage required before a public live editor publish can be executed.
+- Configure `NEWVISION_ADMIN_TOKEN` and Vercel Blob storage before a public live editor publish can be executed.

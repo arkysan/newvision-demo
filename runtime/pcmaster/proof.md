@@ -2,6 +2,16 @@
 
 Status: PASS
 
+Live deploy proof:
+- `git commit`: `83e8c2e feat: publish New Vision feedback quote flow`.
+- `git push origin master`: PASS, `7c721c7..83e8c2e master -> master`.
+- `npx vercel --prod --yes`: PASS, deployment `dpl_FtfkqQJGUeWcsCRybPDendMmPAvm`, production alias `https://newvision-demo.vercel.app`.
+- `Invoke-WebRequest https://arkysan.github.io/newvision-demo/?v=83e8c2e`: PASS; new review script version, GitHub canonical URL, Eissah, and Andy all present.
+- `Invoke-WebRequest https://newvision-demo.vercel.app/?v=83e8c2e`: PASS; new review script version, GitHub canonical URL, Eissah, and Andy all present.
+- Live Playwright mobile proof against GitHub Pages and Vercel: PASS; Leave Feedback opens, quote flow prepares New Vision Sales, Eissah, and Andy links with buyer data, and console errors are `0`.
+- `Invoke-WebRequest https://newvision-demo.vercel.app/api/cms?action=status`: PASS as honest blocker; `adminConfigured:false`, `storageConfigured:false`.
+- `PUT https://newvision-demo.vercel.app/api/cms?action=review-patches` without token: PASS as blocked; `503 missing_admin_token`.
+
 Latest UI proof before this contract task:
 - Local preview: `http://127.0.0.1:52452/`
 - Viewport: `390x844`

@@ -1,8 +1,8 @@
 # Blockers
 
 Current blockers:
-- Production Vercel deploy is not approved in this task.
-- Public editor publish was not executed locally because it requires the deployed New Vision site, `NEWVISION_ADMIN_TOKEN`, and Vercel Blob storage.
+- Public editor publish is not enabled because Vercel reports `adminConfigured:false` and `storageConfigured:false`.
+- `PUT /api/cms?action=review-patches` without a configured admin token correctly returns `503 missing_admin_token`.
 - Repo has pre-existing uncommitted work. Do not claim the branch is clean.
 
 Not blockers:
@@ -14,3 +14,5 @@ Not blockers:
 - Review overlay quick-action proof passed locally after the annotation button fix.
 - Quote/editor publish proof passed locally without claiming a public deploy.
 - CMS review-patches API syntax/static guards passed.
+- GitHub Pages public site is live with the new review/quote build.
+- Vercel production site is live with the new review/quote build.

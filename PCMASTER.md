@@ -43,5 +43,5 @@ Deploy rule:
 
 Current status:
 - `PARTIAL`: the repo now has a PCMaster control contract.
-- `PASS`: local static test, syntax checks, PCMaster contract test, rendered quote proof, editor control proof, and FR/ZH language smoke are current proof gates.
-- `BLOCKED`: production deploy and public editor publish remain owner/config gated.
+- `PASS`: local static test, syntax checks, PCMaster contract test, rendered quote proof, editor control proof, FR/ZH language smoke, GitHub Pages deploy, and Vercel production deploy are current proof gates.
+- `BLOCKED`: public editor publish remains Vercel-env gated because `NEWVISION_ADMIN_TOKEN` and `BLOB_READ_WRITE_TOKEN` are not configured.
