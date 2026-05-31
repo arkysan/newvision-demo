@@ -4,12 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Vision 新视界 — China Car Export | Buy Direct from Yiwu</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="canonical" href="https://newvision-demo.vercel.app/" />
+  <link rel="alternate" hreflang="en" href="https://newvision-demo.vercel.app/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://newvision-demo.vercel.app/?lang=zh-CN" />
+  <link rel="alternate" hreflang="x-default" href="https://newvision-demo.vercel.app/" />
+  <meta name="theme-color" content="#0f1f12" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="New Vision" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="description" content="New Vision — Yiwu's trusted vehicle export company since 2019. Buy BYD, Tesla, BMW, Mercedes, Li Auto and 16+ brands direct from China. FOB pricing, full export docs, 50+ countries served.">
+  <meta name="keywords" content="义乌新视界汽车销售有限公司, 新视界汽车, Yiwu car export, China car export, 新能源汽车出口, BYD export, Tesla China export">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
   <meta property="og:title" content="New Vision 新视界 — China Car Export">
   <meta property="og:description" content="Buy Chinese vehicles direct. BYD, Tesla, BMW, Li Auto, Xiaomi and 16+ brands. Full export service from Yiwu to your port.">
   <meta property="og:type" content="website">
-  <link rel="preload" href="img/v01-tesla.webp" as="image">
-  <link rel="preload" href="img/v02-byd-seal.webp" as="image">
+  <meta property="og:url" content="https://newvision-demo.vercel.app/">
+  <meta property="og:site_name" content="New Vision 新视界">
+  <meta property="og:image" content="https://newvision-demo.vercel.app/og-image-20260531.png">
+  <meta property="og:image:secure_url" content="https://newvision-demo.vercel.app/og-image-20260531.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="New Vision 新视界 — China Car Export">
+  <meta name="twitter:description" content="Buy Chinese vehicles direct. BYD, Tesla, BMW, Li Auto, Xiaomi and 16+ brands. Full export service from Yiwu to your port.">
+  <meta name="twitter:image" content="https://newvision-demo.vercel.app/og-image-20260531.png">
+  <link rel="preload" href="img/thumbs/v01-tesla.webp" as="image">
+  <link rel="preload" href="img/thumbs/v02-byd-seal.webp" as="image">
   <style>
     :root {
       --bg:       #FFFFFF;
@@ -58,15 +83,24 @@
     .nav-search input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px 8px 38px; color: var(--text); font-size: 14px; outline: none; transition: border-color .2s; }
     .nav-search input:focus { border-color: var(--green); }
     .nav-search input::placeholder { color: var(--muted); }
-    .nav-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+    .nav-search-icon { position: absolute; left: 14px; top: 50%; width: 13px; height: 13px; border: 2px solid var(--muted); border-radius: 50%; transform: translateY(-58%); color: var(--muted); }
+    .nav-search-icon::after { content: ''; position: absolute; width: 6px; height: 2px; right: -5px; bottom: -3px; background: currentColor; border-radius: 2px; transform: rotate(45deg); }
     .nav-links { display: flex; gap: 2px; margin-left: auto; }
     .nav-link { padding: 7px 13px; border-radius: 7px; font-size: 14px; color: var(--muted2); transition: all .2s; }
     .nav-link:hover { background: var(--surface2); color: var(--text); }
     .nav-lang { display: flex; gap: 4px; }
     .lang-btn { padding: 5px 9px; border-radius: 6px; font-size: 12px; background: none; border: 1px solid var(--border); color: var(--muted2); transition: all .2s; }
     .lang-btn.active, .lang-btn:hover { border-color: var(--green); color: var(--green); background: rgba(76,175,80,0.08); }
+    #google_translate_element{position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden}
+    iframe.goog-te-banner-frame{display:none!important}
+    body{top:0!important}
     .btn-wa { display: flex; align-items: center; gap: 7px; padding: 8px 16px; background: #25D366; border: none; border-radius: 8px; color: #fff; font-weight: 600; font-size: 14px; transition: background .2s; flex-shrink: 0; }
     .btn-wa:hover { background: #22BF5C; }
+    .btn-cn { display: flex; align-items: center; gap: 7px; padding: 8px 14px; background: var(--green2); border: none; border-radius: 8px; color: #fff; font-weight: 700; font-size: 13px; transition: background .2s; flex-shrink: 0; }
+    .btn-cn:hover { background: var(--green); }
+    .china-strip { background: #f7fbf7; border-bottom: 1px solid var(--border); padding: 8px 24px; font-size: 12px; color: var(--muted2); display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .china-strip strong { color: var(--green2); }
+    .china-strip button { border: 1px solid var(--border2); background: #fff; color: var(--green2); border-radius: 999px; padding: 5px 11px; font-size: 12px; font-weight: 700; }
 
     /* ── HERO ── */
     .hero { position: relative; overflow: hidden; padding: 64px 24px 72px; text-align: center; }
@@ -96,9 +130,9 @@
       margin-top: 4px; opacity: 0.85;
     }
     .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.25); border-radius: 20px; padding: 5px 16px; font-size: 13px; color: var(--green2); margin-bottom: 20px; }
-    .hero-badge::before { content: '●'; font-size: 8px; animation: pulse-dot 2s infinite; }
+    .hero-badge::before { content: '●'; font-size: 8px; }
     @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
-    .hero h1 { font-size: clamp(28px, 4.5vw, 50px); font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(28px, 4.5vw, 50px); font-weight: 800; letter-spacing: 0; line-height: 1.15; margin-bottom: 16px; }
     .hero h1 span { background: linear-gradient(135deg, var(--green), var(--green2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .hero-sub { font-size: 17px; color: var(--muted2); max-width: 540px; margin: 0 auto 32px; }
     .hero-search { display: flex; max-width: 680px; margin: 0 auto 16px; background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; padding: 8px; gap: 8px; }
@@ -114,7 +148,7 @@
     .categories { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; max-width: 1280px; margin: 0 auto; padding: 0 24px 40px; }
     .cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all .2s; }
     .cat-card:hover { border-color: var(--green); background: var(--surface2); }
-    .cat-icon { font-size: 32px; flex-shrink: 0; }
+    .cat-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.22); color: var(--green2); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; letter-spacing: 0; flex-shrink: 0; }
     .cat-info h3 { font-size: 15px; font-weight: 700; }
     .cat-info p { font-size: 12px; color: var(--muted2); margin-top: 2px; }
     .cat-count { margin-left: auto; font-size: 20px; font-weight: 800; color: var(--green); flex-shrink: 0; }
@@ -128,14 +162,14 @@
     /* ── TRUST ── */
     .trust { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; padding: 0 24px; }
     .trust-item { display: flex; align-items: center; gap: 10px; padding: 14px 20px; white-space: nowrap; border-right: 1px solid var(--border); flex-shrink: 0; }
-    .trust-icon { width: 30px; height: 30px; border-radius: 7px; background: rgba(76,175,80,0.1); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    .trust-icon { width: 34px; height: 30px; border-radius: 7px; background: rgba(76,175,80,0.1); display: flex; align-items: center; justify-content: center; color: var(--green2); font-size: 9px; font-weight: 800; letter-spacing: 0; flex-shrink: 0; }
     .trust-text strong { display: block; font-size: 12px; font-weight: 600; color: var(--text); }
     .trust-text span { font-size: 11px; color: var(--muted); }
 
     /* ── SECTION ── */
     section { padding: 48px 24px; max-width: 1400px; margin: 0 auto; }
     .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; gap: 12px; flex-wrap: wrap; }
-    .section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+    .section-title { font-size: 22px; font-weight: 700; letter-spacing: 0; }
     .section-title span { color: var(--green); }
     .section-sub { font-size: 13px; color: var(--muted2); margin-top: 3px; }
 
@@ -151,7 +185,7 @@
     .vehicle-card { will-change: transform; }
     .vehicle-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(46,125,50,0.13); }
     .vehicle-img { position: relative; aspect-ratio: 16/9; background: var(--surface2); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .vehicle-img-placeholder { font-size: 56px; }
+    .vehicle-photo-fallback { font-size: 13px; color: var(--muted2); font-weight: 700; letter-spacing: .02em; text-transform: uppercase; text-align: center; padding: 18px; }
     .vehicle-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
     .vehicle-card:hover .vehicle-img img { transform: scale(1.04); }
     .badge { display: inline-flex; align-items: center; gap: 3px; padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
@@ -186,7 +220,7 @@
     .showroom-photo { height: 420px; overflow: hidden; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 100px; }
     .showroom-photo img { width: 100%; height: 100%; object-fit: cover; }
     .showroom-info { padding: 40px 48px; }
-    .showroom-info h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .showroom-info h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; letter-spacing: 0; }
     .showroom-info h2 span { color: var(--green); }
     .showroom-info p { color: var(--muted2); margin-bottom: 20px; line-height: 1.7; }
     .showroom-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
@@ -211,13 +245,33 @@
     .route-info strong { display: block; font-size: 13px; font-weight: 700; }
     .route-info span { font-size: 11px; color: var(--muted); }
     .route-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); margin-left: auto; animation: pulse-dot 2s infinite; flex-shrink: 0; }
+    .market-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+    .market-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+    .market-card.priority { border-color: rgba(46,125,50,.36); box-shadow: 0 10px 32px rgba(46,125,50,.08); }
+    .market-rank { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--green2); background: rgba(46,125,50,.08); border: 1px solid rgba(46,125,50,.18); border-radius: 999px; padding: 4px 9px; margin-bottom: 10px; }
+    .market-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+    .market-card p { color: var(--muted2); font-size: 13px; line-height: 1.65; margin-bottom: 10px; }
+    .market-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+    .market-meta span { font-size: 11px; color: var(--muted2); background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 4px 8px; }
 
     /* ── CERTS ── */
     .certs { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 10px; }
     .cert-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px; }
-    .cert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .cert-icon { width: 38px; height: 26px; border-radius: 7px; background: rgba(27,94,32,.08); border: 1px solid rgba(27,94,32,.18); color: var(--green2); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; flex-shrink: 0; margin-top: 1px; letter-spacing: 0; }
     .cert-text { font-size: 13px; font-weight: 600; }
     .cert-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* ── INFO HUB ── */
+    .info-hub { background: #fff; border-top: 1px solid var(--border); }
+    .info-group { margin-top: 26px; }
+    .info-group h3 { font-size: 13px; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+    .info-card { scroll-margin-top: 94px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; min-height: 172px; }
+    .info-card h4 { font-size: 16px; font-weight: 800; margin-bottom: 8px; color: var(--text); }
+    .info-card p { font-size: 13px; line-height: 1.65; color: var(--muted2); margin-bottom: 10px; }
+    .info-card ul { padding-left: 18px; margin: 0; color: var(--muted2); font-size: 13px; line-height: 1.65; }
+    .info-card li { margin-bottom: 4px; }
+    .info-note { margin-top: 20px; border: 1px solid rgba(255,140,0,.28); background: rgba(255,140,0,.06); border-radius: 12px; padding: 14px 16px; color: #7a4a00; font-size: 13px; line-height: 1.6; }
 
     /* ── CTA ── */
     .cta-block { background: linear-gradient(135deg, rgba(46,125,50,0.08), rgba(76,175,80,0.03)); border: 1px solid rgba(76,175,80,0.25); border-left: 4px solid var(--green); border-radius: 16px; padding: 40px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
@@ -243,6 +297,13 @@
     .footer-col a:hover { color: var(--green); }
     .footer-bottom { padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .footer-bottom p { font-size: 12px; color: var(--muted); }
+
+    /* ── MOBILE APP BAR ── */
+    .mobile-app-bar { display: none; }
+    .mobile-app-btn { text-decoration: none; border: none; background: transparent; color: var(--muted2); font: 700 11px 'Plus Jakarta Sans', system-ui, sans-serif; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border-radius: 12px; padding: 6px 4px; cursor: pointer; }
+    .mobile-app-btn span { width: 24px; height: 24px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: var(--surface2); color: var(--green2); font-size: 9px; font-weight: 900; letter-spacing: 0; }
+    .mobile-app-btn.primary { background: var(--green3); color: #fff; }
+    .mobile-app-btn.primary span { background: rgba(255,255,255,.18); color: #fff; }
 
     /* ── MODAL ── */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 200; display: none; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 20px; }
@@ -305,17 +366,55 @@
       .categories { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
-      nav { padding: 0 14px; gap: 10px; }
-      .nav-links, .nav-search, .nav-lang { display: none; }
-      .hero { padding: 40px 14px 48px; }
-      .hero-logo-name { font-size: 28px; letter-spacing: 5px; }
-      .hero-logo-arc { width: 160px; }
-      .hero-logo-zh { font-size: 14px; }
-      .hero-search { flex-direction: column; }
+      body { padding-bottom: 88px; }
+      nav { height: 58px; padding: 0 14px; gap: 10px; }
+      .nav-brand { gap: 8px; }
+      .nav-brand svg { width: 36px; height: 30px; }
+      .nav-brand-en { font-size: 14px; letter-spacing: 1.4px; }
+      .nav-brand-zh { font-size: 10px; }
+      .nav-links, .nav-search { display: none; }
+      .nav-lang { margin-left: auto; }
+      .btn-wa, .btn-cn { display: none; }
+      .lang-btn { padding: 5px 7px; font-size: 11px; }
+      .demo-banner, .china-strip { display: none !important; }
+      .hero { padding: 16px 14px 18px; text-align: left; }
+      .hero-logo { display: none; }
+      .hero-badge { margin-bottom: 10px; padding: 5px 11px; font-size: 12px; }
+      .hero h1 { font-size: 25px; line-height: 1.12; margin-bottom: 10px; }
+      .hero-sub { font-size: 14px; line-height: 1.55; margin: 0 0 12px; max-width: none; }
+      .hero-search { flex-direction: column; margin: 0 0 10px; padding: 10px; border-radius: 16px; box-shadow: 0 10px 26px rgba(27,94,32,.08); }
+      .hero-search select { min-height: 44px; font-size: 14px; }
+      .hero-search-btn { min-height: 46px; }
+      .hero-tags { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+      .hero-tags::-webkit-scrollbar { display: none; }
+      .hero-tag { flex: 0 0 auto; }
+      .categories { padding: 12px 14px 18px; gap: 8px; }
+      .cat-card { padding: 13px; border-radius: 10px; }
+      .cat-icon { width: 36px; height: 36px; }
+      .cat-info p { display: none; }
       section { padding: 36px 14px; }
       .vehicle-grid { grid-template-columns: 1fr; gap: 14px; }
       .steps { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+      .cta-block { padding: 22px 16px; gap: 16px; border-radius: 12px; }
+      .cta-actions, .btn-lg { width: 100%; justify-content: center; }
+      #floatWA { display: none !important; }
+      .mobile-app-bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 99998;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        min-height: 72px;
+        padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+        background: rgba(255,255,255,.96);
+        border-top: 1px solid var(--border);
+        box-shadow: 0 -10px 28px rgba(27,94,32,.10);
+        backdrop-filter: blur(14px);
+      }
     }
   </style>
 </head>
@@ -334,7 +433,7 @@
       </defs>
       <path d="M2,28 C8,8 18,2 26,3 C32,4 36,13 38,22"
             stroke="url(#arcGrad)" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <text x="39" y="20" font-size="7" fill="#FF8C00" text-anchor="middle" dominant-baseline="middle">✦</text>
+      <text x="39" y="20" font-size="7" fill="#FF8C00" text-anchor="middle" dominant-baseline="middle">NV</text>
     </svg>
     <div class="nav-brand-text">
       <span class="nav-brand-en">NEW VISION</span>
@@ -342,32 +441,46 @@
     </div>
   </div>
   <div class="nav-search">
-    <span class="nav-search-icon">🔍</span>
-    <input type="text" placeholder="Search BYD, Tesla, BMW, Mercedes…" data-i18n-placeholder="search_ph" id="navSearch">
+    <span class="nav-search-icon" aria-hidden="true"></span>
+    <input type="text" placeholder="Search BYD, Tesla, BMW, Mercedes…" data-i18n-placeholder="search_ph" id="navSearch" oninput="applyFilters()">
   </div>
   <div class="nav-links">
     <a class="nav-link" href="#inventory" data-i18n="nav_inventory">Inventory</a>
     <a class="nav-link" href="#how" data-i18n="nav_process">Process</a>
     <a class="nav-link" href="#routes" data-i18n="nav_routes">Routes</a>
-    <a class="nav-link" href="#" data-i18n="nav_about">About</a>
+    <a class="nav-link" href="#best-markets">Markets</a>
+    <a class="nav-link" href="https://www.nvncar.com/about-us/" target="_blank" rel="noopener noreferrer" data-i18n="nav_about">About</a>
   </div>
-  <div class="nav-lang">
-    <button class="lang-btn active" onclick="setLang('EN',this)">EN</button>
-    <button class="lang-btn" onclick="setLang('AR',this)">AR</button>
-    <button class="lang-btn" onclick="setLang('FR',this)">FR</button>
-    <button class="lang-btn" onclick="setLang('ZH',this)">中文</button>
+  <div class="nav-lang skiptranslate">
+    <button class="lang-btn active" data-lang="EN" onclick="setLang('EN',this)">EN</button>
+    <button class="lang-btn" data-lang="AR" onclick="setLang('AR',this)">AR</button>
+    <button class="lang-btn" data-lang="FR" onclick="setLang('FR',this)">FR</button>
+    <button class="lang-btn" data-lang="ZH" onclick="setLang('ZH',this)">中文</button>
   </div>
   <button class="btn-wa" onclick="openWA('Hi New Vision, I want to buy a car from China. Please help me.')">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
     WhatsApp
   </button>
+  <button class="btn-cn" onclick="copyChinaContact()">微信/电话</button>
 </nav>
+
+<div class="mobile-app-bar" role="navigation" aria-label="Mobile app actions">
+  <a class="mobile-app-btn" href="#inventory"><span>CAR</span><strong data-i18n="mnav_cars">Cars</strong></a>
+  <button class="mobile-app-btn" type="button" onclick="openMobileFilters()"><span>FLT</span><strong data-i18n="mnav_filter">Filter</strong></button>
+  <button class="mobile-app-btn primary" type="button" onclick="openWA('Hi New Vision, I want current stock and pricing. Please send details.')"><span>WA</span><strong data-i18n="mnav_quote">Quote</strong></button>
+  <a class="mobile-app-btn" href="#info-safety"><span>DOC</span><strong data-i18n="mnav_trust">Trust</strong></a>
+</div>
 
 <main>
 <!-- ── DEMO BANNER ── -->
-<div style="background:rgba(76,175,80,0.07);border-bottom:1px solid rgba(76,175,80,0.15);padding:7px 24px;font-size:12px;color:var(--muted2);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">
-  <span>📋 <strong style="color:var(--green2)" data-i18n="demo_label">Demo Site</strong> — <span data-i18n="demo_notice">Sample inventory for illustration purposes.</span></span>
-  <a onclick="openWA('Hi New Vision, I want to see your full available stock list. Please send details.')" style="color:var(--green);cursor:pointer;text-decoration:underline;font-weight:600;" data-i18n="demo_cta">Contact us on WhatsApp for live stock & pricing →</a>
+<div class="demo-banner" style="background:rgba(76,175,80,0.07);border-bottom:1px solid rgba(76,175,80,0.15);padding:7px 24px;font-size:12px;color:var(--muted2);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">
+  <span><strong style="color:var(--green2)" data-i18n="demo_label">Demo Site</strong> — <span data-i18n="demo_notice">Sample inventory for illustration purposes.</span></span>
+  <a onclick="openWA('Hi New Vision, I want to see your full available stock list. Please send details.')" style="color:var(--green);cursor:pointer;text-decoration:underline;font-weight:600;" data-i18n="demo_cta">Contact us on WhatsApp for current stock & pricing →</a>
+</div>
+<div class="china-strip">
+  <span><strong>中国访问优化</strong> · 中文内容本地加载 · 微信/电话：+86 137 3561 1862 · 地址：义乌市工人北路525-527号</span>
+  <button onclick="copyChinaContact()">复制微信/电话</button>
+  <button onclick="setLang('ZH', document.querySelector('.lang-btn[data-lang=&quot;ZH&quot;]'))">中文模式</button>
 </div>
 
 <!-- ── HERO ── -->
@@ -390,14 +503,14 @@
               stroke="url(#heroArc)" stroke-width="14" fill="none"
               stroke-linecap="round"/>
         <!-- Orange sparkle at right tip (replaces dot on "I" in VISION) -->
-        <text x="215" y="42" font-size="15" fill="#FF8C00" text-anchor="middle" dominant-baseline="middle">✦</text>
+        <text x="215" y="42" font-size="15" fill="#FF8C00" text-anchor="middle" dominant-baseline="middle">NV</text>
       </svg>
     </div>
     <div class="hero-logo-name">NEW VIS<span>I</span>ON</div>
     <div class="hero-logo-zh">新 &nbsp; 视 &nbsp; 界</div>
   </div>
 
-  <div class="hero-badge">🚗 <span data-i18n="hero_badge">Live Inventory — 3,200+ vehicles ready for export</span></div>
+  <div class="hero-badge"><span data-i18n="hero_badge">Demo inventory - contact for current stock</span></div>
   <h1 data-i18n-html="hero_h1">Buy Cars <span>Direct from China</span><br>Delivered to Your Country</h1>
   <p class="hero-sub" data-i18n="hero_sub">Focusing on green and smart travel since 2019. Full-chain export solutions — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO and 16+ brands.</p>
 
@@ -417,13 +530,13 @@
       <option data-i18n="opt_ev">EV</option><option data-i18n="opt_suv">SUV</option><option data-i18n="opt_sedan">Sedan</option><option data-i18n="opt_premium">Premium</option>
     </select>
     <select id="heroCondition" aria-label="Filter by condition" onchange="applyFilters()">
-      <option value="">New & Used</option>
+      <option value="" data-i18n="opt_allcond">New & Used</option>
       <option data-i18n="opt_new">New</option><option data-i18n="opt_used">Used</option>
     </select>
-    <button class="hero-search-btn" onclick="applyFilters();scrollToInventory()">Search →</button>
+    <button class="hero-search-btn" onclick="applyFilters();scrollToInventory()" data-i18n="btn_search">Search →</button>
   </div>
   <div class="hero-tags">
-    <span class="hero-tag" onclick="filterTag('EV')">⚡ New Energy</span>
+    <span class="hero-tag" onclick="filterTag('EV')" data-i18n="filter_ev">New Energy</span>
     <span class="hero-tag" onclick="filterTag('BYD')">BYD</span>
     <span class="hero-tag" onclick="filterTag('Tesla')">Tesla</span>
     <span class="hero-tag" onclick="filterTag('Premium')" data-i18n="htag_prem">Premium Brands</span>
@@ -436,18 +549,18 @@
 <div style="background:var(--surface);border-bottom:1px solid var(--border)">
   <div class="categories">
     <div class="cat-card" onclick="filterTag('EV')">
-      <div class="cat-icon">⚡</div>
+      <div class="cat-icon">EV</div>
       <div class="cat-info"><h3 data-i18n="cat1_h">New Energy Vehicles</h3><p data-i18n="cat1_p">EV, PHEV, Hybrid — BYD, Tesla, Li Auto, Xiaomi, Leapmotor</p></div>
       <div class="cat-count">800+</div>
     </div>
     <div class="cat-card" onclick="filterTag('Premium')">
-      <div class="cat-icon">🏆</div>
-      <div class="cat-info"><h3>Traditional & Premium</h3><p data-i18n="cat2_p">BMW, Mercedes, Audi, Toyota, VW, Honda, Changan</p></div>
+      <div class="cat-icon">AUTO</div>
+      <div class="cat-info"><h3 data-i18n="cat2_h">Traditional & Premium</h3><p data-i18n="cat2_p">BMW, Mercedes, Audi, Toyota, VW, Honda, Changan</p></div>
       <div class="cat-count">2,000+</div>
     </div>
     <div class="cat-card">
-      <div class="cat-icon">🏍️</div>
-      <div class="cat-info"><h3>Motorcycles & Engineering</h3><p data-i18n="cat3_p">Electric motorcycles, tricycles, engineering vehicles</p></div>
+      <div class="cat-icon">MOTO</div>
+      <div class="cat-info"><h3 data-i18n="cat3_h">Motorcycles & Engineering</h3><p data-i18n="cat3_p">Electric motorcycles, tricycles, engineering vehicles</p></div>
       <div class="cat-count">400+</div>
     </div>
   </div>
@@ -463,12 +576,12 @@
 
 <!-- ── TRUST ── -->
 <div class="trust">
-  <div class="trust-item"><div class="trust-icon">🏅</div><div class="trust-text"><strong data-i18n="trust1_s">10 Integrity Certificates</strong><span data-i18n="trust1_p">Model Unit for Business Integrity</span></div></div>
-  <div class="trust-item"><div class="trust-icon">📋</div><div class="trust-text"><strong data-i18n="trust2_s">MOFCOM Licensed</strong><span data-i18n="trust2_p">Ministry of Commerce export license</span></div></div>
-  <div class="trust-item"><div class="trust-icon">🔍</div><div class="trust-text"><strong data-i18n="trust3_s">200-Point Inspection</strong><span data-i18n="trust3_p">Third-party pre-export verification</span></div></div>
-  <div class="trust-item"><div class="trust-icon">🚢</div><div class="trust-text"><strong data-i18n="trust4_s">Door-to-Port Logistics</strong><span data-i18n="trust4_p">Shanghai port, full customs handling</span></div></div>
-  <div class="trust-item"><div class="trust-icon">📄</div><div class="trust-text"><strong data-i18n="trust5_s">Full Documentation</strong><span data-i18n="trust5_p">B/L, CoO, customs, invoice, insurance</span></div></div>
-  <div class="trust-item"><div class="trust-icon">🌍</div><div class="trust-text"><strong data-i18n="trust6_s">Global Network</strong><span data-i18n="trust6_p">Asia · Europe · Africa · Middle East · S. America</span></div></div>
+  <div class="trust-item"><div class="trust-icon">CERT</div><div class="trust-text"><strong data-i18n="trust1_s">10 Integrity Certificates</strong><span data-i18n="trust1_p">Model Unit for Business Integrity</span></div></div>
+  <div class="trust-item"><div class="trust-icon">CN</div><div class="trust-text"><strong data-i18n="trust2_s">MOFCOM Licensed</strong><span data-i18n="trust2_p">Ministry of Commerce export license</span></div></div>
+  <div class="trust-item"><div class="trust-icon">QA</div><div class="trust-text"><strong data-i18n="trust3_s">200-Point Inspection</strong><span data-i18n="trust3_p">Third-party pre-export verification</span></div></div>
+  <div class="trust-item"><div class="trust-icon">SHIP</div><div class="trust-text"><strong data-i18n="trust4_s">Door-to-Port Logistics</strong><span data-i18n="trust4_p">Shanghai port, full customs handling</span></div></div>
+  <div class="trust-item"><div class="trust-icon">DOC</div><div class="trust-text"><strong data-i18n="trust5_s">Full Documentation</strong><span data-i18n="trust5_p">B/L, CoO, customs, invoice, insurance</span></div></div>
+  <div class="trust-item"><div class="trust-icon">GLB</div><div class="trust-text"><strong data-i18n="trust6_s">Global Network</strong><span data-i18n="trust6_p">Asia · Europe · Africa · Middle East · S. America</span></div></div>
 </div>
 
 <!-- ── BRAND PARTNERS ── -->
@@ -511,7 +624,7 @@
   <div class="section-header">
     <div>
       <h2 class="section-title"><span data-i18n="st_vehicle">Vehicle</span> <span>Inventory</span> <span id="resultCount" style="font-size:15px;color:var(--muted2)"></span></h2>
-      <div class="section-sub" data-i18n="inv_sub">FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for live stock</div>
+      <div class="section-sub" data-i18n="inv_sub">FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for current stock</div>
     </div>
     <select class="filter-select" id="sortBy" aria-label="Sort vehicles" onchange="applyFilters()">
       <option value="latest" data-i18n="sort_latest">Latest Arrivals</option>
@@ -523,7 +636,7 @@
 
   <div class="filters" id="filterBar">
     <button class="filter-btn active" onclick="setTypeFilter('all',this)" data-i18n="filter_all">All</button>
-    <button class="filter-btn" onclick="setTypeFilter('EV',this)" data-i18n="filter_ev">⚡ New Energy</button>
+    <button class="filter-btn" onclick="setTypeFilter('EV',this)" data-i18n="filter_ev">New Energy</button>
     <button class="filter-btn" onclick="setTypeFilter('SUV',this)" data-i18n="filter_suv">SUV</button>
     <button class="filter-btn" onclick="setTypeFilter('Sedan',this)" data-i18n="filter_sedan">Sedan</button>
     <button class="filter-btn" onclick="setTypeFilter('Premium',this)" data-i18n="filter_premium">Premium</button>
@@ -540,7 +653,7 @@
 <!-- ── SHOWROOM ── -->
 <div class="showroom">
   <div class="showroom-inner">
-    <div class="showroom-photo"><img src="showroom.jpg" alt="New Vision Showroom — Yiwu, Zhejiang"></div>
+    <div class="showroom-photo"><img src="showroom-900.webp" alt="New Vision Showroom — Yiwu, Zhejiang" loading="lazy" decoding="async" width="900" height="675"></div>
     <div class="showroom-info">
       <h2>义乌新视界汽车销售有限公司<br><span data-i18n="showroom_h2b">New Vision Car Export Company</span></h2>
       <p data-i18n="showroom_desc">Established in Yiwu, China in 2019. We specialize in green and smart travel solutions — connecting global buyers to China's top automotive brands with full-service export, documentation, and logistics support.</p>
@@ -567,7 +680,7 @@
       <div class="step"><div class="step-num">2</div><h3 data-i18n="step2_h">Get Your Quote</h3><p data-i18n="step2_p">FOB + CIF estimate to your port within 2 hours via WhatsApp</p></div>
       <div class="step"><div class="step-num">3</div><h3 data-i18n="step3_h">Inspection</h3><p data-i18n="step3_p">Optional 200-point third-party report. Approve before paying</p></div>
       <div class="step"><div class="step-num">4</div><h3 data-i18n="step4_h">Export & Ship</h3><p data-i18n="step4_p">We handle customs, MOFCOM docs, vessel booking, loading</p></div>
-      <div class="step"><div class="step-num">5</div><h3 data-i18n="step5_h">Track & Receive</h3><p data-i18n="step5_p">Live tracking + full documents (B/L, CoO, customs) at delivery</p></div>
+      <div class="step"><div class="step-num">5</div><h3 data-i18n="step5_h">Track & Receive</h3><p data-i18n="step5_p">Shipment tracking + full documents (B/L, CoO, customs) at delivery</p></div>
     </div>
   </section>
 </div>
@@ -576,7 +689,7 @@
 <section id="routes">
   <div class="section-header">
     <h2 class="section-title" data-i18n-html="sec_routes">Active <span>Shipping Routes</span></h2>
-    <div style="font-size:13px;color:var(--green2);display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse-dot 2s infinite;"></span>Live shipments in transit now</div>
+      <div style="font-size:13px;color:var(--green2);display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse-dot 2s infinite;"></span>Example routes - confirm schedule by quote</div>
   </div>
   <div class="routes-grid">
     <div class="route-card"><div class="route-flag">🇬🇭</div><div class="route-info"><strong data-i18n="r1_c">Ghana</strong><span data-i18n="r1_p">Tema Port · 28 days</span></div><div class="route-dot"></div></div>
@@ -592,21 +705,79 @@
   </div>
 </section>
 
+<!-- ── MARKET PRIORITY ── -->
+<section id="best-markets" style="background:#fff;border-top:1px solid var(--border);">
+  <div class="section-header">
+    <h2 class="section-title">Best Markets <span>to Reach First</span></h2>
+    <div class="section-sub">Start where demand for China vehicles is already strong, route friction is manageable, and buyers use WhatsApp or dealer-agent sourcing.</div>
+  </div>
+  <div class="market-grid">
+    <article class="market-card priority">
+      <div class="market-rank">Priority 1 · Sell now</div>
+      <h3>🇦🇪 UAE</h3>
+      <p>Best first market. It is a high-volume China export destination and a regional resale/logistics hub for Gulf, Africa, and re-export buyers.</p>
+      <div class="market-meta"><span>Jebel Ali route</span><span>Arabic + English</span><span>Premium + EV</span></div>
+    </article>
+    <article class="market-card priority">
+      <div class="market-rank">Priority 2 · Sell now</div>
+      <h3>🇸🇦 Saudi Arabia</h3>
+      <p>Strong Gulf demand, growing acceptance of Chinese brands, and a clear route to Jeddah. Good for SUVs, premium sedans, and new energy models.</p>
+      <div class="market-meta"><span>Jeddah route</span><span>Arabic</span><span>SUV + premium</span></div>
+    </article>
+    <article class="market-card priority">
+      <div class="market-rank">Priority 3 · Dealer market</div>
+      <h3>🇳🇬 Nigeria</h3>
+      <p>Good WhatsApp-led dealer market for value vehicles, used units, and multi-car sourcing. Lead quality matters: ask for port, budget, and quantity first.</p>
+      <div class="market-meta"><span>Lagos route</span><span>English</span><span>Used + value SUV</span></div>
+    </article>
+    <article class="market-card">
+      <div class="market-rank">Priority 4 · Africa lane</div>
+      <h3>🇬🇭 Ghana</h3>
+      <p>Smaller than Nigeria but easier to message directly. Good for dealers who want clear FOB/CIF quotes and practical vehicles.</p>
+      <div class="market-meta"><span>Tema route</span><span>English</span><span>Dealer buyers</span></div>
+    </article>
+    <article class="market-card">
+      <div class="market-rank">Priority 5 · North Africa</div>
+      <h3>🇲🇦 Morocco / 🇩🇿 Algeria / 🇪🇬 Egypt</h3>
+      <p>Good French/Arabic funnel. Best with translated landing copy, port-specific quotes, and stronger documentation messaging.</p>
+      <div class="market-meta"><span>Casablanca / Algiers / Port Said</span><span>Arabic + French</span><span>Docs trust</span></div>
+    </article>
+    <article class="market-card">
+      <div class="market-rank">Priority 6 · Southeast Asia</div>
+      <h3>🇰🇭 Cambodia</h3>
+      <p>Close shipping lane and useful for regional dealer testing. Good as a low-friction pilot before expanding Southeast Asia campaigns.</p>
+      <div class="market-meta"><span>Sihanoukville route</span><span>Fast route</span><span>Dealer pilot</span></div>
+    </article>
+    <article class="market-card">
+      <div class="market-rank">Big market · Add later</div>
+      <h3>🇲🇽 Mexico / 🇧🇷 Brazil</h3>
+      <p>Huge China-vehicle export demand, but this site needs Spanish/Portuguese copy, Latin America port pricing, and local compliance notes before running serious ads.</p>
+      <div class="market-meta"><span>High volume</span><span>Needs LATAM lane</span><span>Spanish/Portuguese</span></div>
+    </article>
+    <article class="market-card">
+      <div class="market-rank">Big market · Add later</div>
+      <h3>🇰🇿 Kazakhstan / 🇵🇭 Philippines</h3>
+      <p>Strong China-export destinations, but they need route-specific pages and buyer-language localization before they should be pushed hard.</p>
+      <div class="market-meta"><span>Growth markets</span><span>Need local pages</span><span>Follow-up phase</span></div>
+    </article>
+  </div>
+</section>
+
 <!-- ── CERTS ── -->
 <div style="background:var(--surface);border-top:1px solid var(--border)">
 <section>
   <div class="section-header"><h2 class="section-title">Trust & <span>Certifications</span></h2></div>
   <div class="certs">
-    <div class="cert-card"><div class="cert-icon">🏅</div><div><div class="cert-text" data-i18n="cert1_t">Model Unit for Integrity in Business</div><div class="cert-sub" data-i18n="cert1_s">Business integrity award</div></div></div>
-    <div class="cert-card"><div class="cert-icon">🤝</div><div><div class="cert-text" data-i18n="cert2_t">Integrity Entrepreneur</div><div class="cert-sub" data-i18n="cert2_s">Personal integrity award</div></div></div>
-    <div class="cert-card"><div class="cert-icon">⭐</div><div><div class="cert-text" data-i18n="cert3_t">Enterprise Credit Rating</div><div class="cert-sub" data-i18n="cert3_s">AAA credit standing</div></div></div>
-    <div class="cert-card"><div class="cert-icon">📊</div><div><div class="cert-text" data-i18n="cert4_t">Enterprise Creditworthiness Rating</div><div class="cert-sub" data-i18n="cert4_s">Financial credibility</div></div></div>
-    <div class="cert-card"><div class="cert-icon">✅</div><div><div class="cert-text" data-i18n="cert5_t">Quality Service & Integrity Enterprise</div><div class="cert-sub" data-i18n="cert5_s">Service excellence award</div></div></div>
-    <div class="cert-card"><div class="cert-icon">🎖️</div><div><div class="cert-text" data-i18n="cert6_t">Service-Oriented & Credit-Abiding</div><div class="cert-sub" data-i18n="cert6_s">Industry integrity award</div></div></div>
-    <div class="cert-card"><div class="cert-icon">📜</div><div><div class="cert-text" data-i18n="cert7_t">Contract-Respecting & Promise-Keeping</div><div class="cert-sub" data-i18n="cert7_s">Commitment to buyers</div></div></div>
-    <div class="cert-card"><div class="cert-icon">🔍</div><div><div class="cert-text" data-i18n="cert8_t">Quality-Focused & Creditworthy Unit</div><div class="cert-sub" data-i18n="cert8_s">Quality management</div></div></div>
-    <div class="cert-card"><div class="cert-icon">🛡️</div><div><div class="cert-text" data-i18n="cert9_t">Trusted Supplier</div><div class="cert-sub" data-i18n="cert9_s">Verified export partner</div></div></div>
-    <div class="cert-card"><div class="cert-icon">👤</div><div><div class="cert-text" data-i18n="cert10_t">Integrity Manager Award</div><div class="cert-sub" data-i18n="cert10_s">Leadership recognition</div></div></div>
+    <div class="cert-card"><div class="cert-icon">BIZ</div><div><div class="cert-text" data-i18n="cert1_t">Model Unit for Integrity in Business</div><div class="cert-sub" data-i18n="cert1_s">Business integrity award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">ENT</div><div><div class="cert-text" data-i18n="cert2_t">Integrity Entrepreneur</div><div class="cert-sub" data-i18n="cert2_s">Personal integrity award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">AAA</div><div><div class="cert-text" data-i18n="cert3_t">Enterprise Credit Rating</div><div class="cert-sub" data-i18n="cert3_s">AAA credit standing</div></div></div>
+    <div class="cert-card"><div class="cert-icon">FIN</div><div><div class="cert-text" data-i18n="cert4_t">Enterprise Creditworthiness Rating</div><div class="cert-sub" data-i18n="cert4_s">Financial credibility</div></div></div>
+    <div class="cert-card"><div class="cert-icon">QA</div><div><div class="cert-text" data-i18n="cert5_t">Quality Service & Integrity Enterprise</div><div class="cert-sub" data-i18n="cert5_s">Service excellence award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">SVC</div><div><div class="cert-text" data-i18n="cert6_t">Service-Oriented & Credit-Abiding</div><div class="cert-sub" data-i18n="cert6_s">Industry integrity award</div></div></div>
+    <div class="cert-card"><div class="cert-icon">DOC</div><div><div class="cert-text" data-i18n="cert7_t">Contract-Respecting & Promise-Keeping</div><div class="cert-sub" data-i18n="cert7_s">Commitment to buyers</div></div></div>
+    <div class="cert-card"><div class="cert-icon">QC</div><div><div class="cert-text" data-i18n="cert8_t">Quality-Focused & Creditworthy Unit</div><div class="cert-sub" data-i18n="cert8_s">Quality management</div></div></div>
+    <div class="cert-card"><div class="cert-icon">TR</div><div><div class="cert-text" data-i18n="cert9_t">Trusted Supplier</div><div class="cert-sub" data-i18n="cert9_s">Verified export partner</div></div></div>
+    <div class="cert-card"><div class="cert-icon">MGR</div><div><div class="cert-text" data-i18n="cert10_t">Integrity Manager Award</div><div class="cert-sub" data-i18n="cert10_s">Leadership recognition</div></div></div>
   </div>
 </section>
 </div>
@@ -628,12 +799,113 @@
   </div>
 </section>
 
+<!-- ── INFO HUB ── -->
+<section id="info-hub" class="info-hub">
+  <div class="section-header">
+    <h2 class="section-title">Export Information <span>Center</span></h2>
+    <div class="section-sub">Each footer item below opens a focused explanation for buyers, dealers, and fleet importers.</div>
+  </div>
+
+  <div class="info-group">
+    <h3>Vehicles</h3>
+    <div class="info-grid">
+      <article id="info-new-energy" class="info-card">
+        <h4>New Energy (EV/PHEV)</h4>
+        <p>EV, PHEV, hybrid, range-extended, and smart vehicle sourcing from China, including BYD, Tesla China, Li Auto, Xiaomi, Leapmotor, Tank Hi4-T, and other fast-moving models.</p>
+        <ul><li>Battery/range notes included in quotes when available.</li><li>Best for importers targeting fuel savings, city fleets, and premium EV demand.</li></ul>
+      </article>
+      <article id="info-fuel" class="info-card">
+        <h4>Traditional Fuel</h4>
+        <p>Gasoline and diesel vehicles for markets where fuel infrastructure, resale demand, or service support still favors combustion platforms.</p>
+        <ul><li>Sedans, SUVs, pickups, commercial use vehicles.</li><li>Quote requests should include market, emission rules, and preferred model year.</li></ul>
+      </article>
+      <article id="info-premium" class="info-card">
+        <h4>Premium Brands</h4>
+        <p>Premium China-market and international-brand vehicles supplied from available stock or requested sourcing, with emphasis on condition, trim, mileage, and export suitability.</p>
+        <ul><li>BMW, Mercedes-Benz, Tesla, Tank, Maextro, and similar listings.</li><li>Inspection photos and current stock confirmation are recommended before deposit.</li></ul>
+      </article>
+      <article id="info-motorcycles" class="info-card">
+        <h4>Motorcycles</h4>
+        <p>Motorcycles, electric motorcycles, scooters, and tricycles for dealer or fleet buyers who need compact mobility products alongside cars.</p>
+        <ul><li>Useful for last-mile delivery, urban transport, and resale channels.</li><li>Quote should specify engine/electric type, quantity, and destination port.</li></ul>
+      </article>
+      <article id="info-engineering" class="info-card">
+        <h4>Engineering Vehicles</h4>
+        <p>Commercial, construction, and special-use vehicle sourcing where the buyer needs specific payload, application, attachment, or compliance requirements.</p>
+        <ul><li>Best handled as a custom quote with photos/spec sheets.</li><li>Include operating environment, destination country, and required documents.</li></ul>
+      </article>
+    </div>
+  </div>
+
+  <div class="info-group">
+    <h3>Services</h3>
+    <div class="info-grid">
+      <article id="info-inspection" class="info-card">
+        <h4>Pre-Export Inspection</h4>
+        <p>Before shipping, buyers can request photo/video checks, VIN confirmation, mileage/condition review, and loading documentation.</p>
+        <ul><li>Recommended for used vehicles and premium units.</li><li>Inspection scope should be agreed before final invoice.</li></ul>
+      </article>
+      <article id="info-documentation" class="info-card">
+        <h4>Export Documentation</h4>
+        <p>Documents are prepared around the buyer, vehicle, route, and destination requirements. Typical packs may include invoice, packing details, vehicle records, and export clearance documents.</p>
+        <ul><li>Exact requirements depend on destination country.</li><li>Buyer should confirm import rules with local broker before purchase.</li></ul>
+      </article>
+      <article id="info-freight" class="info-card">
+        <h4>Ocean Freight</h4>
+        <p>Freight can be quoted by destination port using available vessel routes, vehicle type, quantity, and loading method.</p>
+        <ul><li>FOB and CIF estimates are available on request.</li><li>Final rate depends on current carrier schedules and port charges.</li></ul>
+      </article>
+      <article id="info-customs" class="info-card">
+        <h4>Customs Clearance</h4>
+        <p>New Vision can support export-side clearance and document flow. Import-side clearance is handled by the buyer or their local broker.</p>
+        <ul><li>Destination duties, taxes, and registration rules are buyer-side.</li><li>Use a licensed local broker before placing large orders.</li></ul>
+      </article>
+      <article id="info-after-sales" class="info-card">
+        <h4>After-Sales Support</h4>
+        <p>After-sales support focuses on document follow-up, supplier coordination, parts sourcing support, and communication after shipment.</p>
+        <ul><li>Warranty terms vary by vehicle, seller, and destination.</li><li>Confirm service expectations in writing before final purchase.</li></ul>
+      </article>
+    </div>
+  </div>
+
+  <div class="info-group">
+    <h3>Company</h3>
+    <div class="info-grid">
+      <article id="info-about" class="info-card">
+        <h4>About New Vision</h4>
+        <p>Yiwu New Vision Car Sales Co., Ltd. focuses on green and smart travel, with full-chain vehicle export support from Yiwu, Zhejiang, China.</p>
+        <ul><li>Address: 525-527 Workers' North Road, Yiwu, Zhejiang 322000.</li><li>Founded/export positioning shown on this site: since 2019.</li></ul>
+      </article>
+      <article id="info-safety" class="info-card">
+        <h4>Safety & Licensing</h4>
+        <p>The site presents New Vision as MOFCOM licensed with enterprise credit recognition and business integrity certificates. Buyers should request current license/certificate copies before payment.</p>
+        <ul><li>Use verified company bank details only.</li><li>Confirm contract, invoice, and recipient before deposit.</li></ul>
+      </article>
+      <article id="info-regulations" class="info-card">
+        <h4>Export Regulations</h4>
+        <p>Export eligibility depends on vehicle condition, title/document status, destination country, emissions, battery rules, age limits, and local registration requirements.</p>
+        <ul><li>New energy vehicles may require battery/shipping declarations.</li><li>Import laws must be verified in the destination country.</li></ul>
+      </article>
+      <article id="info-dealer" class="info-card">
+        <h4>Dealer Partnership</h4>
+        <p>Dealer and fleet buyers can request repeat sourcing, multi-unit quotes, destination-port pricing, inspection workflows, and recurring stock updates.</p>
+        <ul><li>Best fit: dealers, importers, fleet buyers, and sourcing agents.</li><li>Send market, target models, volume, and preferred port.</li></ul>
+      </article>
+      <article id="info-website" class="info-card">
+        <h4>nvncar.com</h4>
+        <p>The official company website is linked for buyers who want to review the broader New Vision presence and company pages outside this export demo.</p>
+        <ul><li><a href="https://www.nvncar.com" target="_blank" rel="noopener noreferrer">Open nvncar.com</a></li><li><a href="https://www.nvncar.com/about-us/" target="_blank" rel="noopener noreferrer">Open About New Vision</a></li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ── QUOTE FORM ── -->
 <section id="quote" style="background:var(--surface);border-top:1px solid var(--border);padding:64px 24px;">
   <div style="max-width:640px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:36px;">
       <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(46,125,50,0.08);border:1px solid var(--border2);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;">
-        📩 Request a Quote
+        Request a Quote
       </div>
       <h2 style="font-size:clamp(22px,4vw,32px);font-weight:800;line-height:1.2;margin-bottom:10px;">Get Pricing in 24 Hours</h2>
       <p style="color:var(--muted);font-size:14px;">Fill in your details and we'll send FOB pricing, photos, and available stock directly to you.</p>
@@ -725,7 +997,7 @@ function submitQuote(e) {
   const vehicle = document.getElementById('qVehicle').value || 'Not specified';
   const port    = document.getElementById('qPort').value.trim() || 'Not specified';
   const msg     = document.getElementById('qMsg').value.trim() || 'No additional details';
-  const text = `Hi New Vision team,\n\nI would like a quote:\n\n👤 Name: ${name}\n🌍 Country: ${country}\n🚗 Vehicle: ${vehicle}\n🚢 Destination Port: ${port}\n📝 Details: ${msg}\n\nPlease send me FOB pricing and available stock. Thank you.`;
+  const text = `Hi New Vision team,\n\nI would like a quote:\n\nName: ${name}\nCountry: ${country}\nVehicle: ${vehicle}\nDestination Port: ${port}\nDetails: ${msg}\n\nPlease send me FOB pricing and available stock. Thank you.`;
   openWA(text);
 }
 </script>
@@ -736,45 +1008,45 @@ function submitQuote(e) {
     <div class="footer-grid">
       <div class="footer-logo-area">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-          <svg width="36" height="30" viewBox="0 0 40 34" fill="none"><defs><linearGradient id="fArc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1B5E20"/><stop offset="100%" stop-color="#4CAF50"/></linearGradient></defs><path d="M2,28 C8,8 18,2 26,3 C32,4 36,13 38,22" stroke="url(#fArc)" stroke-width="6" fill="none" stroke-linecap="round"/><text x="39" y="20" font-size="7" fill="#FF8C00" text-anchor="middle" dominant-baseline="middle">✦</text></svg>
+          <svg width="36" height="30" viewBox="0 0 40 34" fill="none"><defs><linearGradient id="fArc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1B5E20"/><stop offset="100%" stop-color="#4CAF50"/></linearGradient></defs><path d="M2,28 C8,8 18,2 26,3 C32,4 36,13 38,22" stroke="url(#fArc)" stroke-width="6" fill="none" stroke-linecap="round"/><text x="39" y="20" font-size="7" fill="#FF8C00" text-anchor="middle" dominant-baseline="middle">NV</text></svg>
           <div><div style="font-weight:800;font-size:15px;letter-spacing:2px;color:var(--green)">NEW VISION</div><div style="font-size:10px;color:var(--muted2);letter-spacing:2px;">新 视 界</div></div>
         </div>
         <p data-i18n="footer_desc">义乌新视界汽车销售有限公司 · Focusing on green and smart travel. Full-chain new energy vehicle export solutions since 2019.</p>
         <div class="footer-contacts">
-          <div class="footer-contact">📞 <span><strong>+86 579 8554 1664</strong></span></div>
-          <div class="footer-contact">💬 <span><strong>+86 137 3561 1862</strong> (WhatsApp)</span></div>
-          <div class="footer-contact">🌐 <span>nvncar.com</span></div>
-          <div class="footer-contact">📍 <span>525-527 Workers' North Road, Yiwu, Zhejiang 322000</span></div>
+          <div class="footer-contact"><strong>Tel</strong> <span><strong>+86 579 8554 1664</strong></span></div>
+          <div class="footer-contact"><strong>WA</strong> <span><strong>+86 137 3561 1862</strong> (WhatsApp)</span></div>
+          <div class="footer-contact"><strong>Web</strong> <span><a href="https://www.nvncar.com" target="_blank" rel="noopener noreferrer">nvncar.com</a></span></div>
+          <div class="footer-contact"><strong>Addr</strong> <span>525-527 Workers' North Road, Yiwu, Zhejiang 322000</span></div>
         </div>
       </div>
       <div class="footer-col">
         <h4 data-i18n="foot_col1">Vehicles</h4>
-        <a href="#" data-i18n="fl_ev">New Energy (EV/PHEV)</a>
-        <a href="#" data-i18n="fl_fuel">Traditional Fuel</a>
-        <a href="#" data-i18n="fl_prem">Premium Brands</a>
-        <a href="#" data-i18n="fl_moto">Motorcycles</a>
-        <a href="#" data-i18n="fl_eng">Engineering Vehicles</a>
+        <a href="#info-new-energy" data-i18n="fl_ev">New Energy (EV/PHEV)</a>
+        <a href="#info-fuel" data-i18n="fl_fuel">Traditional Fuel</a>
+        <a href="#info-premium" data-i18n="fl_prem">Premium Brands</a>
+        <a href="#info-motorcycles" data-i18n="fl_moto">Motorcycles</a>
+        <a href="#info-engineering" data-i18n="fl_eng">Engineering Vehicles</a>
       </div>
       <div class="footer-col">
         <h4 data-i18n="foot_col2">Services</h4>
-        <a href="#" data-i18n="fl_insp">Pre-Export Inspection</a>
-        <a href="#" data-i18n="fl_docs">Export Documentation</a>
-        <a href="#" data-i18n="fl_freight">Ocean Freight</a>
-        <a href="#" data-i18n="fl_customs">Customs Clearance</a>
-        <a href="#" data-i18n="fl_after">After-Sales Support</a>
+        <a href="#info-inspection" data-i18n="fl_insp">Pre-Export Inspection</a>
+        <a href="#info-documentation" data-i18n="fl_docs">Export Documentation</a>
+        <a href="#info-freight" data-i18n="fl_freight">Ocean Freight</a>
+        <a href="#info-customs" data-i18n="fl_customs">Customs Clearance</a>
+        <a href="#info-after-sales" data-i18n="fl_after">After-Sales Support</a>
       </div>
       <div class="footer-col">
         <h4 data-i18n="foot_col3">Company</h4>
-        <a href="https://www.nvncar.com/about-us/" target="_blank" rel="noopener noreferrer">About New Vision</a>
-        <a href="#">Safety & Licensing</a>
-        <a href="#" data-i18n="fl_regs">Export Regulations</a>
-        <a href="#" data-i18n="fl_dealer">Dealer Partnership</a>
-        <a href="https://www.nvncar.com" target="_blank" rel="noopener noreferrer">nvncar.com ↗</a>
+        <a href="#info-about">About New Vision</a>
+        <a href="#info-safety">Safety & Licensing</a>
+        <a href="#info-regulations" data-i18n="fl_regs">Export Regulations</a>
+        <a href="#info-dealer" data-i18n="fl_dealer">Dealer Partnership</a>
+        <a href="#info-website">nvncar.com</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p data-i18n="foot_copy">© 2025–2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, China</p>
-      <div style="font-size:11px;color:var(--muted)" data-i18n="foot_cert">MOFCOM Licensed · ICP Filing · Enterprise Credit AAA</div>
+      <p data-i18n="foot_copy">Copyright 2025-2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, China</p>
+      <div style="font-size:11px;color:var(--muted)" data-i18n="foot_cert">MOFCOM Licensed · Enterprise Credit AAA</div>
     </div>
   </div>
 </footer>
@@ -785,8 +1057,8 @@ function submitQuote(e) {
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
     <div class="modal-gallery">
-      <img id="modalImg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" onerror="this.style.display='none';document.getElementById('modalEmoji').style.display='flex'">
-      <div id="modalEmoji" style="font-size:80px;display:flex;align-items:center;justify-content:center;width:100%;height:100%;"></div>
+      <img id="modalImg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" onerror="this.style.display='none';document.getElementById('modalPhotoFallback').style.display='flex'">
+      <div id="modalPhotoFallback" style="font-size:13px;color:var(--muted2);font-weight:700;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;text-align:center;width:100%;height:100%;padding:24px;">Photo unavailable - request current stock photo</div>
       <div class="modal-gallery-badges" id="modalBadges"></div>
     </div>
     <div class="modal-body">
@@ -801,12 +1073,12 @@ function submitQuote(e) {
         <div id="tabSpecs"><div class="specs-grid" id="modalSpecs"></div></div>
         <div id="tabDocs" style="display:none">
           <div style="display:flex;flex-direction:column;gap:7px">
-            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>🪪 Vehicle Title & Ownership Transfer</span><span style="color:var(--green);font-size:12px;font-weight:600" data-i18n="doc_incl">Included</span></div>
-            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>📋 <span data-i18n="doc2">MOFCOM Export Declaration</span></span><span style="color:var(--green);font-size:12px;font-weight:600" data-i18n="doc_incl">Included</span></div>
-            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>🚢 <span data-i18n="doc3">Bill of Lading (B/L)</span></span><span style="color:var(--green);font-size:12px;font-weight:600" data-i18n="doc_incl">Included</span></div>
-            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>🌐 <span data-i18n="doc4">Certificate of Origin (CoO)</span></span><span style="color:var(--green);font-size:12px;font-weight:600" data-i18n="doc_incl">Included</span></div>
-            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>📊 <span data-i18n="doc5">Commercial Invoice + Packing List</span></span><span style="color:var(--green);font-size:12px;font-weight:600" data-i18n="doc_incl">Included</span></div>
-            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>🔍 <span data-i18n="doc6">200-Point Inspection Report</span></span><span style="color:var(--orange);font-size:12px;font-weight:600">+ $120 optional</span></div>
+            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>Title: <span data-i18n="doc1">Vehicle Title & Ownership Transfer</span></span><span style="color:var(--green);font-size:12px;font-weight:600" data-i18n="doc_incl">Included</span></div>
+            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>Export: <span data-i18n="doc2">MOFCOM Export Declaration</span></span><span style="color:var(--green);font-size:12px;font-weight:600" data-i18n="doc_incl">Included</span></div>
+            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>B/L: <span data-i18n="doc3">Bill of Lading (B/L)</span></span><span style="color:var(--green);font-size:12px;font-weight:600" data-i18n="doc_incl">Included</span></div>
+            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>CoO: <span data-i18n="doc4">Certificate of Origin (CoO)</span></span><span style="color:var(--green);font-size:12px;font-weight:600" data-i18n="doc_incl">Included</span></div>
+            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>Invoice: <span data-i18n="doc5">Commercial Invoice + Packing List</span></span><span style="color:var(--green);font-size:12px;font-weight:600" data-i18n="doc_incl">Included</span></div>
+            <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;font-size:13px"><span>QC: <span data-i18n="doc6">200-Point Inspection Report</span></span><span style="color:var(--orange);font-size:12px;font-weight:600" data-i18n="doc_opt">+ $120 optional</span></div>
           </div>
         </div>
         <div id="tabShipping" style="display:none">
@@ -843,8 +1115,8 @@ function submitQuote(e) {
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
             WhatsApp Quote
           </button>
-          <button class="btn-fw btn-fw-green" onclick="showToast('📋 Inquiry sent! We respond within 2 hours.')" data-i18n="mbtn_inquiry">Send Inquiry</button>
-          <button class="btn-fw btn-fw-out" onclick="showToast('🔍 Inspection booked. We\'ll contact you to arrange.')" data-i18n="mbtn_inspect">Book Inspection ($120)</button>
+          <button class="btn-fw btn-fw-green" onclick="showToast('Inquiry sent. We respond within 2 hours.')" data-i18n="mbtn_inquiry">Send Inquiry</button>
+          <button class="btn-fw btn-fw-out" onclick="showToast('Inspection booked. We will contact you to arrange.')" data-i18n="mbtn_inspect">Book Inspection ($120)</button>
         </div>
         <div class="trust-list">
           <div class="trust-item-sm" data-i18n="mt1">180-day MOFCOM export eligibility verified</div>
@@ -857,7 +1129,7 @@ function submitQuote(e) {
   </div>
 </div>
 
-<div class="toast" id="toast"><span>✅</span><span id="toastMsg"></span></div>
+<div class="toast" id="toast"><span>OK</span><span id="toastMsg"></span></div>
 
 <script>
 // ── TRANSLATIONS ─────────────────────────────────────────────────────────────
@@ -865,24 +1137,25 @@ const T = {
   EN: {
     nav_inventory:'Inventory', nav_process:'Process', nav_routes:'Routes', nav_about:'About',
     demo_label:'Demo Site', demo_notice:'Sample inventory for illustration purposes.',
-    demo_cta:'Contact us on WhatsApp for live stock & pricing →',
-    hero_badge:'Live Inventory — 3,200+ vehicles ready for export',
+    demo_cta:'Contact us on WhatsApp for current stock & pricing →',
+    mnav_cars:'Cars', mnav_filter:'Filter', mnav_quote:'Quote', mnav_trust:'Trust',
+    hero_badge:'Demo inventory - contact for current stock',
     hero_h1:'Buy Cars <span>Direct from China</span><br>Delivered to Your Country',
     hero_sub:'Focusing on green and smart travel since 2019. Full-chain export solutions — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO and 16+ brands.',
-    filter_all:'All', filter_ev:'⚡ New Energy', filter_suv:'SUV', filter_sedan:'Sedan', filter_premium:'Premium', filter_new:'Brand New',
+    filter_all:'All', filter_ev:'New Energy', filter_suv:'SUV', filter_sedan:'Sedan', filter_premium:'Premium', filter_new:'Brand New',
     sort_latest:'Latest Arrivals', sort_price_asc:'Price: Low → High', sort_price_desc:'Price: High → Low', sort_mileage:'Lowest Mileage',
     step1_h:'Browse & Select', step1_p:'Search 3,200+ vehicles by brand, type, budget',
     step2_h:'Get Your Quote', step2_p:'FOB + CIF estimate to your port within 2 hours via WhatsApp',
     step3_h:'Inspection', step3_p:'Optional 200-point third-party report. Approve before paying',
     step4_h:'Export & Ship', step4_p:'We handle customs, MOFCOM docs, vessel booking, loading',
-    step5_h:'Track & Receive', step5_p:'Live tracking + full documents (B/L, CoO, customs) at delivery',
+    step5_h:'Track & Receive', step5_p:'Shipment tracking + full documents (B/L, CoO, customs) at delivery',
     cta_h:'Ready to import? Get your quote in 2 hours.',
     cta_p:'Tell us the model, quantity, and destination port. We respond on WhatsApp with FOB price, CIF estimate, and inspection options. No commitment required.',
     card_quote:'Quote →', card_details:'Details', fob:'FOB', cif_prefix:'CIF ~',
     wa_generic:'Hi New Vision, I want to buy a car from China. Please help me.',
     wa_stock:'Hi New Vision, I want to see your full available stock list. Please send details.',
     dir:'ltr',
-    btn_wa_nav:'WhatsApp', search_ph:'Search BYD, Tesla, BMW, Mercedes…',
+    btn_wa_nav:'WhatsApp', btn_search:'Search →', search_ph:'Search BYD, Tesla, BMW, Mercedes…',
     cat1_h:'New Energy Vehicles', cat1_p:'EV, PHEV, Hybrid — BYD, Tesla, Li Auto, Xiaomi, Leapmotor',
     cat2_h:'Traditional & Premium', cat2_p:'BMW, Mercedes, Audi, Toyota, VW, Honda, Changan',
     cat3_h:'Motorcycles & Engineering', cat3_p:'Electric motorcycles, tricycles, engineering vehicles',
@@ -894,7 +1167,7 @@ const T = {
     trust5_s:'Full Documentation', trust5_p:'B/L, CoO, customs, invoice, insurance',
     trust6_s:'Global Network', trust6_p:'Asia · Europe · Africa · Middle East · S. America',
     brand_sub:'16+ global automotive brands — new energy · traditional · premium · engineering',
-    inv_sub:'FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for live stock',
+    inv_sub:'FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for current stock',
     showroom_h2b:'New Vision Car Export Company', showroom_desc:'Established in Yiwu, China in 2019. We specialize in green and smart travel solutions — connecting global buyers to China\'s top automotive brands with full-service export, documentation, and logistics support.',
     showroom_btn:'Contact Our Team →',
     ss_founded:'Founded in Yiwu', ss_countries:'Countries Reached', ss_brands:'Brand Partners', ss_certs:'Integrity Certificates',
@@ -906,7 +1179,7 @@ const T = {
     fl_insp:'Pre-Export Inspection', fl_docs:'Export Documentation', fl_freight:'Ocean Freight', fl_customs:'Customs Clearance', fl_after:'After-Sales Support',
     fl_safety:'Safety & Licensing', fl_regs:'Export Regulations', fl_dealer:'Dealer Partnership',
     tab_specs:'Specifications', tab_docs:'Documents', tab_ship:'Shipping',
-    quote_badge:'📩 Request a Quote', quote_h:'Get Pricing in 24 Hours',
+    quote_badge:'Request a Quote', quote_h:'Get Pricing in 24 Hours',
     quote_sub:'Fill in your details and we\'ll send FOB pricing, photos, and available stock directly to you.',
     quote_name:'Your Name', quote_country:'Country', quote_vehicle:'Vehicle of Interest',
     quote_port:'Destination Port', quote_msg:'Message / Quantity',
@@ -938,30 +1211,31 @@ const T = {
     r5_c:'Egypt', r5_p:'Port Said · 20 days', r6_c:'Cambodia', r6_p:'Sihanoukville · 12 days',
     r7_c:'Morocco', r7_p:'Casablanca · 20 days', r8_c:'Nigeria', r8_p:'Lagos · 30 days',
     r9_c:'South Africa', r9_p:'Durban · 32 days', r10_c:'Iran', r10_p:'Bandar Abbas · 14 days',
-    foot_copy:'© 2025–2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, China',
-    foot_cert:'MOFCOM Licensed · ICP Filing · Enterprise Credit AAA'
+    foot_copy:'Copyright 2025-2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, China',
+    foot_cert:'MOFCOM Licensed · Enterprise Credit AAA'
   },
   FR: {
     nav_inventory:'Inventaire', nav_process:'Processus', nav_routes:'Routes', nav_about:'À propos',
     demo_label:'Site Démo', demo_notice:'Inventaire d\'exemple à titre illustratif.',
     demo_cta:'Contactez-nous sur WhatsApp pour le stock réel →',
-    hero_badge:'Stock en ligne — 3 200+ véhicules disponibles à l\'export',
+    mnav_cars:'Voitures', mnav_filter:'Filtrer', mnav_quote:'Devis', mnav_trust:'Fiabilité',
+    hero_badge:'Inventaire démo - contactez-nous pour le stock réel',
     hero_h1:'Achetez des voitures <span>Directement de Chine</span><br>Livrées dans votre pays',
     hero_sub:'Spécialiste de la mobilité verte depuis 2019. Solutions d\'export complètes — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO et 16+ marques.',
-    filter_all:'Tous', filter_ev:'⚡ Électrique', filter_suv:'SUV', filter_sedan:'Berline', filter_premium:'Premium', filter_new:'Neuf',
+    filter_all:'Tous', filter_ev:'Électrique', filter_suv:'SUV', filter_sedan:'Berline', filter_premium:'Premium', filter_new:'Neuf',
     sort_latest:'Dernières arrivées', sort_price_asc:'Prix croissant', sort_price_desc:'Prix décroissant', sort_mileage:'Kilométrage min.',
     step1_h:'Parcourir & Choisir', step1_p:'Rechercher parmi 3 200+ véhicules par marque, type, budget',
     step2_h:'Obtenir un devis', step2_p:'Estimation FOB + CIF vers votre port sous 2h via WhatsApp',
     step3_h:'Inspection', step3_p:'Rapport d\'inspection optionnel 200 points. Approuvez avant de payer',
     step4_h:'Export & Expédition', step4_p:'Nous gérons la douane, documents MOFCOM, réservation navire',
-    step5_h:'Suivre & Recevoir', step5_p:'Suivi en direct + documents complets (B/L, CoO, douane) à livraison',
+    step5_h:'Suivre & Recevoir', step5_p:'Suivi d\'expédition + documents complets (B/L, CoO, douane) à livraison',
     cta_h:'Prêt à importer ? Devis en 2 heures.',
     cta_p:'Indiquez le modèle, la quantité et le port de destination. Nous répondons sur WhatsApp avec le prix FOB, l\'estimation CIF et les options d\'inspection.',
     card_quote:'Devis →', card_details:'Détails', fob:'FOB', cif_prefix:'CIF ~',
     wa_generic:'Bonjour New Vision, je voudrais acheter une voiture de Chine. Pouvez-vous m\'aider ?',
     wa_stock:'Bonjour New Vision, je voudrais voir votre liste de stock disponible. Envoyez-moi les détails.',
     dir:'ltr',
-    btn_wa_nav:'WhatsApp', search_ph:'Rechercher BYD, Tesla, BMW, Mercedes…',
+    btn_wa_nav:'WhatsApp', btn_search:'Rechercher →', search_ph:'Rechercher BYD, Tesla, BMW, Mercedes…',
     cat1_h:'Véhicules Électriques', cat1_p:'EV, PHEV, Hybride — BYD, Tesla, Li Auto, Xiaomi, Leapmotor',
     cat2_h:'Traditionnel & Premium', cat2_p:'BMW, Mercedes, Audi, Toyota, VW, Honda, Changan',
     cat3_h:'Motos & Engins', cat3_p:'Motos électriques, tricycles, véhicules industriels',
@@ -985,7 +1259,7 @@ const T = {
     fl_insp:'Inspection Pré-Export', fl_docs:'Documentation Export', fl_freight:'Fret Maritime', fl_customs:'Dédouanement', fl_after:'Support Après-Vente',
     fl_safety:'Sécurité & Licences', fl_regs:'Réglementations Export', fl_dealer:'Partenariat Revendeur',
     tab_specs:'Spécifications', tab_docs:'Documents', tab_ship:'Expédition',
-    quote_badge:'📩 Demande de Devis', quote_h:'Recevez un Prix sous 24h',
+    quote_badge:'Demande de Devis', quote_h:'Recevez un Prix sous 24h',
     quote_sub:'Remplissez le formulaire et nous vous envoyons le prix FOB, les photos et le stock disponible.',
     quote_name:'Votre Nom', quote_country:'Pays', quote_vehicle:'Véhicule Souhaité',
     quote_port:'Port de Destination', quote_msg:'Message / Quantité',
@@ -1017,30 +1291,31 @@ const T = {
     r5_c:'Égypte', r5_p:'Port-Saïd · 20 jours', r6_c:'Cambodge', r6_p:'Sihanoukville · 12 jours',
     r7_c:'Maroc', r7_p:'Casablanca · 20 jours', r8_c:'Nigéria', r8_p:'Lagos · 30 jours',
     r9_c:'Afrique du Sud', r9_p:'Durban · 32 jours', r10_c:'Iran', r10_p:'Bandar Abbas · 14 jours',
-    foot_copy:'© 2025–2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, Chine',
-    foot_cert:'Agréé MOFCOM · Enregistrement ICP · Crédit Entreprise AAA'
+    foot_copy:'Copyright 2025-2026 义乌新视界汽车销售有限公司 (Yiwu New Vision Car Sales Co., Ltd.) · Yiwu, Zhejiang, Chine',
+    foot_cert:'Agréé MOFCOM · Crédit Entreprise AAA'
   },
   AR: {
     nav_inventory:'المخزون', nav_process:'العملية', nav_routes:'المسارات', nav_about:'عن الشركة',
     demo_label:'موقع تجريبي', demo_notice:'مخزون نموذجي للتوضيح.',
     demo_cta:'تواصل معنا عبر واتساب للمخزون الحقيقي →',
-    hero_badge:'مخزون مباشر — أكثر من 3,200 مركبة جاهزة للتصدير',
+    mnav_cars:'سيارات', mnav_filter:'فلتر', mnav_quote:'عرض سعر', mnav_trust:'الثقة',
+    hero_badge:'مخزون تجريبي - تواصل للمخزون الحالي',
     hero_h1:'اشتر سيارات <span>مباشرة من الصين</span><br>توصيل إلى بلدك',
     hero_sub:'متخصصون في التنقل الأخضر منذ 2019. حلول تصدير متكاملة — BYD، تسلا، BMW، مرسيدس، لي أوتو، MAEXTRO و16+ علامة.',
-    filter_all:'الكل', filter_ev:'⚡ طاقة جديدة', filter_suv:'SUV', filter_sedan:'سيدان', filter_premium:'فاخر', filter_new:'جديد',
+    filter_all:'الكل', filter_ev:'طاقة جديدة', filter_suv:'SUV', filter_sedan:'سيدان', filter_premium:'فاخر', filter_new:'جديد',
     sort_latest:'أحدث الواردات', sort_price_asc:'السعر: الأقل أولاً', sort_price_desc:'السعر: الأعلى أولاً', sort_mileage:'أقل عداد',
     step1_h:'تصفح واختر', step1_p:'ابحث في 3,200+ مركبة حسب العلامة والنوع والميزانية',
     step2_h:'احصل على عرض', step2_p:'تقدير FOB + CIF لميناؤك خلال ساعتين عبر واتساب',
     step3_h:'الفحص', step3_p:'تقرير فحص اختياري 200 نقطة. وافق قبل الدفع',
     step4_h:'التصدير والشحن', step4_p:'نتولى الجمارك ووثائق MOFCOM وحجز السفينة',
-    step5_h:'التتبع والاستلام', step5_p:'تتبع مباشر + وثائق كاملة عند التسليم',
+    step5_h:'التتبع والاستلام', step5_p:'تتبع الشحنة + وثائق كاملة عند التسليم',
     cta_h:'هل أنت مستعد للاستيراد؟ احصل على عرضك في ساعتين.',
     cta_p:'أخبرنا بالموديل والكمية وميناء الوجهة. سنرد عبر واتساب بسعر FOB وتقدير CIF وخيارات الفحص. لا التزام مطلوب.',
     card_quote:'عرض ←', card_details:'التفاصيل', fob:'FOB', cif_prefix:'CIF ~',
     wa_generic:'مرحباً New Vision، أريد شراء سيارة من الصين. هل يمكنك مساعدتي؟',
     wa_stock:'مرحباً New Vision، أريد رؤية قائمة المخزون الكامل. يرجى إرسال التفاصيل.',
     dir:'rtl',
-    btn_wa_nav:'واتساب', search_ph:'ابحث عن BYD، تسلا، BMW، مرسيدس…',
+    btn_wa_nav:'واتساب', btn_search:'بحث ←', search_ph:'ابحث عن BYD، تسلا، BMW، مرسيدس…',
     cat1_h:'مركبات الطاقة الجديدة', cat1_p:'كهربائي، هجين قابل للشحن — BYD، تسلا، لي أوتو، شاومي',
     cat2_h:'تقليدي وفاخر', cat2_p:'BMW، مرسيدس، أودي، تويوتا، فولكسفاغن، هوندا',
     cat3_h:'دراجات نارية وآليات', cat3_p:'دراجات كهربائية، ثلاثية العجلات، مركبات هندسية',
@@ -1064,7 +1339,7 @@ const T = {
     fl_insp:'فحص ما قبل التصدير', fl_docs:'وثائق التصدير', fl_freight:'الشحن البحري', fl_customs:'التخليص الجمركي', fl_after:'خدمة ما بعد البيع',
     fl_safety:'الأمان والترخيص', fl_regs:'لوائح التصدير', fl_dealer:'شراكة الموزعين',
     tab_specs:'المواصفات', tab_docs:'الوثائق', tab_ship:'الشحن',
-    quote_badge:'📩 طلب عرض سعر', quote_h:'احصل على السعر خلال 24 ساعة',
+    quote_badge:'طلب عرض سعر', quote_h:'احصل على السعر خلال 24 ساعة',
     quote_sub:'أدخل بياناتك وسنرسل لك سعر FOB والصور والمخزون المتاح مباشرة.',
     quote_name:'اسمك', quote_country:'البلد', quote_vehicle:'السيارة المطلوبة',
     quote_port:'ميناء الوصول', quote_msg:'رسالة / الكمية',
@@ -1096,30 +1371,31 @@ const T = {
     r5_c:'مصر', r5_p:'بورسعيد · 20 يوم', r6_c:'كمبوديا', r6_p:'سيهانوكفيل · 12 يوم',
     r7_c:'المغرب', r7_p:'الدار البيضاء · 20 يوم', r8_c:'نيجيريا', r8_p:'لاغوس · 30 يوم',
     r9_c:'جنوب أفريقيا', r9_p:'دوربان · 32 يوم', r10_c:'إيران', r10_p:'بندر عباس · 14 يوم',
-    foot_copy:'© 2025–2026 义乌新视界汽车销售有限公司 · يوو، تشيجيانغ، الصين',
-    foot_cert:'مرخص MOFCOM · تسجيل ICP · تصنيف ائتماني AAA'
+    foot_copy:'Copyright 2025-2026 义乌新视界汽车销售有限公司 · يوو، تشيجيانغ، الصين',
+    foot_cert:'مرخص MOFCOM · تصنيف ائتماني AAA'
   },
   ZH: {
     nav_inventory:'车辆库存', nav_process:'购车流程', nav_routes:'航运路线', nav_about:'关于我们',
     demo_label:'演示网站', demo_notice:'示例库存，仅供参考。',
-    demo_cta:'请通过WhatsApp联系我们获取实时库存 →',
-    hero_badge:'实时库存 — 3,200+辆车随时可出口',
+    demo_cta:'请通过WhatsApp联系我们确认当前库存 →',
+    mnav_cars:'车辆', mnav_filter:'筛选', mnav_quote:'询价', mnav_trust:'资质',
+    hero_badge:'演示库存 - 请联系确认当前库存',
     hero_h1:'直接从中国<span>购买汽车</span><br>送达您的国家',
     hero_sub:'专注绿色智慧出行，自2019年起提供全链条新能源汽车出口服务——比亚迪、特斯拉、宝马、奔驰、理想及16+品牌。',
-    filter_all:'全部', filter_ev:'⚡ 新能源', filter_suv:'SUV', filter_sedan:'轿车', filter_premium:'豪华', filter_new:'新车',
+    filter_all:'全部', filter_ev:'新能源', filter_suv:'SUV', filter_sedan:'轿车', filter_premium:'豪华', filter_new:'新车',
     sort_latest:'最新到港', sort_price_asc:'价格从低到高', sort_price_desc:'价格从高到低', sort_mileage:'最低里程',
     step1_h:'浏览选车', step1_p:'按品牌、类型、预算搜索3,200+辆车',
     step2_h:'获取报价', step2_p:'2小时内通过WhatsApp提供FOB+CIF到港报价',
     step3_h:'验车检测', step3_p:'可选200点第三方检测报告，确认后再付款',
     step4_h:'出口发运', step4_p:'我们处理海关、商务部文件、订舱及装船',
-    step5_h:'跟踪收货', step5_p:'实时跟踪+交付时提供完整单据（提单、原产地证等）',
+    step5_h:'跟踪收货', step5_p:'物流跟踪+交付时提供完整单据（提单、原产地证等）',
     cta_h:'准备进口？2小时内获取报价。',
     cta_p:'告诉我们车型、数量和目的港，我们将通过WhatsApp回复FOB价格、CIF估算及检测方案，无需承诺。',
     card_quote:'询价 →', card_details:'详情', fob:'离岸价', cif_prefix:'到岸约',
     wa_generic:'您好，新视界，我想从中国购车，请帮助我。',
     wa_stock:'您好，新视界，我想了解您的完整库存清单，请发送详情。',
     dir:'ltr',
-    btn_wa_nav:'WhatsApp', search_ph:'搜索比亚迪、特斯拉、宝马、奔驰…',
+    btn_wa_nav:'WhatsApp', btn_search:'搜索 →', search_ph:'搜索比亚迪、特斯拉、宝马、奔驰…',
     cat1_h:'新能源汽车', cat1_p:'纯电、插混、混动 — 比亚迪、特斯拉、理想、小米、零跑',
     cat2_h:'传统及豪华品牌', cat2_p:'宝马、奔驰、奥迪、丰田、大众、本田、长安',
     cat3_h:'摩托车及工程车', cat3_p:'电动摩托车、三轮车、工程车辆',
@@ -1131,7 +1407,7 @@ const T = {
     trust5_s:'完整出口文件', trust5_p:'提单、产地证、报关单、发票、保险',
     trust6_s:'全球网络', trust6_p:'亚洲·欧洲·非洲·中东·南美',
     brand_sub:'16+全球汽车品牌 — 新能源·传统燃油·豪华·工程车',
-    inv_sub:'上海离岸价 · 180天出口资质 · 示例库存，联系获取实时车源',
+    inv_sub:'上海离岸价 · 180天出口资质 · 示例库存，联系确认当前车源',
     showroom_h2b:'新视界汽车出口公司', showroom_desc:'成立于2019年，总部位于中国义乌。专注绿色智慧出行，为全球买家提供中国顶级汽车品牌的全链条出口解决方案。',
     showroom_btn:'联系我们 →',
     ss_founded:'成立年份', ss_countries:'覆盖国家', ss_brands:'品牌伙伴', ss_certs:'诚信证书',
@@ -1143,7 +1419,7 @@ const T = {
     fl_insp:'出口前检测', fl_docs:'出口文件', fl_freight:'海运服务', fl_customs:'清关服务', fl_after:'售后支持',
     fl_safety:'安全与许可', fl_regs:'出口法规', fl_dealer:'经销商合作',
     tab_specs:'规格参数', tab_docs:'出口文件', tab_ship:'运输信息',
-    quote_badge:'📩 询价', quote_h:'24小时内获取报价',
+    quote_badge:'询价', quote_h:'24小时内获取报价',
     quote_sub:'填写信息，我们将直接发送FOB价格、车辆照片和现货库存给您。',
     quote_name:'您的姓名', quote_country:'国家/地区', quote_vehicle:'意向车型',
     quote_port:'目的港', quote_msg:'留言 / 数量',
@@ -1175,69 +1451,172 @@ const T = {
     r5_c:'埃及', r5_p:'塞得港 · 20天', r6_c:'柬埔寨', r6_p:'西哈努克港 · 12天',
     r7_c:'摩洛哥', r7_p:'卡萨布兰卡 · 20天', r8_c:'尼日利亚', r8_p:'拉各斯 · 30天',
     r9_c:'南非', r9_p:'德班 · 32天', r10_c:'伊朗', r10_p:'班达尔阿巴斯 · 14天',
-    foot_copy:'© 2025–2026 义乌新视界汽车销售有限公司 · 中国浙江义乌',
-    foot_cert:'商务部出口许可 · ICP备案 · 企业信用AAA'
+    foot_copy:'Copyright 2025-2026 义乌新视界汽车销售有限公司 · 中国浙江义乌',
+    foot_cert:'商务部出口许可 · 企业信用AAA'
   }
 };
 let lang = 'EN';
+let googleTranslateLoading = false;
+
+function googleTranslateElementInit(){
+  if (!window.google || !google.translate) return;
+  new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'en,ar,fr,zh-CN,es',autoDisplay:false},'google_translate_element');
+}
+
+function applyWholePageTranslation(language){
+  // T object fully covers EN/FR/AR/ZH — don't let Google Translate override it
+  if (['EN','FR','AR','ZH'].includes(language)) return;
+  const googleCode = language === 'ZH' ? 'zh-CN' : language.toLowerCase();
+  let tries = 0;
+  (function apply(){
+    const combo = document.querySelector('.goog-te-combo');
+    if (combo) {
+      combo.value = googleCode;
+      combo.dispatchEvent(new Event('change'));
+      return;
+    }
+    if (!window.google && !googleTranslateLoading) {
+      googleTranslateLoading = true;
+      const script = document.createElement('script');
+      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      script.onerror = () => { googleTranslateLoading = false; };
+      document.head.appendChild(script);
+    }
+    if (tries++ < 30) setTimeout(apply, 150);
+  })();
+}
+
+function copyChinaContact() {
+  const contact = '义乌新视界汽车销售有限公司\\n微信/电话: +86 137 3561 1862\\n电话: +86 579 8554 1664\\n地址: 浙江省义乌市工人北路525-527号\\n官网: https://www.nvncar.com';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(contact).then(() => showToast('已复制微信/电话联系方式')).catch(() => showToast(contact));
+  } else {
+    showToast(contact);
+  }
+}
 
 // ── VEHICLE DATA — sourced from nvncar.com ────────────────────────────────────
 const vehicles = [
-  { id:1,  make:'Tesla',         model:'Model Y L 2026 Standard Range',              year:2026, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'SUV',       price:28900, emoji:'🚗', img:'img/v01-tesla.webp',      ev:true,  hot:true,  premium:true,  trans:'1-Speed Auto', engine:'250kW Dual Motor', drive:'AWD', doors:4, seats:6, range_km:751  },
-  { id:2,  make:'BYD',           model:'Seal 2024 Long Range',                       year:2024, mileage:6200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:15200, emoji:'🚗', img:'img/v02-byd-seal.webp',   ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'230kW Electric',    drive:'RWD', doors:4, seats:5, range_km:700  },
-  { id:3,  make:'BMW',           model:'X3 2025 xDrive30L M Sport',                  year:2025, mileage:8500,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'SUV',       price:42000, emoji:'🚙', img:'img/v03-bmw-x3.webp',     ev:false, hot:false, premium:true,  trans:'8-Speed Auto', engine:'2.0T 190kW/400Nm',  drive:'AWD', doors:4, seats:5, range_km:null },
-  { id:4,  make:'Mercedes-Benz', model:'C 260 L 2025 Night Edition Sport',           year:2025, mileage:4100,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:38500, emoji:'🚗', img:'img/v04-mercedes.webp',   ev:false, hot:false, premium:true,  trans:'9G-Tronic',    engine:'1.5T 150kW+48V',    drive:'RWD', doors:4, seats:5, range_km:null },
-  { id:5,  make:'Li Auto',       model:'L9 2025 Ultra Smart Refresh',                year:2025, mileage:3200,  condition:'Used', type:'EV',      fuel:'EREV',     body:'SUV',       price:54000, emoji:'🚙', img:'img/v05-li-auto.webp',    ev:true,  hot:true,  premium:true,  trans:'2-Speed DHT',  engine:'EREV 330kW Dual',   drive:'AWD', doors:4, seats:6, range_km:1315 },
-  { id:6,  make:'Volkswagen',    model:'Passat 2025 280TSI Business',                year:2025, mileage:7800,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:18500, emoji:'🚗', img:'img/v06-passat.webp',     ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'1.4T 110kW/250Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:7,  make:'Changan',       model:'Lantouzhe Pickup 2023 2.0T 4WD',             year:2023, mileage:18400, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'Pickup',    price:13800, emoji:'🚙', img:'img/v07-changan.webp',    ev:false, hot:false, premium:false, trans:'8-Speed Auto', engine:'2.0T 171kW/390Nm',  drive:'4WD', doors:4, seats:5, range_km:null },
-  { id:8,  make:'BYD',           model:'Atto 3 2024 Standard Range',                 year:2024, mileage:9100,  condition:'Used', type:'EV',      fuel:'Electric', body:'SUV',       price:13800, emoji:'🚙', img:'img/v08-byd-atto3.webp',  ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'150kW Electric',    drive:'FWD', doors:4, seats:5, range_km:480  },
-  { id:9,  make:'Xiaomi',        model:'SU7 2024 Long Range RWD',                    year:2024, mileage:2200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:24500, emoji:'🚗', img:'img/v09-xiaomi-su7.webp', ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'220kW/400Nm',       drive:'RWD', doors:4, seats:5, range_km:700  },
-  { id:10, make:'Leapmotor',     model:'Leopard 5 2025 Laser Qiankun Edition PHEV',  year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:21000, emoji:'🚙', img:'img/v10-leapmotor.webp',  ev:true,  hot:true,  premium:false, trans:'DHT Dual Motor', engine:'505kW 687ps',      drive:'AWD', doors:4, seats:5, range_km:125  },
-  { id:11, make:'Jetour',        model:'ShanHai T2 2025 PHEV 206km AWD Wilderness',  year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:28500, emoji:'🚙', img:'img/v11-chery-t8.webp',   ev:true,  hot:true,  premium:false, trans:'DHT Triple Motor', engine:'462ps CATL 43kWh', drive:'AWD', doors:4, seats:5, range_km:206  },
-  { id:12, make:'Geely',         model:'Monjaro 2024 2.0T AWD',                      year:2024, mileage:5800,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:16200, emoji:'🚙', img:'img/v12-geely.webp',      ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0T 238hp',        drive:'AWD', doors:4, seats:5, range_km:null },
-  { id:13, make:'Great Wall',    model:'Tank 700 2024 Hi4-T Arctic Edition',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:78000, emoji:'🚙', img:'img/v20-tank700.webp',    ev:true,  hot:true,  premium:true,  trans:'10-Speed Auto', engine:'3.0T V6+163ps Motor', drive:'4WD', doors:4, seats:5, range_km:null },
-  { id:14, make:'Jetour',        model:'Da Sheng 2026 1.5T DCT Black Knight',        year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:10500, emoji:'🚙', img:'https://www.nvncar.com/data/watermark/main/20251009/68e7836de8872_.webp', ev:false, hot:false, premium:false, trans:'DCT 6-Speed',  engine:'1.5T 115kW/230Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:15, make:'Volkswagen',    model:'Tuyue 2025 300TSI',                          year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:13500, emoji:'🚙', img:'img/v21-vw-tuyue.webp',   ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 118kW/250Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:16, make:'Livan',         model:'X3 Pro 2024 1.5L CVT',                       year:2024, mileage:8200,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:7200,  emoji:'🚙', img:'img/v22-livan.webp',      ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L 83kW/143Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:17, make:'MAEXTRO',       model:'S800 2025 Extended Range Star Glory',        year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'Sedan',     price:68000, emoji:'🚗', img:'img/v17-maextro.webp',    ev:true,  hot:true,  premium:true,  trans:'Triple Motor', engine:'635kW EREV 65kWh CATL', drive:'AWD', doors:4, seats:4, range_km:965  },
-  { id:18, make:'Trumpchi',      model:'Xiangwang S7 2025 PHEV AWD',                 year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:32000, emoji:'🚙', img:'img/v18-trumpchi.webp',   ev:true,  hot:false, premium:false, trans:'DHT Dual Motor', engine:'368kW 501ps LFP 36kWh', drive:'AWD', doors:4, seats:5, range_km:180  },
-  { id:19, make:'Jetour',        model:'X70 Plus 2026 1.5T DCT 7-Seat',             year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, emoji:'🚙', img:'img/v19-jetour.webp',     ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 135kW/290Nm',  drive:'FWD', doors:4, seats:7, range_km:null },
-  { id:20, make:'MG',           model:'MG5 2023 Trophy 1.5T DCT',                  year:2023, mileage:21000, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'Sedan',     price:8900,  emoji:'🚗', img:'https://www.nvncar.com/data/watermark/main/20251011/68e9cd93033c2_.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 110kW/220Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:21, make:'Leapmotor',    model:'Formula Leopard Ti7 2025 PHEV Performance', year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, emoji:'🚙', img:'https://www.nvncar.com/data/watermark/main/20251015/68ef5a6e6892a_.webp', ev:true,  hot:true,  premium:false, trans:'DHT Triple Motor', engine:'540kW 734ps CATL LFP', drive:'AWD', doors:4, seats:5, range_km:160  },
-  { id:22, make:'BYD',          model:'Han EV 2024 Long Range AWD',               year:2024, mileage:4200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:22800, emoji:'🚗', img:null, ev:true,  hot:true,  premium:true,  trans:'1-Speed Auto', engine:'380kW Dual Motor',    drive:'AWD', doors:4, seats:5, range_km:605  },
-  { id:23, make:'BYD',          model:'Dolphin 2024 Standard Range',               year:2024, mileage:7600,  condition:'Used', type:'EV',      fuel:'Electric', body:'Hatchback', price:9800,  emoji:'🚗', img:null, ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'70kW Electric',       drive:'FWD', doors:4, seats:5, range_km:301  },
-  { id:24, make:'Chery',        model:'Tiggo 8 Pro Max 2024 2.0T AWD 7-Seat',     year:2024, mileage:9500,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:16800, emoji:'🚙', img:null, ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0T 197kW/390Nm',   drive:'AWD', doors:4, seats:7, range_km:null },
-  { id:25, make:'Honda',        model:'CR-V 2024 1.5T 4WD',                       year:2024, mileage:6300,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:19500, emoji:'🚙', img:null, ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5T 142kW/243Nm',   drive:'4WD', doors:4, seats:5, range_km:null },
-  { id:26, make:'Toyota',       model:'Camry 2024 2.5G Luxury',                   year:2024, mileage:5100,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:21500, emoji:'🚗', img:null, ev:false, hot:false, premium:true,  trans:'8-Speed Auto', engine:'2.5L 152kW/243Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:27, make:'BYD',          model:'Seal U DM-i 2024 PHEV 1.5L',               year:2024, mileage:3200,  condition:'Used', type:'EV',      fuel:'PHEV',     body:'SUV',       price:19800, emoji:'⚡', img:null, ev:true,  hot:true,  premium:false, trans:'E-CVT',        engine:'1.5L+EV 160kW',      drive:'FWD', doors:4, seats:5, range_km:80  },
-  { id:28, make:'AITO',         model:'M9 2024 Extended Range AWD',                year:2024, mileage:1800,  condition:'Used', type:'Premium', fuel:'PHEV',     body:'SUV',       price:54000, emoji:'⚡', img:null, ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV 275kW AWD',     drive:'AWD', doors:4, seats:6, range_km:200 },
-  { id:29, make:'GAC Aion',     model:'Hyper GT 2024 77kWh',                       year:2024, mileage:4100,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:23500, emoji:'⚡', img:null, ev:true,  hot:false, premium:false, trans:'Single Speed',  engine:'249kW 430Nm',        drive:'RWD', doors:4, seats:5, range_km:702 },
-  { id:30, make:'Voyah',        model:'Free 2024 EREV AWD',                        year:2024, mileage:2900,  condition:'Used', type:'Premium', fuel:'PHEV',     body:'SUV',       price:38000, emoji:'⚡', img:null, ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV 320kW AWD',     drive:'AWD', doors:4, seats:5, range_km:230 },
-  { id:31, make:'Chery',        model:'Omoda 5 GT 2024 1.6T',                      year:2024, mileage:7200,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:14900, emoji:'🚙', img:null, ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.6T 145kW/290Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:32, make:'Haval',        model:'Jolion HEV 2024 1.5T',                      year:2024, mileage:5800,  condition:'Used', type:'EV',      fuel:'HEV',      body:'SUV',       price:16200, emoji:'🚙', img:null, ev:true,  hot:false, premium:false, trans:'7-Speed DHT',  engine:'1.5T HEV 150kW',     drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:33, make:'Geely',        model:'Preface 2024 2.0TD AWD',                    year:2024, mileage:6100,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:17800, emoji:'🚗', img:null, ev:false, hot:false, premium:true,  trans:'8-Speed Auto', engine:'2.0TD 175kW/350Nm',  drive:'AWD', doors:4, seats:5, range_km:null },
-  { id:34, make:'Dongfeng',     model:'Aeolus Haohan 2024 2.0T',                   year:2024, mileage:8900,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:13500, emoji:'🚙', img:null, ev:false, hot:false, premium:false, trans:'6-Speed AT',   engine:'2.0T 165kW/360Nm',   drive:'FWD', doors:4, seats:7, range_km:null },
-  { id:35, make:'Li Auto',      model:'L6 2024 Extended Range AWD',                year:2024, mileage:2200,  condition:'Used', type:'EV',      fuel:'PHEV',     body:'SUV',       price:36000, emoji:'⚡', img:null, ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV 330kW AWD',     drive:'AWD', doors:4, seats:5, range_km:215 },
+  { id:1,  make:'Tesla',         model:'Model Y L 2026 Standard Range',              year:2026, mileage:0,     condition:'New',  type:'EV',      fuel:'Electric', body:'SUV',       price:28900, img:'img/v01-tesla.webp',      ev:true,  hot:true,  premium:true,  trans:'1-Speed Auto', engine:'250kW Dual Motor', drive:'AWD', doors:4, seats:6, range_km:751  },
+  { id:2,  make:'BYD',           model:'Seal 2024 Long Range',                       year:2024, mileage:6200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:15200, img:'img/v02-byd-seal.webp',   ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'230kW Electric',    drive:'RWD', doors:4, seats:5, range_km:700  },
+  { id:3,  make:'BMW',           model:'X3 2025 xDrive30L M Sport',                  year:2025, mileage:8500,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'SUV',       price:42000, img:'img/v03-bmw-x3.webp',     ev:false, hot:false, premium:true,  trans:'8-Speed Auto', engine:'2.0T 190kW/400Nm',  drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:4,  make:'Mercedes-Benz', model:'C 260 L 2025 Night Edition Sport',           year:2025, mileage:4100,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:38500, img:'img/v04-mercedes.webp',   ev:false, hot:false, premium:true,  trans:'9G-Tronic',    engine:'1.5T 150kW+48V',    drive:'RWD', doors:4, seats:5, range_km:null },
+  { id:5,  make:'Li Auto',       model:'L9 2025 Ultra Smart Refresh',                year:2025, mileage:3200,  condition:'Used', type:'EV',      fuel:'EREV',     body:'SUV',       price:54000, img:'img/v05-li-auto.webp',    ev:true,  hot:true,  premium:true,  trans:'2-Speed DHT',  engine:'EREV 330kW Dual',   drive:'AWD', doors:4, seats:6, range_km:1315 },
+  { id:6,  make:'Volkswagen',    model:'Passat 2025 280TSI Business',                year:2025, mileage:7800,  condition:'Used', type:'Premium', fuel:'Petrol',   body:'Sedan',     price:18500, img:'img/v06-passat.webp',     ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'1.4T 110kW/250Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:7,  make:'Changan',       model:'Lantouzhe Pickup 2023 2.0T 4WD',             year:2023, mileage:18400, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'Pickup',    price:13800, img:'img/v07-changan.webp',    ev:false, hot:false, premium:false, trans:'8-Speed Auto', engine:'2.0T 171kW/390Nm',  drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:8,  make:'BYD',           model:'Atto 3 2024 Standard Range',                 year:2024, mileage:9100,  condition:'Used', type:'EV',      fuel:'Electric', body:'SUV',       price:13800, img:'img/v08-byd-atto3.webp',  ev:true,  hot:false, premium:false, trans:'1-Speed Auto', engine:'150kW Electric',    drive:'FWD', doors:4, seats:5, range_km:480  },
+  { id:9,  make:'Xiaomi',        model:'SU7 2024 Long Range RWD',                    year:2024, mileage:2200,  condition:'Used', type:'EV',      fuel:'Electric', body:'Sedan',     price:24500, img:'img/v09-xiaomi-su7.webp', ev:true,  hot:true,  premium:false, trans:'1-Speed Auto', engine:'220kW/400Nm',       drive:'RWD', doors:4, seats:5, range_km:700  },
+  { id:10, make:'Leapmotor',     model:'Leopard 5 2025 Laser Qiankun Edition PHEV',  year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:21000, img:'img/v10-leapmotor.webp',  ev:true,  hot:true,  premium:false, trans:'DHT Dual Motor', engine:'505kW 687ps',      drive:'AWD', doors:4, seats:5, range_km:125  },
+  { id:11, make:'Jetour',        model:'ShanHai T2 2025 PHEV 206km AWD Wilderness',  year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:28500, img:'img/v11-chery-t8.webp',   ev:true,  hot:true,  premium:false, trans:'DHT Triple Motor', engine:'462ps CATL 43kWh', drive:'AWD', doors:4, seats:5, range_km:206  },
+  { id:12, make:'Geely',         model:'Monjaro 2024 2.0T AWD',                      year:2024, mileage:5800,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:16200, img:'img/v12-geely.webp',      ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0T 238hp',        drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:13, make:'Great Wall',    model:'Tank 700 2024 Hi4-T Arctic Edition',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:78000, img:'img/v20-tank700.webp',    ev:true,  hot:true,  premium:true,  trans:'10-Speed Auto', engine:'3.0T V6+163ps Motor', drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:14, make:'Jetour',        model:'Da Sheng 2026 1.5T DCT Black Knight',        year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:10500, img:'img/nvn-v14-jetour-dasheng.webp', ev:false, hot:false, premium:false, trans:'DCT 6-Speed',  engine:'1.5T 115kW/230Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:15, make:'Volkswagen',    model:'Tuyue 2025 300TSI',                          year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:13500, img:'img/v21-vw-tuyue.webp',   ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 118kW/250Nm',  drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:16, make:'Livan',         model:'X3 Pro 2024 1.5L CVT',                       year:2024, mileage:8200,  condition:'Used', type:'SUV',     fuel:'Petrol',   body:'SUV',       price:7200, img:'img/v22-livan.webp',      ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L 83kW/143Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:17, make:'MAEXTRO',       model:'S800 2025 Extended Range Star Glory',        year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'Sedan',     price:68000, img:'img/v17-maextro.webp',    ev:true,  hot:true,  premium:true,  trans:'Triple Motor', engine:'635kW EREV 65kWh CATL', drive:'AWD', doors:4, seats:4, range_km:965  },
+  { id:18, make:'Trumpchi',      model:'Xiangwang S7 2025 PHEV AWD',                 year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:32000, img:'img/v18-trumpchi.webp',   ev:true,  hot:false, premium:false, trans:'DHT Dual Motor', engine:'368kW 501ps LFP 36kWh', drive:'AWD', doors:4, seats:5, range_km:180  },
+  { id:19, make:'Jetour',        model:'X70 Plus 2026 1.5T DCT 7-Seat',             year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/v19-jetour.webp',     ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 135kW/290Nm',  drive:'FWD', doors:4, seats:7, range_km:null },
+  { id:20, make:'MG',           model:'MG5 2023 Trophy 1.5T DCT',                  year:2023, mileage:21000, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'Sedan',     price:8900, img:'img/nvn-v20-mg5.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 110kW/220Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:21, make:'Leapmotor',    model:'Formula Leopard Ti7 2025 PHEV Performance', year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, img:'img/nvn-v21-formula-leopard.webp', ev:true,  hot:true,  premium:false, trans:'DHT Triple Motor', engine:'540kW 734ps CATL LFP', drive:'AWD', doors:4, seats:5, range_km:160  },
+  { id:22, make:'BYD',          model:'Song PLUS DM-i 2025 Premium',                year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:18500, img:'img/nvn-v22-byd-song-plus.jpg', ev:true,  hot:true,  premium:false, trans:'E-CVT',        engine:'DM-i PHEV',          drive:'FWD', doors:4, seats:5, range_km:112  },
+  { id:23, make:'Li Auto',      model:'Ideal L6 Pro 2024 Extended Range',           year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:36000, img:'img/nvn-v23-li-l6.jpg', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:215 },
+  { id:24, make:'Jetour',       model:'Traveler 2025 2.0TD DCT 4WD Silver Dragon',  year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:23500, img:'img/nvn-v24-jetour-traveler.jpg', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0TD',              drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:25, make:'Toyota',       model:'Corolla 2024 1.2T S-CVT Pioneer',            year:2024, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:13500, img:'img/nvn-v25-toyota-corolla.jpg', ev:false, hot:false, premium:false, trans:'S-CVT',        engine:'1.2T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:26, make:'Hyundai',      model:'Elantra 2023 1.5L CVT GLX Elite',            year:2023, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:10800, img:'img/nvn-v26-hyundai-elantra.jpg', ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:27, make:'Tank',         model:'700 New Energy 2024 Hi4-T Ultimate',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:76000, img:'img/nvn-v27-tank700-ultimate.jpg', ev:true,  hot:true,  premium:true,  trans:'Auto',         engine:'Hi4-T PHEV',         drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:28, make:'Changan',      model:'UNI-Z 2025 Smart Blue Whale 500Bar MAX',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:16800, img:'img/nvn-v28-changan-uniz.jpg', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'Blue Whale PHEV',    drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:29, make:'MG',           model:'MG7 2025 1.5T 300 DCT Elegance',             year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:16000, img:'img/nvn-v29-mg7.jpg', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:30, make:'Kia',          model:'Seltos 2023 1.5L IVT Luxury',                year:2023, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:12500, img:'img/nvn-v30-kia-seltos.jpg', ev:false, hot:false, premium:false, trans:'IVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:31, make:'Formula Leopard', model:'Titanium 7 2025 190KM AWD Ultra',         year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, img:'img/nvn-v31-formula-leopard-t7.jpg', ev:true,  hot:true,  premium:false, trans:'DHT',          engine:'PHEV AWD',           drive:'AWD', doors:4, seats:5, range_km:190 },
+  { id:32, make:'Li Auto',      model:'Li L7 2025 Ultra Smart Refresh',             year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:46000, img:'img/nvn-v32-li-l7.jpg', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:33, make:'Volkswagen',   model:'Golf 2025 300TSI R-Line',                   year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Hatchback', price:20500, img:'img/nvn-v33-vw-golf.jpg', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'300TSI',             drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:34, make:'Jetour',       model:'Da Sheng 2026 1.5T DCT Flagship',            year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/nvn-v34-jetour-dasheng-flagship.jpg', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:35, make:'Jetour',       model:'ShanHai T2 Extended 206km XWD 7-Seater',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:30500, img:'img/nvn-v35-jetour-shanhai-t2.jpg', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'1.5TD PHEV',         drive:'AWD', doors:4, seats:7, range_km:206 },
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
 let typeFilter='all', priceFilter='all', makeFilter='', selV=null;
+let contentOverrides = {};
+const editableContentKeys = ['demo_notice','hero_h1','hero_sub','inv_sub','showroom_desc'];
 
 function fmt(n) { return '$'+n.toLocaleString(); }
 
+function safeCmsHtml(value) {
+  return String(value || '')
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+    .replace(/\son\w+\s*=\s*(['"]).*?\1/gi, '')
+    .replace(/javascript:/gi, '');
+}
+
+function applyContentOverrides() {
+  editableContentKeys.forEach(key => {
+    const value = contentOverrides[key];
+    if (!value) return;
+    document.querySelectorAll(`[data-i18n="${key}"],[data-i18n-html="${key}"]`).forEach(el => {
+      if (el.hasAttribute('data-i18n-html')) el.innerHTML = safeCmsHtml(value);
+      else el.textContent = value;
+    });
+  });
+}
+
+function applyCmsState(state) {
+  if (!state || typeof state !== 'object') return;
+  contentOverrides = Object.assign({}, state.content || {});
+  if (Array.isArray(state.vehicles) && state.vehicles.length) {
+    vehicles.splice(0, vehicles.length, ...state.vehicles);
+  }
+  applyContentOverrides();
+  applyFilters();
+}
+
+async function loadCmsState() {
+  try {
+    const res = await fetch('/api/cms?action=state', { cache: 'no-store' });
+    const data = await res.json();
+    if (data && data.ok && data.state) applyCmsState(data.state);
+    return data;
+  } catch (err) {
+    return { ok:false, message: err.message };
+  }
+}
+
+window.newVisionCMS = {
+  getState: () => ({
+    content: Object.assign({}, contentOverrides),
+    vehicles: vehicles.map(v => Object.assign({}, v)),
+  }),
+  applyState: applyCmsState,
+  reloadState: loadCmsState,
+  getDefaultContent: () => {
+    const base = {};
+    editableContentKeys.forEach(key => { base[key] = T.EN[key] || ''; });
+    return base;
+  },
+  editableContentKeys,
+  fmt,
+};
+
 // ── RENDER ────────────────────────────────────────────────────────────────
+function cardImage(src) {
+  if (!src) return '';
+  const file = src.split('/').pop().replace(/\.[^.]+$/, '.webp');
+  return `img/thumbs/${file}`;
+}
+
 function buildCard(v, idx) {
-  const eager = idx < 4;
+  const eager = idx < 2;
+  const gridImg = cardImage(v.img);
   const badges = [
     v.condition==='New' ? '<span class="badge badge-new">New</span>' : '<span class="badge badge-used">Used</span>',
-    v.ev ? '<span class="badge badge-ev">⚡ EV/PHEV</span>' : '',
-    v.hot ? '<span class="badge badge-hot">🔥 Hot</span>' : '',
+    v.ev ? '<span class="badge badge-ev">EV/PHEV</span>' : '',
+    v.hot ? '<span class="badge badge-hot">Hot</span>' : '',
     v.premium ? '<span class="badge badge-premium">★ Premium</span>' : '',
   ].join('');
   const mil = v.condition==='New' ? '0 km' : v.mileage.toLocaleString()+' km';
   return `<div class="vehicle-card" onclick="openModal(${v.id})">
     <div class="vehicle-img">
-      ${v.img ? `<img src="${v.img}" alt="${v.year} ${v.make} ${v.model}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'} onerror="this.style.display='none';this.parentNode.querySelector('.vehicle-img-placeholder').style.display='flex'"><div class="vehicle-img-placeholder" style="display:none">${v.emoji}</div>` : `<div class="vehicle-img-placeholder">${v.emoji}</div>`}
+      ${gridImg ? `<img src="${gridImg}" alt="${v.year} ${v.make} ${v.model}" width="640" height="426" decoding="async"${eager ? ' loading="eager" fetchpriority="high"' : ' loading="lazy" fetchpriority="low"'} onerror="this.style.display='none';this.parentNode.querySelector('.vehicle-photo-fallback').style.display='flex'"><div class="vehicle-photo-fallback" style="display:none">Photo unavailable - request current stock photo</div>` : `<div class="vehicle-photo-fallback">Photo unavailable - request current stock photo</div>`}
       <div class="vehicle-badges">${badges}</div>
     </div>
     <div class="vehicle-body">
@@ -1259,7 +1638,7 @@ function buildCard(v, idx) {
 function renderGrid(list) {
   const g = document.getElementById('vehicleGrid');
   const c = document.getElementById('resultCount');
-  if (!list.length) { g.innerHTML='<div class="no-results">🔍<br><br>No vehicles match. Try adjusting filters.</div>'; c.textContent=''; return; }
+  if (!list.length) { g.innerHTML='<div class="no-results">No vehicles match.<br><br>Try adjusting filters.</div>'; c.textContent=''; return; }
   g.innerHTML = list.map((v,i) => buildCard(v,i)).join('');
   c.textContent = `(${list.length})`;
 }
@@ -1328,24 +1707,28 @@ function filterTag(tag) {
   scrollToInventory();
 }
 function scrollToInventory() { document.getElementById('inventory').scrollIntoView({behavior:'smooth'}); }
+function openMobileFilters() {
+  const controls = document.querySelector('.hero-search');
+  if (controls) controls.scrollIntoView({behavior:'smooth', block:'center'});
+  setTimeout(()=>document.getElementById('heroMake')?.focus({preventScroll:true}),350);
+}
 
 // ── MODAL ────────────────────────────────────────────────────────────────
 function openModal(id) {
   const v=vehicles.find(x=>x.id===id); if(!v) return; selV=v;
   const imgEl=document.getElementById('modalImg');
-  const emojiEl=document.getElementById('modalEmoji');
+  const photoFallbackEl=document.getElementById('modalPhotoFallback');
   if (v.img) {
     imgEl.src=v.img; imgEl.alt=`${v.year} ${v.make} ${v.model}`;
-    imgEl.style.display='block'; emojiEl.style.display='none';
+    imgEl.style.display='block'; photoFallbackEl.style.display='none';
   } else {
-    imgEl.style.display='none'; emojiEl.style.display='flex';
-    emojiEl.textContent=v.emoji;
+    imgEl.style.display='none'; photoFallbackEl.style.display='flex';
   }
   document.getElementById('modalTitle').textContent=`${v.year} ${v.make} ${v.model}`;
   document.getElementById('modalSubtitle').textContent=`${v.fuel} · ${v.body} · ${v.drive}`;
   const badges=[
     v.condition==='New'?'<span class="badge badge-new">New</span>':'<span class="badge badge-used">Used</span>',
-    v.ev?'<span class="badge badge-ev">⚡ EV/PHEV</span>':'',
+    v.ev?'<span class="badge badge-ev">EV/PHEV</span>':'',
     v.premium?'<span class="badge badge-premium">★ Premium</span>':'',
   ].join('');
   document.getElementById('modalBadges').innerHTML=badges;
@@ -1383,7 +1766,7 @@ function openWA(msg) { window.open(`https://wa.me/8613735611862?text=${encodeURI
 function openWAModal() {
   if(!selV) return;
   const port=document.getElementById('portSelect').options[document.getElementById('portSelect').selectedIndex].text;
-  openWA(`Hi New Vision Team,\n\nInterested in:\n🚗 ${selV.year} ${selV.make} ${selV.model}\n💰 FOB: ${fmt(selV.price)}\n📍 Destination: ${port}\n\nPlease send full quote with freight, inspection options, and documentation. Thank you.`);
+  openWA(`Hi New Vision Team,\n\nInterested in:\nVehicle: ${selV.year} ${selV.make} ${selV.model}\nFOB: ${fmt(selV.price)}\nDestination: ${port}\n\nPlease send full quote with freight, inspection options, and documentation. Thank you.`);
 }
 function showToast(msg) {
   const t=document.getElementById('toast'); document.getElementById('toastMsg').textContent=msg;
@@ -1417,21 +1800,36 @@ function setLang(l, btn) {
     const key = el.getAttribute('data-i18n-placeholder');
     if (t[key] !== undefined) el.placeholder = t[key];
   });
+  applyContentOverrides();
   // Re-render grid so card buttons use new language
   applyFilters();
+  applyWholePageTranslation(l);
 }
 
 // ── COUNTER ANIM ─────────────────────────────────────────────────────────
-function animCount(id,target,dur) {
-  const el=document.getElementById(id); let s=0; const step=target/(dur/16);
-  const t=setInterval(()=>{ s+=step; if(s>=target){el.textContent=target.toLocaleString();clearInterval(t);return;} el.textContent=Math.floor(s).toLocaleString(); },16);
+function setCount(id,target) {
+  const el=document.getElementById(id);
+  if (el) el.textContent=target.toLocaleString();
 }
 
-document.getElementById('navSearch').addEventListener('input',applyFilters);
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 
 renderGrid(vehicles);
-setTimeout(()=>{ animCount('cVehicles',3200,1000); animCount('cShipping',138,700); },300);
+loadCmsState();
+setCount('cVehicles',3200);
+setCount('cShipping',138);
+(() => {
+  const params = new URLSearchParams(location.search);
+  const requested = params.get('lang') || '';
+  const browserLang = (navigator.language || '').toLowerCase();
+  if (requested.toLowerCase() === 'zh-cn' || requested.toLowerCase() === 'zh' || browserLang.startsWith('zh')) {
+    const zhBtn = document.querySelector('.lang-btn[data-lang="ZH"]');
+    if (zhBtn) setLang('ZH', zhBtn);
+  }
+})();
 </script>
+<script src="arkreview.js?v=20260531-phone-app-2"></script>
+<script src="admin.js"></script>
+<div id="google_translate_element" class="skiptranslate" aria-hidden="true"></div>
 </body>
 </html>
