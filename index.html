@@ -214,6 +214,8 @@
     .btn-secondary:hover { border-color: var(--green); color: var(--green); }
 
     /* ── BRAND PARTNERS ── */
+    .brands-grouped { display: flex; flex-direction: column; gap: 2px; }
+    .brand-group-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 12px 0 7px; }
     .brands-grid { display: flex; flex-wrap: wrap; gap: 10px; }
     .brand-pill { padding: 8px 18px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--muted2); transition: all .2s; cursor: pointer; }
     .brand-pill:hover, .brand-pill.active { border-color: var(--green); color: var(--green); background: rgba(76,175,80,0.07); }
@@ -436,7 +438,14 @@
       .cat-icon { width: 36px; height: 36px; }
       .cat-info p { display: none; }
       section { padding: 36px 14px; }
-      .vehicle-grid { grid-template-columns: 1fr; gap: 14px; }
+      /* Phone: cars become a horizontal swipe-scroll carousel */
+      .vehicle-grid {
+        display: flex; grid-template-columns: none;
+        overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+        gap: 14px; padding: 2px 14px 12px; margin: 0 -14px; scrollbar-width: none;
+      }
+      .vehicle-grid::-webkit-scrollbar { display: none; }
+      .vehicle-card { flex: 0 0 84%; scroll-snap-align: start; }
       .steps { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 20px; }
       .cta-block { padding: 22px 16px; gap: 16px; border-radius: 12px; }
@@ -646,29 +655,61 @@
       <div class="section-sub" data-i18n="brand_sub">16+ global automotive brands — new energy · traditional · premium · engineering</div></div>
     </div>
   </div>
-  <div class="brands-grid" id="brandGrid">
-    <div class="brand-pill active" onclick="filterByBrand('',this)">All Brands</div>
-    <div class="brand-pill" onclick="filterByBrand('BYD',this)" data-brand="BYD">BYD</div>
-    <div class="brand-pill" onclick="filterByBrand('Tesla',this)" data-brand="Tesla">Tesla</div>
-    <div class="brand-pill" onclick="filterByBrand('BMW',this)" data-brand="BMW">BMW</div>
-    <div class="brand-pill" onclick="filterByBrand('Mercedes-Benz',this)" data-brand="Mercedes-Benz">Mercedes-Benz</div>
-    <div class="brand-pill" onclick="filterByBrand('Volkswagen',this)" data-brand="Volkswagen">Volkswagen</div>
-    <div class="brand-pill" onclick="filterByBrand('Toyota',this)" data-brand="Toyota">Toyota</div>
-    <div class="brand-pill" onclick="filterByBrand('Li Auto',this)" data-brand="Li Auto">Li Auto 理想</div>
-    <div class="brand-pill" onclick="filterByBrand('Xiaomi',this)" data-brand="Xiaomi">Xiaomi 小米</div>
-    <div class="brand-pill" onclick="filterByBrand('Changan',this)" data-brand="Changan">Changan 长安</div>
-    <div class="brand-pill" onclick="filterByBrand('Chery',this)" data-brand="Chery">Chery 奇瑞</div>
-    <div class="brand-pill" onclick="filterByBrand('Geely',this)" data-brand="Geely">Geely 吉利</div>
-    <div class="brand-pill" onclick="filterByBrand('Leapmotor',this)" data-brand="Leapmotor">Leapmotor 零跑</div>
-    <div class="brand-pill" onclick="filterByBrand('Honda',this)" data-brand="Honda">Honda</div>
-    <div class="brand-pill" onclick="filterByBrand('Audi',this)" data-brand="Audi">Audi</div>
-    <div class="brand-pill" onclick="filterByBrand('Wuling',this)" data-brand="Wuling">Wuling 五菱</div>
-    <div class="brand-pill" onclick="filterByBrand('Yadea',this)" data-brand="Yadea">Yadea 雅迪</div>
-    <div class="brand-pill" onclick="filterByBrand('MAEXTRO',this)" data-brand="MAEXTRO">MAEXTRO 問界</div>
-    <div class="brand-pill" onclick="filterByBrand('Trumpchi',this)" data-brand="Trumpchi">Trumpchi 传祺</div>
-    <div class="brand-pill" onclick="filterByBrand('Jetour',this)" data-brand="Jetour">Jetour 捷途</div>
-    <div class="brand-pill" onclick="filterByBrand('Great Wall',this)" data-brand="Great Wall">Great Wall 长城</div>
-    <div class="brand-pill" onclick="filterByBrand('Livan',this)" data-brand="Livan">Livan 睿蓝</div>
+  <div id="brandGrid" class="brands-grouped">
+    <div class="brands-grid" style="margin-bottom:6px;">
+      <div class="brand-pill active" onclick="filterByBrand('',this)" data-i18n="brand_all">All Brands</div>
+    </div>
+    <div class="brand-group">
+      <div class="brand-group-label" data-i18n="brand_grp_cn">🇨🇳 Chinese Brands</div>
+      <div class="brands-grid">
+        <div class="brand-pill" onclick="filterByBrand('BYD',this)" data-brand="BYD">BYD 比亚迪</div>
+        <div class="brand-pill" onclick="filterByBrand('Li Auto',this)" data-brand="Li Auto">Li Auto 理想</div>
+        <div class="brand-pill" onclick="filterByBrand('Xiaomi',this)" data-brand="Xiaomi">Xiaomi 小米</div>
+        <div class="brand-pill" onclick="filterByBrand('Changan',this)" data-brand="Changan">Changan 长安</div>
+        <div class="brand-pill" onclick="filterByBrand('Chery',this)" data-brand="Chery">Chery 奇瑞</div>
+        <div class="brand-pill" onclick="filterByBrand('Geely',this)" data-brand="Geely">Geely 吉利</div>
+        <div class="brand-pill" onclick="filterByBrand('Leapmotor',this)" data-brand="Leapmotor">Leapmotor 零跑</div>
+        <div class="brand-pill" onclick="filterByBrand('Wuling',this)" data-brand="Wuling">Wuling 五菱</div>
+        <div class="brand-pill" onclick="filterByBrand('Yadea',this)" data-brand="Yadea">Yadea 雅迪</div>
+        <div class="brand-pill" onclick="filterByBrand('MAEXTRO',this)" data-brand="MAEXTRO">MAEXTRO 問界</div>
+        <div class="brand-pill" onclick="filterByBrand('Trumpchi',this)" data-brand="Trumpchi">Trumpchi 传祺</div>
+        <div class="brand-pill" onclick="filterByBrand('Jetour',this)" data-brand="Jetour">Jetour 捷途</div>
+        <div class="brand-pill" onclick="filterByBrand('Great Wall',this)" data-brand="Great Wall">Great Wall 长城</div>
+        <div class="brand-pill" onclick="filterByBrand('Tank',this)" data-brand="Tank">Tank 坦克</div>
+        <div class="brand-pill" onclick="filterByBrand('MG',this)" data-brand="MG">MG 名爵</div>
+        <div class="brand-pill" onclick="filterByBrand('Formula Leopard',this)" data-brand="Formula Leopard">Formula Leopard 方程豹</div>
+        <div class="brand-pill" onclick="filterByBrand('Livan',this)" data-brand="Livan">Livan 睿蓝</div>
+      </div>
+    </div>
+    <div class="brand-group">
+      <div class="brand-group-label" data-i18n="brand_grp_jp">🇯🇵 Japanese Brands</div>
+      <div class="brands-grid">
+        <div class="brand-pill" onclick="filterByBrand('Toyota',this)" data-brand="Toyota">Toyota 丰田</div>
+        <div class="brand-pill" onclick="filterByBrand('Honda',this)" data-brand="Honda">Honda 本田</div>
+      </div>
+    </div>
+    <div class="brand-group">
+      <div class="brand-group-label" data-i18n="brand_grp_de">🇩🇪 German Brands</div>
+      <div class="brands-grid">
+        <div class="brand-pill" onclick="filterByBrand('BMW',this)" data-brand="BMW">BMW 宝马</div>
+        <div class="brand-pill" onclick="filterByBrand('Mercedes-Benz',this)" data-brand="Mercedes-Benz">Mercedes-Benz 奔驰</div>
+        <div class="brand-pill" onclick="filterByBrand('Volkswagen',this)" data-brand="Volkswagen">Volkswagen 大众</div>
+        <div class="brand-pill" onclick="filterByBrand('Audi',this)" data-brand="Audi">Audi 奥迪</div>
+      </div>
+    </div>
+    <div class="brand-group">
+      <div class="brand-group-label" data-i18n="brand_grp_kr">🇰🇷 Korean Brands</div>
+      <div class="brands-grid">
+        <div class="brand-pill" onclick="filterByBrand('Hyundai',this)" data-brand="Hyundai">Hyundai 现代</div>
+        <div class="brand-pill" onclick="filterByBrand('Kia',this)" data-brand="Kia">Kia 起亚</div>
+      </div>
+    </div>
+    <div class="brand-group">
+      <div class="brand-group-label" data-i18n="brand_grp_us">🇺🇸 American Brands</div>
+      <div class="brands-grid">
+        <div class="brand-pill" onclick="filterByBrand('Tesla',this)" data-brand="Tesla">Tesla 特斯拉</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -695,6 +736,7 @@
     <button class="filter-btn" onclick="setTypeFilter('Sedan',this)" data-i18n="filter_sedan">Sedan</button>
     <button class="filter-btn" onclick="setTypeFilter('Premium',this)" data-i18n="filter_premium">Premium</button>
     <button class="filter-btn" onclick="setTypeFilter('New',this)" data-i18n="filter_new">Brand New</button>
+    <button class="filter-btn" onclick="setTypeFilter('Used',this)" data-i18n="filter_used">Used Cars</button>
     <button class="filter-btn" onclick="setPriceFilter('under15k',this)">Under $15K</button>
     <button class="filter-btn" onclick="setPriceFilter('15k-30k',this)">$15K–$30K</button>
     <button class="filter-btn" onclick="setPriceFilter('over30k',this)">$30K+</button>
@@ -794,6 +836,29 @@
           <option>Multiple vehicles / Fleet order</option>
           <option>Other (specify in message)</option>
         </select>
+      </div>
+
+      <div class="quote-row">
+        <div>
+          <label class="quote-label" for="qColor"><span data-i18n="quote_color">Customized Color</span></label>
+          <select id="qColor" class="quote-input">
+            <option value="" data-i18n="qcolor_any">Any / Standard</option>
+            <option data-i18n="qcolor_white">White</option>
+            <option data-i18n="qcolor_black">Black</option>
+            <option data-i18n="qcolor_silver">Silver / Grey</option>
+            <option data-i18n="qcolor_red">Red</option>
+            <option data-i18n="qcolor_blue">Blue</option>
+            <option data-i18n="qcolor_custom">Custom color (specify in message)</option>
+          </select>
+        </div>
+        <div>
+          <label class="quote-label" for="qCondition"><span data-i18n="quote_condition">New or Used</span></label>
+          <select id="qCondition" class="quote-input">
+            <option value="" data-i18n="qcond_any">Either</option>
+            <option data-i18n="qcond_new">Brand New</option>
+            <option data-i18n="qcond_used">Used</option>
+          </select>
+        </div>
       </div>
 
       <div>
@@ -1180,8 +1245,20 @@ function submitQuote(e) {
   const contact = document.getElementById('qContact').value.trim();
   const vehicle = document.getElementById('qVehicle').value.trim();
   const port    = document.getElementById('qPort').value.trim();
+  const color   = document.getElementById('qColor') ? document.getElementById('qColor').value.trim() : '';
+  const cond    = document.getElementById('qCondition') ? document.getElementById('qCondition').value.trim() : '';
   const msg     = document.getElementById('qMsg').value.trim();
-  const text = `Hi New Vision team,\n\nI would like a quote.\n\nName: ${name}\nCountry: ${country}\nWhatsApp / Phone: ${contact}\nVehicle: ${vehicle}\nDestination Port: ${port}\nMessage / Quantity: ${msg}\n\nPlease send FOB pricing, freight/CIF estimate, photos, inspection options, and available stock. Thank you.`;
+  const text = `Hi New Vision team,\n\nI would like a quote.\n\nName: ${name}\nCountry: ${country}\nWhatsApp / Phone: ${contact}\nVehicle: ${vehicle}\nDestination Port: ${port}${color ? `\nColor: ${color}` : ''}${cond ? `\nNew/Used: ${cond}` : ''}\nMessage / Quantity: ${msg}\n\nPlease send FOB pricing, freight/CIF estimate, photos, inspection options, and available stock. Thank you.`;
+  // Capture the lead BEFORE the WhatsApp handoff so it's never lost if the buyer
+  // fills the form but doesn't tap through. Cross-origin to the Vercel /api/lead
+  // (this static GitHub Pages site can't run serverless itself). Fire-and-forget.
+  try {
+    fetch('https://newvision-orpin.vercel.app/api/lead', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source: 'New Vision', name, contact, country, vehicle, port,
+        message: `${msg}${color ? ' | Color: ' + color : ''}${cond ? ' | ' + cond : ''}` })
+    }).catch(() => {});
+  } catch (_) {}
   renderQuoteDispatch(text);
   openWA(text);
 }
@@ -2469,6 +2546,7 @@ function applyFilters() {
   else if (typeFilter==='Sedan') list=list.filter(v=>v.body==='Sedan');
   else if (typeFilter==='Premium') list=list.filter(v=>v.premium);
   else if (typeFilter==='New') list=list.filter(v=>v.condition==='New');
+  else if (typeFilter==='Used') list=list.filter(v=>v.condition==='Used');
   if (priceFilter==='under15k') list=list.filter(v=>v.price<15000);
   else if (priceFilter==='15k-30k') list=list.filter(v=>v.price>=15000&&v.price<=30000);
   else if (priceFilter==='over30k') list=list.filter(v=>v.price>30000);
