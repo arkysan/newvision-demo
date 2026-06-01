@@ -627,6 +627,88 @@
       el.setAttribute('data-rv-old', el.innerText);
     }
   }
+  // ===== Wix-style tools: right-click menu + drag-to-reorder (reuse the record() pipeline) =====
+  var ctxMenu=null, dragEl=null;
+  (function injectWixCss(){
+    var s=document.createElement('style');
+    s.textContent=
+      '#rv-ctx{position:fixed;z-index:100002;min-width:196px;background:#11141b;border:1px solid rgba(212,175,55,.5);border-radius:12px;padding:6px;box-shadow:0 18px 50px rgba(0,0,0,.55);display:none;font-family:Inter,system-ui,sans-serif}'+
+      '#rv-ctx.show{display:block}'+
+      '#rv-ctx button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;color:#e6e9ef;border-radius:8px;padding:9px 11px;font:600 13px Inter;cursor:pointer;text-align:left}'+
+      '#rv-ctx button:hover{background:#1f2433}#rv-ctx button.del{color:#ff8a8a}#rv-ctx button.del:hover{background:#3a1d1d}'+
+      '#rv-ctx .sep{height:1px;background:rgba(255,255,255,.1);margin:5px 4px}#rv-ctx .ig{width:18px;text-align:center;font-weight:800;color:#D4AF37}'+
+      '.rv-grip{position:absolute;top:6px;left:6px;z-index:60;background:#D4AF37;color:#0f1219;border-radius:7px;padding:1px 7px;cursor:grab;font:800 13px Inter;line-height:1.5;box-shadow:0 4px 12px rgba(0,0,0,.3);user-select:none}'+
+      '.rv-grip:active{cursor:grabbing}.rv-drag-ghost{opacity:.4}'+
+      '.rv-dragover{outline:2px dashed #D4AF37 !important;outline-offset:3px}';
+    document.head.appendChild(s);
+  })();
+  function hideCtx(){ if(ctxMenu) ctxMenu.classList.remove('show'); }
+  function clearDragOver(){ document.querySelectorAll('.rv-dragover').forEach(function(x){x.classList.remove('rv-dragover');}); }
+  function ctxBtn(label, icon, fn, cls){
+    var b=document.createElement('button'); if(cls) b.className=cls;
+    b.innerHTML='<span class="ig">'+icon+'</span>'+label;
+    b.onclick=function(ev){ ev.stopPropagation(); hideCtx(); fn(); };
+    return b;
+  }
+  function editContextMenu(e){
+    if(!editing) return;
+    var blk=movableBlock(e.target);
+    if(!isMine(blk)) return;
+    e.preventDefault();
+    selectEditTarget(e.target);
+    if(!ctxMenu){
+      ctxMenu=document.createElement('div'); ctxMenu.id='rv-ctx'; document.body.appendChild(ctxMenu);
+      document.addEventListener('click', hideCtx, true);
+      window.addEventListener('scroll', hideCtx, true);
+    }
+    var imgEl = e.target.tagName==='IMG' ? e.target : (blk.querySelector && blk.querySelector('img'));
+    ctxMenu.innerHTML='';
+    ctxMenu.appendChild(ctxBtn('Edit text','T',function(){
+      var t=textTarget(blk); if(t){ t.setAttribute&&t.setAttribute('contenteditable','true'); t.focus&&t.focus();
+        try{ var r=document.createRange(); r.selectNodeContents(t); var s=getSelection(); s.removeAllRanges(); s.addRange(r);}catch(_){}}
+      showToast('Type to edit · click away to save'); }));
+    if(imgEl) ctxMenu.appendChild(ctxBtn('Replace / upload image','IMG',function(){ imageDialog(imgEl.src||'', function(u){ doImageReplace(imgEl,u); }); }));
+    ctxMenu.appendChild(ctxBtn('Make bigger','+',function(){ applyPending(imgEl||e.target,{kind:'size',value:1.25}); }));
+    ctxMenu.appendChild(ctxBtn('Make smaller','-',function(){ applyPending(imgEl||e.target,{kind:'size',value:0.8}); }));
+    var s1=document.createElement('div'); s1.className='sep'; ctxMenu.appendChild(s1);
+    ctxMenu.appendChild(ctxBtn('Move up','^',function(){ selectedEl=blk; moveSelected('up'); }));
+    ctxMenu.appendChild(ctxBtn('Move down','v',function(){ selectedEl=blk; moveSelected('down'); }));
+    ctxMenu.appendChild(ctxBtn('Add note for ARK','*',function(){ selectedEl=blk; annotateSelected(); }));
+    var s2=document.createElement('div'); s2.className='sep'; ctxMenu.appendChild(s2);
+    ctxMenu.appendChild(ctxBtn('Delete this','X',function(){ record('hide', blk, blk.style.display||'', 'none', 'deleted a section'); }, 'del'));
+    var n=ctxMenu.querySelectorAll('button,.sep').length, mw=210, mh=n*40+12;
+    ctxMenu.style.left=Math.max(8, Math.min(e.clientX, innerWidth-mw))+'px';
+    ctxMenu.style.top=Math.max(8, Math.min(e.clientY, innerHeight-mh))+'px';
+    ctxMenu.classList.add('show');
+  }
+  var DRAG_SEL='.vehicle-card,.brand-group,.info-card,.step,.cat-card';
+  function setupDragReorder(){
+    document.body.querySelectorAll(DRAG_SEL).forEach(function(b){
+      if(!isMine(b) || b.querySelector(':scope > .rv-grip')) return;
+      if(getComputedStyle(b).position==='static') b.style.position='relative';
+      var g=document.createElement('div'); g.className='rv-grip'; g.setAttribute('draggable','true'); g.title='Drag to reorder'; g.textContent='⠿';
+      g.addEventListener('dragstart', function(e){ dragEl=b; b.classList.add('rv-drag-ghost'); e.dataTransfer.effectAllowed='move'; try{e.dataTransfer.setData('text/plain','rv');}catch(_){ } e.stopPropagation(); });
+      g.addEventListener('dragend', function(){ if(dragEl) dragEl.classList.remove('rv-drag-ghost'); dragEl=null; clearDragOver(); });
+      b.appendChild(g);
+      b.addEventListener('dragover', dragOver); b.addEventListener('dragleave', dragLeave); b.addEventListener('drop', dragDrop);
+    });
+  }
+  function teardownDragReorder(){
+    document.querySelectorAll('.rv-grip').forEach(function(g){ g.parentNode&&g.parentNode.removeChild(g); });
+    document.querySelectorAll(DRAG_SEL).forEach(function(b){
+      b.classList.remove('rv-drag-ghost','rv-dragover');
+      b.removeEventListener('dragover', dragOver); b.removeEventListener('dragleave', dragLeave); b.removeEventListener('drop', dragDrop);
+    });
+  }
+  function dragOver(e){ if(!dragEl||this===dragEl||this.parentElement!==dragEl.parentElement) return; e.preventDefault(); this.classList.add('rv-dragover'); }
+  function dragLeave(){ this.classList.remove('rv-dragover'); }
+  function dragDrop(e){
+    e.preventDefault(); e.stopPropagation(); this.classList.remove('rv-dragover');
+    if(!dragEl||this===dragEl||this.parentElement!==dragEl.parentElement) return;
+    var parent=dragEl.parentElement, before=childIndex(dragEl), target=childIndex(this);
+    record('move', dragEl, before, target, 'moved section by drag', { parent:cssPath(parent) });
+  }
+
   function enterEdit(){
     editing=true; byId('rv-editmode').classList.add('on'); byId('rv-editmode').textContent='Editing... tap Done to stop';
     setReviewOpen(false); editbar.classList.add('show');
@@ -641,13 +723,17 @@
     document.body.querySelectorAll('img').forEach(function(im){ if(isMine(im)) im.classList.add('rv-imgedit'); });
     document.addEventListener('click', editClick, true);          // the one handler that runs everything
     document.addEventListener('focusout', recordTextEdit, true);  // record text edits when you click away
-    showToast('Click any text and type · click an image to replace it · or use the command bar');
+    document.addEventListener('contextmenu', editContextMenu, true); // right-click menu (delete/move/replace…)
+    setupDragReorder();                                            // grip handles to drag-reorder blocks
+    showToast('Click text to edit · right-click for options · drag the ⠿ grip to reorder · click an image to replace');
   }
   function exitEdit(){
     editing=false; pending=null; byId('rv-editmode').classList.remove('on'); byId('rv-editmode').textContent='Edit / tell ARK what to do';
     editbar.classList.remove('show'); histpanel.classList.remove('show');
     document.removeEventListener('click', editClick, true);
     document.removeEventListener('focusout', recordTextEdit, true);
+    document.removeEventListener('contextmenu', editContextMenu, true);
+    teardownDragReorder(); hideCtx();
     if(selectedEl) selectedEl.classList.remove('rv-selected'); selectedEl=null;
     document.querySelectorAll('.rv-editable').forEach(function(el){ el.classList.remove('rv-editable'); el.removeAttribute('contenteditable'); el.removeAttribute('data-rv-old'); });
     document.querySelectorAll('.rv-imgedit').forEach(function(el){ el.classList.remove('rv-imgedit'); });
