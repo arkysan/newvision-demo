@@ -82,14 +82,16 @@
     .nav-brand-text { display: flex; flex-direction: column; line-height: 1.1; }
     .nav-brand-en { font-weight: 800; font-size: 16px; letter-spacing: 2px; color: var(--green); }
     .nav-brand-zh { font-size: 11px; color: var(--muted2); letter-spacing: 1px; }
-    .nav-search { flex: 1; max-width: 380px; position: relative; }
+    .nav-search { display: none; }   /* apple-clean bar: search lives in the hero (kept in DOM for filters) */
+    .about-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; max-width: 760px; margin: 0 auto; }
+    @media (max-width: 600px){ .about-stats { grid-template-columns: repeat(2,1fr); gap: 18px; } }
     .nav-search input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px 8px 38px; color: var(--text); font-size: 14px; outline: none; transition: border-color .2s; }
     .nav-search input:focus { border-color: var(--green); }
     .nav-search input::placeholder { color: var(--muted); }
     .nav-search-icon { position: absolute; left: 14px; top: 50%; width: 13px; height: 13px; border: 2px solid var(--muted); border-radius: 50%; transform: translateY(-58%); color: var(--muted); }
     .nav-search-icon::after { content: ''; position: absolute; width: 6px; height: 2px; right: -5px; bottom: -3px; background: currentColor; border-radius: 2px; transform: rotate(45deg); }
-    .nav-links { display: flex; gap: 2px; margin-left: auto; }
-    .nav-link { padding: 7px 13px; border-radius: 7px; font-size: 14px; color: var(--muted2); transition: all .2s; }
+    .nav-links { display: flex; gap: 6px; margin: 0 auto; }
+    .nav-link { padding: 8px 15px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--muted2); transition: all .2s; }
     .nav-link:hover { background: var(--surface2); color: var(--text); }
     .nav-lang { display: flex; gap: 4px; }
     .lang-btn { min-width: 36px; min-height: 36px; padding: 5px 9px; border-radius: 6px; font-size: 12px; background: none; border: 1px solid var(--border); color: var(--muted2); transition: all .2s; }
@@ -509,10 +511,11 @@
   </div>
   <div class="nav-links">
     <a class="nav-link" href="#inventory" data-i18n="nav_inventory">Inventory</a>
+    <a class="nav-link" href="#brands" data-i18n="nav_brands">Brands</a>
     <a class="nav-link" href="#how" data-i18n="nav_process">Process</a>
-    <a class="nav-link" href="#routes" data-i18n="nav_routes">Routes</a>
-    <a class="nav-link" href="#best-markets">Markets</a>
-    <a class="nav-link" href="https://www.nvncar.com/about-us/" target="_blank" rel="noopener noreferrer" data-i18n="nav_about">About</a>
+    <a class="nav-link" href="#best-markets" data-i18n="nav_markets">Markets</a>
+    <a class="nav-link" href="#about" data-i18n="nav_about">About Us</a>
+    <a class="nav-link" href="#quote" data-i18n="nav_contact">Contact</a>
   </div>
   <div class="nav-lang skiptranslate">
     <button class="lang-btn active" data-lang="EN" onclick="setLang('EN',this)">EN</button>
@@ -648,7 +651,7 @@
 </div>
 
 <!-- ── BRAND PARTNERS ── -->
-<section class="brand-section">
+<section class="brand-section" id="brands">
   <div class="section-header">
     <div>
       <h2 class="section-title" data-i18n-html="sec_brands">Brand <span>Partners</span></h2>
@@ -952,6 +955,25 @@
       <p>Strong China-export destinations, but they need route-specific pages and buyer-language localization before they should be pushed hard.</p>
       <div class="market-meta"><span>Growth markets</span><span>Need local pages</span><span>Follow-up phase</span></div>
     </article>
+  </div>
+</section>
+
+<!-- ── ABOUT US ── -->
+<section id="about" style="background:var(--surface);border-top:1px solid var(--border);padding:74px 24px;">
+  <div style="max-width:1040px;margin:0 auto;text-align:center;">
+    <div style="color:var(--green);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:13px;margin-bottom:12px;" data-i18n="about_kicker">About Us</div>
+    <h2 style="font-size:clamp(28px,4vw,42px);font-weight:800;color:var(--green2);max-width:20ch;margin:0 auto 18px;line-height:1.15;" data-i18n="about_h">Yiwu New Vision Car Export Co., Ltd.</h2>
+    <p style="font-size:18px;color:var(--muted2);max-width:64ch;margin:0 auto 14px;line-height:1.7;" data-i18n="about_p1">Since 2019, New Vision has focused on green and smart travel — delivering the full new-energy and traditional vehicle export chain from Yiwu, Zhejiang to buyers in 50+ countries across Africa, the Middle East, Asia, Europe and South America.</p>
+    <p style="font-size:16px;color:var(--muted);max-width:64ch;margin:0 auto 38px;line-height:1.7;" data-i18n="about_p2">We partner with 20+ leading Chinese, German, Japanese and Korean brands and handle everything end-to-end: sourcing, inspection, export licensing, customs, vessel booking, loading and delivery — backed by 24-hour after-sales support and global parts supply.</p>
+    <div class="about-stats">
+      <div><div style="font-size:34px;font-weight:800;color:var(--green)">2019</div><div style="font-size:13px;color:var(--muted)" data-i18n="about_s1">Exporting since</div></div>
+      <div><div style="font-size:34px;font-weight:800;color:var(--green)">20+</div><div style="font-size:13px;color:var(--muted)" data-i18n="about_s2">Brand partners</div></div>
+      <div><div style="font-size:34px;font-weight:800;color:var(--green)">50+</div><div style="font-size:13px;color:var(--muted)" data-i18n="about_s3">Countries served</div></div>
+      <div><div style="font-size:34px;font-weight:800;color:var(--green)">24h</div><div style="font-size:13px;color:var(--muted)" data-i18n="about_s4">After-sales support</div></div>
+    </div>
+    <div style="margin-top:36px;">
+      <button onclick="goToQuote({ message: 'Hi New Vision, I read your About page and want to discuss importing vehicles.' })" data-i18n="about_cta" style="background:var(--green);color:#fff;border:none;padding:14px 28px;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer;">Talk to our export team →</button>
+    </div>
   </div>
 </section>
 
