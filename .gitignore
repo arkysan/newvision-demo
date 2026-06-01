@@ -1,10 +1,3 @@
-node_modules/
-img/*.jpg
-shot_*.png
-*.jpeg
-lighthouse-report.json
-package-lock.json
-deploy-oss.ps1
-get-cf-token.mjs
-newvision_claude_code_compact_handoff.md
 to learn.mp4
+video-transcript-raw.txt
+REQUIREMENTS_FROM_VIDEO.md
