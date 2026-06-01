@@ -1,0 +1,5 @@
+
+> newvision-demo@1.0.0 preview
+> node scripts/serve-static.js
+
+New Vision preview: http://127.0.0.1:52452/
