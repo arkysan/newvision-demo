@@ -465,13 +465,13 @@
     }
     // image
     if(/\b(image|photo|picture|pic|fake|real car|car image)\b/i.test(low)){
-      arm('image', urlIn(t)); inp.value=''; return;
+      targetOrArm('image', urlIn(t)); inp.value=''; return;
     }
-    if(/\b(bigger|larger|huge|increase)\b/i.test(low)){ arm('size',1.3); inp.value=''; return; }
-    if(/\b(smaller|tiny|reduce|shrink)\b/i.test(low)){ arm('size',0.8); inp.value=''; return; }
-    if(/\b(hide|remove|delete|take out)\b/i.test(low)){ arm('hide'); inp.value=''; return; }
+    if(/\b(bigger|larger|huge|increase)\b/i.test(low)){ targetOrArm('size',1.3); inp.value=''; return; }
+    if(/\b(smaller|tiny|reduce|shrink)\b/i.test(low)){ targetOrArm('size',0.8); inp.value=''; return; }
+    if(/\b(hide|remove|delete|take out)\b/i.test(low)){ targetOrArm('hide'); inp.value=''; return; }
     var col=null; for(var k in COLORS){ if(low.indexOf(k)>=0){ col=COLORS[k]; break; } } var hx=t.match(/#[0-9a-f]{3,6}/i);
-    if(/\bcolor|colour\b/i.test(low) || col || hx){ arm('color', hx?hx[0]:col); inp.value=''; return; }
+    if(/\bcolor|colour\b/i.test(low) || col || hx){ targetOrArm('color', hx?hx[0]:col); inp.value=''; return; }
     // Unknown requests are sent to the team instead of pretending the page can self-edit.
     showToast('I will send that to the team to review.');
     var lines=['DO REQUEST for '+PROJECT,'('+page+')','', t]; openTeamMessage(lines.join('\n'));
@@ -479,11 +479,21 @@
   }
   function arm(kind, value){
     pending={kind:kind, value:value};
-    var label={image:'image',size:(value>1?'thing to enlarge':'thing to shrink'),color:'text',hide:'thing to remove'}[kind];
+    var label={image:'image',size:(value>1?'thing to enlarge':'thing to shrink'),color:'text',hide:'thing to remove',select:'section to highlight'}[kind]||'element';
     showToast('Now click the '+label+' on the page');
     setReviewOpen(false);
   }
+  function targetOrArm(kind, value){
+    var sel = selectedEl && document.documentElement.contains(selectedEl) ? selectedEl : null;
+    if(!sel){ arm(kind, value); return; }
+    var target = sel;
+    if(kind==='image'){ target = sel.tagName==='IMG' ? sel : ((sel.querySelector && sel.querySelector('img')) || sel); }
+    else if(kind==='size' || kind==='color'){ target = textTarget(sel) || sel; }   // resolve to the inner text leaf
+    applyPending(target, {kind:kind, value:value});
+    showToast('Applied to the highlighted section');
+  }
   function applyPending(el, p){
+    if(p.kind==='select'){ selectEditTarget(el); showToast('Highlighted ✓ — type your instruction in the box, press Do'); var cb=byId('rv-cmd'); if(cb) cb.focus(); return; }
     if(p.kind==='image'){
       var img = el.tagName==='IMG' ? el : (el.querySelector&&el.querySelector('img')) || el;
       var target = (img && img.tagName==='IMG') ? img : el;
@@ -612,8 +622,8 @@
   // ---- edit mode bar ----
   var editing=false;
   var editbar=el('div','rv-editbar',
-    '<input id="rv-cmd" placeholder="Tell ARK what to do… e.g. replace this image with a real car photo / make bigger / change Book to Schedule" />'+
-    '<button id="rv-doit">Do</button><button id="rv-move-up">Move Up</button><button id="rv-move-down">Move Down</button><button id="rv-annotate">Annotate</button><button id="rv-undo">Undo</button><button id="rv-redo">Redo</button><button id="rv-hist">History</button>'+
+    '<input id="rv-cmd" placeholder="Highlight something, then type: make bigger · change Book to Schedule · use green · replace image · delete this" />'+
+    '<button id="rv-pick" title="Click a section to target it, then type your instruction">🎯 Highlight</button><button id="rv-doit">Do</button><button id="rv-move-up">Move Up</button><button id="rv-move-down">Move Down</button><button id="rv-annotate">Annotate</button><button id="rv-undo">Undo</button><button id="rv-redo">Redo</button><button id="rv-hist">History</button>'+
     '<button id="rv-edit-pub" class="pubn">Publish</button><button id="rv-edit-exit">✓ Done</button>');
   document.body.appendChild(editbar);
   var histpanel=el('div','rv-histpanel','<div class="hh">Change history</div><div id="rv-hrows"></div>');
@@ -827,6 +837,7 @@
 
   byId('rv-editmode').onclick=function(){ editing?exitEdit():enterEdit(); };
   byId('rv-doit').onclick=doCommand;
+  byId('rv-pick').onclick=function(){ arm('select'); };
   byId('rv-cmd').addEventListener('keydown',function(e){ if(e.key==='Enter') doCommand(); });
   byId('rv-move-up').onclick=function(){ moveSelected('up'); };
   byId('rv-move-down').onclick=function(){ moveSelected('down'); };
