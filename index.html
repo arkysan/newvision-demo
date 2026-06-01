@@ -77,6 +77,8 @@
       padding: 0 24px; display: flex; align-items: center; height: 64px; gap: 20px;
     }
     .nav-brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-logo-link { display: flex; align-items: center; }
+    .nav-logo-img { height: 42px; width: auto; display: block; }
     .nav-brand-text { display: flex; flex-direction: column; line-height: 1.1; }
     .nav-brand-en { font-weight: 800; font-size: 16px; letter-spacing: 2px; color: var(--green); }
     .nav-brand-zh { font-size: 11px; color: var(--muted2); letter-spacing: 1px; }
@@ -112,10 +114,11 @@
         radial-gradient(ellipse 50% 40% at 100% 100%, rgba(76,175,80,0.04), transparent);
       pointer-events: none;
     }
-    /* Real logo recreation as CSS/SVG in hero */
+    /* Real New Vision logo image in hero */
     .hero-logo {
       display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0 auto 28px;
     }
+    .hero-logo-img { width: min(380px, 78vw); height: auto; display: block; }
     .hero-logo-arc {
       width: 220px; height: 58px; position: relative; margin-bottom: 4px;
     }
@@ -486,22 +489,10 @@
 <!-- ── NAV ── -->
 <nav>
   <div class="nav-brand">
-    <!-- Real New Vision logo: green arc + name -->
-    <svg width="40" height="34" viewBox="0 0 40 34" fill="none">
-      <defs>
-        <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#1B5E20"/>
-          <stop offset="100%" stop-color="#4CAF50"/>
-        </linearGradient>
-      </defs>
-      <path d="M2,28 C8,8 18,2 26,3 C32,4 36,13 38,22"
-            stroke="url(#arcGrad)" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <text x="39" y="20" font-size="7" fill="#FF8C00" text-anchor="middle" dominant-baseline="middle">NV</text>
-    </svg>
-    <div class="nav-brand-text">
-      <span class="nav-brand-en">NEW VISION</span>
-      <span class="nav-brand-zh">新 视 界</span>
-    </div>
+    <!-- Real New Vision logo -->
+    <a href="#top" class="nav-logo-link" aria-label="New Vision home">
+      <img src="logo-mark.png" alt="New Vision 新视界" class="nav-logo-img" width="1000" height="580" />
+    </a>
   </div>
   <div class="nav-search">
     <span class="nav-search-icon" aria-hidden="true"></span>
@@ -568,28 +559,9 @@
 <!-- ── HERO ── -->
 <div class="hero">
   <div class="hero-bg"></div>
-  <!-- Real logo recreation -->
+  <!-- Real New Vision logo -->
   <div class="hero-logo">
-    <div class="hero-logo-arc">
-      <svg viewBox="0 0 220 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="heroArc" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#1B5E20"/>
-            <stop offset="40%" stop-color="#2E7D32"/>
-            <stop offset="80%" stop-color="#43A047"/>
-            <stop offset="100%" stop-color="#66BB6A"/>
-          </linearGradient>
-        </defs>
-        <!-- Thick filled arch matching real New Vision logo -->
-        <path d="M6,54 C35,10 85,1 128,3 C168,5 196,24 213,45"
-              stroke="url(#heroArc)" stroke-width="14" fill="none"
-              stroke-linecap="round"/>
-        <!-- Orange sparkle at right tip (replaces dot on "I" in VISION) -->
-        <text x="215" y="42" font-size="15" fill="#FF8C00" text-anchor="middle" dominant-baseline="middle">NV</text>
-      </svg>
-    </div>
-    <div class="hero-logo-name">NEW VIS<span>I</span>ON</div>
-    <div class="hero-logo-zh">新 &nbsp; 视 &nbsp; 界</div>
+    <img src="logo-mark.png" alt="New Vision 新视界" class="hero-logo-img" width="1000" height="580" />
   </div>
 
   <div class="hero-badge"><span data-i18n="hero_badge">Demo inventory - contact for current stock</span></div>
@@ -1231,8 +1203,7 @@ function quoteVehicle(id) {
     <div class="footer-grid">
       <div class="footer-logo-area">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-          <svg width="36" height="30" viewBox="0 0 40 34" fill="none"><defs><linearGradient id="fArc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1B5E20"/><stop offset="100%" stop-color="#4CAF50"/></linearGradient></defs><path d="M2,28 C8,8 18,2 26,3 C32,4 36,13 38,22" stroke="url(#fArc)" stroke-width="6" fill="none" stroke-linecap="round"/><text x="39" y="20" font-size="7" fill="#FF8C00" text-anchor="middle" dominant-baseline="middle">NV</text></svg>
-          <div><div style="font-weight:800;font-size:15px;letter-spacing:2px;color:var(--green)">NEW VISION</div><div style="font-size:10px;color:var(--muted2);letter-spacing:2px;">新 视 界</div></div>
+          <img src="logo-mark.png" alt="New Vision 新视界" width="1000" height="580" style="height:40px;width:auto;display:block;" />
         </div>
         <p data-i18n="footer_desc">义乌新视界汽车销售有限公司 · Focusing on green and smart travel. Full-chain new energy vehicle export solutions since 2019.</p>
         <div class="footer-contacts">
