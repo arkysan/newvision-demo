@@ -799,7 +799,7 @@
     var msg=lines.join('\n').slice(0,1450);
     showToast('Sending your changes to ARK Telegram...');
     try{
-      await fetch('https://newvision-orpin.vercel.app/api/lead',{
+      await fetch('https://newvision-demo.vercel.app/api/lead',{
         method:'POST', headers:{'Content-Type':'application/json'},
         body:JSON.stringify({ source:'New Vision EDIT', name:'Site edit request', contact:page, message:msg })
       });

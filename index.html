@@ -1275,7 +1275,7 @@ function submitQuote(e) {
   // fills the form but doesn't tap through. Cross-origin to the Vercel /api/lead
   // (this static GitHub Pages site can't run serverless itself). Fire-and-forget.
   try {
-    fetch('https://newvision-orpin.vercel.app/api/lead', {
+    fetch('https://newvision-demo.vercel.app/api/lead', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ source: 'New Vision', name, contact, country, vehicle, port,
         message: `${msg}${color ? ' | Color: ' + color : ''}${cond ? ' | ' + cond : ''}` })
