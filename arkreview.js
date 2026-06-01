@@ -624,7 +624,7 @@
   var editbar=el('div','rv-editbar',
     '<input id="rv-cmd" placeholder="Highlight something, then type: make bigger · change Book to Schedule · use green · replace image · delete this" />'+
     '<button id="rv-pick" title="Click a section to target it, then type your instruction">🎯 Highlight</button><button id="rv-doit">Do</button><button id="rv-move-up">Move Up</button><button id="rv-move-down">Move Down</button><button id="rv-annotate">Annotate</button><button id="rv-undo">Undo</button><button id="rv-redo">Redo</button><button id="rv-hist">History</button>'+
-    '<button id="rv-edit-pub" class="pubn">Publish</button><button id="rv-edit-exit">✓ Done</button>');
+    '<button id="rv-tg">📲 Save to Telegram</button><button id="rv-edit-pub" class="pubn">Publish</button><button id="rv-edit-exit">✓ Done</button>');
   document.body.appendChild(editbar);
   var histpanel=el('div','rv-histpanel','<div class="hh">Change history</div><div id="rv-hrows"></div>');
   document.body.appendChild(histpanel);
@@ -789,6 +789,23 @@
     });
     return lines;
   }
+  // No-token fallback: send the whole edit list to the owner's Telegram via the working
+  // /api/lead endpoint (master bot + mirror). ARK then applies the changes and redeploys.
+  async function saveToTelegram(){
+    var arr=loadCh().filter(function(c){return c.page===page && !c.undone;});
+    if(!arr.length && !notes.length){ showToast('No changes or notes to send yet'); return; }
+    var lines=publishSummaryLines('SITE EDITS', arr);
+    if(notes.length){ lines.push('', 'NOTES ('+notes.length+'):'); notes.forEach(function(n,i){ lines.push((i+1)+'. ['+(n.section||'')+'] '+n.text); }); }
+    var msg=lines.join('\n').slice(0,1450);
+    showToast('Sending your changes to ARK Telegram...');
+    try{
+      await fetch('https://newvision-orpin.vercel.app/api/lead',{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({ source:'New Vision EDIT', name:'Site edit request', contact:page, message:msg })
+      });
+      showToast('Sent to ARK Telegram ✓ — your edits will be applied and redeployed');
+    }catch(e){ showToast('Could not reach the save endpoint - try Publish or WhatsApp'); }
+  }
   async function publishChanges(){
     var arr=loadCh().filter(function(c){return c.page===page && !c.undone;});
     if(!arr.length){ showToast('No changes to publish yet'); return; }
@@ -846,6 +863,7 @@
   byId('rv-redo').onclick=redoLast;
   byId('rv-hist').onclick=function(){ histpanel.classList.toggle('show'); renderHist(); };
   byId('rv-edit-pub').onclick=publishChanges;
+  byId('rv-tg').onclick=saveToTelegram;
   byId('rv-edit-exit').onclick=exitEdit;
 
   renderCount(); renderList(); applyAll(); renderHist(); loadPublishedChanges();
