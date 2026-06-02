@@ -61,9 +61,9 @@
 <div class="wrap">
   <div class="card">
     <h1>Track your vehicle</h1>
-    <div class="sub">Enter the tracking code New Vision sent you (e.g. NV-XXXXXX).</div>
+    <div class="sub">Enter a stock ID, quote ID, or shipment tracking ID (e.g. NV-2026-0001 or NVS-XXXXXX).</div>
     <div class="find">
-      <input id="code" placeholder="NV-XXXXXX" />
+      <input id="code" placeholder="NV-2026-0001 / NVQ-... / NVS-..." />
       <button onclick="track()">Track →</button>
     </div>
     <div class="err" id="err"></div>
@@ -98,6 +98,10 @@
 </div>
 
 <script>
+const VERCEL_API_ORIGIN='https://newvision-demo.vercel.app';
+const IS_GITHUB_PAGES=location.hostname==='arkysan.github.io';
+const IS_STATIC_PREVIEW=['localhost','127.0.0.1'].includes(location.hostname);
+const API_BASE=(IS_GITHUB_PAGES || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN : '';
 const API='/api/portal';
 const $=(id)=>document.getElementById(id);
 const STAGES=['Booked','Loaded','In transit','Arrived','Delivered'];
@@ -106,13 +110,15 @@ let timer=null;
 async function track(){
   const code=$('code').value.trim().toUpperCase(); $('err').textContent='';
   if(!code){ $('err').textContent='Enter your tracking code.'; return; }
-  const r=await fetch(API+'?action=shiptrack&code='+encodeURIComponent(code)).then(x=>x.json()).catch(()=>({ok:false}));
+  const r=await fetch(API_BASE+API+'?action=shiptrack&code='+encodeURIComponent(code)).then(x=>x.json()).catch(()=>({ok:false}));
   if(!r.ok){ $('err').textContent=r.error||'Tracking code not found.'; $('result').style.display='none'; return; }
   render(r.shipment);
 }
 
 function render(s){
   $('result').style.display='block';
+  const isVehicle = s.kind === 'vehicle';
+  const isQuote = s.kind === 'quote';
   $('rOrigin').textContent=s.origin||'China'; $('rDest').textContent=s.dest||'—';
   $('dVehicle').textContent=s.vehicle||'—'; $('dVessel').textContent=s.vessel||'—';
   $('dCode').textContent=s.code||'—'; $('dStatus').textContent=s.status||'—';
@@ -121,7 +127,11 @@ function render(s){
   $('timeline').innerHTML=STAGES.map((st,i)=>`<div class="st ${i<idx?'done':i===idx?'now':''}"><div class="dot"></div><div class="t">${st}</div></div>`).join('');
   // live links (free deep-links by IMO/MMSI)
   const links=[]; const id=s.imo?('imo-'+s.imo):(s.mmsi?('mmsi-'+s.mmsi):'');
-  if(s.imo||s.mmsi){
+  if(isQuote){
+    links.push('<span class="note" style="margin:0">Quote request found. New Vision will use this ID to connect the buyer, vehicle, destination port, and any future shipment booking.</span>');
+  } else if(isVehicle){
+    links.push('<span class="note" style="margin:0">This is a public stock ID. Ask New Vision for a CIF quote, inspection, or shipment booking to receive an NVS shipment link.</span>');
+  } else if(s.imo||s.mmsi){
     links.push(`<a class="btn" target="_blank" rel="noopener" href="https://www.myshiptracking.com/vessels/${id}">🛰️ Live position (MyShipTracking)</a>`);
     const mt = s.imo? ('imo:'+s.imo) : ('mmsi:'+s.mmsi);
     links.push(`<a class="btn gold" target="_blank" rel="noopener" href="https://www.marinetraffic.com/en/ais/details/ships/${mt}">🌊 MarineTraffic</a>`);
@@ -129,6 +139,10 @@ function render(s){
   $('liveLinks').innerHTML=links.join('');
   // countdown
   if(timer) clearInterval(timer);
+  if(isVehicle || isQuote){
+    $('cdWrap').innerHTML='<div class="arrived">'+(isQuote?'Quote ID found. Shipment ETA appears after booking.':'Vehicle stock ID found. Shipment ETA appears after booking.')+'</div>';
+    return;
+  }
   const eta=s.eta?new Date(s.eta+(s.eta.length<=10?'T12:00:00Z':'')):null;
   function tick(){
     if(!eta||isNaN(eta)){ $('cdWrap').innerHTML='<div class="arrived">Arrival date will be confirmed once loaded.</div>'; return; }

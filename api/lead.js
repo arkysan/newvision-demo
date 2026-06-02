@@ -28,6 +28,7 @@ module.exports = async (req, res) => {
       if (b[k]) extra[k] = String(b[k]).slice(0, 200);
     }
     if (!name && !contact) { res.status(400).json({ ok: false, error: 'name or contact required' }); return; }
+    const leadId = 'NVQ-' + Date.now().toString(36).toUpperCase();
 
     const source = process.env.LEAD_SOURCE || b.source || 'ARK site';
     const lines = [
@@ -36,6 +37,7 @@ module.exports = async (req, res) => {
       contact ? `Contact: ${contact}` : null,
       ...Object.entries(extra).map(([k, v]) => `${k}: ${v}`),
       message ? `Message: ${message}` : null,
+      `Quote ID: ${leadId}`,
       `Time: ${new Date().toISOString()}`,
     ].filter(Boolean);
     const text = lines.join('\n');
@@ -65,10 +67,10 @@ module.exports = async (req, res) => {
 
     // Persist the lead (encrypted) so the owner portal can show vehicle requests.
     if (source !== 'healthcheck') {
-      try { await require('../lib/store').appendLead(Object.assign({ source, name, contact, message }, extra)); } catch (_) {}
+      try { await require('../lib/store').appendLead(Object.assign({ id: leadId, source, name, contact, message }, extra)); } catch (_) {}
     }
 
-    res.status(200).json({ ok: true, delivered, mirrored, captured: { name, contact } });
+    res.status(200).json({ ok: true, delivered, mirrored, leadId, captured: { name, contact } });
   } catch (e) {
     // Never block the user's handoff — return ok even on internal error.
     res.status(200).json({ ok: true, delivered: false, error: e.message });

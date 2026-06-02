@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Vision 新视界 — China Car Export | Buy Direct from Yiwu</title>
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="canonical" href="https://arkysan.github.io/newvision-demo/" />
   <link rel="alternate" hreflang="en" href="https://arkysan.github.io/newvision-demo/" />
   <link rel="alternate" hreflang="zh-CN" href="https://arkysan.github.io/newvision-demo/?lang=zh-CN" />
@@ -207,6 +207,7 @@
     .vehicle-badges { position: absolute; top: 10px; left: 10px; display: flex; gap: 5px; flex-wrap: wrap; }
     .vehicle-body { padding: 14px 16px; }
     .vehicle-brand { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted2); margin-bottom: 3px; }
+    .vehicle-stock-id { display: inline-flex; width: fit-content; align-items: center; gap: 5px; margin-bottom: 6px; padding: 3px 7px; border-radius: 6px; background: #eaf4ec; color: var(--green2); border: 1px solid rgba(46,125,50,.16); font-size: 10px; font-weight: 900; letter-spacing: .04em; }
     .vehicle-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
     .vehicle-meta { display: flex; gap: 10px; font-size: 12px; color: var(--muted); margin-bottom: 10px; flex-wrap: wrap; }
     .vehicle-price-row { display: flex; align-items: baseline; justify-content: space-between; }
@@ -344,12 +345,16 @@
     .shipping-map-panel .k { font-size: 10px; font-weight: 900; color: var(--green); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 5px; }
     .shipping-map-panel b { display: block; color: var(--green2); font-size: 15px; line-height: 1.3; }
     .shipping-map-panel p { color: var(--muted2); font-size: 12px; line-height: 1.5; margin: 6px 0 10px; }
+    .shipping-route-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0 0; }
+    .shipping-route-tab { border: 1px solid rgba(46,125,50,.22); background: rgba(255,255,255,.78); color: var(--green2); border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 900; cursor: pointer; }
+    .shipping-route-tab.active { background: var(--green2); color: #fff; border-color: var(--green2); }
     .shipping-map-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
     .shipping-map-metrics span { border: 1px solid var(--border); border-radius: 9px; padding: 8px 7px; color: var(--green2); background: #f8fcf9; font-size: 11px; font-weight: 800; text-align: center; }
     .shipping-map-legend { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 1px; border-top: 1px solid var(--border); background: var(--border); }
     .shipping-map-legend div { background: #fff; padding: 12px 14px; min-width: 0; }
     .shipping-map-legend b { display: block; color: var(--green2); font-size: 12px; margin-bottom: 3px; }
     .shipping-map-legend span { display: block; color: var(--muted2); font-size: 11px; line-height: 1.35; }
+    .shipping-map-legend button { margin-top: 8px; border: 1px solid rgba(46,125,50,.22); background: #f8fcf9; color: var(--green2); border-radius: 8px; padding: 7px 9px; font: 800 11px inherit; cursor: pointer; }
 
     /* ── MOBILE APP BAR ── */
     .mobile-app-bar { display: none; }
@@ -608,7 +613,7 @@
     <a class="nav-link" href="#best-markets" data-i18n="nav_markets">Markets</a>
     <a class="nav-link" href="#about" data-i18n="nav_about">About Us</a>
     <a class="nav-link" href="#quote" data-i18n="nav_contact">Contact</a>
-    <a class="nav-link" href="https://newvision-demo.vercel.app/portal.html" data-i18n="nav_login" style="color:var(--green);font-weight:700">Login</a>
+    <a class="nav-link" href="./portal.html" data-i18n="nav_login" style="color:var(--green);font-weight:700">Login</a>
   </div>
   <div class="nav-lang skiptranslate">
     <button class="lang-btn active" data-lang="EN" onclick="setLang('EN',this)">EN</button>
@@ -632,8 +637,8 @@
   <a href="#how" onclick="closeMobileMenu()" data-i18n="nav_process">How It Works</a>
   <a href="#about" onclick="closeMobileMenu()" data-i18n="nav_about">About Us</a>
   <a href="#quote" onclick="closeMobileMenu()" data-i18n="nav_contact">Contact / Get a Quote</a>
-  <a href="https://newvision-demo.vercel.app/track.html" target="_blank" rel="noopener" class="portal">Track My Vehicle</a>
-  <a href="https://newvision-demo.vercel.app/portal.html" target="_blank" rel="noopener" class="portal">Owner / Staff Login</a>
+  <a href="./track.html" target="_blank" rel="noopener" class="portal">Track My Vehicle</a>
+  <a href="./portal.html" target="_blank" rel="noopener" class="portal">Owner / Staff Login</a>
 </div>
 
 <div class="mobile-lang-panel" id="mobileLangPanel" aria-hidden="true">
@@ -1330,8 +1335,21 @@ function appendQuoteMessage(message) {
 }
 
 function quoteVehicleLabel(v) {
-  return `${v.year} ${v.make} ${v.model}`;
+  return `${stockIdForVehicle(v)} · ${v.year} ${v.make} ${v.model}`;
 }
+function stockIdForVehicle(v) {
+  if (!v) return 'NV-2026-0000';
+  if (v.stockId) return String(v.stockId).toUpperCase();
+  const n = String(v.id || 0).replace(/\D/g, '').padStart(4, '0').slice(-4);
+  return `NV-2026-${n}`;
+}
+function vehicleLocation(v) { return v.location || 'Yiwu / Shanghai export lane'; }
+function vehicleGrade(v) { return v.grade || (v.condition === 'New' ? 'A new stock' : 'B verified used'); }
+function vehicleDocs(v) { return v.docsStatus || v.docs || 'Export docs check available'; }
+function vehicleInspection(v) { return v.inspectionStatus || v.inspection || 'Photo/video inspection available'; }
+function vehicleUpdated(v) { return v.updatedAt || v.lastUpdated || '2026-06-02'; }
+function vehicleColor(v) { return v.color || 'Confirm current stock color'; }
+function vehiclePhotoCount(v) { return (Array.isArray(v.imgs) && v.imgs.length ? v.imgs.filter(Boolean).length : (v.img ? 1 : 0)); }
 
 function populateQuoteVehicles() {
   const field = document.getElementById('qVehicle');
@@ -1439,7 +1457,7 @@ function submitQuote(e) {
   // fills the form but doesn't tap through. Cross-origin to the Vercel /api/lead
   // (this static GitHub Pages site can't run serverless itself). Fire-and-forget.
   try {
-    fetch('https://newvision-demo.vercel.app/api/lead', {
+    fetch(apiUrl('/api/lead'), {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ source: 'New Vision', name, contact, country, vehicle, port,
         message: `${msg}${color ? ' | Color: ' + color : ''}${cond ? ' | ' + cond : ''}` })
@@ -1493,7 +1511,7 @@ function calcEst(){
     <div class="shipping-map-wrap">
       <svg class="shipping-map-svg" id="shippingMapSvg" viewBox="0 0 1000 500" role="img" aria-labelledby="shippingMapTitle shippingMapDesc">
         <title id="shippingMapTitle">Animated world shipping route map</title>
-        <desc id="shippingMapDesc">A two-dimensional world map with route lines from Shanghai, China to Jebel Ali, Mombasa, Lagos, Antwerp, and Santos. A ship marker loops along the route.</desc>
+        <desc id="shippingMapDesc">A two-dimensional world map with route lines from Shanghai, China to Jebel Ali, Mombasa, Lagos, Antwerp, Santos, and Kingston. A ship marker loops along the route.</desc>
         <rect class="map-ocean" width="1000" height="500"></rect>
         <image class="map-real-base" href="img/world-map-110m.svg" x="0" y="0" width="1000" height="500" preserveAspectRatio="none"></image>
         <path class="map-grid" d="M0 125H1000M0 250H1000M0 375H1000M250 0V500M500 0V500M750 0V500"></path>
@@ -1508,6 +1526,7 @@ function calcEst(){
         <path class="map-route" id="routeLagos" d="M838 163C742 219 623 247 509 232"></path>
         <path class="map-route" id="routeEurope" d="M838 163C704 126 596 105 512 108"></path>
         <path class="map-route" id="routeLatam" d="M838 163C684 320 514 388 371 316"></path>
+        <path class="map-route" id="routeCaribbean" d="M838 163C720 214 590 230 455 248C392 255 334 250 286 240"></path>
         <path class="map-route-secondary" d="M653 181C646 214 631 244 610 261"></path>
         <path class="map-route-secondary" d="M610 261C575 247 540 237 509 232"></path>
         <path class="map-route-secondary" d="M509 232C503 171 506 129 512 108"></path>
@@ -1546,6 +1565,11 @@ function calcEst(){
           <text class="map-port-note" x="284" y="325">Brazil</text>
         </g>
         <g>
+          <circle class="map-port-dot" cx="286" cy="240" r="7"></circle>
+          <text class="map-port-label" x="220" y="235">Kingston</text>
+          <text class="map-port-note" x="200" y="249">Caribbean</text>
+        </g>
+        <g>
           <circle class="map-port-home" cx="835" cy="160" r="4"></circle>
           <text class="map-port-label" x="798" y="142">Yiwu</text>
           <text class="map-port-note" x="770" y="128">factory sourcing base</text>
@@ -1573,25 +1597,37 @@ function calcEst(){
         <circle class="map-ship-dot" r="5">
           <animateMotion dur="16s" repeatCount="indefinite" begin="4s"><mpath href="#routeLatam"></mpath></animateMotion>
         </circle>
+        <circle class="map-ship-dot" r="5">
+          <animateMotion dur="15s" repeatCount="indefinite" begin="5s"><mpath href="#routeCaribbean"></mpath></animateMotion>
+        </circle>
       </svg>
       <div class="shipping-map-panel">
         <div class="k">Advanced route board</div>
-        <b>China export loop with active destination lanes</b>
-        <p>Animated ships show the route logic from Yiwu sourcing to Shanghai loading, then out to Gulf, Africa, Europe, and Latin America ports. This is a route preview; the quote team confirms the actual vessel, sailing date, freight, and ETA.</p>
+        <b id="routeBoardTitle">China export loop with active destination lanes</b>
+        <p id="routeBoardCopy">Animated ships show the route logic from Yiwu sourcing to Shanghai loading, then out to Gulf, Africa, Europe, Latin America, and Caribbean ports. This is a route preview; the quote team confirms the actual vessel, sailing date, freight, and ETA.</p>
+        <div class="shipping-route-tabs" id="shippingRouteTabs">
+          <button class="shipping-route-tab active" data-route="gulf" onclick="selectShippingRoute('gulf')">Gulf</button>
+          <button class="shipping-route-tab" data-route="eastAfrica" onclick="selectShippingRoute('eastAfrica')">East Africa</button>
+          <button class="shipping-route-tab" data-route="westAfrica" onclick="selectShippingRoute('westAfrica')">West Africa</button>
+          <button class="shipping-route-tab" data-route="europe" onclick="selectShippingRoute('europe')">Europe</button>
+          <button class="shipping-route-tab" data-route="latinAmerica" onclick="selectShippingRoute('latinAmerica')">Latin America</button>
+          <button class="shipping-route-tab" data-route="caribbean" onclick="selectShippingRoute('caribbean')">Caribbean</button>
+        </div>
         <div class="shipping-map-metrics">
-          <span>6 ports</span>
-          <span>12-48 days</span>
-          <span>FOB to CIF</span>
+          <span id="routeBoardPort">6 ports</span>
+          <span id="routeBoardTransit">12-48 days</span>
+          <span id="routeBoardVehicle">FOB to CIF</span>
         </div>
       </div>
     </div>
     <div class="shipping-map-legend">
-      <div><b>Shanghai</b><span>New Vision export loading through China port lanes.</span></div>
-      <div><b>Jebel Ali</b><span>Gulf distribution and re-export hub.</span></div>
-      <div><b>Mombasa</b><span>East Africa buyer and dealer lane.</span></div>
-      <div><b>Lagos</b><span>West Africa vehicle import demand.</span></div>
-      <div><b>Antwerp</b><span>Europe destination and onward logistics.</span></div>
-      <div><b>Santos</b><span>Brazil and Latin America quote lane.</span></div>
+      <div><b>Shanghai</b><span>New Vision export loading through China port lanes.</span><button onclick="goToQuote({port:'Shanghai',message:'Please confirm FOB export readiness from Shanghai/Ningbo for my selected vehicle.'})">Quote this route</button></div>
+      <div><b>Jebel Ali</b><span>Gulf distribution and re-export hub.</span><button onclick="goToQuote({port:'Jebel Ali',message:'Please quote the Gulf route preview to Jebel Ali for my selected vehicle.'})">Quote this route</button></div>
+      <div><b>Mombasa</b><span>East Africa buyer and dealer lane.</span><button onclick="goToQuote({port:'Mombasa',message:'Please quote the East Africa route preview to Mombasa for my selected vehicle.'})">Quote this route</button></div>
+      <div><b>Lagos</b><span>West Africa vehicle import demand.</span><button onclick="goToQuote({port:'Lagos',message:'Please quote the West Africa route preview to Lagos for my selected vehicle.'})">Quote this route</button></div>
+      <div><b>Antwerp</b><span>Europe destination and onward logistics.</span><button onclick="goToQuote({port:'Antwerp',message:'Please quote the Europe route preview to Antwerp for my selected vehicle.'})">Quote this route</button></div>
+      <div><b>Santos</b><span>Brazil and Latin America quote lane.</span><button onclick="goToQuote({port:'Santos',message:'Please quote the Latin America route preview to Santos for my selected vehicle.'})">Quote this route</button></div>
+      <div><b>Kingston</b><span>Caribbean dealer and island-port quote lane.</span><button onclick="goToQuote({port:'Kingston',message:'Please quote the Caribbean route preview to Kingston for my selected vehicle.'})">Quote this route</button></div>
     </div>
   </div>
 </section>
@@ -1604,6 +1640,24 @@ function calcEst(){
   el.textContent = text;
   setTimeout(updateShippingClock, 60000);
 })();
+const SHIPPING_ROUTE_BOARD = {
+  gulf: { title: 'Gulf lane: Shanghai/Ningbo to Jebel Ali', copy: 'Fast Gulf routing for UAE, Saudi, Qatar, Oman, and re-export buyers. Good for premium SUVs, EV sedans, and mixed dealer batches.', port: 'Jebel Ali', transit: '18-26 days', vehicle: 'Premium / EV' },
+  eastAfrica: { title: 'East Africa lane: Shanghai/Ningbo to Mombasa', copy: 'Dealer-focused East Africa lane for Kenya, Tanzania, Uganda, and nearby markets. Useful for EV/PHEV trials and value SUVs.', port: 'Mombasa', transit: '22-30 days', vehicle: 'SUV / PHEV' },
+  westAfrica: { title: 'West Africa lane: Shanghai/Ningbo to Lagos', copy: 'High-demand West Africa quote lane. Best verified with current freight, import rules, age limits, and destination clearing partner.', port: 'Lagos', transit: '28-38 days', vehicle: 'SUV / Value' },
+  europe: { title: 'Europe lane: Shanghai/Ningbo to Antwerp', copy: 'Europe route preview for compliant units, documents, and onward delivery planning. Battery declarations and homologation checks must be confirmed.', port: 'Antwerp', transit: '30-40 days', vehicle: 'Docs-first EV' },
+  latinAmerica: { title: 'Latin America lane: Shanghai/Ningbo to Santos', copy: 'Longer-distance South America route preview for Brazil and regional buyer planning. Confirm RoRo/container availability before deposit.', port: 'Santos', transit: '32-48 days', vehicle: 'EV / fleet' },
+  caribbean: { title: 'Caribbean lane: Shanghai/Ningbo to Kingston', copy: 'Island-port route preview for Caribbean dealer and private-buyer lanes. Useful for compact SUVs, value sedans, and mixed low-volume orders.', port: 'Kingston', transit: '30-45 days', vehicle: 'Compact / value' },
+};
+function selectShippingRoute(key) {
+  const route = SHIPPING_ROUTE_BOARD[key] || SHIPPING_ROUTE_BOARD.gulf;
+  document.querySelectorAll('.shipping-route-tab').forEach(btn => btn.classList.toggle('active', btn.dataset.route === key));
+  const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+  set('routeBoardTitle', route.title);
+  set('routeBoardCopy', route.copy);
+  set('routeBoardPort', route.port);
+  set('routeBoardTransit', route.transit);
+  set('routeBoardVehicle', route.vehicle);
+}
 </script>
 
 <!-- ── FOOTER ── -->
@@ -1620,7 +1674,7 @@ function calcEst(){
           <div class="footer-contact"><strong>WA</strong> <span><strong>+86 137 3561 1862</strong> (WhatsApp)</span></div>
           <div class="footer-contact"><strong>Web</strong> <span><a href="https://www.nvncar.com" target="_blank" rel="noopener noreferrer">nvncar.com</a></span></div>
           <div class="footer-contact"><strong>Addr</strong> <span>525-527 Workers' North Road, Yiwu, Zhejiang 322000</span></div>
-          <div class="footer-contact"><strong>Portal</strong> <span><a href="https://newvision-demo.vercel.app/portal.html">Owner / Staff Login →</a></span></div>
+          <div class="footer-contact"><strong>Portal</strong> <span><a href="./portal.html">Owner / Staff Login →</a></span></div>
         </div>
       </div>
       <div class="footer-col">
@@ -1725,8 +1779,8 @@ function calcEst(){
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.12.554 4.112 1.52 5.845L.057 23.514a.5.5 0 0 0 .609.61l5.794-1.455A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.886 0-3.66-.494-5.193-1.357l-.37-.214-3.844.965.982-3.763-.234-.386A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
             WhatsApp Quote
           </button>
-          <button class="btn-fw btn-fw-green" onclick="showToast(trUi('toast_inquiry'))" data-i18n="mbtn_inquiry">Send Inquiry</button>
-          <button class="btn-fw btn-fw-out" onclick="showToast(trUi('toast_inspection'))" data-i18n="mbtn_inspect">Book Inspection ($120)</button>
+          <button class="btn-fw btn-fw-green" onclick="requestCurrentStockPhoto()" data-i18n="mbtn_inquiry">Request stock photo</button>
+          <button class="btn-fw btn-fw-out" onclick="requestVehicleInspection()" data-i18n="mbtn_inspect">Book Inspection ($120)</button>
         </div>
         <div class="trust-list">
           <div class="trust-item-sm" data-i18n="mt1">180-day MOFCOM export eligibility verified</div>
@@ -2627,6 +2681,12 @@ const COMMON_PHRASE_KEYS = {
 
 const translatedTextNodes = new WeakMap();
 const translatedPlaceholders = new WeakMap();
+const VERCEL_API_ORIGIN = 'https://newvision-demo.vercel.app';
+const IS_GITHUB_PAGES = location.hostname === 'arkysan.github.io';
+const IS_STATIC_PREVIEW = ['localhost', '127.0.0.1'].includes(location.hostname);
+const API_BASE = (IS_GITHUB_PAGES || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN : '';
+function apiUrl(path) { return API_BASE + path; }
+function localPage(path) { return './' + String(path || '').replace(/^\/+/, ''); }
 
 function tr(key) {
   const pack = T[lang] || T.EN;
@@ -2689,27 +2749,8 @@ function googleTranslateElementInit(){
 }
 
 function applyWholePageTranslation(language){
-  // T object fully covers EN/FR/AR/ZH — don't let Google Translate override it
-  if (['EN','FR','AR','ZH'].includes(language)) return;
-  const googleCode = language === 'ZH' ? 'zh-CN' : language.toLowerCase();
-  let tries = 0;
-  (function apply(){
-    const combo = document.querySelector('.goog-te-combo');
-    if (combo) {
-      combo.value = googleCode;
-      combo.dispatchEvent(new Event('change'));
-      return;
-    }
-    if (!window.google && !googleTranslateLoading) {
-      googleTranslateLoading = true;
-      const script = document.createElement('script');
-      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      script.async = true;
-      script.onerror = () => { googleTranslateLoading = false; };
-      document.head.appendChild(script);
-    }
-    if (tries++ < 30) setTimeout(apply, 150);
-  })();
+  // Core buyer languages are local dictionaries so China mode never depends on Google scripts.
+  return;
 }
 
 function copyChinaContact() {
@@ -2848,15 +2889,16 @@ function buildCard(v, idx) {
   ].join('');
   const mil = v.condition==='New' ? '0 km' : v.mileage.toLocaleString()+' km';
   const photoFallback = trUi('photo_unavailable');
-  return `<div class="vehicle-card" data-vehicle-id="${v.id}" onclick="openModal(${v.id})">
+  return `<div class="vehicle-card" data-vehicle-id="${v.id}" data-stock-id="${stockIdForVehicle(v)}" onclick="openModal(${v.id})">
     <div class="vehicle-img">
       ${gridImg ? `<img src="${gridImg}" alt="${v.year} ${v.make} ${v.model}" width="640" height="426" sizes="(max-width: 600px) 84vw, (max-width: 900px) 50vw, 33vw" decoding="async"${eager ? ' loading="eager" fetchpriority="high"' : ' loading="lazy" fetchpriority="low"'} onerror="this.style.display='none';this.parentNode.querySelector('.vehicle-photo-fallback').style.display='flex'"><div class="vehicle-photo-fallback" style="display:none">${photoFallback}</div>` : `<div class="vehicle-photo-fallback">${photoFallback}</div>`}
       <div class="vehicle-badges">${badges}</div>
     </div>
     <div class="vehicle-body">
       <div class="vehicle-brand">${v.make}</div>
+      <div class="vehicle-stock-id">${stockIdForVehicle(v)} · ${vehicleLocation(v)}</div>
       <div class="vehicle-name">${v.year} ${v.model}</div>
-      <div class="vehicle-meta"><span>${mil}</span><span>${trTerm('fuel',v.fuel)}</span><span>${trTerm('body',v.body)}</span></div>
+      <div class="vehicle-meta"><span>${mil}</span><span>${trTerm('fuel',v.fuel)}</span><span>${trTerm('body',v.body)}</span><span>${vehicleGrade(v)}</span></div>
       <div class="vehicle-price-row">
         <div class="vehicle-fob">${fmt(v.price)}<small>${tr('fob')}</small></div>
         <div class="vehicle-cif">${tr('cif_prefix')}${fmt(v.price+850+180)}</div>
@@ -3036,11 +3078,15 @@ function openModal(id) {
         : `<video src="${vid}" controls playsinline preload="metadata" style="width:100%;border-radius:10px"></video>`)
     : `<div style="text-align:center;padding:16px 10px"><div style="font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--green2);text-transform:uppercase">Video proof</div><div style="font-weight:700;color:var(--green2);margin:8px 0 4px" data-i18n="vid_h">See this exact vehicle on video</div><div style="color:var(--muted2);font-size:13px;margin-bottom:14px;line-height:1.6">Our team records a full walkaround — or does a <b>live video call</b> — of this ${vname} so you buy with confidence before it ships.</div><button class="btn-fw btn-fw-green" onclick="goToQuote({vehicle:'${vname}',message:'Please send a video walkaround (or schedule a live video call) for the ${vname}.'})" data-i18n="vid_cta">Request a video walkaround →</button></div>`;
   const specs=[
+    ['Stock ID',stockIdForVehicle(v)],['Location',vehicleLocation(v)],
     ['Year',v.year],['Mileage',v.condition==='New'?'0 km':v.mileage.toLocaleString()+' km'],
+    ['Color',vehicleColor(v)],['Condition grade',vehicleGrade(v)],
     ['Fuel',trTerm('fuel',v.fuel)],['Transmission',v.trans],
     ['Engine',v.engine],['Drive',trTerm('drive',v.drive)],
     ['Body',trTerm('body',v.body)],['Seats',v.seats],
     ['Condition',trTerm('condition',v.condition)],v.range_km?['EV Range',v.range_km+'km']:['Doors',v.doors],
+    ['Export docs',vehicleDocs(v)],['Inspection',vehicleInspection(v)],
+    ['Photos',vehiclePhotoCount(v)+' available'],['Last updated',vehicleUpdated(v)],
   ];
   document.getElementById('modalSpecs').innerHTML=specs.map(([l,val])=>`<div class="spec-item"><div class="spec-label">${trTerm('spec',l)}</div><div class="spec-value">${val}</div></div>`).join('');
   document.getElementById('mFob').textContent=fmt(v.price);
@@ -3065,13 +3111,29 @@ function switchTab(tab,btn) {
   document.querySelectorAll('.modal-tab').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
 }
+function requestCurrentStockPhoto() {
+  if (!selV) return;
+  const vehicle = quoteVehicleLabel(selV);
+  goToQuote({
+    vehicle,
+    message: `Please send current stock photos for ${vehicle}. I want to confirm color, condition, VIN/docs status, and photo/video count before quoting.`
+  });
+}
+function requestVehicleInspection() {
+  if (!selV) return;
+  const vehicle = quoteVehicleLabel(selV);
+  goToQuote({
+    vehicle,
+    message: `Please arrange an export inspection for ${vehicle}. Include condition grade, battery/range if electric, docs status, and loading readiness.`
+  });
+}
 
 // ── WA / UTILS ───────────────────────────────────────────────────────────
 function openWA(msg) { window.open(whatsappUrl(SALES_WHATSAPP_RECIPIENTS[0].number, msg),'_blank'); }
 function openWAModal() {
   if(!selV) return;
   const port=document.getElementById('portSelect').options[document.getElementById('portSelect').selectedIndex].text;
-  const vehicle = `${selV.year} ${selV.make} ${selV.model}`;
+  const vehicle = quoteVehicleLabel(selV);
   goToQuote({
     vehicle,
     port,
@@ -3145,7 +3207,7 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 populateQuoteVehicles();
 renderGrid(vehicles);
 // Non-blocking refresh from server (portal edits take effect without git push)
-fetch('/api/vehicles').then(r=>r.ok?r.json():null).then(data=>{
+fetch(apiUrl('/api/vehicles')).then(r=>r.ok?r.json():null).then(data=>{
   if(Array.isArray(data)&&data.length){vehicles.length=0;data.forEach(v=>vehicles.push(v));renderGrid(vehicles);populateQuoteVehicles();}
 }).catch(()=>{});
 if (canAutoLoadCmsState()) loadCmsState();
@@ -3164,7 +3226,7 @@ setCount('cShipping',138);
 <script src="arkreview.js?v=20260602-review-engine"></script>
 <script src="admin.js"></script>
 <!-- Visitor analytics + interaction heatmap for the owner portal (fire-and-forget, both hosts) -->
-<script>try{fetch('https://newvision-demo.vercel.app/api/portal?action=track',{method:'POST',keepalive:true}).catch(function(){});}catch(e){}</script>
+<script>try{fetch(apiUrl('/api/portal?action=track'),{method:'POST',keepalive:true}).catch(function(){});}catch(e){}</script>
 <script src="heatmap.js" defer></script>
 <div id="google_translate_element" class="skiptranslate" aria-hidden="true"></div>
 </body>

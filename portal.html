@@ -183,8 +183,12 @@
           <div style="font-size:13px;margin-bottom:10px;color:var(--muted)">Sessions: <strong id="hSessions">0</strong> · Requested a quote: <strong id="hQuote">0</strong></div>
           <div style="font-weight:700;font-size:13px;margin:8px 0 6px;color:var(--green2)">Most-clicked things</div>
           <div class="bars" id="hEls"></div>
+          <div style="font-weight:700;font-size:13px;margin:14px 0 6px;color:var(--green2)">Devices</div>
+          <div class="bars" id="hDevices"></div>
           <div style="font-weight:700;font-size:13px;margin:14px 0 6px;color:var(--green2)">How far visitors scroll</div>
           <div class="bars" id="hScroll"></div>
+          <div style="font-weight:700;font-size:13px;margin:14px 0 6px;color:var(--green2)">AI Builder suggestions</div>
+          <div class="bars" id="aiBuilderSuggestions"></div>
         </div>
       </div>
     </div>
@@ -227,7 +231,7 @@
       <div id="invSaveStatus" style="font-size:12px;color:var(--muted);margin:-8px 0 10px;min-height:16px"></div>
       <div style="overflow-x:auto">
         <table id="invTable">
-          <thead><tr><th>ID</th><th>Make</th><th>Model</th><th>Year</th><th>Price USD</th><th>Condition</th><th>Type</th><th>Fuel</th><th>Hot</th><th></th></tr></thead>
+          <thead><tr><th>Stock ID</th><th>Make</th><th>Model</th><th>Year</th><th>Price USD</th><th>Status</th><th>Condition</th><th>Fuel</th><th>Photos</th><th></th></tr></thead>
           <tbody id="invBody"></tbody>
         </table>
       </div>
@@ -245,9 +249,16 @@
       <div><label>Model *</label><input id="vf_model" placeholder="Seal 2024 Long Range" required /></div>
       <div><label>Year *</label><input id="vf_year" type="number" min="2000" max="2030" placeholder="2025" required /></div>
       <div><label>Price (USD) *</label><input id="vf_price" type="number" min="0" step="100" placeholder="15000" required /></div>
+      <div><label>Public stock ID</label><input id="vf_stockId" placeholder="NV-2026-0001" /></div>
+      <div><label>Private VIN / frame no.</label><input id="vf_vin" placeholder="private - not shown publicly" /></div>
       <div><label>Mileage (km)</label><input id="vf_mileage" type="number" min="0" placeholder="0" /></div>
+      <div><label>Location</label><input id="vf_location" placeholder="Yiwu / Shanghai export lane" /></div>
+      <div><label>Color</label><input id="vf_color" placeholder="White / Black / confirm stock" /></div>
+      <div><label>Condition grade</label><input id="vf_grade" placeholder="A new stock / B verified used" /></div>
       <div><label>Condition</label>
         <select id="vf_condition"><option>New</option><option>Used</option></select></div>
+      <div><label>Status</label>
+        <select id="vf_status"><option>Demo sample</option><option>Available</option><option>Reserved</option><option>Inspection pending</option><option>Sold</option></select></div>
       <div><label>Type</label>
         <select id="vf_type"><option>EV</option><option>SUV</option><option>Premium</option><option>Motorcycle</option><option>Commercial</option></select></div>
       <div><label>Fuel</label>
@@ -260,6 +271,10 @@
       <div><label>Range (km, EV only)</label><input id="vf_range" type="number" min="0" placeholder="leave blank if petrol" /></div>
       <div style="grid-column:span 2"><label>Transmission</label><input id="vf_trans" placeholder="e.g. DCT 7-Speed" /></div>
       <div style="grid-column:span 2"><label>Engine</label><input id="vf_engine" placeholder="e.g. 1.5T 118kW/250Nm" /></div>
+      <div><label>Export docs</label><input id="vf_docs" placeholder="Docs check available / ready" /></div>
+      <div><label>Inspection status</label><input id="vf_inspection" placeholder="Photo/video inspection available" /></div>
+      <div><label>Shipment / tracking ID</label><input id="vf_shipment" placeholder="NVS-..." /></div>
+      <div><label>Last updated</label><input id="vf_updated" type="date" /></div>
       <div style="grid-column:span 2">
         <label>Photos — up to 8 (first = thumbnail shown on vehicle cards)</label>
         <div class="img-slots" id="imgSlots"></div>
@@ -280,17 +295,34 @@
 
 <script>
 const API = '/api/portal';
+const VERCEL_API_ORIGIN = 'https://newvision-demo.vercel.app';
+const IS_GITHUB_PAGES = location.hostname === 'arkysan.github.io';
+const IS_STATIC_PREVIEW = ['localhost', '127.0.0.1'].includes(location.hostname);
+const API_BASE = (IS_GITHUB_PAGES || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN : '';
+const SESSION_KEY = 'newvision.portal.session';
 const $ = (id) => document.getElementById(id);
 const money = (n) => '$' + Math.round(n).toLocaleString();
 
-async function api(action, opts){ const r = await fetch(API+'?action='+action, Object.assign({headers:{'Content-Type':'application/json'}}, opts)); return r.json().catch(()=>({ok:false})); }
+function apiUrl(path) { return API_BASE + path; }
+function pageUrl(path) { return new URL('./' + String(path || '').replace(/^\/+/, ''), location.href).href; }
+async function api(action, opts){
+  const token = sessionStorage.getItem(SESSION_KEY) || '';
+  const options = Object.assign({}, opts || {});
+  const headers = Object.assign({'Content-Type':'application/json'}, options.headers || {});
+  if (token) headers.Authorization = 'Bearer ' + token;
+  options.headers = headers;
+  const r = await fetch(apiUrl(API+'?action='+action), options);
+  const data = await r.json().catch(()=>({ok:false}));
+  if (data.sessionToken) sessionStorage.setItem(SESSION_KEY, data.sessionToken);
+  return data;
+}
 
 async function doLogin(e){ e.preventDefault(); $('err').textContent='';
   const r = await api('login',{method:'POST',body:JSON.stringify({user:$('u').value,password:$('p').value})});
   if(r.ok){ showApp(r.user); } else { $('err').textContent = r.error||'Login failed'; }
   return false;
 }
-async function doLogout(){ await api('logout',{method:'POST'}); location.reload(); }
+async function doLogout(){ sessionStorage.removeItem(SESSION_KEY); await api('logout',{method:'POST'}); location.reload(); }
 
 function showApp(user){
   $('login').style.display='none'; $('app').style.display='block';
@@ -303,7 +335,7 @@ async function loadShipments(){
   const r=await api('shipments'); if(!r.ok) return;
   $('shipPill').textContent=(r.shipments.length||0)+' tracked';
   const tb=$('shipTbl').querySelector('tbody');
-  tb.innerHTML = r.shipments.length ? r.shipments.map(s=>`<tr><td>${esc(s.code)}</td><td>${esc(s.vehicle)}</td><td>${esc(s.vessel||'-')}</td><td>${esc((s.origin||'?')+' → '+(s.dest||'?'))}</td><td>${esc(s.eta||'-')}</td><td>${esc(s.status||'-')}</td><td><a href="/track.html?id=${encodeURIComponent(s.code)}" target="_blank">open</a> · <button class="del" style="color:var(--green2)" onclick="copyTrack('${esc(s.code)}')">copy</button></td><td><button class="del" onclick="delShipment('${esc(s.code)}')">✕</button></td></tr>`).join('') : '<tr><td colspan="8" class="empty">No shipments yet — add one above to give a customer a live tracking link with a countdown.</td></tr>';
+  tb.innerHTML = r.shipments.length ? r.shipments.map(s=>`<tr><td>${esc(s.code)}</td><td>${esc(s.vehicle)}</td><td>${esc(s.vessel||'-')}</td><td>${esc((s.origin||'?')+' → '+(s.dest||'?'))}</td><td>${esc(s.eta||'-')}</td><td>${esc(s.status||'-')}</td><td><a href="${pageUrl('track.html?id='+encodeURIComponent(s.code))}" target="_blank">open</a> · <button class="del" style="color:var(--green2)" onclick="copyTrack('${esc(s.code)}')">copy</button></td><td><button class="del" onclick="delShipment('${esc(s.code)}')">✕</button></td></tr>`).join('') : '<tr><td colspan="8" class="empty">No shipments yet — add one above to give a customer a live tracking link with a countdown.</td></tr>';
 }
 async function addShipment(e){ e.preventDefault();
   const idv=$('sImo').value.trim();
@@ -312,17 +344,17 @@ async function addShipment(e){ e.preventDefault();
     origin:$('sOrigin').value,dest:$('sDest').value,etd:$('sEtd').value,eta:$('sEta').value,status:$('sStatus').value,code:$('sCode').value};
   const r=await api('shipment',{method:'POST',body:JSON.stringify(body)});
   if(r.ok){ ['sVehicle','sCustomer','sVessel','sImo','sOrigin','sDest','sCode'].forEach(id=>$(id).value=''); loadShipments();
-    alert('Saved ✓  Send this tracking link to the customer:\n'+location.origin+'/track.html?id='+r.shipment.code); }
+    alert('Saved ✓  Send this tracking link to the customer:\n'+pageUrl('track.html?id='+r.shipment.code)); }
   return false;
 }
 async function delShipment(code){ if(!confirm('Delete shipment '+code+'?')) return; await api('shipment-delete',{method:'POST',body:JSON.stringify({code})}); loadShipments(); }
-function copyTrack(code){ const url=location.origin+'/track.html?id='+code; try{navigator.clipboard.writeText(url);}catch(_){} alert('Tracking link copied:\n'+url); }
+function copyTrack(code){ const url=pageUrl('track.html?id='+code); try{navigator.clipboard.writeText(url);}catch(_){} alert('Tracking link copied:\n'+url); }
 
 async function editSiteLive(){
   const r = await api('master-token');
   if(!r.ok || !r.token){ alert('Could not get the edit token — are you the master account?'); return; }
   localStorage.setItem('newvision.cms.token', r.token);   // editor reads this → publish needs no prompt
-  window.open('/?arkedit=1','_blank');                     // opens the live site straight into edit mode
+  window.open(pageUrl('?arkedit=1'),'_blank');             // opens this host straight into edit mode
 }
 
 async function loadHeatmap(){
@@ -333,8 +365,26 @@ async function loadHeatmap(){
   (h.clicks||[]).forEach(c=>{ const d=document.createElement('div'); d.className='heat-dot'+(c.q?' q':''); d.style.left=c.x+'%'; d.style.top=c.y+'%'; stage.appendChild(d); });
   const elMax=Math.max(1,...(h.topEls||[]).map(e=>e[1]));
   $('hEls').innerHTML = (h.topEls&&h.topEls.length)? h.topEls.map(e=>bar(e[0],e[1],elMax)).join('') : '<div class="empty">No clicks captured yet.</div>';
+  const deviceEntries = Object.entries(h.devices || {}).sort((a,b)=>b[1]-a[1]);
+  const dMax = Math.max(1, ...deviceEntries.map(e=>e[1]));
+  $('hDevices').innerHTML = deviceEntries.length ? deviceEntries.map(e=>bar(e[0],e[1],dMax)).join('') : '<div class="empty">No device data yet.</div>';
   const order=['0-25','25-50','50-75','75-90','90-100']; const sMax=Math.max(1,...order.map(k=>(h.scroll||{})[k]||0));
   $('hScroll').innerHTML = order.map(k=>bar(k+'%',(h.scroll||{})[k]||0,sMax)).join('');
+  $('aiBuilderSuggestions').innerHTML = buildAiSuggestions(h).map(s=>`<div class="empty" style="border:1px solid var(--line);border-radius:10px;margin-bottom:7px;background:#fbfdfb">${esc(s)}</div>`).join('');
+}
+
+function buildAiSuggestions(h) {
+  const suggestions = [];
+  const sessions = h.sessions || 0;
+  const quoteSessions = h.quoteSessions || 0;
+  const deep = (h.scroll || {})['90-100'] || 0;
+  if (sessions && quoteSessions / sessions < 0.08) suggestions.push('Weak-section alert: quote conversion is low. Move a stock-ID vehicle card and WhatsApp CTA higher on phone.');
+  if (sessions && deep / sessions < 0.25) suggestions.push('Scroll-depth alert: visitors are not reaching the bottom. Compress the hero/map and show inventory earlier.');
+  const top = (h.topEls || [])[0];
+  if (top) suggestions.push('Top clicked section: ' + top[0] + '. Check that this click leads to quote, details, or useful navigation.');
+  if ((h.devices || {}).phone) suggestions.push('Phone traffic detected. Verify 390px and 430px layouts before publishing visual changes.');
+  if (!suggestions.length) suggestions.push('No weak-section alert yet. Keep monitoring quote sessions, top vehicles, and route-card clicks.');
+  return suggestions.slice(0, 5);
 }
 
 async function loadDashboard(){
@@ -399,7 +449,7 @@ let invEditId = null; // null = add, number = edit
 
 async function loadInventory() {
   try {
-    const r = await fetch('/api/vehicles');
+    const r = await fetch(apiUrl('/api/vehicles'));
     if (r.ok) invVehicles = await r.json();
   } catch(_) {}
   if (!invVehicles.length) {
@@ -415,20 +465,26 @@ function renderInvTable() {
   if (!invVehicles.length) { tb.innerHTML = '<tr><td colspan="10" class="empty">No vehicles loaded.</td></tr>'; return; }
   tb.innerHTML = invVehicles.map(v => `
     <tr>
-      <td style="color:var(--muted);font-size:11px">${v.id}</td>
+      <td style="color:var(--green2);font-size:11px;font-weight:800">${esc(stockIdForVehicle(v))}</td>
       <td><strong>${esc(v.make)}</strong></td>
       <td style="max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(v.model)}</td>
       <td>${v.year}</td>
       <td>$${Number(v.price).toLocaleString()}</td>
+      <td><span class="pill">${esc(v.status || 'Demo sample')}</span></td>
       <td><span class="pill" style="${v.condition==='New'?'':'background:#fdf3e3;color:#a05000'}">${esc(v.condition)}</span></td>
-      <td>${esc(v.type)}</td>
       <td>${esc(v.fuel)}</td>
-      <td style="text-align:center">${v.hot?'🔥':''}</td>
+      <td style="text-align:center">${Array.isArray(v.imgs) ? v.imgs.filter(Boolean).length : (v.img ? 1 : 0)}</td>
       <td style="white-space:nowrap">
         <button class="inv-btn" style="padding:5px 10px;font-size:12px" onclick="openVehicleForm(${v.id})">Edit</button>
         <button class="inv-btn" style="padding:5px 10px;font-size:12px;color:var(--red);border-color:var(--red)" onclick="deleteVehicle(${v.id})">Delete</button>
       </td>
     </tr>`).join('');
+}
+
+function stockIdForVehicle(v) {
+  if (v && v.stockId) return String(v.stockId).toUpperCase();
+  const n = String(v?.id || 0).replace(/\D/g, '').padStart(4, '0').slice(-4);
+  return `NV-2026-${n}`;
 }
 
 function openVehicleForm(id) {
@@ -441,8 +497,14 @@ function openVehicleForm(id) {
   set('vf_model',   v?.model   || '');
   set('vf_year',    v?.year    || new Date().getFullYear());
   set('vf_price',   v?.price   || '');
+  set('vf_stockId', v?.stockId || (v ? stockIdForVehicle(v) : ''));
+  set('vf_vin',     v?.vinPrivate || v?.vin || '');
   set('vf_mileage', v?.mileage || 0);
+  set('vf_location', v?.location || '');
+  set('vf_color',   v?.color || '');
+  set('vf_grade',   v?.grade || '');
   set('vf_condition', v?.condition || 'New');
+  set('vf_status',  v?.status || 'Demo sample');
   set('vf_type',    v?.type    || 'EV');
   set('vf_fuel',    v?.fuel    || 'Electric');
   set('vf_body',    v?.body    || 'SUV');
@@ -451,6 +513,10 @@ function openVehicleForm(id) {
   set('vf_range',   v?.range_km ?? '');
   set('vf_trans',   v?.trans   || '');
   set('vf_engine',  v?.engine  || '');
+  set('vf_docs',    v?.docsStatus || v?.docs || '');
+  set('vf_inspection', v?.inspectionStatus || v?.inspection || '');
+  set('vf_shipment', v?.shipmentId || v?.shipment || '');
+  set('vf_updated', (v?.updatedAt || v?.lastUpdated || '').slice(0,10));
   resetImgSlots(v?.imgs && v.imgs.length ? v.imgs : (v?.img ? [v.img] : []));
   chk('vf_ev',      v?.ev);
   chk('vf_hot',     v?.hot);
@@ -469,8 +535,14 @@ function saveVehicleForm() {
   const entry = {
     id:         invEditId || (Math.max(0, ...invVehicles.map(v=>v.id)) + 1),
     make, model, year, price,
+    stockId:    ($('vf_stockId').value.trim() || '').toUpperCase(),
+    vinPrivate: $('vf_vin').value.trim(),
     mileage:    parseInt($('vf_mileage').value, 10) || 0,
+    location:   $('vf_location').value.trim(),
+    color:      $('vf_color').value.trim(),
+    grade:      $('vf_grade').value.trim(),
     condition:  $('vf_condition').value,
+    status:     $('vf_status').value,
     type:       $('vf_type').value,
     fuel:       $('vf_fuel').value,
     body:       $('vf_body').value,
@@ -480,12 +552,17 @@ function saveVehicleForm() {
     range_km:   $('vf_range').value !== '' ? parseInt($('vf_range').value, 10) : null,
     trans:      $('vf_trans').value.trim(),
     engine:     $('vf_engine').value.trim(),
+    docsStatus: $('vf_docs').value.trim(),
+    inspectionStatus: $('vf_inspection').value.trim(),
+    shipmentId: $('vf_shipment').value.trim().toUpperCase(),
+    updatedAt:  $('vf_updated').value || new Date().toISOString().slice(0,10),
     imgs:       invImgUrls.filter(Boolean),
     img:        invImgUrls.find(Boolean) || (invEditId ? (invVehicles.find(v=>v.id===invEditId)?.img || '') : ''),
     ev:         $('vf_ev').checked,
     hot:        $('vf_hot').checked,
     premium:    $('vf_premium').checked,
   };
+  if (!entry.stockId) entry.stockId = stockIdForVehicle(entry);
   if (invEditId) {
     const idx = invVehicles.findIndex(v => v.id === invEditId);
     if (idx >= 0) invVehicles[idx] = entry;
@@ -512,7 +589,7 @@ async function saveInventoryToServer() {
   if (!token) { alert('You need to be signed in as master to save to the server.'); return; }
   $('invSaveBtn').textContent = 'Saving…';
   try {
-    const r = await fetch('/api/vehicles', {
+    const r = await fetch(apiUrl('/api/vehicles'), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', 'x-newvision-admin-token': token },
       body: JSON.stringify(invVehicles),
@@ -587,7 +664,7 @@ async function handleSlotFile(i, input) {
 
   const token = localStorage.getItem('newvision.cms.token') || '';
   try {
-    const r = await fetch('/api/upload?filename=' + encodeURIComponent(file.name), {
+    const r = await fetch(apiUrl('/api/upload?filename=' + encodeURIComponent(file.name)), {
       method: 'POST',
       headers: { 'Content-Type': file.type, 'x-newvision-admin-token': token },
       body: file,

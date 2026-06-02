@@ -30,7 +30,7 @@ function requireAdmin(req, res) {
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-newvision-admin-token');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-newvision-admin-token');
   if (req.method === 'OPTIONS') {
     res.statusCode = 204;
     res.end();

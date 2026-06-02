@@ -1,5 +1,7 @@
 // New Vision owner portal API (Andy + Eissa). Auth (owner creds + real Google), dashboard
 // data (visitors, vehicle requests/leads, revenue-expense ledger, analyzer), all gated.
+const fs = require('node:fs');
+const path = require('node:path');
 const store = require('../lib/store');
 
 const OWNER_PASSWORD = process.env.OWNER_PASSWORD || '1234';
@@ -22,7 +24,35 @@ function readBody(req) {
   return new Promise((resolve) => { let d = ''; req.on('data', (c) => d += c); req.on('end', () => { try { resolve(JSON.parse(d || '{}')); } catch (_) { resolve({}); } }); });
 }
 function getAction(req) { try { return new URL(req.url, 'http://x').searchParams.get('action') || ''; } catch (_) { return ''; } }
-function sessionUser(req) { return store.verify(store.getCookie(req, COOKIE)); }
+function setCors(req, res) {
+  const origin = req.headers.origin || '';
+  const allowed = new Set([
+    'https://arkysan.github.io',
+    'https://newvision-demo.vercel.app',
+    'http://localhost:52452',
+    'http://127.0.0.1:52452',
+  ]);
+  res.setHeader('Access-Control-Allow-Origin', allowed.has(origin) ? origin : 'https://newvision-demo.vercel.app');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Vary', 'Origin');
+}
+function bearerUser(req) {
+  const h = String(req.headers.authorization || '');
+  const m = h.match(/^Bearer\s+(.+)$/i);
+  return m ? store.verify(m[1]) : null;
+}
+function sessionUser(req) { return bearerUser(req) || store.verify(store.getCookie(req, COOKIE)); }
+function stockIdForVehicle(v) {
+  if (v && v.stockId) return String(v.stockId).toUpperCase();
+  const n = String(v?.id || 0).replace(/\D/g, '').padStart(4, '0').slice(-4);
+  return `NV-2026-${n}`;
+}
+function readStaticVehicles() {
+  try { return JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'vehicles.json'), 'utf8')); }
+  catch (_) { return []; }
+}
 
 async function trackVisit() {
   const v = await store.readData('visits', { total: 0, daily: {} });
@@ -34,9 +64,7 @@ async function trackVisit() {
 }
 
 module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  setCors(req, res);
   if (req.method === 'OPTIONS') { res.statusCode = 200; return res.end(); }
   const action = getAction(req);
 
@@ -49,7 +77,39 @@ module.exports = async (req, res) => {
       const code = String((new URL(req.url, 'http://x')).searchParams.get('code') || '').trim().toUpperCase();
       if (!code) return send(res, 400, { ok: false, error: 'tracking code required' });
       const s = (await store.readData('shipments', [])).find((x) => (x.code || '').toUpperCase() === code);
-      if (!s) return send(res, 404, { ok: false, error: 'Tracking code not found' });
+      if (!s) {
+        const q = (await store.readData('leads', [])).find((x) => (x.id || '').toUpperCase() === code);
+        if (q) return send(res, 200, { ok: true, shipment: {
+          kind: 'quote',
+          code: q.id,
+          vehicle: q.vehicle || 'Quote request',
+          vessel: '',
+          imo: '',
+          mmsi: '',
+          origin: 'New Vision quote desk',
+          dest: q.port || 'Destination port under review',
+          etd: '',
+          eta: '',
+          status: 'Quote request received',
+          note: 'This quote ID confirms New Vision received the request. Shipment tracking appears after booking.',
+        } });
+        const v = readStaticVehicles().find((x) => stockIdForVehicle(x) === code || String(x.id || '').toUpperCase() === code);
+        if (!v) return send(res, 404, { ok: false, error: 'Tracking code not found' });
+        return send(res, 200, { ok: true, shipment: {
+          kind: 'vehicle',
+          code: stockIdForVehicle(v),
+          vehicle: `${v.year} ${v.make} ${v.model}`,
+          vessel: '',
+          imo: '',
+          mmsi: '',
+          origin: v.location || 'Yiwu / Shanghai',
+          dest: 'Confirm destination port',
+          etd: '',
+          eta: '',
+          status: v.status || 'Vehicle selected',
+          note: 'This is a public stock ID. A shipment tracking ID appears after booking and vessel assignment.',
+        } });
+      }
       return send(res, 200, { ok: true, shipment: { code: s.code, vehicle: s.vehicle, vessel: s.vessel, imo: s.imo, mmsi: s.mmsi, origin: s.origin, dest: s.dest, etd: s.etd, eta: s.eta, status: s.status } });
     }
 
@@ -61,8 +121,9 @@ module.exports = async (req, res) => {
       const b = await readBody(req);
       const isQuote = !!b.quote;
       const page = String(b.page || '/').slice(0, 40);
+      const device = String(b.device || 'unknown').slice(0, 30);
       const clicks = Array.isArray(b.clicks) ? b.clicks.slice(0, 40) : [];
-      const heat = await store.readData('heat', { clicks: [], scroll: {}, pages: {}, sessions: 0 });
+      const heat = await store.readData('heat', { clicks: [], scroll: {}, pages: {}, devices: {}, sessions: 0 });
       clicks.forEach((c) => {
         heat.clicks.push({ x: Math.max(0, Math.min(100, Math.round(+c.x || 0))), y: Math.max(0, Math.min(100, Math.round(+c.y || 0))), el: String(c.el || '').slice(0, 60), q: isQuote ? 1 : 0, p: page });
       });
@@ -72,6 +133,8 @@ module.exports = async (req, res) => {
       heat.scroll[bucket] = (heat.scroll[bucket] || 0) + 1;
       if (b.newSession) heat.sessions = (heat.sessions || 0) + 1;
       heat.pages[page] = (heat.pages[page] || 0) + 1;
+      heat.devices = heat.devices || {};
+      heat.devices[device] = (heat.devices[device] || 0) + 1;
       await store.writeData('heat', heat);
       // detailed movement only for quote-requesters (encrypted, PII-linked)
       if (isQuote && clicks.length) {
@@ -91,8 +154,9 @@ module.exports = async (req, res) => {
       if (OWNERS[user] && pass === OWNER_PASSWORD) {
         const o = OWNERS[user];
         const u2 = { u: user, name: o.name, role: o.role };
-        setCookie(res, store.sign(u2, 7), 7);
-        return send(res, 200, { ok: true, user: u2 });
+        const token = store.sign(u2, 7);
+        setCookie(res, token, 7);
+        return send(res, 200, { ok: true, user: u2, sessionToken: token });
       }
       return send(res, 401, { ok: false, error: 'Wrong name or password' });
     }
@@ -108,7 +172,7 @@ module.exports = async (req, res) => {
       if (!r.ok || info.aud !== cid || !info.email) return send(res, 401, { ok: false, error: 'Google verification failed' });
       const token = store.sign({ u: info.email, name: info.name || info.email, role: 'member', pic: info.picture || '' }, 7);
       setCookie(res, token, 7);
-      return send(res, 200, { ok: true, user: { u: info.email, name: info.name || info.email, role: 'member' } });
+      return send(res, 200, { ok: true, user: { u: info.email, name: info.name || info.email, role: 'member' }, sessionToken: token });
     }
 
     if (action === 'logout') { setCookie(res, '', 0); return send(res, 200, { ok: true }); }
@@ -155,14 +219,14 @@ module.exports = async (req, res) => {
 
     if (action === 'heatmap') {
       const [heat, journeys] = await Promise.all([
-        store.readData('heat', { clicks: [], scroll: {}, pages: {}, sessions: 0 }),
+        store.readData('heat', { clicks: [], scroll: {}, pages: {}, devices: {}, sessions: 0 }),
         store.readData('journeys', []),
       ]);
       const elCount = {};
       heat.clicks.forEach((c) => { if (c.el) elCount[c.el] = (elCount[c.el] || 0) + 1; });
       const topEls = Object.entries(elCount).sort((a, b) => b[1] - a[1]).slice(0, 12);
       const quoteSids = new Set(journeys.map((j) => j.sid));
-      return send(res, 200, { ok: true, clicks: heat.clicks.slice(-3000), scroll: heat.scroll || {}, pages: heat.pages || {}, sessions: heat.sessions || 0, quoteSessions: quoteSids.size, topEls, journeys: journeys.slice(0, 40) });
+      return send(res, 200, { ok: true, clicks: heat.clicks.slice(-3000), scroll: heat.scroll || {}, pages: heat.pages || {}, devices: heat.devices || {}, sessions: heat.sessions || 0, quoteSessions: quoteSids.size, topEls, journeys: journeys.slice(0, 40) });
     }
 
     if (action === 'shipments') { return send(res, 200, { ok: true, shipments: await store.readData('shipments', []) }); }
@@ -170,7 +234,7 @@ module.exports = async (req, res) => {
     if (action === 'shipment' && req.method === 'POST') {
       const b = await readBody(req);
       const list = await store.readData('shipments', []);
-      const code = (String(b.code || '').trim().toUpperCase()) || ('NV-' + Date.now().toString(36).toUpperCase());
+      const code = (String(b.code || '').trim().toUpperCase()) || ('NVS-' + Date.now().toString(36).toUpperCase());
       const s = (k) => String(b[k] || '').slice(0, 80);
       const entry = { code, vehicle: s('vehicle'), customer: s('customer'), contact: s('contact'), vessel: s('vessel'),
         imo: String(b.imo || '').slice(0, 20), mmsi: String(b.mmsi || '').slice(0, 20), origin: s('origin'), dest: s('dest'),

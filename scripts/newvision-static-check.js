@@ -178,9 +178,16 @@ const requiredPortalPhotoControls = [
   ['Array(8).fill(null)', 'Portal photo editor must maintain eight upload slots'],
   ['const SLOT_LABELS', 'Portal photo editor must label upload slots'],
   ['handleSlotFile', 'Portal photo editor must upload selected files'],
-  ["fetch('/api/upload?filename='", 'Portal photo editor must call the upload API'],
-  ["fetch('/api/vehicles'", 'Portal inventory manager must read/save vehicle data from API'],
+  ["fetch(apiUrl('/api/upload?filename='", 'Portal photo editor must call the upload API through the host-aware API base'],
+  ["fetch(apiUrl('/api/vehicles'", 'Portal inventory manager must read/save vehicle data through the host-aware API base'],
   ['imgs:       invImgUrls.filter(Boolean)', 'Portal must persist all uploaded photo URLs in vehicle imgs'],
+  ['SESSION_KEY', 'GitHub portal mode must use sessionStorage for cross-host API sessions'],
+  ['Authorization = \'Bearer \'', 'Portal must send the cross-host bearer session token to Vercel APIs'],
+  ['id="vf_stockId"', 'Portal vehicle editor must expose public stock IDs'],
+  ['id="vf_vin"', 'Portal vehicle editor must keep private VIN/frame fields'],
+  ['id="vf_docs"', 'Portal vehicle editor must capture export docs status'],
+  ['id="vf_inspection"', 'Portal vehicle editor must capture inspection status'],
+  ['id="vf_shipment"', 'Portal vehicle editor must connect vehicles to shipment IDs'],
 ];
 for (const [snippet, message] of requiredPortalPhotoControls) {
   if (!portal.includes(snippet)) fail(message);
@@ -190,7 +197,11 @@ const requiredPublicGalleryControls = [
   ['galleryImgs=Array.isArray(v.imgs)&&v.imgs.length', 'Public vehicle modal must read multi-photo imgs arrays'],
   ['gallery-thumbs', 'Public vehicle modal must expose thumbnails for multiple photos'],
   ['galleryNav', 'Public vehicle modal must expose previous/next gallery navigation'],
-  ["fetch('/api/vehicles'", 'Public site must refresh vehicle inventory from live API'],
+  ["fetch(apiUrl('/api/vehicles'", 'Public site must refresh vehicle inventory through the host-aware API base'],
+  ['const API_BASE', 'Public site must define a GitHub/Vercel API base helper'],
+  ['data-stock-id="${stockIdForVehicle(v)}"', 'Vehicle cards must expose public stock IDs'],
+  ['requestCurrentStockPhoto', 'Vehicle detail modal must route current-photo requests into the quote flow'],
+  ['requestVehicleInspection', 'Vehicle detail modal must route inspection requests into the quote flow'],
 ];
 for (const [snippet, message] of requiredPublicGalleryControls) {
   if (!html.includes(snippet)) fail(message);
@@ -207,6 +218,10 @@ const requiredShippingMapControls = [
   ['routeLagos', 'Shipping map must expose the West Africa route lane'],
   ['routeEurope', 'Shipping map must expose the Europe route lane'],
   ['routeLatam', 'Shipping map must expose the Latin America route lane'],
+  ['routeCaribbean', 'Shipping map must expose the Caribbean route lane'],
+  ['id="shippingRouteTabs"', 'Shipping map must expose route selector tabs'],
+  ['selectShippingRoute', 'Shipping map route board must update selected route details'],
+  ['Quote this route', 'Shipping map port cards must route buyers into quote requests'],
   ['shipping-map-panel', 'Shipping map must include the advanced route-board panel'],
   ['id="shippingClock"', 'Shipping map must show a current route-preview timestamp'],
   ['Shanghai', 'Shipping map must include Shanghai origin port'],
@@ -215,6 +230,7 @@ const requiredShippingMapControls = [
   ['Lagos', 'Shipping map must include Lagos port'],
   ['Antwerp', 'Shipping map must include Antwerp port'],
   ['Santos', 'Shipping map must include Santos port'],
+  ['Kingston', 'Shipping map must include Caribbean port coverage'],
   ['exact vessel schedules, freight, and ETA are confirmed', 'Shipping map must not pretend the route preview is live AIS tracking'],
 ];
 for (const [snippet, message] of requiredShippingMapControls) {
@@ -246,6 +262,45 @@ const requiredUploadApiControls = [
 ];
 for (const [snippet, message] of requiredUploadApiControls) {
   if (!uploadApi.includes(snippet)) fail(message);
+}
+
+const requiredChinaMirrorControls = [
+  ['href="./favicon.svg"', 'GitHub mirror must use a relative favicon path'],
+  ['href="./manifest.webmanifest"', 'GitHub mirror must use a relative manifest path'],
+  ['"start_url": "./"', 'Manifest must use a relative start URL for GitHub Pages'],
+  ['"src": "./favicon.svg"', 'Manifest icon must use a relative path for GitHub Pages'],
+  ['translate.google.com', 'Google Translate external script must not be required for core language support'],
+];
+if (!html.includes(requiredChinaMirrorControls[0][0])) fail(requiredChinaMirrorControls[0][1]);
+if (!html.includes(requiredChinaMirrorControls[1][0])) fail(requiredChinaMirrorControls[1][1]);
+const manifest = fs.readFileSync(path.join(ROOT, 'manifest.webmanifest'), 'utf8');
+if (!manifest.includes(requiredChinaMirrorControls[2][0])) fail(requiredChinaMirrorControls[2][1]);
+if (!manifest.includes(requiredChinaMirrorControls[3][0])) fail(requiredChinaMirrorControls[3][1]);
+if (html.includes(requiredChinaMirrorControls[4][0])) fail(requiredChinaMirrorControls[4][1]);
+
+const portalApi = fs.readFileSync(path.join(ROOT, 'api', 'portal.js'), 'utf8');
+const leadApi = fs.readFileSync(path.join(ROOT, 'api', 'lead.js'), 'utf8');
+const track = fs.readFileSync(path.join(ROOT, 'track.html'), 'utf8');
+for (const [snippet, message] of [
+  ['Access-Control-Allow-Headers\', \'Content-Type, Authorization', 'Portal API CORS must allow bearer sessions from GitHub Pages'],
+  ['sessionToken', 'Portal API must return a session token for GitHub portal mode'],
+  ['NVS-', 'Shipment IDs must use the NVS prefix'],
+  ['kind: \'vehicle\'', 'Tracking API must accept public stock IDs'],
+  ['kind: \'quote\'', 'Tracking API must accept public quote IDs'],
+]) {
+  if (!portalApi.includes(snippet)) fail(message);
+}
+for (const [snippet, message] of [
+  ['NVQ-', 'Lead capture must generate public quote IDs'],
+  ['leadId', 'Lead API must return the generated quote ID'],
+]) {
+  if (!leadApi.includes(snippet)) fail(message);
+}
+for (const [snippet, message] of [
+  ['NV-2026-0001 / NVQ-... / NVS-...', 'Tracking page must accept stock, quote, and shipment ID formats'],
+  ['API_BASE+API', 'Tracking page must call Vercel APIs from GitHub Pages'],
+]) {
+  if (!track.includes(snippet)) fail(message);
 }
 
 const emojiPattern = /\p{Extended_Pictographic}/gu;

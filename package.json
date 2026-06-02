@@ -6,7 +6,8 @@
   "scripts": {
     "preview": "node scripts/serve-static.js",
     "test": "node scripts/newvision-static-check.js",
-    "check:pcmaster": "node scripts/pcmaster-contract-check.js"
+    "check:pcmaster": "node scripts/pcmaster-contract-check.js",
+    "check:deploy-drift": "node scripts/newvision-deploy-drift-check.js"
   },
   "repository": {
     "type": "git",

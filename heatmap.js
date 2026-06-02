@@ -7,6 +7,14 @@
   var firstSend = !sessionStorage.getItem('nv_sent');
   var quote = sessionStorage.getItem('nv_quote') === '1';
   var buf = [], scrollMax = 0;
+  function deviceType() {
+    var w = window.innerWidth || 0;
+    var ua = navigator.userAgent || '';
+    if (/MicroMessenger/i.test(ua)) return 'wechat-browser';
+    if (w <= 480) return 'phone';
+    if (w <= 900) return 'tablet';
+    return 'desktop';
+  }
 
   function desc(el) {
     if (!el || !el.tagName) return '';
@@ -33,7 +41,7 @@
   }, true);
 
   function payload() {
-    var p = { sid: sid, page: location.pathname, quote: quote, scrollMax: scrollMax, clicks: buf.splice(0, 40), newSession: firstSend };
+    var p = { sid: sid, page: location.pathname, device: deviceType(), quote: quote, scrollMax: scrollMax, clicks: buf.splice(0, 40), newSession: firstSend };
     firstSend = false; sessionStorage.setItem('nv_sent', '1');
     return p;
   }
