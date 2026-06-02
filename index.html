@@ -34,7 +34,6 @@
   <meta name="twitter:description" content="Buy Chinese vehicles direct. BYD, Tesla, BMW, Li Auto, Xiaomi and 16+ brands. Full export service from Yiwu to your port.">
   <meta name="twitter:image" content="https://arkysan.github.io/newvision-demo/og-image-20260531.png">
   <link rel="preload" href="img/thumbs/v01-tesla.webp" as="image">
-  <link rel="preload" href="img/thumbs/v02-byd-seal.webp" as="image">
   <style>
     :root {
       --bg:       #FFFFFF;
@@ -189,7 +188,7 @@
 
     /* ── VEHICLE GRID ── */
     .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 20px; }
-    .vehicle-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all .25s; cursor: pointer; }
+    .vehicle-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all .25s; cursor: pointer; content-visibility: auto; contain-intrinsic-size: 360px 360px; }
     .vehicle-card { will-change: transform; }
     .vehicle-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(46,125,50,0.13); }
     .vehicle-img { position: relative; aspect-ratio: 16/9; background: var(--surface2); overflow: hidden; display: flex; align-items: center; justify-content: center; }
@@ -218,10 +217,17 @@
     .btn-secondary:hover { border-color: var(--green); color: var(--green); }
 
     /* ── BRAND PARTNERS ── */
-    .brands-grouped { display: flex; flex-direction: column; gap: 2px; }
-    .brand-group-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 12px 0 7px; }
-    .brands-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-    .brand-pill { padding: 8px 18px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--muted2); transition: all .2s; cursor: pointer; }
+    .brands-grouped { display: grid; gap: 10px; }
+    .brands-quick, .brands-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .brand-more { border: 1px solid var(--border); border-radius: 8px; background: var(--surface); overflow: hidden; }
+    .brand-more summary { min-height: 40px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 800; color: var(--green); cursor: pointer; list-style: none; }
+    .brand-more summary::-webkit-details-marker { display: none; }
+    .brand-more summary::after { content: '+'; font-size: 18px; line-height: 1; color: var(--muted2); }
+    .brand-more[open] summary::after { content: '-'; }
+    .brand-groups { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; padding: 10px; border-top: 1px solid var(--border); }
+    .brand-group { min-width: 0; padding: 10px; border-radius: 8px; background: var(--surface2); border: 1px solid rgba(46,125,50,.08); }
+    .brand-group-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 0 0 8px; }
+    .brand-pill { appearance: none; min-height: 34px; padding: 6px 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--muted2); transition: all .2s; cursor: pointer; }
     .brand-pill:hover, .brand-pill.active { border-color: var(--green); color: var(--green); background: rgba(76,175,80,0.07); }
 
     /* ── SHOWROOM PHOTO ── */
@@ -431,8 +437,15 @@
       .hero-tags::-webkit-scrollbar { display: none; }
       .hero-tag { flex: 0 0 auto; }
       .category-band, .stats, .trust { display: none !important; }
-      .brand-section { padding: 22px 14px; }
-      .brand-section .brand-group-label { margin: 12px 0 7px; }
+      .brand-section { padding: 18px 14px 20px; }
+      .brand-section .section-header { margin-bottom: 10px; }
+      .brand-section .section-title { font-size: 22px; }
+      .brand-section .section-sub { display: none; }
+      .brands-quick { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+      .brands-quick::-webkit-scrollbar { display: none; }
+      .brand-pill { flex: 0 0 auto; min-height: 36px; padding: 7px 11px; }
+      .brand-groups { grid-template-columns: 1fr; max-height: 260px; overflow-y: auto; padding: 8px; }
+      .brand-group { padding: 9px; }
       /* mobile menu (hamburger) */
       .nav-burger { display: flex !important; }
       .mobile-menu { position: fixed; top: 58px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--border); box-shadow: 0 14px 30px rgba(13,42,20,.12); z-index: 95; flex-direction: column; padding: 6px 0; display: none; max-height: 80vh; overflow-y: auto; }
@@ -551,8 +564,8 @@
   <a href="#how" onclick="closeMobileMenu()" data-i18n="nav_process">How It Works</a>
   <a href="#about" onclick="closeMobileMenu()" data-i18n="nav_about">About Us</a>
   <a href="#quote" onclick="closeMobileMenu()" data-i18n="nav_contact">Contact / Get a Quote</a>
-  <a href="https://newvision-demo.vercel.app/track.html" target="_blank" rel="noopener" class="portal">🚢 Track My Vehicle</a>
-  <a href="https://newvision-demo.vercel.app/portal.html" target="_blank" rel="noopener" class="portal">🔑 Owner / Staff Login</a>
+  <a href="https://newvision-demo.vercel.app/track.html" target="_blank" rel="noopener" class="portal">Track My Vehicle</a>
+  <a href="https://newvision-demo.vercel.app/portal.html" target="_blank" rel="noopener" class="portal">Owner / Staff Login</a>
 </div>
 
 <div class="mobile-lang-panel" id="mobileLangPanel" aria-hidden="true">
@@ -675,72 +688,6 @@
   <div class="trust-item"><div class="trust-icon">GLB</div><div class="trust-text"><strong data-i18n="trust6_s">Global Network</strong><span data-i18n="trust6_p">Asia · Europe · Africa · Middle East · S. America</span></div></div>
 </div>
 
-<!-- ── BRAND PARTNERS ── -->
-<section class="brand-section" id="brands">
-  <div class="section-header">
-    <div>
-      <h2 class="section-title" data-i18n-html="sec_brands">Brand <span>Partners</span></h2>
-      <div class="section-sub" data-i18n="brand_sub">20+ global automotive brands — Chinese · Japanese · German · Korean · American</div></div>
-    </div>
-  </div>
-  <div id="brandGrid" class="brands-grouped">
-    <div class="brands-grid" style="margin-bottom:6px;">
-      <div class="brand-pill active" onclick="filterByBrand('',this)" data-i18n="brand_all">All Brands</div>
-    </div>
-    <div class="brand-group">
-      <div class="brand-group-label" data-i18n="brand_grp_cn">🇨🇳 Chinese Brands</div>
-      <div class="brands-grid">
-        <div class="brand-pill" onclick="filterByBrand('BYD',this)" data-brand="BYD">BYD 比亚迪</div>
-        <div class="brand-pill" onclick="filterByBrand('Li Auto',this)" data-brand="Li Auto">Li Auto 理想</div>
-        <div class="brand-pill" onclick="filterByBrand('Xiaomi',this)" data-brand="Xiaomi">Xiaomi 小米</div>
-        <div class="brand-pill" onclick="filterByBrand('Changan',this)" data-brand="Changan">Changan 长安</div>
-        <div class="brand-pill" onclick="filterByBrand('Chery',this)" data-brand="Chery">Chery 奇瑞</div>
-        <div class="brand-pill" onclick="filterByBrand('Geely',this)" data-brand="Geely">Geely 吉利</div>
-        <div class="brand-pill" onclick="filterByBrand('Leapmotor',this)" data-brand="Leapmotor">Leapmotor 零跑</div>
-        <div class="brand-pill" onclick="filterByBrand('Wuling',this)" data-brand="Wuling">Wuling 五菱</div>
-        <div class="brand-pill" onclick="filterByBrand('Yadea',this)" data-brand="Yadea">Yadea 雅迪</div>
-        <div class="brand-pill" onclick="filterByBrand('MAEXTRO',this)" data-brand="MAEXTRO">MAEXTRO 問界</div>
-        <div class="brand-pill" onclick="filterByBrand('Trumpchi',this)" data-brand="Trumpchi">Trumpchi 传祺</div>
-        <div class="brand-pill" onclick="filterByBrand('Jetour',this)" data-brand="Jetour">Jetour 捷途</div>
-        <div class="brand-pill" onclick="filterByBrand('Great Wall',this)" data-brand="Great Wall">Great Wall 长城</div>
-        <div class="brand-pill" onclick="filterByBrand('Tank',this)" data-brand="Tank">Tank 坦克</div>
-        <div class="brand-pill" onclick="filterByBrand('MG',this)" data-brand="MG">MG 名爵</div>
-        <div class="brand-pill" onclick="filterByBrand('Formula Leopard',this)" data-brand="Formula Leopard">Formula Leopard 方程豹</div>
-        <div class="brand-pill" onclick="filterByBrand('Livan',this)" data-brand="Livan">Livan 睿蓝</div>
-      </div>
-    </div>
-    <div class="brand-group">
-      <div class="brand-group-label" data-i18n="brand_grp_jp">🇯🇵 Japanese Brands</div>
-      <div class="brands-grid">
-        <div class="brand-pill" onclick="filterByBrand('Toyota',this)" data-brand="Toyota">Toyota 丰田</div>
-        <div class="brand-pill" onclick="filterByBrand('Honda',this)" data-brand="Honda">Honda 本田</div>
-      </div>
-    </div>
-    <div class="brand-group">
-      <div class="brand-group-label" data-i18n="brand_grp_de">🇩🇪 German Brands</div>
-      <div class="brands-grid">
-        <div class="brand-pill" onclick="filterByBrand('BMW',this)" data-brand="BMW">BMW 宝马</div>
-        <div class="brand-pill" onclick="filterByBrand('Mercedes-Benz',this)" data-brand="Mercedes-Benz">Mercedes-Benz 奔驰</div>
-        <div class="brand-pill" onclick="filterByBrand('Volkswagen',this)" data-brand="Volkswagen">Volkswagen 大众</div>
-        <div class="brand-pill" onclick="filterByBrand('Audi',this)" data-brand="Audi">Audi 奥迪</div>
-      </div>
-    </div>
-    <div class="brand-group">
-      <div class="brand-group-label" data-i18n="brand_grp_kr">🇰🇷 Korean Brands</div>
-      <div class="brands-grid">
-        <div class="brand-pill" onclick="filterByBrand('Hyundai',this)" data-brand="Hyundai">Hyundai 现代</div>
-        <div class="brand-pill" onclick="filterByBrand('Kia',this)" data-brand="Kia">Kia 起亚</div>
-      </div>
-    </div>
-    <div class="brand-group">
-      <div class="brand-group-label" data-i18n="brand_grp_us">🇺🇸 American Brands</div>
-      <div class="brands-grid">
-        <div class="brand-pill" onclick="filterByBrand('Tesla',this)" data-brand="Tesla">Tesla 特斯拉</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ── INVENTORY ── -->
 <div style="border-top:1px solid var(--border)">
 <section id="inventory">
@@ -773,6 +720,82 @@
   <div class="vehicle-grid" id="vehicleGrid"></div>
 </section>
 </div>
+
+<!-- ── BRAND PARTNERS ── -->
+<section class="brand-section" id="brands">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title" data-i18n-html="sec_brands">Brand <span>Partners</span></h2>
+      <div class="section-sub" data-i18n="brand_sub">Focused brand filters for common export requests.</div>
+    </div>
+  </div>
+  <div id="brandGrid" class="brands-grouped">
+    <div class="brands-quick" aria-label="Quick brand filters">
+      <button type="button" class="brand-pill active" onclick="filterByBrand('',this)" data-i18n="brand_all">All Brands</button>
+      <button type="button" class="brand-pill" onclick="filterByBrand('BYD',this)" data-brand="BYD">BYD 比亚迪</button>
+      <button type="button" class="brand-pill" onclick="filterByBrand('Tesla',this)" data-brand="Tesla">Tesla 特斯拉</button>
+      <button type="button" class="brand-pill" onclick="filterByBrand('Li Auto',this)" data-brand="Li Auto">Li Auto 理想</button>
+      <button type="button" class="brand-pill" onclick="filterByBrand('BMW',this)" data-brand="BMW">BMW 宝马</button>
+      <button type="button" class="brand-pill" onclick="filterByBrand('Toyota',this)" data-brand="Toyota">Toyota 丰田</button>
+    </div>
+    <details class="brand-more">
+      <summary data-i18n="brand_more">More brand filters</summary>
+      <div class="brand-groups">
+        <div class="brand-group">
+          <div class="brand-group-label" data-i18n="brand_grp_cn">China makers</div>
+          <div class="brands-grid">
+            <button type="button" class="brand-pill" onclick="filterByBrand('BYD',this)" data-brand="BYD">BYD 比亚迪</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Li Auto',this)" data-brand="Li Auto">Li Auto 理想</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Xiaomi',this)" data-brand="Xiaomi">Xiaomi 小米</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Changan',this)" data-brand="Changan">Changan 长安</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Chery',this)" data-brand="Chery">Chery 奇瑞</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Geely',this)" data-brand="Geely">Geely 吉利</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Leapmotor',this)" data-brand="Leapmotor">Leapmotor 零跑</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Wuling',this)" data-brand="Wuling">Wuling 五菱</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Yadea',this)" data-brand="Yadea">Yadea 雅迪</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('MAEXTRO',this)" data-brand="MAEXTRO">MAEXTRO 问界</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Trumpchi',this)" data-brand="Trumpchi">Trumpchi 传祺</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Jetour',this)" data-brand="Jetour">Jetour 捷途</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Great Wall',this)" data-brand="Great Wall">Great Wall 长城</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Tank',this)" data-brand="Tank">Tank 坦克</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('MG',this)" data-brand="MG">MG 名爵</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Formula Leopard',this)" data-brand="Formula Leopard">Formula Leopard 方程豹</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Livan',this)" data-brand="Livan">Livan 睿蓝</button>
+          </div>
+        </div>
+        <div class="brand-group">
+          <div class="brand-group-label" data-i18n="brand_grp_jp">Japan</div>
+          <div class="brands-grid">
+            <button type="button" class="brand-pill" onclick="filterByBrand('Toyota',this)" data-brand="Toyota">Toyota 丰田</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Honda',this)" data-brand="Honda">Honda 本田</button>
+          </div>
+        </div>
+        <div class="brand-group">
+          <div class="brand-group-label" data-i18n="brand_grp_de">Germany</div>
+          <div class="brands-grid">
+            <button type="button" class="brand-pill" onclick="filterByBrand('BMW',this)" data-brand="BMW">BMW 宝马</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Mercedes-Benz',this)" data-brand="Mercedes-Benz">Mercedes-Benz 奔驰</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Volkswagen',this)" data-brand="Volkswagen">Volkswagen 大众</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Audi',this)" data-brand="Audi">Audi 奥迪</button>
+          </div>
+        </div>
+        <div class="brand-group">
+          <div class="brand-group-label" data-i18n="brand_grp_kr">Korea</div>
+          <div class="brands-grid">
+            <button type="button" class="brand-pill" onclick="filterByBrand('Hyundai',this)" data-brand="Hyundai">Hyundai 现代</button>
+            <button type="button" class="brand-pill" onclick="filterByBrand('Kia',this)" data-brand="Kia">Kia 起亚</button>
+          </div>
+        </div>
+        <div class="brand-group">
+          <div class="brand-group-label" data-i18n="brand_grp_us">USA</div>
+          <div class="brands-grid">
+            <button type="button" class="brand-pill" onclick="filterByBrand('Tesla',this)" data-brand="Tesla">Tesla 特斯拉</button>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
 
 <!-- ── SHOWROOM ── -->
 <div class="showroom">
@@ -1432,7 +1455,7 @@ function calcEst(){
           <div class="modal-tab active" onclick="switchTab('specs',this)" data-i18n="tab_specs">Specifications</div>
           <div class="modal-tab" onclick="switchTab('docs',this)" data-i18n="tab_docs">Documents</div>
           <div class="modal-tab" onclick="switchTab('shipping',this)" data-i18n="tab_ship">Shipping</div>
-          <div class="modal-tab" onclick="switchTab('video',this)" data-i18n="tab_video">📹 Video</div>
+          <div class="modal-tab" onclick="switchTab('video',this)" data-i18n="tab_video">Video</div>
         </div>
         <div id="tabSpecs"><div class="specs-grid" id="modalSpecs"></div></div>
         <div id="tabDocs" style="display:none">
@@ -1531,7 +1554,9 @@ const T = {
     trust4_s:'Door-to-Port Logistics', trust4_p:'Shanghai port, full customs handling',
     trust5_s:'Full Documentation', trust5_p:'B/L, CoO, customs, invoice, insurance',
     trust6_s:'Global Network', trust6_p:'Asia · Europe · Africa · Middle East · S. America',
-    brand_sub:'16+ global automotive brands — new energy · traditional · premium · engineering',
+    brand_sub:'Focused brand filters for common export requests.',
+    brand_all:'All Brands', brand_more:'More brand filters',
+    brand_grp_cn:'China makers', brand_grp_jp:'Japan', brand_grp_de:'Germany', brand_grp_kr:'Korea', brand_grp_us:'USA',
     inv_sub:'FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for current stock',
     showroom_h2b:'New Vision Car Export Company', showroom_desc:'Established in Yiwu, China in 2019. We specialize in green and smart travel solutions — connecting global buyers to China\'s top automotive brands with full-service export, documentation, and logistics support.',
     showroom_btn:'Contact Our Team →',
@@ -1617,7 +1642,9 @@ const T = {
     trust4_s:'Logistique Port-à-Port', trust4_p:'Port de Shanghai, gestion douanière complète',
     trust5_s:'Documentation Complète', trust5_p:'B/L, CoO, douane, facture, assurance',
     trust6_s:'Réseau Mondial', trust6_p:'Asie · Europe · Afrique · Moyen-Orient · Amérique du Sud',
-    brand_sub:'16+ marques automobiles mondiales — électrique · traditionnel · premium · industriel',
+    brand_sub:'Filtres de marques ciblés pour les demandes export courantes.',
+    brand_all:'Toutes Marques', brand_more:'Plus de filtres marques',
+    brand_grp_cn:'Marques chinoises', brand_grp_jp:'Japon', brand_grp_de:'Allemagne', brand_grp_kr:'Coree', brand_grp_us:'USA',
     inv_sub:'Prix FOB Shanghai · Export sous 180 jours · Stock démo — contactez-nous pour le stock réel',
     showroom_h2b:'New Vision — Exportateur de Véhicules', showroom_desc:'Fondée à Yiwu, Chine en 2019. Spécialistes des solutions de mobilité verte — connectant les acheteurs mondiaux aux meilleures marques chinoises avec un service export complet.',
     showroom_btn:'Contacter Notre Équipe →',
@@ -1703,7 +1730,9 @@ const T = {
     trust4_s:'لوجستيات باب إلى ميناء', trust4_p:'ميناء شنغهاي، إدارة جمارك كاملة',
     trust5_s:'وثائق كاملة', trust5_p:'بوليصة الشحن، شهادة المنشأ، جمارك، فاتورة',
     trust6_s:'شبكة عالمية', trust6_p:'آسيا · أوروبا · أفريقيا · الشرق الأوسط · أمريكا الجنوبية',
-    brand_sub:'16+ علامة تجارية عالمية — طاقة جديدة · تقليدي · فاخر · هندسي',
+    brand_sub:'فلاتر علامات مركزة لطلبات التصدير الشائعة.',
+    brand_all:'كل العلامات', brand_more:'فلاتر علامات إضافية',
+    brand_grp_cn:'الصين', brand_grp_jp:'اليابان', brand_grp_de:'ألمانيا', brand_grp_kr:'كوريا', brand_grp_us:'أمريكا',
     inv_sub:'تسعير FOB شنغهاي · صالح للتصدير 180 يوماً · مخزون نموذجي — تواصل للمخزون الحقيقي',
     showroom_h2b:'شركة نيو فيجن لتصدير السيارات', showroom_desc:'تأسست في يوو، الصين عام 2019. متخصصون في حلول التنقل الأخضر — نربط المشترين العالميين بأفضل العلامات الصينية بخدمة تصدير متكاملة.',
     showroom_btn:'تواصل مع فريقنا →',
@@ -1789,7 +1818,9 @@ const T = {
     trust4_s:'门到港物流', trust4_p:'上海港，全程清关',
     trust5_s:'完整出口文件', trust5_p:'提单、产地证、报关单、发票、保险',
     trust6_s:'全球网络', trust6_p:'亚洲·欧洲·非洲·中东·南美',
-    brand_sub:'16+全球汽车品牌 — 新能源·传统燃油·豪华·工程车',
+    brand_sub:'常用出口品牌快速筛选。',
+    brand_all:'全部品牌', brand_more:'更多品牌筛选',
+    brand_grp_cn:'中国品牌', brand_grp_jp:'日本', brand_grp_de:'德国', brand_grp_kr:'韩国', brand_grp_us:'美国',
     inv_sub:'上海离岸价 · 180天出口资质 · 示例库存，联系确认当前车源',
     showroom_h2b:'新视界汽车出口公司', showroom_desc:'成立于2019年，总部位于中国义乌。专注绿色智慧出行，为全球买家提供中国顶级汽车品牌的全链条出口解决方案。',
     showroom_btn:'联系我们 →',
@@ -2487,20 +2518,20 @@ const vehicles = [
   { id:19, make:'Jetour',        model:'X70 Plus 2026 1.5T DCT 7-Seat',             year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/v19-jetour.webp',     ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 135kW/290Nm',  drive:'FWD', doors:4, seats:7, range_km:null },
   { id:20, make:'MG',           model:'MG5 2023 Trophy 1.5T DCT',                  year:2023, mileage:21000, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'Sedan',     price:8900, img:'img/nvn-v20-mg5.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 110kW/220Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
   { id:21, make:'Leapmotor',    model:'Formula Leopard Ti7 2025 PHEV Performance', year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, img:'img/nvn-v21-formula-leopard.webp', ev:true,  hot:true,  premium:false, trans:'DHT Triple Motor', engine:'540kW 734ps CATL LFP', drive:'AWD', doors:4, seats:5, range_km:160  },
-  { id:22, make:'BYD',          model:'Song PLUS DM-i 2025 Premium',                year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:18500, img:'img/nvn-v22-byd-song-plus.webp', ev:true,  hot:true,  premium:false, trans:'E-CVT',        engine:'DM-i PHEV',          drive:'FWD', doors:4, seats:5, range_km:112  },
-  { id:23, make:'Li Auto',      model:'Ideal L6 Pro 2024 Extended Range',           year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:36000, img:'img/nvn-v23-li-l6.webp', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:215 },
-  { id:24, make:'Jetour',       model:'Traveler 2025 2.0TD DCT 4WD Silver Dragon',  year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:23500, img:'img/nvn-v24-jetour-traveler.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0TD',              drive:'4WD', doors:4, seats:5, range_km:null },
-  { id:25, make:'Toyota',       model:'Corolla 2024 1.2T S-CVT Pioneer',            year:2024, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:13500, img:'img/nvn-v25-toyota-corolla.webp', ev:false, hot:false, premium:false, trans:'S-CVT',        engine:'1.2T',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:26, make:'Hyundai',      model:'Elantra 2023 1.5L CVT GLX Elite',            year:2023, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:10800, img:'img/nvn-v26-hyundai-elantra.webp', ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:27, make:'Tank',         model:'700 New Energy 2024 Hi4-T Ultimate',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:76000, img:'img/nvn-v27-tank700-ultimate.webp', ev:true,  hot:true,  premium:true,  trans:'Auto',         engine:'Hi4-T PHEV',         drive:'4WD', doors:4, seats:5, range_km:null },
-  { id:28, make:'Changan',      model:'UNI-Z 2025 Smart Blue Whale 500Bar MAX',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:16800, img:'img/nvn-v28-changan-uniz.webp', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'Blue Whale PHEV',    drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:29, make:'MG',           model:'MG7 2025 1.5T 300 DCT Elegance',             year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:16000, img:'img/nvn-v29-mg7.webp', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:30, make:'Kia',          model:'Seltos 2023 1.5L IVT Luxury',                year:2023, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:12500, img:'img/nvn-v30-kia-seltos.webp', ev:false, hot:false, premium:false, trans:'IVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:22, make:'BYD',          model:'Song PLUS DM-i 2025 Premium',                year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:18500, img:'img/nvn-v22-byd-song-plus.jpg', ev:true,  hot:true,  premium:false, trans:'E-CVT',        engine:'DM-i PHEV',          drive:'FWD', doors:4, seats:5, range_km:112  },
+  { id:23, make:'Li Auto',      model:'Ideal L6 Pro 2024 Extended Range',           year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:36000, img:'img/nvn-v23-li-l6.jpg', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:215 },
+  { id:24, make:'Jetour',       model:'Traveler 2025 2.0TD DCT 4WD Silver Dragon',  year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:23500, img:'img/nvn-v24-jetour-traveler.jpg', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0TD',              drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:25, make:'Toyota',       model:'Corolla 2024 1.2T S-CVT Pioneer',            year:2024, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:13500, img:'img/nvn-v25-toyota-corolla.jpg', ev:false, hot:false, premium:false, trans:'S-CVT',        engine:'1.2T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:26, make:'Hyundai',      model:'Elantra 2023 1.5L CVT GLX Elite',            year:2023, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:10800, img:'img/nvn-v26-hyundai-elantra.jpg', ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:27, make:'Tank',         model:'700 New Energy 2024 Hi4-T Ultimate',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:76000, img:'img/nvn-v27-tank700-ultimate.jpg', ev:true,  hot:true,  premium:true,  trans:'Auto',         engine:'Hi4-T PHEV',         drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:28, make:'Changan',      model:'UNI-Z 2025 Smart Blue Whale 500Bar MAX',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:16800, img:'img/nvn-v28-changan-uniz.jpg', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'Blue Whale PHEV',    drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:29, make:'MG',           model:'MG7 2025 1.5T 300 DCT Elegance',             year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:16000, img:'img/nvn-v29-mg7.jpg', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:30, make:'Kia',          model:'Seltos 2023 1.5L IVT Luxury',                year:2023, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:12500, img:'img/nvn-v30-kia-seltos.jpg', ev:false, hot:false, premium:false, trans:'IVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
   { id:31, make:'Formula Leopard', model:'Titanium 7 2025 190KM AWD Ultra',         year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, img:'img/nvn-v31-formula-leopard-t7.webp', ev:true,  hot:true,  premium:false, trans:'DHT',          engine:'PHEV AWD',           drive:'AWD', doors:4, seats:5, range_km:190 },
-  { id:32, make:'Li Auto',      model:'Li L7 2025 Ultra Smart Refresh',             year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:46000, img:'img/nvn-v32-li-l7.webp', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:null },
-  { id:33, make:'Volkswagen',   model:'Golf 2025 300TSI R-Line',                   year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Hatchback', price:20500, img:'img/nvn-v33-vw-golf.webp', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'300TSI',             drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:34, make:'Jetour',       model:'Da Sheng 2026 1.5T DCT Flagship',            year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/nvn-v34-jetour-dasheng-flagship.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:35, make:'Jetour',       model:'ShanHai T2 Extended 206km XWD 7-Seater',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:30500, img:'img/nvn-v35-jetour-shanhai-t2.webp', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'1.5TD PHEV',         drive:'AWD', doors:4, seats:7, range_km:206 },
+  { id:32, make:'Li Auto',      model:'Li L7 2025 Ultra Smart Refresh',             year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:46000, img:'img/nvn-v32-li-l7.jpg', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:33, make:'Volkswagen',   model:'Golf 2025 300TSI R-Line',                   year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Hatchback', price:20500, img:'img/nvn-v33-vw-golf.jpg', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'300TSI',             drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:34, make:'Jetour',       model:'Da Sheng 2026 1.5T DCT Flagship',            year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/nvn-v34-jetour-dasheng-flagship.jpg', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:35, make:'Jetour',       model:'ShanHai T2 Extended 206km XWD 7-Seater',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:30500, img:'img/nvn-v35-jetour-shanhai-t2.jpg', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'1.5TD PHEV',         drive:'AWD', doors:4, seats:7, range_km:206 },
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
@@ -2581,7 +2612,7 @@ function cardImage(src) {
 }
 
 function buildCard(v, idx) {
-  const eager = idx < 2;
+  const eager = idx === 0;
   const gridImg = cardImage(v.img);
   const badges = [
     v.condition==='New' ? `<span class="badge badge-new">${trTerm('condition','New')}</span>` : `<span class="badge badge-used">${trTerm('condition','Used')}</span>`,
@@ -2593,7 +2624,7 @@ function buildCard(v, idx) {
   const photoFallback = trUi('photo_unavailable');
   return `<div class="vehicle-card" data-vehicle-id="${v.id}" onclick="openModal(${v.id})">
     <div class="vehicle-img">
-      ${gridImg ? `<img src="${gridImg}" alt="${v.year} ${v.make} ${v.model}" width="640" height="426" decoding="async"${eager ? ' loading="eager" fetchpriority="high"' : ' loading="lazy" fetchpriority="low"'} onerror="this.style.display='none';this.parentNode.querySelector('.vehicle-photo-fallback').style.display='flex'"><div class="vehicle-photo-fallback" style="display:none">${photoFallback}</div>` : `<div class="vehicle-photo-fallback">${photoFallback}</div>`}
+      ${gridImg ? `<img src="${gridImg}" alt="${v.year} ${v.make} ${v.model}" width="640" height="426" sizes="(max-width: 600px) 84vw, (max-width: 900px) 50vw, 33vw" decoding="async"${eager ? ' loading="eager" fetchpriority="high"' : ' loading="lazy" fetchpriority="low"'} onerror="this.style.display='none';this.parentNode.querySelector('.vehicle-photo-fallback').style.display='flex'"><div class="vehicle-photo-fallback" style="display:none">${photoFallback}</div>` : `<div class="vehicle-photo-fallback">${photoFallback}</div>`}
       <div class="vehicle-badges">${badges}</div>
     </div>
     <div class="vehicle-body">
@@ -2718,7 +2749,7 @@ function openModal(id) {
     v.condition==='New'?`<span class="badge badge-new">${trTerm('condition','New')}</span>`:`<span class="badge badge-used">${trTerm('condition','Used')}</span>`,
     v.ev?`<span class="badge badge-ev">${trTerm('badge','ev')}</span>`:'',
     v.premium?`<span class="badge badge-premium">★ ${trTerm('badge','premium')}</span>`:'',
-    v.video?`<span class="badge" style="background:#111;color:#fff">▶ Video</span>`:'',
+    v.video?`<span class="badge" style="background:#111;color:#fff">Video</span>`:'',
   ].join('');
   document.getElementById('modalBadges').innerHTML=badges;
   // Video walkaround — real embed if the vehicle has a video, else a request-walkaround CTA
@@ -2729,7 +2760,7 @@ function openModal(id) {
     ? (ytId
         ? `<div style="position:relative;padding-top:56.25%;border-radius:10px;overflow:hidden"><iframe src="https://www.youtube.com/embed/${ytId}" title="Walkaround" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe></div>`
         : `<video src="${vid}" controls playsinline preload="metadata" style="width:100%;border-radius:10px"></video>`)
-    : `<div style="text-align:center;padding:16px 10px"><div style="font-size:34px">📹</div><div style="font-weight:700;color:var(--green2);margin:8px 0 4px" data-i18n="vid_h">See this exact vehicle on video</div><div style="color:var(--muted2);font-size:13px;margin-bottom:14px;line-height:1.6">Our team records a full walkaround — or does a <b>live video call</b> — of this ${vname} so you buy with confidence before it ships.</div><button class="btn-fw btn-fw-green" onclick="goToQuote({vehicle:'${vname}',message:'Please send a video walkaround (or schedule a live video call) for the ${vname}.'})" data-i18n="vid_cta">Request a video walkaround →</button></div>`;
+    : `<div style="text-align:center;padding:16px 10px"><div style="font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--green2);text-transform:uppercase">Video proof</div><div style="font-weight:700;color:var(--green2);margin:8px 0 4px" data-i18n="vid_h">See this exact vehicle on video</div><div style="color:var(--muted2);font-size:13px;margin-bottom:14px;line-height:1.6">Our team records a full walkaround — or does a <b>live video call</b> — of this ${vname} so you buy with confidence before it ships.</div><button class="btn-fw btn-fw-green" onclick="goToQuote({vehicle:'${vname}',message:'Please send a video walkaround (or schedule a live video call) for the ${vname}.'})" data-i18n="vid_cta">Request a video walkaround →</button></div>`;
   const specs=[
     ['Year',v.year],['Mileage',v.condition==='New'?'0 km':v.mileage.toLocaleString()+' km'],
     ['Fuel',trTerm('fuel',v.fuel)],['Transmission',v.trans],
