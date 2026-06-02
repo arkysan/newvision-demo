@@ -261,9 +261,9 @@
       <div style="grid-column:span 2"><label>Transmission</label><input id="vf_trans" placeholder="e.g. DCT 7-Speed" /></div>
       <div style="grid-column:span 2"><label>Engine</label><input id="vf_engine" placeholder="e.g. 1.5T 118kW/250Nm" /></div>
       <div style="grid-column:span 2">
-        <label>Photos — up to 4 (first = thumbnail shown on vehicle cards)</label>
+        <label>Photos — up to 8 (first = thumbnail shown on vehicle cards)</label>
         <div class="img-slots" id="imgSlots"></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:5px">JPG · PNG · WebP · max 4MB each. Uploads to Vercel Blob (requires BLOB_READ_WRITE_TOKEN).</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:5px">JPG · PNG · WebP · max 4MB each. Uploads to Vercel Blob (requires BLOB_READ_WRITE_TOKEN). Add more photos by filling any empty slot.</div>
       </div>
     </div>
     <div style="display:flex;gap:10px;margin-top:8px">
@@ -544,8 +544,8 @@ function downloadInventoryJSON() {
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 // ── IMAGE UPLOAD SLOTS ─────────────────────────────────────────────────────
-let invImgUrls = [null, null, null, null];
-const SLOT_LABELS = ['Main photo', 'Photo 2', 'Photo 3', 'Photo 4'];
+let invImgUrls = Array(8).fill(null);
+const SLOT_LABELS = ['Main photo', 'Photo 2', 'Photo 3', 'Photo 4', 'Photo 5', 'Photo 6', 'Photo 7', 'Photo 8'];
 
 function buildSlotHTML(i, url) {
   if (url) {
@@ -565,10 +565,10 @@ function buildSlotHTML(i, url) {
 }
 
 function resetImgSlots(imgs) {
-  invImgUrls = [null, null, null, null];
-  (imgs || []).slice(0, 4).forEach((url, i) => { invImgUrls[i] = url || null; });
+  invImgUrls = Array(SLOT_LABELS.length).fill(null);
+  (imgs || []).slice(0, SLOT_LABELS.length).forEach((url, i) => { invImgUrls[i] = url || null; });
   const container = $('imgSlots');
-  if (container) container.innerHTML = [0,1,2,3].map(i => buildSlotHTML(i, invImgUrls[i])).join('');
+  if (container) container.innerHTML = SLOT_LABELS.map((_, i) => buildSlotHTML(i, invImgUrls[i])).join('');
 }
 
 function triggerSlotPick(i) {
