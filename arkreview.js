@@ -13,6 +13,8 @@
   var TEAM_EMAIL = 'info@n-vision.com.cn';       // email fallback
   var CMS_TOKEN_KEY = 'newvision.cms.token';
   var CMS_REVIEW_ENDPOINT = '/api/cms?action=review-patches';
+  var LIVE_URL = 'https://newvision-demo.vercel.app/';
+  var GITHUB_URL = 'https://github.com/arkysan/newvision-demo';
   var PROJECT = (document.title || 'this site').split(/[—|·]/)[0].trim() || 'this site';
   var KEY = 'ark-review-notes';
   var page = (location.pathname.split('/').pop() || 'index.html').replace('.html','') || 'home';
@@ -64,7 +66,7 @@
    .rv-hrow:hover{background:rgba(255,255,255,.04)}
    .rv-hrow.undone{opacity:.45;text-decoration:line-through}
    .rv-hrow .u{margin-left:auto;background:none;border:1px solid rgba(255,255,255,.14);color:#9aa3b2;border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer}
-    .rv-changed{outline:2px solid #5b5bf5 !important;outline-offset:2px;transition:outline .3s}
+   .rv-changed{outline:2px solid #5b5bf5 !important;outline-offset:2px;transition:outline .3s}
     .rv-selected{outline:2px solid #D4AF37 !important;outline-offset:4px}
     .rv-annotated{box-shadow:0 0 0 3px rgba(212,175,55,.25)!important}
    .rv-imgedit{outline:2px dashed #2f8f6b !important;outline-offset:2px;cursor:copy !important}
@@ -72,6 +74,16 @@
    #rv-add{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.08)}
    #rv-tagline{font-size:12px;color:#8b94a3;margin-bottom:9px;min-height:14px}
    #rv-tagline b{color:#D4AF37}
+   #rv-target-card{border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.07);border-radius:12px;padding:10px 12px;margin-bottom:10px;color:#dfe3ea;font:12.5px 'Inter';line-height:1.45}
+   #rv-target-card b{display:block;color:#F5E6A3;font:800 13px 'Plus Jakarta Sans';margin-bottom:2px}
+   #rv-main-cmd{width:100%;background:#f8fbf8;border:2px solid rgba(212,175,55,.44);border-radius:12px;color:#0f1219;padding:13px 14px;font:700 14px 'Inter';outline:none;margin-bottom:8px}
+   #rv-main-cmd:focus{border-color:#D4AF37;box-shadow:0 0 0 3px rgba(212,175,55,.16)}
+   #rv-suggest{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:10px}
+   #rv-suggest button{background:#162016;border:1px solid rgba(47,143,107,.48);color:#dff4e8;border-radius:11px;padding:10px 9px;font:800 12px 'Plus Jakarta Sans';cursor:pointer;text-align:center}
+   #rv-suggest button:hover{border-color:#2f8f6b;background:#1b2b20}
+   #rv-suggest button.note{background:#1a1d24;border-color:rgba(212,175,55,.42);color:#F5E6A3}
+   #rv-suggest button.pub{background:#22331f;border-color:#2f8f6b;color:#fff}
+   #rv-suggest button.undo{background:#1a1d24;border-color:rgba(255,255,255,.16);color:#c2c8d2}
    #rv-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;max-height:168px;overflow-y:auto;padding-right:2px}
    #rv-chips button{background:#1a1d24;border:1px solid rgba(212,175,55,.35);color:#e6e9ef;border-radius:20px;padding:9px 13px;font:700 12.5px 'Inter';cursor:pointer}
    #rv-chips button:hover{background:#252a35;border-color:#D4AF37}
@@ -104,6 +116,21 @@
    .rv-hi{outline:2px dashed #D4AF37 !important;outline-offset:2px;cursor:crosshair !important;background:rgba(212,175,55,.08)!important}
    #rv-toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#0f1219;color:#F5E6A3;border:1px solid #D4AF37;border-radius:10px;padding:11px 20px;font:600 13px 'Inter';z-index:99999;opacity:0;transition:opacity .2s;pointer-events:none}
    #rv-toast.show{opacity:1}
+   #rv-preview-switch{position:fixed;left:18px;top:76px;z-index:99996;display:none;gap:6px;background:#fff;border:1px solid rgba(46,125,50,.18);border-radius:13px;padding:6px;box-shadow:0 12px 36px rgba(15,23,42,.15);font-family:'Inter',system-ui,sans-serif}
+   #rv-preview-switch.show{display:flex}
+   #rv-preview-switch button{background:#f4f8f4;border:1px solid rgba(46,125,50,.2);color:#2e5d33;border-radius:10px;padding:9px 11px;font:800 12px 'Plus Jakarta Sans';cursor:pointer}
+   #rv-preview-switch button.active{background:#2e7d32;color:#fff;border-color:#2e7d32}
+   #rv-inventory-lane{display:none;max-width:1180px;margin:16px auto 0;padding:14px 16px;border:1px solid rgba(46,125,50,.18);border-radius:12px;background:#f8fbf8;color:#17351d;box-shadow:0 8px 24px rgba(46,125,50,.08);font-family:'Inter',system-ui,sans-serif}
+   #rv-inventory-lane.show{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
+   #rv-inventory-lane b{display:block;font:800 14px 'Plus Jakarta Sans';color:#2e7d32;margin-bottom:3px}
+   #rv-inventory-lane span{display:block;font-size:12.5px;color:#5f7165;line-height:1.45}
+   #rv-inventory-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+   #rv-inventory-actions button,#rv-inventory-actions a{background:#fff;border:1px solid rgba(46,125,50,.22);color:#2e5d33;border-radius:10px;padding:10px 12px;text-decoration:none;font:800 12px 'Plus Jakarta Sans';cursor:pointer}
+   #rv-inventory-actions .primary{background:#2e7d32;color:#fff;border-color:#2e7d32}
+   body.rv-phone-preview{background:#dfe8e1}
+   body.rv-phone-preview nav,body.rv-phone-preview header,body.rv-phone-preview main,body.rv-phone-preview footer,body.rv-phone-preview .demo-banner{max-width:430px!important;margin-left:auto!important;margin-right:auto!important}
+   body.rv-phone-preview #rv-panel{right:18px}
+   body.rv-phone-preview .mobile-app-bar{display:grid!important;max-width:410px;margin-left:auto!important;margin-right:auto!important}
    @media(max-width:600px){
     body.rv-open .mobile-app-bar,body.rv-open .mobile-lang-panel{display:none!important}
     #rv-fab{display:flex;right:12px;bottom:96px;max-width:none;padding:10px 12px;font-size:12px;border-radius:18px;animation:none;box-shadow:0 10px 24px rgba(212,175,55,.34)}
@@ -116,6 +143,9 @@
     #rv-h .d{font-size:12px;line-height:1.45}
     #rv-flag,#rv-editmode{margin:12px 14px 0;width:calc(100% - 28px);min-height:46px;padding:0 10px;font-size:13px;border-radius:14px}
     #rv-add{padding:12px 14px}
+    #rv-target-card{font-size:12px;margin-bottom:8px}
+    #rv-main-cmd{font-size:13px;padding:12px}
+    #rv-suggest{grid-template-columns:1fr 1fr}
     #rv-chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:132px;overflow-y:auto;padding-right:0}
     #rv-chips button{min-height:42px;border-radius:14px;padding:9px 8px;font-size:12px;white-space:normal}
     #rv-ta{height:72px;font-size:13px;border-radius:12px}
@@ -127,6 +157,11 @@
     #rv-toast{bottom:104px;width:calc(100vw - 28px);max-width:360px;text-align:center}
     #rv-editbar{bottom:92px;left:8px;right:8px;transform:none;width:auto;border-radius:14px}
     #rv-histpanel{right:12px;left:12px;bottom:154px;width:auto;max-height:42vh}
+    #rv-preview-switch{left:8px;right:8px;top:8px;justify-content:center}
+    #rv-inventory-lane{margin:10px 14px 0;padding:12px;grid-template-columns:1fr}
+    #rv-inventory-lane.show{grid-template-columns:1fr}
+    #rv-inventory-actions{justify-content:flex-start}
+    body.rv-phone-preview nav,body.rv-phone-preview header,body.rv-phone-preview main,body.rv-phone-preview footer,body.rv-phone-preview .demo-banner{max-width:none!important}
    }
   `;
   document.head.appendChild(css);
@@ -138,10 +173,13 @@
   var panel = el('div','rv-panel','');
   panel.innerHTML =
     '<div id="rv-h"><button class="x" id="rv-x">×</button><button id="rv-help-btn" style="position:absolute;right:58px;top:14px;background:none;border:1px solid rgba(212,175,55,.4);color:#F5E6A3;width:38px;height:38px;border-radius:50%;font-size:14px;cursor:pointer">?</button><div class="t">Review <span>this draft</span></div>'+
-    '<div class="d">1. Tap the big gold button below. 2. Click the part of the page you mean. 3. Quick buttons now add real structured notes and apply safe draft previews when possible.</div></div>'+
-    '<button id="rv-flag">Tap here, then click a section</button>'+
-    '<button id="rv-editmode">Edit / tell ARK what to do</button>'+
+    '<div class="d">Click a section, tell ARK what to change, then preview, annotate, publish, or send the request with proof.</div></div>'+
+    '<button id="rv-flag">Select / annotate a section</button>'+
+    '<button id="rv-editmode">Advanced direct edit</button>'+
     '<div id="rv-add"><div id="rv-tagline"></div>'+
+      '<div id="rv-target-card"><b>No section selected</b><span>Select a vehicle card, image, button, copy block, or inventory area.</span></div>'+
+      '<input id="rv-main-cmd" placeholder="Tell ARK what to change... e.g. make this smaller, fix on phone, make WhatsApp collect buyer info" autocomplete="off" />'+
+      '<div id="rv-suggest"></div>'+
       '<div id="rv-chips">'+
         '<button class="direct" data-action="size-up" data-c="Make this bigger">Make bigger</button>'+
         '<button class="direct" data-action="size-down" data-c="Make this smaller">Make smaller</button>'+
@@ -159,7 +197,7 @@
         '<button class="warn" data-action="language" data-c="Fix language/translation here">Language</button>'+
         '<button class="lov" data-action="keep" data-c="I like this - keep it">Keep this</button>'+
       '</div>'+
-      '<textarea id="rv-ta" placeholder="Tap a quick action above, or type exact details to add to the selected area."></textarea><button id="rv-save">+ Add This Note</button></div>'+
+      '<textarea id="rv-ta" placeholder="Optional detail for ARK, sales, or the publish request."></textarea><button id="rv-save">+ Add This Note</button></div>'+
     '<div id="rv-list"></div>'+
     '<div id="rv-emenu">'+
       '<div class="eh">Choose how to send by email:</div>'+
@@ -172,14 +210,45 @@
   document.body.appendChild(panel);
 
   var toast = el('div','rv-toast',''); document.body.appendChild(toast);
+  var previewSwitch = el('div','rv-preview-switch',
+    '<button id="rv-preview-local" type="button">Local</button>'+
+    '<button id="rv-preview-live" type="button">Live</button>'+
+    '<button id="rv-preview-phone" type="button">Phone</button>'+
+    '<a id="rv-preview-github" href="'+GITHUB_URL+'" target="_blank" rel="noopener" style="display:none">GitHub</a>'
+  );
+  document.body.appendChild(previewSwitch);
+  var inventoryLane = el('div','rv-inventory-lane',
+    '<div><b>Inventory review lane</b><span>Use this owner-only strip to review vehicle cards, phone layout, and publish requests without showing controls to buyers.</span></div>'+
+    '<div id="rv-inventory-actions">'+
+      '<button class="primary" id="rv-inv-review" type="button">Review inventory</button>'+
+      '<button id="rv-inv-phone" type="button">Phone</button>'+
+      '<button id="rv-inv-live" type="button">Live Vercel</button>'+
+      '<a href="'+GITHUB_URL+'" target="_blank" rel="noopener">GitHub</a>'+
+    '</div>'
+  );
+  var grid = byId('vehicleGrid');
+  if(grid && grid.parentElement) grid.parentElement.insertBefore(inventoryLane, grid.nextSibling);
 
   var tagged = null; // {section, snippet}
   byId('rv-x').onclick = closePanel;
   byId('rv-flag').onclick = toggleFlag;
-  byId('rv-save').onclick = addNote;
+  byId('rv-save').onclick = addSmartNote;
   byId('rv-send').onclick = sendAll;
   byId('rv-email').onclick = toggleEmailMenu;
   byId('rv-copy').onclick = copyAll;
+  byId('rv-main-cmd').oninput = renderSuggestions;
+  byId('rv-main-cmd').onkeydown = function(e){
+    if(e.key==='Enter'){
+      e.preventDefault();
+      runSuggestion(primarySuggestion(intentFromText(byId('rv-main-cmd').value)).kind);
+    }
+  };
+  byId('rv-preview-local').onclick = openLocalPreview;
+  byId('rv-preview-live').onclick = openLivePreview;
+  byId('rv-preview-phone').onclick = function(){ togglePhonePreview(); };
+  if(byId('rv-inv-review')) byId('rv-inv-review').onclick = function(){ setReviewOpen(true); startFlag(); };
+  if(byId('rv-inv-phone')) byId('rv-inv-phone').onclick = function(){ togglePhonePreview(); setReviewOpen(true); };
+  if(byId('rv-inv-live')) byId('rv-inv-live').onclick = openLivePreview;
   Array.prototype.forEach.call(panel.querySelectorAll('#rv-emenu button'), function(b){
     b.onclick = function(){ emailVia(b.getAttribute('data-p')); };
   });
@@ -212,6 +281,122 @@
       section: nearestHeading(target),
       snippet: (target.innerText || target.alt || '').trim().replace(/\s+/g,' ').slice(0,80)
     };
+  }
+  function updateTargetCard(target){
+    var card=byId('rv-target-card');
+    if(!card) return;
+    var ctx=taggedContext(target);
+    var name=ctx.section || (target ? target.tagName.toLowerCase() : 'No section selected');
+    var snippet=ctx.snippet || 'Select a vehicle card, image, button, copy block, or inventory area.';
+    card.innerHTML='<b>'+esc(name)+'</b><span>'+esc(snippet)+'</span>';
+  }
+  function intentFromText(text){
+    var t=(text||'').trim();
+    var low=t.toLowerCase();
+    var intent={ kind:'note', label:'Add note', text:t, safe:false, status:'Needs owner review' };
+    if(!t) return intent;
+    if(/\b(phone|mobile|iphone|ipad|android|wechat browser|responsive)\b/.test(low)){
+      return { kind:'phone', label:'Fix phone', text:t, safe:false, status:'Must verify phone viewport and buyer controls' };
+    }
+    if(/\b(whatsapp|contact|call|lead|buyer info|collect.*info|quote form|sales people|sales team)\b/.test(low)){
+      return { kind:'whatsapp', label:'WhatsApp flow', text:t, safe:false, status:'Must verify quote form captures name, country, contact, port, vehicle, and message' };
+    }
+    if(/\b(language|translate|translation|chinese|arabic|french|spanish|english)\b/.test(low)){
+      return { kind:'language', label:'Language', text:t, safe:false, status:'Must verify language copy and buyer form fields' };
+    }
+    if(/\b(move|put|place)\b.*\b(up|above|higher|before)\b/.test(low)){
+      return { kind:'move-up', label:'Move up', text:t, safe:true, status:'Preview applied if section can move; undo available' };
+    }
+    if(/\b(move|put|place)\b.*\b(down|below|lower|after)\b/.test(low)){
+      return { kind:'move-down', label:'Move down', text:t, safe:true, status:'Preview applied if section can move; undo available' };
+    }
+    if(/\b(bigger|larger|increase|make.*big)\b/.test(low)){
+      return { kind:'size-up', label:'Make bigger', text:t, safe:true, status:'Preview applied; undo available' };
+    }
+    if(/\b(smaller|shrink|reduce|make.*small)\b/.test(low)){
+      return { kind:'size-down', label:'Make smaller', text:t, safe:true, status:'Preview applied; undo available' };
+    }
+    if(/\b(remove|delete|hide|take out)\b/.test(low)){
+      return { kind:'remove', label:'Remove', text:t, safe:true, status:'Hidden in draft preview; undo available' };
+    }
+    if(/\b(image|photo|picture|stock photo|vehicle photo)\b/.test(low)){
+      return { kind:'stock-photo', label:'Image', text:t, safe:false, status:'Needs source image or stock photo update' };
+    }
+    if(/\b(color|colour|green|gold)\b/.test(low)){
+      return { kind: low.indexOf('gold')>=0 ? 'color-gold' : 'color-green', label:'Change color', text:t, safe:true, status:'Color preview applied; undo available' };
+    }
+    if(/\b(wording|copy|text|rename|change)\b/.test(low)){
+      return { kind:'wording-note', label:'Change wording', text:t, safe:false, status:'Needs exact approved wording before live publish' };
+    }
+    if(/\b(annotate|annotation|note)\b/.test(low)){
+      return { kind:'annotate', label:'Annotate', text:t, safe:false, status:'Saved as selected-section annotation' };
+    }
+    return intent;
+  }
+  function primarySuggestion(intent){
+    if(intent && intent.safe) return { kind:'preview', label:'Preview' };
+    if(intent && intent.kind==='phone') return { kind:'phone-preview-note', label:'Phone preview' };
+    return { kind:'note', label:'Add note' };
+  }
+  function renderSuggestions(){
+    var box=byId('rv-suggest');
+    if(!box) return;
+    updateTargetCard(taggedTarget());
+    var text=byId('rv-main-cmd').value.trim();
+    var intent=intentFromText(text);
+    if(!text){
+      box.innerHTML=
+        '<button data-s="phone-preview-note">Phone preview</button>'+
+        '<button class="note" data-s="note">Add note</button>'+
+        '<button class="pub" data-s="publish">Publish request</button>'+
+        '<button class="undo" data-s="undo">Undo</button>';
+    } else {
+      var first=primarySuggestion(intent);
+      box.innerHTML=
+        '<button data-s="'+first.kind+'">'+first.label+'</button>'+
+        '<button class="note" data-s="note">Add note</button>'+
+        '<button class="pub" data-s="publish">Publish request</button>'+
+        '<button class="undo" data-s="undo">Undo</button>';
+    }
+    Array.prototype.forEach.call(box.querySelectorAll('button'), function(b){
+      b.onclick=function(){ runSuggestion(b.getAttribute('data-s')); };
+    });
+  }
+  function addSmartNote(){
+    var cmd=byId('rv-main-cmd').value.trim();
+    if(cmd){
+      var intent=intentFromText(cmd);
+      addStructuredNote(intent.label, cmd, taggedTarget(), intent.status);
+      byId('rv-main-cmd').value='';
+      renderSuggestions();
+      return;
+    }
+    addNote();
+  }
+  function runSuggestion(kind){
+    var input=byId('rv-main-cmd');
+    var cmd=input.value.trim();
+    var intent=intentFromText(cmd);
+    if(kind==='preview'){
+      if(!intent.safe){ addStructuredNote(intent.label, cmd || intent.label, taggedTarget(), intent.status); return; }
+      if(!taggedTarget()){ requireTaggedTarget(); renderSuggestions(); return; }
+      handleQuickAction(intent.kind, cmd || intent.label);
+      input.value='';
+    } else if(kind==='phone-preview-note'){
+      togglePhonePreview(true);
+      addStructuredNote('Fix phone', cmd || 'Review this section in phone preview.', taggedTarget(), 'Phone preview opened; verify 390px, 430px, 768px, 1024px, 1440px');
+      input.value='';
+    } else if(kind==='note'){
+      addStructuredNote(intent.label, cmd || byId('rv-ta').value.trim() || 'Review this selected area.', taggedTarget(), intent.status);
+      input.value='';
+    } else if(kind==='publish'){
+      if(cmd) addStructuredNote(intent.label, cmd, taggedTarget(), intent.status);
+      input.value='';
+      publishChanges();
+    } else if(kind==='undo'){
+      undoLast();
+    }
+    renderSuggestions();
   }
   function addStructuredNote(action, text, target, status){
     var ctx=taggedContext(target);
@@ -305,6 +490,36 @@
       byId('rv-ta').focus();
     }
   }
+  function isLocalPreview(){
+    var host=location.hostname;
+    return host==='localhost' || host==='127.0.0.1' || host==='::1' || location.protocol==='file:';
+  }
+  function isReviewMode(){
+    return isLocalPreview() || /[?&]arkedit=1\b/.test(location.search) || panel.classList.contains('open') || document.body.classList.contains('rv-phone-preview');
+  }
+  function syncPreviewSwitch(){
+    var show=isReviewMode();
+    previewSwitch.classList.toggle('show', show);
+    inventoryLane.classList.toggle('show', show);
+    byId('rv-preview-local').classList.toggle('active', isLocalPreview() && !document.body.classList.contains('rv-phone-preview'));
+    byId('rv-preview-phone').classList.toggle('active', document.body.classList.contains('rv-phone-preview'));
+  }
+  function openLocalPreview(){
+    document.body.classList.remove('rv-phone-preview');
+    syncPreviewSwitch();
+    if(!isLocalPreview()) window.open(location.href, '_blank', 'noopener');
+    else showToast('Local preview active');
+  }
+  function openLivePreview(){
+    window.open(LIVE_URL, '_blank', 'noopener');
+    showToast('Opened live Vercel preview');
+  }
+  function togglePhonePreview(force){
+    var on = typeof force==='boolean' ? force : !document.body.classList.contains('rv-phone-preview');
+    document.body.classList.toggle('rv-phone-preview', on);
+    syncPreviewSwitch();
+    showToast(on ? 'Phone preview active' : 'Phone preview off');
+  }
 
   // ====== ARK DO ENGINE — type a command, it does it, with undo + history ======
   var CH_KEY='ark-changes';
@@ -346,11 +561,11 @@
   function isTextLeaf(el){
     if(!el||el.nodeType!==1) return false;
     if(/^(SCRIPT|STYLE|SVG|PATH|IMG|INPUT|TEXTAREA)$/.test(el.tagName)) return false;
-    if(el.closest('#rv-panel,#rv-fab,#rv-help,#rv-editbar,#rv-histpanel,#splash,#cbar')) return false;
+    if(el.closest('#rv-panel,#rv-fab,#rv-help,#rv-editbar,#rv-histpanel,#rv-preview-switch,#rv-inventory-lane,#splash,#cbar')) return false;
     var txt=''; for(var i=0;i<el.childNodes.length;i++){ if(el.childNodes[i].nodeType===3) txt+=el.childNodes[i].textContent; }
     return txt.trim().length>1;
   }
-  function isMine(el){ return el && el.closest && !el.closest('#rv-panel,#rv-fab,#rv-help,#rv-editbar,#rv-histpanel,#splash'); }
+  function isMine(el){ return el && el.closest && !el.closest('#rv-panel,#rv-fab,#rv-help,#rv-editbar,#rv-histpanel,#rv-preview-switch,#rv-inventory-lane,#splash'); }
   function childIndex(el){
     if(!el || !el.parentElement) return -1;
     return Array.prototype.indexOf.call(el.parentElement.children, el);
@@ -429,6 +644,9 @@
     if(selectedEl) selectedEl.classList.remove('rv-selected');
     selectedEl=movableBlock(el);
     if(selectedEl) selectedEl.classList.add('rv-selected');
+    tagged = taggedContext(selectedEl);
+    updateTargetCard(selectedEl);
+    renderSuggestions();
   }
   function annotateSelected(){
     var el=selectedEl || movableBlock(document.activeElement);
@@ -866,7 +1084,7 @@
   byId('rv-tg').onclick=saveToTelegram;
   byId('rv-edit-exit').onclick=exitEdit;
 
-  renderCount(); renderList(); applyAll(); renderHist(); loadPublishedChanges();
+  renderCount(); renderList(); applyAll(); renderHist(); renderSuggestions(); syncPreviewSwitch(); loadPublishedChanges();
   // auto-enter edit mode when opened with ?arkedit=1 (used by the ARK workspace "Edit directly" button)
   if(/[?&]arkedit=1/.test(location.search)){ setTimeout(function(){ try{ enterEdit(); }catch(_){ } }, 500); }
 
@@ -907,6 +1125,8 @@
   function setReviewOpen(open){
     panel.classList.toggle('open', !!open);
     document.body.classList.toggle('rv-open', !!open);
+    syncPreviewSwitch();
+    renderSuggestions();
   }
   function openPanel(){
     setReviewOpen(true);
@@ -924,13 +1144,13 @@
     showToast('Click the part of the page you want to comment on');
   }
   function stopFlag(){
-    flagging = false; byId('rv-flag').classList.remove('on'); byId('rv-flag').textContent='Tap here, then click a section';
+    flagging = false; byId('rv-flag').classList.remove('on'); byId('rv-flag').textContent='Select / annotate a section';
     document.removeEventListener('mouseover', onHover, true);
     document.removeEventListener('click', onPick, true);
     if(hoverEl){ hoverEl.classList.remove('rv-hi'); hoverEl = null; }
   }
   function onHover(e){
-    if(panel.contains(e.target) || fab.contains(e.target)) return;
+    if(panel.contains(e.target) || fab.contains(e.target) || previewSwitch.contains(e.target) || inventoryLane.contains(e.target)) return;
     if(hoverEl) hoverEl.classList.remove('rv-hi');
     hoverEl = pickTarget(e.target); if(hoverEl) hoverEl.classList.add('rv-hi');
   }
@@ -941,7 +1161,7 @@
     return n;
   }
   function onPick(e){
-    if(panel.contains(e.target) || fab.contains(e.target)) return;
+    if(panel.contains(e.target) || fab.contains(e.target) || previewSwitch.contains(e.target) || inventoryLane.contains(e.target)) return;
     e.preventDefault(); e.stopPropagation();
     var t = pickTarget(e.target);
     var snippet = (t && t.textContent ? t.textContent.trim().replace(/\s+/g,' ').slice(0,80) : '');
@@ -952,7 +1172,9 @@
     if(selectedEl) selectedEl.classList.add('rv-selected');
     stopFlag(); openPanel();
     byId('rv-tagline').innerHTML = 'On: <b>'+ (sec||'this area') +'</b>'+ (snippet? ' — “'+snippet+'…”':'' );
-    byId('rv-ta').focus();
+    updateTargetCard(t);
+    renderSuggestions();
+    byId('rv-main-cmd').focus();
   }
   function nearestHeading(t){
     var n=t;
@@ -970,6 +1192,7 @@
     var txt = byId('rv-ta').value.trim(); if(!txt){ byId('rv-ta').focus(); return; }
     notes.unshift({ page:page, section: tagged? tagged.section:'', snippet: tagged? tagged.snippet:'', action:'Custom note', text:txt, at:new Date().toLocaleString() });
     save(notes); byId('rv-ta').value=''; tagged=null; byId('rv-tagline').textContent='';
+    updateTargetCard();
     renderCount(); renderList(); showToast('Note added ✓');
   }
   function delNote(i){ notes.splice(i,1); save(notes); renderCount(); renderList(); }

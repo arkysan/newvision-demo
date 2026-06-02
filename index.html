@@ -109,7 +109,7 @@
     .china-strip button { min-height: 36px; border: 1px solid var(--border2); background: #fff; color: var(--green2); border-radius: 999px; padding: 5px 11px; font-size: 12px; font-weight: 700; }
 
     /* ── HERO ── */
-    .hero { position: relative; overflow: hidden; padding: 64px 24px 72px; text-align: center; }
+    .hero { position: relative; overflow: hidden; padding: 28px 24px 34px; text-align: center; }
     .hero-bg {
       position: absolute; inset: 0;
       background:
@@ -119,9 +119,9 @@
     }
     /* Real New Vision logo image in hero */
     .hero-logo {
-      display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0 auto 28px;
+      display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0 auto 12px;
     }
-    .hero-logo-img { width: min(380px, 78vw); height: auto; display: block; }
+    .hero-logo-img { width: min(260px, 56vw); height: auto; display: block; }
     .hero-logo-arc {
       width: 220px; height: 58px; position: relative; margin-bottom: 4px;
     }
@@ -136,13 +136,13 @@
       font-size: 18px; font-weight: 700; letter-spacing: 6px; color: var(--green2);
       margin-top: 4px; opacity: 0.85;
     }
-    .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.25); border-radius: 20px; padding: 5px 16px; font-size: 13px; color: var(--green2); margin-bottom: 20px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.25); border-radius: 20px; padding: 5px 16px; font-size: 13px; color: var(--green2); margin-bottom: 12px; }
     .hero-badge::before { content: '●'; font-size: 8px; }
     @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
-    .hero h1 { font-size: clamp(28px, 4.5vw, 50px); font-weight: 800; letter-spacing: 0; line-height: 1.15; margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(28px, 3.6vw, 44px); font-weight: 800; letter-spacing: 0; line-height: 1.12; margin-bottom: 10px; }
     .hero h1 span { background: linear-gradient(135deg, var(--green), var(--green2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero-sub { font-size: 17px; color: var(--muted2); max-width: 540px; margin: 0 auto 32px; }
-    .hero-search { display: flex; max-width: 680px; margin: 0 auto 16px; background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; padding: 8px; gap: 8px; }
+    .hero-sub { font-size: 15px; color: var(--muted2); max-width: 540px; margin: 0 auto 18px; }
+    .hero-search { display: flex; max-width: 680px; margin: 0 auto 10px; background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; padding: 8px; gap: 8px; }
     .hero-search select { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); font-size: 14px; outline: none; }
     .hero-search select:focus { border-color: var(--green); }
     .hero-search-btn { padding: 10px 28px; background: var(--green3); border: none; border-radius: 8px; color: #fff; font-weight: 700; font-size: 15px; transition: background .2s; }
@@ -426,7 +426,7 @@
       .demo-banner, .china-strip { display: none !important; }
       .hero { padding: 16px 14px 18px; text-align: left; }
       .hero-logo { display: flex; justify-content: flex-start; margin: 0 0 12px; }
-      .hero-logo-img { width: 190px; }
+      .hero-logo-img { width: 150px; }
       .hero-badge { margin-bottom: 10px; padding: 5px 11px; font-size: 12px; }
       .hero h1 { font-size: 25px; line-height: 1.12; margin-bottom: 10px; }
       .hero-sub { font-size: 14px; line-height: 1.55; margin: 0 0 12px; max-width: none; }
@@ -649,6 +649,39 @@
   </div>
 </div>
 
+<!-- ── INVENTORY ── -->
+<div style="border-top:1px solid var(--border)">
+<section id="inventory">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title"><span data-i18n="st_vehicle">Vehicle</span> <span>Inventory</span> <span id="resultCount" style="font-size:15px;color:var(--muted2)"></span></h2>
+      <div class="section-sub" data-i18n="inv_sub">FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for current stock</div>
+    </div>
+    <select class="filter-select" id="sortBy" aria-label="Sort vehicles" onchange="applyFilters()">
+      <option value="latest" data-i18n="sort_latest">Latest Arrivals</option>
+      <option value="price-asc" data-i18n="sort_price_asc">Price: Low → High</option>
+      <option value="price-desc" data-i18n="sort_price_desc">Price: High → Low</option>
+      <option value="mileage" data-i18n="sort_mileage">Lowest Mileage</option>
+    </select>
+  </div>
+
+  <div class="filters" id="filterBar">
+    <button class="filter-btn active" onclick="setTypeFilter('all',this)" data-i18n="filter_all">All</button>
+    <button class="filter-btn" onclick="setTypeFilter('EV',this)" data-i18n="filter_ev">New Energy</button>
+    <button class="filter-btn" onclick="setTypeFilter('SUV',this)" data-i18n="filter_suv">SUV</button>
+    <button class="filter-btn" onclick="setTypeFilter('Sedan',this)" data-i18n="filter_sedan">Sedan</button>
+    <button class="filter-btn" onclick="setTypeFilter('Premium',this)" data-i18n="filter_premium">Premium</button>
+    <button class="filter-btn" onclick="setTypeFilter('New',this)" data-i18n="filter_new">Brand New</button>
+    <button class="filter-btn" onclick="setTypeFilter('Used',this)" data-i18n="filter_used">Used Cars</button>
+    <button class="filter-btn" onclick="setPriceFilter('under15k',this)">Under $15K</button>
+    <button class="filter-btn" onclick="setPriceFilter('15k-30k',this)">$15K–$30K</button>
+    <button class="filter-btn" onclick="setPriceFilter('over30k',this)">$30K+</button>
+  </div>
+
+  <div class="vehicle-grid" id="vehicleGrid"></div>
+</section>
+</div>
+
 <!-- ── CATEGORIES ── -->
 <div class="category-band" style="background:var(--surface);border-bottom:1px solid var(--border)">
   <div class="categories">
@@ -686,39 +719,6 @@
   <div class="trust-item"><div class="trust-icon">SHIP</div><div class="trust-text"><strong data-i18n="trust4_s">Door-to-Port Logistics</strong><span data-i18n="trust4_p">Shanghai port, full customs handling</span></div></div>
   <div class="trust-item"><div class="trust-icon">DOC</div><div class="trust-text"><strong data-i18n="trust5_s">Full Documentation</strong><span data-i18n="trust5_p">B/L, CoO, customs, invoice, insurance</span></div></div>
   <div class="trust-item"><div class="trust-icon">GLB</div><div class="trust-text"><strong data-i18n="trust6_s">Global Network</strong><span data-i18n="trust6_p">Asia · Europe · Africa · Middle East · S. America</span></div></div>
-</div>
-
-<!-- ── INVENTORY ── -->
-<div style="border-top:1px solid var(--border)">
-<section id="inventory">
-  <div class="section-header">
-    <div>
-      <h2 class="section-title"><span data-i18n="st_vehicle">Vehicle</span> <span>Inventory</span> <span id="resultCount" style="font-size:15px;color:var(--muted2)"></span></h2>
-      <div class="section-sub" data-i18n="inv_sub">FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for current stock</div>
-    </div>
-    <select class="filter-select" id="sortBy" aria-label="Sort vehicles" onchange="applyFilters()">
-      <option value="latest" data-i18n="sort_latest">Latest Arrivals</option>
-      <option value="price-asc" data-i18n="sort_price_asc">Price: Low → High</option>
-      <option value="price-desc" data-i18n="sort_price_desc">Price: High → Low</option>
-      <option value="mileage" data-i18n="sort_mileage">Lowest Mileage</option>
-    </select>
-  </div>
-
-  <div class="filters" id="filterBar">
-    <button class="filter-btn active" onclick="setTypeFilter('all',this)" data-i18n="filter_all">All</button>
-    <button class="filter-btn" onclick="setTypeFilter('EV',this)" data-i18n="filter_ev">New Energy</button>
-    <button class="filter-btn" onclick="setTypeFilter('SUV',this)" data-i18n="filter_suv">SUV</button>
-    <button class="filter-btn" onclick="setTypeFilter('Sedan',this)" data-i18n="filter_sedan">Sedan</button>
-    <button class="filter-btn" onclick="setTypeFilter('Premium',this)" data-i18n="filter_premium">Premium</button>
-    <button class="filter-btn" onclick="setTypeFilter('New',this)" data-i18n="filter_new">Brand New</button>
-    <button class="filter-btn" onclick="setTypeFilter('Used',this)" data-i18n="filter_used">Used Cars</button>
-    <button class="filter-btn" onclick="setPriceFilter('under15k',this)">Under $15K</button>
-    <button class="filter-btn" onclick="setPriceFilter('15k-30k',this)">$15K–$30K</button>
-    <button class="filter-btn" onclick="setPriceFilter('over30k',this)">$30K+</button>
-  </div>
-
-  <div class="vehicle-grid" id="vehicleGrid"></div>
-</section>
 </div>
 
 <!-- ── BRAND PARTNERS ── -->
@@ -2518,20 +2518,20 @@ const vehicles = [
   { id:19, make:'Jetour',        model:'X70 Plus 2026 1.5T DCT 7-Seat',             year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/v19-jetour.webp',     ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 135kW/290Nm',  drive:'FWD', doors:4, seats:7, range_km:null },
   { id:20, make:'MG',           model:'MG5 2023 Trophy 1.5T DCT',                  year:2023, mileage:21000, condition:'Used', type:'SUV',     fuel:'Petrol',   body:'Sedan',     price:8900, img:'img/nvn-v20-mg5.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T 110kW/220Nm',   drive:'FWD', doors:4, seats:5, range_km:null },
   { id:21, make:'Leapmotor',    model:'Formula Leopard Ti7 2025 PHEV Performance', year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, img:'img/nvn-v21-formula-leopard.webp', ev:true,  hot:true,  premium:false, trans:'DHT Triple Motor', engine:'540kW 734ps CATL LFP', drive:'AWD', doors:4, seats:5, range_km:160  },
-  { id:22, make:'BYD',          model:'Song PLUS DM-i 2025 Premium',                year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:18500, img:'img/nvn-v22-byd-song-plus.jpg', ev:true,  hot:true,  premium:false, trans:'E-CVT',        engine:'DM-i PHEV',          drive:'FWD', doors:4, seats:5, range_km:112  },
-  { id:23, make:'Li Auto',      model:'Ideal L6 Pro 2024 Extended Range',           year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:36000, img:'img/nvn-v23-li-l6.jpg', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:215 },
-  { id:24, make:'Jetour',       model:'Traveler 2025 2.0TD DCT 4WD Silver Dragon',  year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:23500, img:'img/nvn-v24-jetour-traveler.jpg', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0TD',              drive:'4WD', doors:4, seats:5, range_km:null },
-  { id:25, make:'Toyota',       model:'Corolla 2024 1.2T S-CVT Pioneer',            year:2024, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:13500, img:'img/nvn-v25-toyota-corolla.jpg', ev:false, hot:false, premium:false, trans:'S-CVT',        engine:'1.2T',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:26, make:'Hyundai',      model:'Elantra 2023 1.5L CVT GLX Elite',            year:2023, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:10800, img:'img/nvn-v26-hyundai-elantra.jpg', ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:27, make:'Tank',         model:'700 New Energy 2024 Hi4-T Ultimate',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:76000, img:'img/nvn-v27-tank700-ultimate.jpg', ev:true,  hot:true,  premium:true,  trans:'Auto',         engine:'Hi4-T PHEV',         drive:'4WD', doors:4, seats:5, range_km:null },
-  { id:28, make:'Changan',      model:'UNI-Z 2025 Smart Blue Whale 500Bar MAX',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:16800, img:'img/nvn-v28-changan-uniz.jpg', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'Blue Whale PHEV',    drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:29, make:'MG',           model:'MG7 2025 1.5T 300 DCT Elegance',             year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:16000, img:'img/nvn-v29-mg7.jpg', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:30, make:'Kia',          model:'Seltos 2023 1.5L IVT Luxury',                year:2023, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:12500, img:'img/nvn-v30-kia-seltos.jpg', ev:false, hot:false, premium:false, trans:'IVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:22, make:'BYD',          model:'Song PLUS DM-i 2025 Premium',                year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:18500, img:'img/nvn-v22-byd-song-plus.webp', ev:true,  hot:true,  premium:false, trans:'E-CVT',        engine:'DM-i PHEV',          drive:'FWD', doors:4, seats:5, range_km:112  },
+  { id:23, make:'Li Auto',      model:'Ideal L6 Pro 2024 Extended Range',           year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:36000, img:'img/nvn-v23-li-l6.webp', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:215 },
+  { id:24, make:'Jetour',       model:'Traveler 2025 2.0TD DCT 4WD Silver Dragon',  year:2025, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:23500, img:'img/nvn-v24-jetour-traveler.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'2.0TD',              drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:25, make:'Toyota',       model:'Corolla 2024 1.2T S-CVT Pioneer',            year:2024, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:13500, img:'img/nvn-v25-toyota-corolla.webp', ev:false, hot:false, premium:false, trans:'S-CVT',        engine:'1.2T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:26, make:'Hyundai',      model:'Elantra 2023 1.5L CVT GLX Elite',            year:2023, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:10800, img:'img/nvn-v26-hyundai-elantra.webp', ev:false, hot:false, premium:false, trans:'CVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:27, make:'Tank',         model:'700 New Energy 2024 Hi4-T Ultimate',         year:2024, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:76000, img:'img/nvn-v27-tank700-ultimate.webp', ev:true,  hot:true,  premium:true,  trans:'Auto',         engine:'Hi4-T PHEV',         drive:'4WD', doors:4, seats:5, range_km:null },
+  { id:28, make:'Changan',      model:'UNI-Z 2025 Smart Blue Whale 500Bar MAX',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:16800, img:'img/nvn-v28-changan-uniz.webp', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'Blue Whale PHEV',    drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:29, make:'MG',           model:'MG7 2025 1.5T 300 DCT Elegance',             year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Sedan',     price:16000, img:'img/nvn-v29-mg7.webp', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:30, make:'Kia',          model:'Seltos 2023 1.5L IVT Luxury',                year:2023, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:12500, img:'img/nvn-v30-kia-seltos.webp', ev:false, hot:false, premium:false, trans:'IVT',          engine:'1.5L',               drive:'FWD', doors:4, seats:5, range_km:null },
   { id:31, make:'Formula Leopard', model:'Titanium 7 2025 190KM AWD Ultra',         year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:26500, img:'img/nvn-v31-formula-leopard-t7.webp', ev:true,  hot:true,  premium:false, trans:'DHT',          engine:'PHEV AWD',           drive:'AWD', doors:4, seats:5, range_km:190 },
-  { id:32, make:'Li Auto',      model:'Li L7 2025 Ultra Smart Refresh',             year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:46000, img:'img/nvn-v32-li-l7.jpg', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:null },
-  { id:33, make:'Volkswagen',   model:'Golf 2025 300TSI R-Line',                   year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Hatchback', price:20500, img:'img/nvn-v33-vw-golf.jpg', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'300TSI',             drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:34, make:'Jetour',       model:'Da Sheng 2026 1.5T DCT Flagship',            year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/nvn-v34-jetour-dasheng-flagship.jpg', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
-  { id:35, make:'Jetour',       model:'ShanHai T2 Extended 206km XWD 7-Seater',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:30500, img:'img/nvn-v35-jetour-shanhai-t2.jpg', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'1.5TD PHEV',         drive:'AWD', doors:4, seats:7, range_km:206 },
+  { id:32, make:'Li Auto',      model:'Li L7 2025 Ultra Smart Refresh',             year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'EREV',     body:'SUV',       price:46000, img:'img/nvn-v32-li-l7.webp', ev:true,  hot:true,  premium:true,  trans:'Dual Motor',   engine:'EREV AWD',           drive:'AWD', doors:4, seats:5, range_km:null },
+  { id:33, make:'Volkswagen',   model:'Golf 2025 300TSI R-Line',                   year:2025, mileage:0,     condition:'New',  type:'Premium', fuel:'Petrol',   body:'Hatchback', price:20500, img:'img/nvn-v33-vw-golf.webp', ev:false, hot:false, premium:true,  trans:'DCT 7-Speed',  engine:'300TSI',             drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:34, make:'Jetour',       model:'Da Sheng 2026 1.5T DCT Flagship',            year:2026, mileage:0,     condition:'New',  type:'SUV',     fuel:'Petrol',   body:'SUV',       price:11800, img:'img/nvn-v34-jetour-dasheng-flagship.webp', ev:false, hot:false, premium:false, trans:'DCT 7-Speed',  engine:'1.5T',               drive:'FWD', doors:4, seats:5, range_km:null },
+  { id:35, make:'Jetour',       model:'ShanHai T2 Extended 206km XWD 7-Seater',     year:2025, mileage:0,     condition:'New',  type:'EV',      fuel:'PHEV',     body:'SUV',       price:30500, img:'img/nvn-v35-jetour-shanhai-t2.webp', ev:true,  hot:false, premium:false, trans:'DHT',          engine:'1.5TD PHEV',         drive:'AWD', doors:4, seats:7, range_km:206 },
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
@@ -2887,7 +2887,7 @@ setCount('cShipping',138);
   }
 })();
 </script>
-<script src="arkreview.js?v=20260601-review-actions"></script>
+<script src="arkreview.js?v=20260602-review-engine"></script>
 <script src="admin.js"></script>
 <!-- Visitor analytics + interaction heatmap for the owner portal (fire-and-forget, both hosts) -->
 <script>try{fetch('https://newvision-demo.vercel.app/api/portal?action=track',{method:'POST',keepalive:true}).catch(function(){});}catch(e){}</script>
