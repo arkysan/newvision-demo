@@ -102,7 +102,7 @@ module.exports = async (req, res) => {
           vessel: '',
           imo: '',
           mmsi: '',
-          origin: v.location || 'Yiwu / Shanghai',
+          origin: 'China export lane',
           dest: 'Confirm destination port',
           etd: '',
           eta: '',

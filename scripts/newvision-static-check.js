@@ -5,6 +5,7 @@ const ROOT = path.resolve(__dirname, '..');
 const INDEX = path.join(ROOT, 'index.html');
 const html = fs.readFileSync(INDEX, 'utf8');
 const portal = fs.readFileSync(path.join(ROOT, 'portal.html'), 'utf8');
+const sales = fs.readFileSync(path.join(ROOT, 'sales.html'), 'utf8');
 const review = fs.readFileSync(path.join(ROOT, 'arkreview.js'), 'utf8');
 const cms = fs.readFileSync(path.join(ROOT, 'api', 'cms.js'), 'utf8');
 const vehiclesApi = fs.readFileSync(path.join(ROOT, 'api', 'vehicles.js'), 'utf8');
@@ -200,6 +201,7 @@ const requiredPublicGalleryControls = [
   ["fetch(apiUrl('/api/vehicles'", 'Public site must refresh vehicle inventory through the host-aware API base'],
   ['const API_BASE', 'Public site must define a GitHub/Vercel API base helper'],
   ['data-stock-id="${stockIdForVehicle(v)}"', 'Vehicle cards must expose public stock IDs'],
+  ['vehiclePublicLane', 'Customer-facing vehicle cards must show a public export lane, not exact back-room location'],
   ['requestCurrentStockPhoto', 'Vehicle detail modal must route current-photo requests into the quote flow'],
   ['requestVehicleInspection', 'Vehicle detail modal must route inspection requests into the quote flow'],
 ];
@@ -262,6 +264,32 @@ const requiredUploadApiControls = [
 ];
 for (const [snippet, message] of requiredUploadApiControls) {
   if (!uploadApi.includes(snippet)) fail(message);
+}
+
+const requiredSalesPortalControls = [
+  ['Andy / Eissa Sales Portal', 'Sales portal must be branded for Andy and Eissa'],
+  ['id="staffMap"', 'Sales portal must include the advanced staff route map'],
+  ['routeCounts', 'Sales portal must aggregate shipment counts by lane'],
+  ['ROUTE_META', 'Sales portal must define staff route map lanes'],
+  ['id="routeShipments"', 'Sales portal must list shipments for the selected lane'],
+  ['Back-room location', 'Sales portal must show exact vehicle location only in staff back-room context'],
+  ['vinPrivate', 'Sales portal must expose private VIN/frame only to staff'],
+  ['copyScript', 'Sales portal must provide a copy-ready WhatsApp sales script'],
+  ['copyDealSummary', 'Sales portal must provide a copy-ready deal summary'],
+  ['sessionStorage.getItem(SESSION_KEY)', 'Sales portal must use bearer session auth instead of public data access'],
+  ["fetch(apiUrl('/api/vehicles')", 'Sales portal must read the full vehicle list from the Vercel-backed API'],
+];
+for (const [snippet, message] of requiredSalesPortalControls) {
+  if (!sales.includes(snippet)) fail(message);
+}
+if (html.includes('vehicleLocation(v)</div>')) {
+  fail('Customer-facing vehicle card must not expose exact vehicleLocation(v)');
+}
+if (html.includes("['Location',vehicleLocation(v)]")) {
+  fail('Customer-facing modal specs must not expose exact back-room vehicle location');
+}
+if (html.includes('Yiwu / Shanghai export lane')) {
+  fail('Customer-facing site must use public lane wording instead of exact back-room location fallback');
 }
 
 const requiredChinaMirrorControls = [
