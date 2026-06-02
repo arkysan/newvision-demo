@@ -9,6 +9,7 @@ const review = fs.readFileSync(path.join(ROOT, 'arkreview.js'), 'utf8');
 const cms = fs.readFileSync(path.join(ROOT, 'api', 'cms.js'), 'utf8');
 const vehiclesApi = fs.readFileSync(path.join(ROOT, 'api', 'vehicles.js'), 'utf8');
 const uploadApi = fs.readFileSync(path.join(ROOT, 'api', 'upload.js'), 'utf8');
+const vercelConfig = fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8');
 const failures = [];
 
 function fail(message) {
@@ -175,8 +176,15 @@ for (const [snippet, message] of requiredPublicGalleryControls) {
 const requiredShippingMapControls = [
   ['id="global-shipping-map"', 'Footer area must include the full-width global shipping map'],
   ['id="shippingMapSvg"', 'Shipping map must render as a 2D SVG map'],
+  ['img/world-map-110m.svg', 'Shipping map must use the generated real world-map asset'],
   ['id="shippingRouteLoop"', 'Shipping map must define the animated route path'],
   ['animateMotion', 'Shipping map must animate the ship marker along the route'],
+  ['routeGulf', 'Shipping map must expose the Gulf route lane'],
+  ['routeMombasa', 'Shipping map must expose the East Africa route lane'],
+  ['routeLagos', 'Shipping map must expose the West Africa route lane'],
+  ['routeEurope', 'Shipping map must expose the Europe route lane'],
+  ['routeLatam', 'Shipping map must expose the Latin America route lane'],
+  ['shipping-map-panel', 'Shipping map must include the advanced route-board panel'],
   ['id="shippingClock"', 'Shipping map must show a current route-preview timestamp'],
   ['Shanghai', 'Shipping map must include Shanghai origin port'],
   ['Jebel Ali', 'Shipping map must include Jebel Ali port'],
@@ -188,6 +196,12 @@ const requiredShippingMapControls = [
 ];
 for (const [snippet, message] of requiredShippingMapControls) {
   if (!html.includes(snippet)) fail(message);
+}
+if (!fs.existsSync(path.join(ROOT, 'img', 'world-map-110m.svg'))) {
+  fail('Generated world map asset is missing: img/world-map-110m.svg');
+}
+if (vercelConfig.includes('(?!api/)')) {
+  fail('Vercel header sources must not use unsupported negative lookahead patterns');
 }
 
 const requiredVehicleApiControls = [
