@@ -63,6 +63,11 @@ module.exports = async (req, res) => {
       mirrored = await tgSend(mTok, mChat);
     }
 
+    // Persist the lead (encrypted) so the owner portal can show vehicle requests.
+    if (source !== 'healthcheck') {
+      try { await require('../lib/store').appendLead(Object.assign({ source, name, contact, message }, extra)); } catch (_) {}
+    }
+
     res.status(200).json({ ok: true, delivered, mirrored, captured: { name, contact } });
   } catch (e) {
     // Never block the user's handoff — return ok even on internal error.

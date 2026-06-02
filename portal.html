@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>New Vision — Owner Portal</title>
+<style>
+  :root{--green:#2E7D32;--green2:#1B5E20;--green3:#43A047;--gold:#C9A24B;--ink:#13201b;--muted:#6a7a6a;--line:#e3ebe4;--bg:#f4f8f4;--card:#fff;--red:#c0392b}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  a{color:var(--green);text-decoration:none}
+  /* LOGIN */
+  #login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0d2a14,#1B5E20)}
+  .login-card{background:#fff;border-radius:18px;padding:36px 34px;width:min(400px,92vw);box-shadow:0 30px 70px rgba(0,0,0,.3)}
+  .login-card img{height:46px;display:block;margin:0 auto 10px}
+  .login-card h1{font-size:20px;text-align:center;color:var(--green2);margin-bottom:4px}
+  .login-card .sub{text-align:center;color:var(--muted);font-size:13px;margin-bottom:22px}
+  label{font-size:13px;font-weight:600;color:var(--green2);display:block;margin:12px 0 5px}
+  input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:9px;font:inherit;background:#fbfdfb}
+  input:focus{outline:0;border-color:var(--green)}
+  .btn{width:100%;padding:13px;border:0;border-radius:9px;font:700 15px inherit;cursor:pointer;margin-top:16px;background:var(--green);color:#fff}
+  .btn:hover{background:var(--green2)}
+  .err{color:var(--red);font-size:13px;text-align:center;margin-top:12px;min-height:18px}
+  .or{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;margin:18px 0}
+  .or::before,.or::after{content:'';flex:1;height:1px;background:var(--line)}
+  #gbtn{display:flex;justify-content:center;min-height:24px}
+  .gnote{font-size:12px;color:var(--muted);text-align:center}
+  /* APP */
+  #app{display:none}
+  header{background:var(--green2);color:#fff;padding:0 22px;height:62px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:10}
+  header img{height:34px;background:#fff;border-radius:6px;padding:3px 6px}
+  header .who{margin-left:auto;font-size:14px;opacity:.95}
+  header button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:7px 13px;font:600 13px inherit;cursor:pointer}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .card .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+  .card .v{font-size:30px;font-weight:800;color:var(--green2);margin-top:4px}
+  .card .v.red{color:var(--red)}
+  .grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:22px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;overflow:hidden}
+  .panel h2{font-size:15px;color:var(--green2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line);padding:8px 8px}
+  td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  .pill{display:inline-block;background:#eaf4ec;color:var(--green2);border-radius:20px;padding:2px 9px;font-size:11px;font-weight:700}
+  .bars{display:flex;flex-direction:column;gap:9px}
+  .bar{display:flex;align-items:center;gap:10px;font-size:13px}
+  .bar .lbl{width:120px;flex-shrink:0;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar .track{flex:1;background:#eef3ee;border-radius:6px;height:18px;overflow:hidden}
+  .bar .fill{height:100%;background:linear-gradient(90deg,var(--green3),var(--green));border-radius:6px}
+  .bar .n{width:34px;text-align:right;font-weight:700;color:var(--green2)}
+  .v7{display:flex;align-items:flex-end;gap:8px;height:120px;padding-top:8px}
+  .v7 .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;height:100%}
+  .v7 .vb{width:100%;background:linear-gradient(180deg,var(--green3),var(--green));border-radius:5px 5px 0 0;min-height:3px}
+  .v7 .d{font-size:10px;color:var(--muted)}
+  .v7 .cn{font-size:11px;font-weight:700;color:var(--green2)}
+  .ledger-form{display:grid;grid-template-columns:110px 1fr 120px 130px auto;gap:8px;margin-bottom:14px}
+  .ledger-form select,.ledger-form input{padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;font:inherit}
+  .ledger-form button{background:var(--green);color:#fff;border:0;border-radius:8px;font:700 13px inherit;cursor:pointer;padding:0 14px}
+  .amt-in{color:var(--green)}.amt-out{color:var(--red)}
+  .del{background:none;border:0;color:var(--red);cursor:pointer;font-size:14px}
+  .empty{color:var(--muted);font-size:13px;padding:14px 4px}
+  @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.ledger-form{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-card">
+    <img src="logo-mark.png" alt="New Vision" />
+    <h1>Owner Portal</h1>
+    <div class="sub">New Vision — Yiwu Car Export</div>
+    <form id="loginForm" onsubmit="return doLogin(event)">
+      <label for="u">Name</label>
+      <input id="u" autocomplete="username" placeholder="Andy or Eissa" required />
+      <label for="p">Password</label>
+      <input id="p" type="password" autocomplete="current-password" placeholder="••••" required />
+      <button class="btn" type="submit">Sign in</button>
+    </form>
+    <div class="err" id="err"></div>
+    <div class="or">or</div>
+    <div id="gbtn"></div>
+    <div class="gnote" id="gnote">Sign in with a Google account</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header>
+    <img src="logo-mark.png" alt="New Vision" />
+    <strong>Owner Portal</strong>
+    <span class="who" id="who"></span>
+    <button onclick="doLogout()">Sign out</button>
+  </header>
+  <div class="wrap">
+    <div class="cards">
+      <div class="card"><div class="k">Total Visitors</div><div class="v" id="cVisits">—</div></div>
+      <div class="card"><div class="k">Visitors Today</div><div class="v" id="cToday">—</div></div>
+      <div class="card"><div class="k">Vehicle Requests</div><div class="v" id="cLeads">—</div></div>
+      <div class="card"><div class="k">Net Profit</div><div class="v" id="cProfit">—</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h2>📈 Visitors — last 7 days</h2>
+        <div class="v7" id="v7"></div>
+      </div>
+      <div class="panel">
+        <h2>🚗 Top requested vehicles</h2>
+        <div class="bars" id="topVeh"></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom:22px">
+      <h2>📋 Vehicle requests &amp; inquiries <span class="pill" id="leadPill"></span></h2>
+      <div style="overflow-x:auto">
+        <table id="leadsTbl"><thead><tr><th>When</th><th>Name</th><th>Contact</th><th>Vehicle</th><th>Country/Port</th><th>Source</th><th>Message</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h2>💰 Revenue &amp; expenses</h2>
+        <form class="ledger-form" onsubmit="return addLedger(event)">
+          <select id="lType"><option value="income">Income</option><option value="expense">Expense</option></select>
+          <input id="lLabel" placeholder="e.g. BYD Seal sale / shipping" required />
+          <input id="lAmount" type="number" min="0" step="0.01" placeholder="Amount $" required />
+          <input id="lDate" type="date" />
+          <button type="submit">Add</button>
+        </form>
+        <div style="display:flex;gap:18px;margin-bottom:10px;font-size:13px">
+          <span>Income: <strong class="amt-in" id="fIncome">$0</strong></span>
+          <span>Expense: <strong class="amt-out" id="fExpense">$0</strong></span>
+          <span>Profit: <strong id="fProfit">$0</strong></span>
+        </div>
+        <div style="overflow-x:auto;max-height:280px">
+          <table id="ledgerTbl"><thead><tr><th>Date</th><th>Type</th><th>Label</th><th style="text-align:right">Amount</th><th></th></tr></thead><tbody></tbody></table>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>🔎 Where requests come from</h2>
+        <div class="bars" id="bySource"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = '/api/portal';
+const $ = (id) => document.getElementById(id);
+const money = (n) => '$' + Math.round(n).toLocaleString();
+
+async function api(action, opts){ const r = await fetch(API+'?action='+action, Object.assign({headers:{'Content-Type':'application/json'}}, opts)); return r.json().catch(()=>({ok:false})); }
+
+async function doLogin(e){ e.preventDefault(); $('err').textContent='';
+  const r = await api('login',{method:'POST',body:JSON.stringify({user:$('u').value,password:$('p').value})});
+  if(r.ok){ showApp(r.user); } else { $('err').textContent = r.error||'Login failed'; }
+  return false;
+}
+async function doLogout(){ await api('logout',{method:'POST'}); location.reload(); }
+
+function showApp(user){
+  $('login').style.display='none'; $('app').style.display='block';
+  $('who').textContent = 'Signed in: ' + (user.name||user.u);
+  loadDashboard();
+}
+
+async function loadDashboard(){
+  const d = await api('dashboard');
+  if(!d.ok){ location.reload(); return; }
+  $('cVisits').textContent = (d.visits.total||0).toLocaleString();
+  $('cToday').textContent = (d.visits.today||0).toLocaleString();
+  $('cLeads').textContent = (d.leadCount||0).toLocaleString();
+  $('cProfit').textContent = money(d.finance.profit); $('cProfit').className = 'v' + (d.finance.profit<0?' red':'');
+  // 7-day chart
+  const max = Math.max(1, ...d.visits.last7.map(x=>x.n));
+  $('v7').innerHTML = d.visits.last7.map(x=>`<div class="col"><span class="cn">${x.n}</span><div class="vb" style="height:${Math.round(x.n/max*92)}%"></div><span class="d">${x.d.slice(5)}</span></div>`).join('');
+  // top vehicles
+  const tvMax = Math.max(1, ...d.topVehicles.map(v=>v[1]));
+  $('topVeh').innerHTML = d.topVehicles.length ? d.topVehicles.map(v=>bar(v[0],v[1],tvMax)).join('') : '<div class="empty">No vehicle requests yet.</div>';
+  // by source
+  const src = Object.entries(d.bySource).sort((a,b)=>b[1]-a[1]);
+  const sMax = Math.max(1, ...src.map(s=>s[1]));
+  $('bySource').innerHTML = src.length ? src.map(s=>bar(s[0],s[1],sMax)).join('') : '<div class="empty">No data yet.</div>';
+  // leads table
+  $('leadPill').textContent = (d.leadCount||0) + ' total';
+  const tb = $('leadsTbl').querySelector('tbody');
+  tb.innerHTML = d.leads.length ? d.leads.map(l=>`<tr><td>${fmtT(l.at)}</td><td>${esc(l.name)}</td><td>${esc(l.contact)}</td><td>${esc(l.vehicle||'-')}</td><td>${esc([l.country,l.port].filter(Boolean).join(' / ')||'-')}</td><td><span class="pill">${esc(l.source||'-')}</span></td><td>${esc((l.message||'').slice(0,90))}</td></tr>`).join('') : '<tr><td colspan="7" class="empty">No requests captured yet. They appear here the moment someone submits the quote form.</td></tr>';
+  // ledger
+  $('fIncome').textContent = money(d.finance.income); $('fExpense').textContent = money(d.finance.expense);
+  $('fProfit').textContent = money(d.finance.profit); $('fProfit').className = d.finance.profit<0?'amt-out':'amt-in';
+  const lb = $('ledgerTbl').querySelector('tbody');
+  lb.innerHTML = d.ledger.length ? d.ledger.map(e=>`<tr><td>${esc(e.date)}</td><td>${e.type==='income'?'🟢 In':'🔴 Out'}</td><td>${esc(e.label)}</td><td style="text-align:right" class="${e.type==='income'?'amt-in':'amt-out'}">${e.type==='income'?'+':'-'}${money(e.amount)}</td><td><button class="del" onclick="delLedger('${e.id}')">✕</button></td></tr>`).join('') : '<tr><td colspan="5" class="empty">No entries yet — add income or expenses above.</td></tr>';
+}
+
+async function addLedger(e){ e.preventDefault();
+  await api('ledger',{method:'POST',body:JSON.stringify({type:$('lType').value,label:$('lLabel').value,amount:$('lAmount').value,date:$('lDate').value})});
+  $('lLabel').value=''; $('lAmount').value=''; loadDashboard(); return false;
+}
+async function delLedger(id){ await api('ledger-delete',{method:'POST',body:JSON.stringify({id})}); loadDashboard(); }
+
+function bar(lbl,n,max){ return `<div class="bar"><span class="lbl" title="${esc(lbl)}">${esc(lbl)}</span><div class="track"><div class="fill" style="width:${Math.round(n/max*100)}%"></div></div><span class="n">${n}</span></div>`; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function fmtT(s){ if(!s) return '-'; try{ const d=new Date(s); return (d.getMonth()+1)+'/'+d.getDate()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }catch(_){ return s; } }
+
+// Google sign-in (real) — only when a client id is configured
+async function initGoogle(){
+  const cfg = await api('config');
+  if(!cfg.googleClientId){ $('gbtn').style.display='none'; $('gnote').textContent='(Google sign-in activates once a Google client ID is set)'; return; }
+  window.handleGoogle = async (resp)=>{ const r = await api('google',{method:'POST',body:JSON.stringify({credential:resp.credential})}); if(r.ok) showApp(r.user); else $('err').textContent=r.error||'Google sign-in failed'; };
+  const s=document.createElement('script'); s.src='https://accounts.google.com/gsi/client'; s.async=true; s.onload=()=>{
+    google.accounts.id.initialize({ client_id: cfg.googleClientId, callback: window.handleGoogle });
+    google.accounts.id.renderButton($('gbtn'),{ theme:'outline', size:'large', width:330 });
+  }; document.head.appendChild(s);
+}
+
+// boot: set today's date, check session
+(async function(){
+  $('lDate').value = new Date().toISOString().slice(0,10);
+  const me = await api('me');
+  if(me.ok){ showApp(me.user); } else { initGoogle(); }
+})();
+</script>
+</body>
+</html>
