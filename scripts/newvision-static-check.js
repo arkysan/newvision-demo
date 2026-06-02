@@ -4,8 +4,11 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 const INDEX = path.join(ROOT, 'index.html');
 const html = fs.readFileSync(INDEX, 'utf8');
+const portal = fs.readFileSync(path.join(ROOT, 'portal.html'), 'utf8');
 const review = fs.readFileSync(path.join(ROOT, 'arkreview.js'), 'utf8');
 const cms = fs.readFileSync(path.join(ROOT, 'api', 'cms.js'), 'utf8');
+const vehiclesApi = fs.readFileSync(path.join(ROOT, 'api', 'vehicles.js'), 'utf8');
+const uploadApi = fs.readFileSync(path.join(ROOT, 'api', 'upload.js'), 'utf8');
 const failures = [];
 
 function fail(message) {
@@ -144,6 +147,51 @@ for (const [snippet, message] of requiredCmsControls) {
 }
 const cryptoImports = cms.match(/require\('node:crypto'\)/g) || [];
 if (cryptoImports.length !== 1) fail(`CMS should import node:crypto exactly once, found ${cryptoImports.length}`);
+
+const requiredPortalPhotoControls = [
+  ['Photos — up to 8', 'Portal vehicle editor must allow adding more photos, not stop at four'],
+  ['id="imgSlots"', 'Portal vehicle editor must expose image upload slots'],
+  ['Array(8).fill(null)', 'Portal photo editor must maintain eight upload slots'],
+  ['const SLOT_LABELS', 'Portal photo editor must label upload slots'],
+  ['handleSlotFile', 'Portal photo editor must upload selected files'],
+  ["fetch('/api/upload?filename='", 'Portal photo editor must call the upload API'],
+  ["fetch('/api/vehicles'", 'Portal inventory manager must read/save vehicle data from API'],
+  ['imgs:       invImgUrls.filter(Boolean)', 'Portal must persist all uploaded photo URLs in vehicle imgs'],
+];
+for (const [snippet, message] of requiredPortalPhotoControls) {
+  if (!portal.includes(snippet)) fail(message);
+}
+
+const requiredPublicGalleryControls = [
+  ['galleryImgs=Array.isArray(v.imgs)&&v.imgs.length', 'Public vehicle modal must read multi-photo imgs arrays'],
+  ['gallery-thumbs', 'Public vehicle modal must expose thumbnails for multiple photos'],
+  ['galleryNav', 'Public vehicle modal must expose previous/next gallery navigation'],
+  ["fetch('/api/vehicles'", 'Public site must refresh vehicle inventory from live API'],
+];
+for (const [snippet, message] of requiredPublicGalleryControls) {
+  if (!html.includes(snippet)) fail(message);
+}
+
+const requiredVehicleApiControls = [
+  ["require('node:crypto')", 'Vehicles API admin-token comparison must import node:crypto'],
+  ['BLOB_KEY', 'Vehicles API must define a Blob storage key'],
+  ['allowOverwrite: true', 'Vehicles API must overwrite the inventory blob on save'],
+];
+for (const [snippet, message] of requiredVehicleApiControls) {
+  if (!vehiclesApi.includes(snippet)) fail(message);
+}
+
+const requiredUploadApiControls = [
+  ["require('node:crypto')", 'Upload API admin-token comparison must import node:crypto'],
+  ["require('@vercel/blob')", 'Upload API must use Vercel Blob'],
+  ['MAX_BYTES', 'Upload API must enforce file-size limits'],
+  ['ALLOWED_TYPES', 'Upload API must restrict uploads to image types'],
+  ['await put(pathname, body', 'Upload API must store the uploaded image body in Blob'],
+  ['url: blob.url', 'Upload API must return the public image URL to the portal'],
+];
+for (const [snippet, message] of requiredUploadApiControls) {
+  if (!uploadApi.includes(snippet)) fail(message);
+}
 
 const emojiPattern = /\p{Extended_Pictographic}/gu;
 const emojiFiles = [
