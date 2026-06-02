@@ -785,6 +785,33 @@
   </section>
 </div>
 
+<!-- ── SHIPPING / CIF ESTIMATOR ── -->
+<section id="estimator" style="border-top:1px solid var(--border)">
+  <div class="section-header"><div>
+    <h2 class="section-title" data-i18n-html="est_title">Shipping <span>Cost Estimator</span></h2>
+    <div class="section-sub" data-i18n="est_sub">Pick your destination port and a vehicle price — get an instant FOB→CIF estimate and transit time.</div>
+  </div></div>
+  <div style="max-width:760px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div>
+      <label style="font-size:12px;font-weight:700;color:var(--muted2);display:block;margin-bottom:6px" data-i18n="est_dest">Destination port</label>
+      <select id="estPort" class="filter-select" style="width:100%;min-height:44px" onchange="calcEst()">
+        <option value="">Select destination…</option>
+        <optgroup label="Africa"><option value="ea">Mombasa / Dar es Salaam (East Africa)</option><option value="wa">Lagos / Tema (West Africa)</option><option value="sa-af">Durban (South Africa)</option></optgroup>
+        <optgroup label="Middle East"><option value="me">Jebel Ali / Dammam</option></optgroup>
+        <optgroup label="Caribbean / LatAm"><option value="carib">Kingston / Santo Domingo</option><option value="latam">Santos / Callao</option></optgroup>
+        <optgroup label="Asia"><option value="sea">Manila / Jakarta</option></optgroup>
+        <optgroup label="Europe"><option value="eu">Rotterdam / Hamburg</option></optgroup>
+      </select>
+    </div>
+    <div>
+      <label style="font-size:12px;font-weight:700;color:var(--muted2);display:block;margin-bottom:6px" data-i18n="est_fob">Vehicle FOB price (USD)</label>
+      <input id="estFob" type="number" min="0" step="100" placeholder="e.g. 18000" class="filter-select" style="width:100%;min-height:44px" oninput="calcEst()" />
+    </div>
+    <div id="estResult" style="grid-column:1/-1;display:none;background:var(--bg);border:1px dashed var(--green3);border-radius:12px;padding:16px"></div>
+    <div style="grid-column:1/-1;font-size:12px;color:var(--muted)" data-i18n="est_note">Estimates only — final ocean freight depends on RoRo/container, vehicle size, and live carrier rates. Send a quote request for an exact CIF figure.</div>
+  </div>
+</section>
+
 <!-- QUOTE FORM -->
 <section id="quote" class="quote-section">
   <div class="quote-shell">
@@ -1294,6 +1321,20 @@ function quoteVehicle(id) {
     vehicle,
     message: `Interested in: ${vehicle} at FOB ${fmt(v.price)}. Please send a full quote.`,
   });
+}
+
+// ── Shipping / CIF estimator (rule-based, illustrative; exact CIF via quote) ──
+const EST = { ea:[900,1400,22,30], wa:[1100,1700,28,38], 'sa-af':[1000,1500,26,34], me:[700,1100,18,26], carib:[1800,2600,30,45], latam:[1900,2800,32,48], sea:[500,900,12,20], eu:[1000,1600,30,40] };
+function calcEst(){
+  const p=document.getElementById('estPort').value, fob=parseFloat(document.getElementById('estFob').value)||0, out=document.getElementById('estResult');
+  const e=EST[p]; if(!e){ out.style.display='none'; return; }
+  const ins=Math.round(fob*0.015), cifLo=fob?fob+e[0]+ins:0, cifHi=fob?fob+e[1]+ins:0;
+  out.style.display='block';
+  out.innerHTML='<div style="display:flex;gap:24px;flex-wrap:wrap">'+
+    '<div><div style="font-size:12px;color:var(--muted)">Ocean freight (RoRo est.)</div><div style="font-size:22px;font-weight:800;color:var(--green2)">$'+e[0].toLocaleString()+'–$'+e[1].toLocaleString()+'</div></div>'+
+    '<div><div style="font-size:12px;color:var(--muted)">Transit time</div><div style="font-size:22px;font-weight:800;color:var(--green2)">'+e[2]+'–'+e[3]+' days</div></div>'+
+    (fob?'<div><div style="font-size:12px;color:var(--muted)">Estimated CIF (FOB + freight + ins.)</div><div style="font-size:22px;font-weight:800;color:var(--orange)">$'+cifLo.toLocaleString()+'–$'+cifHi.toLocaleString()+'</div></div>':'')+
+    '</div><button onclick="goToQuote({message:\'I used the shipping estimator and want an exact CIF quote.\'})" style="margin-top:14px;background:var(--green);color:#fff;border:0;border-radius:8px;padding:11px 20px;font-weight:700;cursor:pointer">Get exact CIF quote →</button>';
 }
 </script>
 
