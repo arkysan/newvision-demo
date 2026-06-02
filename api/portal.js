@@ -5,9 +5,11 @@ const path = require('node:path');
 const store = require('../lib/store');
 
 const OWNER_PASSWORD = process.env.OWNER_PASSWORD || '1234';
-// username -> display + role. 'master' (Arky) controls everything incl. live site editing.
-const OWNERS = { andy: { name: 'Andy', role: 'owner' }, eissa: { name: 'Eissa', role: 'owner' }, arky: { name: 'Arky', role: 'master' } };
+// username -> display + role. 'master' (Arky) owns the full ERP; sales users get the deal desk only.
+const OWNERS = { andy: { name: 'Andy', role: 'sales' }, eissa: { name: 'Eissa', role: 'sales' }, arky: { name: 'Arky', role: 'master' } };
 const COOKIE = 'nv_portal';
+const OWNER_ROLES = new Set(['master', 'owner']);
+const SALES_ROLES = new Set(['master', 'owner', 'sales']);
 
 function send(res, status, body) {
   res.statusCode = status;
@@ -44,6 +46,8 @@ function bearerUser(req) {
   return m ? store.verify(m[1]) : null;
 }
 function sessionUser(req) { return bearerUser(req) || store.verify(store.getCookie(req, COOKIE)); }
+function isOwnerRole(u) { return OWNER_ROLES.has(u && u.role); }
+function isSalesRole(u) { return SALES_ROLES.has(u && u.role); }
 function stockIdForVehicle(v) {
   if (v && v.stockId) return String(v.stockId).toUpperCase();
   const n = String(v?.id || 0).replace(/\D/g, '').padStart(4, '0').slice(-4);
@@ -192,7 +196,14 @@ module.exports = async (req, res) => {
       return send(res, 200, { ok: true, token: process.env.NEWVISION_ADMIN_TOKEN || '' });
     }
 
+    if (action === 'sales-dashboard') {
+      if (!isSalesRole(u)) return send(res, 403, { ok: false, error: 'Sales role required' });
+      const leads = await store.readData('leads', []);
+      return send(res, 200, { ok: true, user: u, leads: leads.slice(0, 200), leadCount: leads.length });
+    }
+
     if (action === 'dashboard') {
+      if (!isOwnerRole(u)) return send(res, 403, { ok: false, error: 'Owner role required' });
       const [visits, leads, ledger] = await Promise.all([
         store.readData('visits', { total: 0, daily: {} }),
         store.readData('leads', []),
@@ -218,6 +229,7 @@ module.exports = async (req, res) => {
     }
 
     if (action === 'heatmap') {
+      if (!isOwnerRole(u)) return send(res, 403, { ok: false, error: 'Owner role required' });
       const [heat, journeys] = await Promise.all([
         store.readData('heat', { clicks: [], scroll: {}, pages: {}, devices: {}, sessions: 0 }),
         store.readData('journeys', []),
@@ -229,9 +241,13 @@ module.exports = async (req, res) => {
       return send(res, 200, { ok: true, clicks: heat.clicks.slice(-3000), scroll: heat.scroll || {}, pages: heat.pages || {}, devices: heat.devices || {}, sessions: heat.sessions || 0, quoteSessions: quoteSids.size, topEls, journeys: journeys.slice(0, 40) });
     }
 
-    if (action === 'shipments') { return send(res, 200, { ok: true, shipments: await store.readData('shipments', []) }); }
+    if (action === 'shipments') {
+      if (!isSalesRole(u)) return send(res, 403, { ok: false, error: 'Sales role required' });
+      return send(res, 200, { ok: true, shipments: await store.readData('shipments', []) });
+    }
 
     if (action === 'shipment' && req.method === 'POST') {
+      if (!isOwnerRole(u)) return send(res, 403, { ok: false, error: 'Owner role required' });
       const b = await readBody(req);
       const list = await store.readData('shipments', []);
       const code = (String(b.code || '').trim().toUpperCase()) || ('NVS-' + Date.now().toString(36).toUpperCase());
@@ -246,6 +262,7 @@ module.exports = async (req, res) => {
     }
 
     if (action === 'shipment-delete' && req.method === 'POST') {
+      if (!isOwnerRole(u)) return send(res, 403, { ok: false, error: 'Owner role required' });
       const b = await readBody(req);
       const list = (await store.readData('shipments', [])).filter((x) => (x.code || '').toUpperCase() !== String(b.code || '').toUpperCase());
       await store.writeData('shipments', list);
@@ -253,6 +270,7 @@ module.exports = async (req, res) => {
     }
 
     if (action === 'ledger' && req.method === 'POST') {
+      if (!isOwnerRole(u)) return send(res, 403, { ok: false, error: 'Owner role required' });
       const b = await readBody(req);
       const type = b.type === 'expense' ? 'expense' : 'income';
       const amount = Math.max(0, Math.min(1e12, +b.amount || 0));
@@ -263,6 +281,7 @@ module.exports = async (req, res) => {
     }
 
     if (action === 'ledger-delete' && req.method === 'POST') {
+      if (!isOwnerRole(u)) return send(res, 403, { ok: false, error: 'Owner role required' });
       const b = await readBody(req);
       const ledger = (await store.readData('ledger', [])).filter((e) => e.id !== b.id);
       await store.writeData('ledger', ledger);

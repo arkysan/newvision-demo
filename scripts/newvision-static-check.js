@@ -82,6 +82,8 @@ for (const [snippet, message] of requiredQuoteWiring) {
 }
 
 const requiredInventoryOrganization = [
+  ['id="inventoryFilterDrawer"', 'Inventory filters must live in a compact dropdown drawer'],
+  ['Filter inventory', 'Inventory filter drawer must use clear customer-facing dropdown wording'],
   ['id="inventoryOrganizer"', 'Inventory must expose the grouped buyer filter organizer'],
   ['data-i18n="org_brand"', 'Inventory organizer must label brand filters'],
   ['id="brandGrid"', 'Brand filters must live inside the inventory shopping surface'],
@@ -98,7 +100,7 @@ const requiredInventoryOrganization = [
   ["else if (tierFilter==='Value')", 'Filter logic must apply the value filter'],
   ['function setActiveFilterButton', 'Grouped filter buttons must keep active state scoped per group'],
   ['grid-template-columns: repeat(2, minmax(0, 1fr))', 'Phone inventory must render as a dense two-column marketplace grid'],
-  ['max-height: 360px', 'Phone filter organizer must stay compact instead of pushing vehicles too far down'],
+  ['max-height: 320px', 'Phone filter drawer must stay compact instead of pushing vehicles too far down'],
 ];
 for (const [snippet, message] of requiredInventoryOrganization) {
   if (!html.includes(snippet)) fail(message);
@@ -202,6 +204,9 @@ const requiredPublicGalleryControls = [
   ['const API_BASE', 'Public site must define a GitHub/Vercel API base helper'],
   ['data-stock-id="${stockIdForVehicle(v)}"', 'Vehicle cards must expose public stock IDs'],
   ['vehiclePublicLane', 'Customer-facing vehicle cards must show a public export lane, not exact back-room location'],
+  ['vehicle-spec-strip', 'Vehicle cards must show compact detail facts before opening the modal'],
+  ["openModal(${v.id},'specs')", 'Vehicle cards must expose a dedicated full specs button'],
+  ['data-tab="specs"', 'Vehicle detail modal must expose stable tab keys for translated UI'],
   ['requestCurrentStockPhoto', 'Vehicle detail modal must route current-photo requests into the quote flow'],
   ['requestVehicleInspection', 'Vehicle detail modal must route inspection requests into the quote flow'],
 ];
@@ -277,10 +282,21 @@ const requiredSalesPortalControls = [
   ['copyScript', 'Sales portal must provide a copy-ready WhatsApp sales script'],
   ['copyDealSummary', 'Sales portal must provide a copy-ready deal summary'],
   ['sessionStorage.getItem(SESSION_KEY)', 'Sales portal must use bearer session auth instead of public data access'],
+  ["api('sales-dashboard')", 'Sales portal must use the limited sales dashboard, not owner finance dashboard'],
+  ['id="ownerPortalLink"', 'Sales portal must hide the owner portal link unless an owner/master is signed in'],
   ["fetch(apiUrl('/api/vehicles')", 'Sales portal must read the full vehicle list from the Vercel-backed API'],
 ];
 for (const [snippet, message] of requiredSalesPortalControls) {
   if (!sales.includes(snippet)) fail(message);
+}
+const requiredOwnerSalesControls = [
+  ['id="openSalesViewBtn"', 'Owner portal must let owner/master inspect the sales view'],
+  ["user.role === 'sales'", 'Owner portal must redirect sales users out of owner-only panels'],
+  ['id="ownerSalesDesk"', 'Owner portal must include an owner-only sales oversight panel'],
+  ['Sales portal oversight', 'Owner sales panel must be clearly labeled as oversight, not the staff portal itself'],
+];
+for (const [snippet, message] of requiredOwnerSalesControls) {
+  if (!portal.includes(snippet)) fail(message);
 }
 if (html.includes('vehicleLocation(v)</div>')) {
   fail('Customer-facing vehicle card must not expose exact vehicleLocation(v)');
@@ -312,6 +328,10 @@ const track = fs.readFileSync(path.join(ROOT, 'track.html'), 'utf8');
 for (const [snippet, message] of [
   ['Access-Control-Allow-Headers\', \'Content-Type, Authorization', 'Portal API CORS must allow bearer sessions from GitHub Pages'],
   ['sessionToken', 'Portal API must return a session token for GitHub portal mode'],
+  ["andy: { name: 'Andy', role: 'sales' }", 'Andy must be a sales role, not an owner role'],
+  ["eissa: { name: 'Eissa', role: 'sales' }", 'Eissa must be a sales role, not an owner role'],
+  ["action === 'sales-dashboard'", 'Portal API must expose a limited sales dashboard'],
+  ["if (!isOwnerRole(u)) return send(res, 403", 'Owner-only API actions must reject sales users'],
   ['NVS-', 'Shipment IDs must use the NVS prefix'],
   ['kind: \'vehicle\'', 'Tracking API must accept public stock IDs'],
   ['kind: \'quote\'', 'Tracking API must accept public quote IDs'],

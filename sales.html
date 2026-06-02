@@ -96,7 +96,7 @@
     <p>Deal desk for leads, stock, vehicle proof, route planning, and handoff scripts.</p>
     <form onsubmit="return doLogin(event)">
       <label for="u">Name</label>
-      <input id="u" autocomplete="username" placeholder="Andy, Eissa, or Arky" required />
+      <input id="u" autocomplete="username" placeholder="Andy, Eissa, or owner" required />
       <label for="p">Password</label>
       <input id="p" type="password" autocomplete="current-password" required />
       <button class="btn" type="submit" style="width:100%;margin-top:14px">Sign in</button>
@@ -109,7 +109,7 @@
   <header>
     <img src="logo-mark.png" alt="New Vision" />
     <strong>Andy / Eissa Sales Portal</strong>
-    <a class="btn alt" href="./portal.html" style="text-decoration:none;padding:8px 11px">Owner Portal</a>
+    <a class="btn alt" id="ownerPortalLink" href="./portal.html" style="display:none;text-decoration:none;padding:8px 11px">Owner Portal</a>
     <a class="btn alt" href="./" style="text-decoration:none;padding:8px 11px">Public Site</a>
     <span class="who" id="who"></span>
     <button class="btn alt" onclick="doLogout()">Sign out</button>
@@ -284,11 +284,12 @@ async function doLogin(e){
 async function doLogout(){ sessionStorage.removeItem(SESSION_KEY); await api('logout',{method:'POST'}); location.reload(); }
 async function showApp(user){
   currentUser=user; $('login').style.display='none'; $('app').style.display='block'; $('who').textContent='Signed in: '+(user.name||user.u);
+  if(user.role==='master' || user.role==='owner') $('ownerPortalLink').style.display='';
   await loadData();
 }
 async function loadData(){
   const [dash, ship, veh] = await Promise.all([
-    api('dashboard'),
+    api('sales-dashboard'),
     api('shipments'),
     fetch(apiUrl('/api/vehicles')).then(r=>r.ok?r.json():[]).catch(()=>[]),
   ]);

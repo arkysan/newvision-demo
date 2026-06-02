@@ -181,6 +181,12 @@
     .section-sub { font-size: 13px; color: var(--muted2); margin-top: 3px; }
 
     /* ── FILTERS ── */
+    .inventory-filter-drawer { margin: 0 0 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface2); overflow: hidden; }
+    .inventory-filter-drawer summary { min-height: 48px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--green2); font-weight: 900; cursor: pointer; list-style: none; }
+    .inventory-filter-drawer summary::-webkit-details-marker { display: none; }
+    .inventory-filter-drawer summary::after { content: '+'; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 18px; line-height: 1; flex: 0 0 auto; }
+    .inventory-filter-drawer[open] summary::after { content: '-'; }
+    .inventory-filter-summary small { display: block; color: var(--muted2); font-size: 11px; font-weight: 650; margin-top: 2px; }
     .inventory-organizer { display: grid; gap: 12px; margin: 0 0 20px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface2); }
     .inventory-filter-group { display: grid; grid-template-columns: 116px 1fr; align-items: start; gap: 10px; }
     .inventory-filter-label { min-height: 34px; display: flex; align-items: center; font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
@@ -210,15 +216,18 @@
     .vehicle-stock-id { display: inline-flex; width: fit-content; align-items: center; gap: 5px; margin-bottom: 6px; padding: 3px 7px; border-radius: 6px; background: #eaf4ec; color: var(--green2); border: 1px solid rgba(46,125,50,.16); font-size: 10px; font-weight: 900; letter-spacing: .04em; }
     .vehicle-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
     .vehicle-meta { display: flex; gap: 10px; font-size: 12px; color: var(--muted); margin-bottom: 10px; flex-wrap: wrap; }
+    .vehicle-spec-strip { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; margin: 8px 0 10px; }
+    .vehicle-spec-strip span { min-width: 0; border: 1px solid var(--border); background: #fbfdfb; border-radius: 7px; padding: 6px 5px; color: var(--green2); font-size: 10px; font-weight: 800; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .vehicle-price-row { display: flex; align-items: baseline; justify-content: space-between; }
     .vehicle-fob { font-size: 19px; font-weight: 800; color: var(--green); }
     .vehicle-fob small { font-size: 11px; font-weight: 400; color: var(--muted); margin-left: 2px; }
     .vehicle-cif { font-size: 12px; color: var(--muted2); }
-    .vehicle-actions { display: flex; gap: 8px; margin-top: 10px; }
+    .vehicle-actions { display: grid; grid-template-columns: minmax(0,1fr) auto auto; gap: 8px; margin-top: 10px; }
     .btn-primary { flex: 1; padding: 8px; background: var(--green3); border: none; border-radius: 7px; color: #fff; font-weight: 700; font-size: 13px; transition: background .2s; }
     .btn-primary:hover { background: var(--green); }
     .btn-secondary { padding: 8px 12px; background: none; border: 1px solid var(--border); border-radius: 7px; color: var(--muted2); font-size: 13px; transition: all .2s; }
     .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+    .btn-specs { color: var(--green2); border-color: rgba(46,125,50,.24); background: #fbfdfb; font-weight: 750; }
 
     /* ── BRAND FILTERS ── */
     .brands-grouped { display: grid; gap: 10px; }
@@ -493,7 +502,9 @@
       .hero-tags::-webkit-scrollbar { display: none; }
       .hero-tag { flex: 0 0 auto; }
       .category-band, .stats, .trust { display: none !important; }
-      .inventory-organizer { padding: 10px; gap: 10px; margin-bottom: 14px; max-height: 360px; overflow-y: auto; }
+      .inventory-filter-drawer { margin-bottom: 12px; }
+      .inventory-filter-drawer summary { min-height: 44px; padding: 0 12px; }
+      .inventory-organizer { padding: 10px; gap: 10px; margin: 0; max-height: 320px; overflow-y: auto; border: 0; border-top: 1px solid var(--border); border-radius: 0; }
       .inventory-filter-group { grid-template-columns: 1fr; gap: 6px; }
       .inventory-filter-label { min-height: auto; }
       .brands-quick { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
@@ -533,10 +544,13 @@
       .vehicle-brand { font-size: 10px; margin-bottom: 2px; }
       .vehicle-name { min-height: 38px; font-size: 13px; line-height: 1.42; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
       .vehicle-meta { gap: 6px; font-size: 11px; margin-bottom: 7px; }
+      .vehicle-spec-strip { grid-template-columns: 1fr; gap: 4px; margin: 6px 0 8px; }
+      .vehicle-spec-strip span { text-align: left; font-size: 9.5px; padding: 4px 6px; }
       .vehicle-price-row { align-items: flex-start; flex-direction: column; gap: 2px; }
       .vehicle-fob { font-size: 17px; }
       .vehicle-cif { font-size: 11px; }
-      .vehicle-actions { gap: 6px; margin-top: 8px; }
+      .vehicle-actions { grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+      .vehicle-actions .btn-primary { grid-column: 1 / -1; }
       .btn-primary, .btn-secondary { min-height: 34px; font-size: 12px; padding: 7px 8px; }
       .steps { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -739,6 +753,8 @@
     </select>
   </div>
 
+  <details class="inventory-filter-drawer" id="inventoryFilterDrawer">
+    <summary><span class="inventory-filter-summary">Filter inventory<small>Brand, power, category, tier, stock, budget</small></span></summary>
   <div class="inventory-organizer" id="inventoryOrganizer" aria-label="Vehicle inventory filters">
     <div class="inventory-filter-group">
       <div class="inventory-filter-label" data-i18n="org_brand">Brand</div>
@@ -848,6 +864,7 @@
       </div>
     </div>
   </div>
+  </details>
 
   <div class="vehicle-grid" id="vehicleGrid"></div>
 </section>
@@ -1730,10 +1747,10 @@ function selectShippingRoute(key) {
         <div class="modal-title" id="modalTitle"></div>
         <div class="modal-subtitle" id="modalSubtitle"></div>
         <div class="modal-tabs">
-          <div class="modal-tab active" onclick="switchTab('specs',this)" data-i18n="tab_specs">Specifications</div>
-          <div class="modal-tab" onclick="switchTab('docs',this)" data-i18n="tab_docs">Documents</div>
-          <div class="modal-tab" onclick="switchTab('shipping',this)" data-i18n="tab_ship">Shipping</div>
-          <div class="modal-tab" onclick="switchTab('video',this)" data-i18n="tab_video">Video</div>
+          <div class="modal-tab active" data-tab="specs" onclick="switchTab('specs',this)" data-i18n="tab_specs">Specifications</div>
+          <div class="modal-tab" data-tab="docs" onclick="switchTab('docs',this)" data-i18n="tab_docs">Documents</div>
+          <div class="modal-tab" data-tab="shipping" onclick="switchTab('shipping',this)" data-i18n="tab_ship">Shipping</div>
+          <div class="modal-tab" data-tab="video" onclick="switchTab('video',this)" data-i18n="tab_video">Video</div>
         </div>
         <div id="tabSpecs"><div class="specs-grid" id="modalSpecs"></div></div>
         <div id="tabDocs" style="display:none">
@@ -2891,6 +2908,7 @@ function buildCard(v, idx) {
   ].join('');
   const mil = v.condition==='New' ? '0 km' : v.mileage.toLocaleString()+' km';
   const photoFallback = trUi('photo_unavailable');
+  const rangeLabel = v.range_km ? `${v.range_km}km range` : `${v.engine || 'Engine check'}`;
   return `<div class="vehicle-card" data-vehicle-id="${v.id}" data-stock-id="${stockIdForVehicle(v)}" onclick="openModal(${v.id})">
     <div class="vehicle-img">
       ${gridImg ? `<img src="${gridImg}" alt="${v.year} ${v.make} ${v.model}" width="640" height="426" sizes="(max-width: 600px) 84vw, (max-width: 900px) 50vw, 33vw" decoding="async"${eager ? ' loading="eager" fetchpriority="high"' : ' loading="lazy" fetchpriority="low"'} onerror="this.style.display='none';this.parentNode.querySelector('.vehicle-photo-fallback').style.display='flex'"><div class="vehicle-photo-fallback" style="display:none">${photoFallback}</div>` : `<div class="vehicle-photo-fallback">${photoFallback}</div>`}
@@ -2901,6 +2919,7 @@ function buildCard(v, idx) {
       <div class="vehicle-stock-id">${stockIdForVehicle(v)} · ${vehiclePublicLane(v)}</div>
       <div class="vehicle-name">${v.year} ${v.model}</div>
       <div class="vehicle-meta"><span>${mil}</span><span>${trTerm('fuel',v.fuel)}</span><span>${trTerm('body',v.body)}</span><span>${vehicleGrade(v)}</span></div>
+      <div class="vehicle-spec-strip"><span>${rangeLabel}</span><span>${trTerm('drive',v.drive || 'Drive')}</span><span>${v.seats || 5} seats</span></div>
       <div class="vehicle-price-row">
         <div class="vehicle-fob">${fmt(v.price)}<small>${tr('fob')}</small></div>
         <div class="vehicle-cif">${tr('cif_prefix')}${fmt(v.price+850+180)}</div>
@@ -2908,6 +2927,7 @@ function buildCard(v, idx) {
       <div class="vehicle-actions">
         <button class="btn-primary" onclick="event.stopPropagation();quoteVehicle(${v.id})">${tr('card_quote')}</button>
         <button class="btn-secondary" onclick="event.stopPropagation();openModal(${v.id})">${tr('card_details')}</button>
+        <button class="btn-secondary btn-specs" onclick="event.stopPropagation();openModal(${v.id},'specs')">Specs</button>
       </div>
     </div>
   </div>`;
@@ -3035,7 +3055,7 @@ function setGalleryImg(idx) {
 }
 function galleryNav(dir) { setGalleryImg((galleryIdx+dir+galleryImgs.length)%galleryImgs.length); }
 
-function openModal(id) {
+function openModal(id, startTab = 'specs') {
   const v=vehicles.find(x=>x.id===id); if(!v) return; selV=v;
   const imgEl=document.getElementById('modalImg');
   const photoFallbackEl=document.getElementById('modalPhotoFallback');
@@ -3093,7 +3113,8 @@ function openModal(id) {
   document.getElementById('modalSpecs').innerHTML=specs.map(([l,val])=>`<div class="spec-item"><div class="spec-label">${trTerm('spec',l)}</div><div class="spec-value">${val}</div></div>`).join('');
   document.getElementById('mFob').textContent=fmt(v.price);
   updateFreight();
-  switchTab('specs',document.querySelector('.modal-tab'));
+  const startBtn = document.querySelector(`.modal-tab[data-tab="${startTab}"]`);
+  switchTab(startTab, startBtn || document.querySelector('.modal-tab'));
   document.getElementById('modalOverlay').classList.add('open');
   document.body.classList.add('modal-open');
   document.body.style.overflow='hidden';

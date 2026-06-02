@@ -69,6 +69,52 @@
   .heat-dot{position:absolute;width:16px;height:16px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(67,160,71,.75),rgba(67,160,71,0));pointer-events:none;mix-blend-mode:screen}
   .heat-dot.q{background:radial-gradient(circle,rgba(201,162,75,.95),rgba(201,162,75,0));width:20px;height:20px}
   @media(max-width:860px){.heat-wrap{grid-template-columns:1fr}}
+  .owner-sales{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:22px;overflow:hidden}
+  .owner-sales>summary{min-height:56px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;color:var(--green2);font-weight:900;list-style:none}
+  .owner-sales>summary::-webkit-details-marker{display:none}
+  .owner-sales>summary small{display:block;color:var(--muted);font-size:12px;font-weight:600;margin-top:2px}
+  .owner-sales>summary::after{content:'+';width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:19px;flex:0 0 auto}
+  .owner-sales[open]>summary::after{content:'-'}
+  .sales-shell{border-top:1px solid var(--line);padding:16px 18px 18px}
+  .sales-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .sales-tab{border:1.5px solid var(--line);background:#fff;color:var(--green2);border-radius:999px;padding:8px 13px;font-weight:800;font-size:13px;cursor:pointer}
+  .sales-tab.active{background:var(--green2);color:#fff;border-color:var(--green2)}
+  .sales-section{display:none}.sales-section.active{display:block}
+  .sales-desk{display:grid;grid-template-columns:330px minmax(0,1fr);gap:14px}
+  .sales-list{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto;padding-right:4px}
+  .sales-row{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px;text-align:left;cursor:pointer;width:100%;font:inherit;color:var(--ink)}
+  .sales-row.active,.sales-row:hover{border-color:var(--green);background:#fbfdfb}
+  .sales-row b,.sales-row span{display:block}.sales-row span{color:var(--muted);font-size:12px;margin-top:2px}
+  .sales-brief{display:grid;grid-template-columns:220px minmax(0,1fr);gap:14px;align-items:start;margin-bottom:12px}
+  .sales-img{background:var(--bg);border-radius:12px;min-height:150px;display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--muted);font-weight:800}
+  .sales-img img{width:100%;height:100%;object-fit:cover}
+  .sales-title{font-size:22px;font-weight:900;color:var(--green2);line-height:1.15;margin:7px 0}
+  .sales-price{font-size:25px;font-weight:900;color:var(--green);margin:7px 0}
+  .sales-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .sales-kv{background:#fbfdfb;border:1px solid var(--line);border-radius:9px;padding:8px;min-width:0}
+  .sales-kv .k{font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:800;letter-spacing:.04em}
+  .sales-kv .v{font-size:12px;color:var(--ink);font-weight:750;margin-top:2px;word-break:break-word}
+  .sales-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+  .script-box{white-space:pre-wrap;background:#0f1712;color:#e9f6e9;border-radius:11px;padding:12px;font:12px/1.45 Consolas,monospace;min-height:120px}
+  .sales-notes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  .check{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin-bottom:7px;color:var(--ink)}
+  .route-line{display:flex;align-items:center;gap:8px;color:var(--green2);font-weight:900;margin:8px 0}
+  .route-line::before,.route-line::after{content:'';height:3px;background:var(--line);border-radius:99px;flex:1}
+  .staff-map{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);background:#dff0f6;display:block}
+  .map-route{fill:none;stroke:rgba(46,125,50,.42);stroke-width:4;stroke-linecap:round;stroke-dasharray:7 8}
+  .map-route.active{stroke:var(--green2);stroke-width:6;stroke-dasharray:none}
+  .map-home,.map-port{fill:var(--green2);stroke:#fff;stroke-width:3}.map-label{font:700 18px Segoe UI;fill:#173a24}.map-count{font:700 13px Segoe UI;fill:#406a4a}
+  .route-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:9px}
+  .route-stat{background:#fbfdfb;border:1px solid var(--line);border-radius:10px;padding:8px}
+  .route-stat b{display:block;color:var(--green2);font-size:14px}.route-stat span{display:block;color:var(--muted);font-size:11px}
+  .sales-table{display:grid;gap:9px}
+  .sales-vehicle-card{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;background:#fff;padding:9px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+  .sales-vehicle-card.active,.sales-vehicle-card:hover{border-color:var(--green);background:#fbfdfb}
+  .sales-vehicle-card img{width:92px;height:68px;object-fit:cover;border-radius:9px;background:var(--bg)}
+  .sales-vehicle-card b{display:block;color:var(--green2);font-size:13px}.sales-vehicle-card span{display:block;color:var(--muted);font-size:12px}
+  .sales-backroom{color:#8a5b00!important;font-weight:750}
+  @media(max-width:860px){.sales-desk{grid-template-columns:1fr}.sales-brief{grid-template-columns:1fr}.sales-grid{grid-template-columns:repeat(2,1fr)}.sales-notes{grid-template-columns:1fr}.sales-actions{grid-template-columns:1fr}.sales-list{max-height:36vh}.route-stats{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:430px){.sales-grid{grid-template-columns:1fr}.sales-vehicle-card{grid-template-columns:74px minmax(0,1fr)}.sales-vehicle-card img{width:74px;height:58px}.sales-vehicle-card button{grid-column:1/-1}.sales-tab{font-size:12px;padding:8px 10px}}
   .ship-form{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
   .ship-form input,.ship-form select{padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;font:inherit;min-width:0}
   .ship-form button{background:var(--green);color:#fff;border:0;border-radius:8px;font:700 13px inherit;cursor:pointer;padding:10px 14px}
@@ -110,7 +156,7 @@
     <div class="sub">New Vision — Yiwu Car Export</div>
     <form id="loginForm" onsubmit="return doLogin(event)">
       <label for="u">Name</label>
-      <input id="u" autocomplete="username" placeholder="Andy or Eissa" required />
+      <input id="u" autocomplete="username" placeholder="Owner login" required />
       <label for="p">Password</label>
       <input id="p" type="password" autocomplete="current-password" placeholder="••••" required />
       <button class="btn" type="submit">Sign in</button>
@@ -119,7 +165,6 @@
     <div class="or">or</div>
     <div id="gbtn"></div>
     <div class="gnote" id="gnote">Sign in with a Google account</div>
-    <div class="gnote" style="margin-top:10px"><a href="./sales.html">Open Andy / Eissa Sales Portal</a></div>
   </div>
 </div>
 
@@ -130,7 +175,7 @@
     <strong id="portalTitle">Owner Portal</strong>
     <span class="who" id="who"></span>
     <button id="editLiveBtn" onclick="editSiteLive()" style="display:none;background:var(--gold);color:#13201b;border-color:var(--gold);font-weight:700">🛠 Edit Site Live</button>
-    <button onclick="window.open(pageUrl('sales.html'),'_blank')">Sales Portal</button>
+    <button id="openSalesViewBtn" onclick="window.open(pageUrl('sales.html'),'_blank')" style="display:none">Sales View</button>
     <button onclick="doLogout()">Sign out</button>
   </header>
   <div class="wrap">
@@ -140,6 +185,87 @@
       <div class="card"><div class="k">Vehicle Requests</div><div class="v" id="cLeads">—</div></div>
       <div class="card"><div class="k">Net Profit</div><div class="v" id="cProfit">—</div></div>
     </div>
+
+    <details class="owner-sales" id="ownerSalesDesk">
+      <summary><span>Sales portal oversight<small>Owner view of Andy / Eissa sales activity: client data, selected vehicle, staff-only stock location, route plan, and close scripts.</small></span></summary>
+      <div class="sales-shell">
+        <div class="sales-tabs">
+          <button class="sales-tab active" onclick="showSalesTab('deal',this)">Deal Desk</button>
+          <button class="sales-tab" onclick="showSalesTab('clients',this)">Client Data</button>
+          <button class="sales-tab" onclick="showSalesTab('stock',this)">Vehicle List</button>
+          <button class="sales-tab" onclick="showSalesTab('routes',this)">Route & Close</button>
+        </div>
+
+        <section class="sales-section active" id="sales-tab-deal">
+          <div class="sales-desk">
+            <div>
+              <h2>Clients <span class="pill" id="ownerLeadCount">0</span></h2>
+              <input id="ownerLeadSearch" placeholder="Search client, car, country, port" oninput="renderOwnerSalesLeads()" />
+              <div class="sales-list" id="ownerLeadList" style="margin-top:10px"></div>
+            </div>
+            <div>
+              <h2>Deal Brief <span class="pill" id="ownerDealState">Select a client</span></h2>
+              <div id="ownerDealBrief" class="empty">Choose a lead or a vehicle to build the owner close packet.</div>
+              <div class="sales-actions">
+                <button class="inv-btn green" onclick="copyOwnerScript()">Copy WhatsApp script</button>
+                <button class="inv-btn" onclick="copyOwnerSummary()">Copy deal summary</button>
+              </div>
+              <div class="script-box" id="ownerSalesScript">Select a client and vehicle.</div>
+              <div class="sales-notes">
+                <div class="script-box" id="ownerBackroomNotes">Back-room details appear here after selecting a vehicle.</div>
+                <div id="ownerCloseChecklist"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sales-section" id="sales-tab-clients">
+          <h2>Client Data <span class="pill" id="ownerLeadTableCount">0</span></h2>
+          <div class="sales-table" id="ownerLeadTable"></div>
+        </section>
+
+        <section class="sales-section" id="sales-tab-stock">
+          <h2>Full Vehicle List <span class="pill" id="ownerVehicleCount">0</span></h2>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:8px;margin-bottom:10px">
+            <input id="ownerVehicleSearch" placeholder="Search stock ID, brand, model, fuel, location, docs" oninput="renderOwnerSalesVehicles()" />
+            <select id="ownerVehicleFilter" onchange="renderOwnerSalesVehicles()" style="padding:10px;border:1.5px solid var(--line);border-radius:9px;background:#fff">
+              <option value="all">All stock</option>
+              <option value="ev">EV / PHEV</option>
+              <option value="fuel">Gas / Diesel</option>
+              <option value="premium">Premium</option>
+              <option value="ready">Docs ready</option>
+            </select>
+          </div>
+          <div class="sales-table" id="ownerVehicleList"></div>
+        </section>
+
+        <section class="sales-section" id="sales-tab-routes">
+          <div class="grid2" style="margin-bottom:14px">
+            <div class="panel" style="padding:14px">
+              <h2>Advanced owner route map <span class="pill" id="ownerShipmentCount">0 shipped</span></h2>
+              <select id="ownerRoutePort" onchange="updateOwnerDeal()" style="width:100%;padding:10px;border:1.5px solid var(--line);border-radius:9px;margin-bottom:10px">
+                <option>Mombasa</option><option>Jebel Ali</option><option>Lagos</option><option>Antwerp</option><option>Santos</option><option>Kingston</option>
+              </select>
+              <div id="ownerStaffMap"></div>
+              <div id="ownerRouteCard" style="margin-top:12px"></div>
+            </div>
+            <div class="panel" style="padding:14px">
+              <h2>Lane shipments</h2>
+              <div class="sales-list" id="ownerRouteShipments"></div>
+            </div>
+          </div>
+          <div class="sales-notes">
+            <div class="script-box" id="ownerClosePacket">Select a lead and vehicle.</div>
+            <div>
+              <select id="ownerUrgency" onchange="updateOwnerDeal()" style="width:100%;padding:10px;border:1.5px solid var(--line);border-radius:9px;margin-bottom:10px">
+                <option>Normal quote</option><option>Hot buyer / call now</option><option>Needs photos</option><option>Needs inspection proof</option><option>Ready for deposit</option>
+              </select>
+              <div id="ownerNextAction" class="script-box">Waiting for selected deal.</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </details>
 
     <div class="grid2">
       <div class="panel">
@@ -304,6 +430,20 @@ const API_BASE = (IS_GITHUB_PAGES || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN : ''
 const SESSION_KEY = 'newvision.portal.session';
 const $ = (id) => document.getElementById(id);
 const money = (n) => '$' + Math.round(n).toLocaleString();
+let ownerLeads = [];
+let ownerShipments = [];
+let ownerSelectedLead = null;
+let ownerSelectedVehicle = null;
+let ownerLastScript = '';
+let ownerLastSummary = '';
+const OWNER_ROUTE_META = {
+  gulf:{label:'Gulf',port:'Jebel Ali',d:'M838 163C785 167 718 174 653 181',x:653,y:181},
+  eastAfrica:{label:'East Africa',port:'Mombasa',d:'M838 163C756 196 682 238 610 261',x:610,y:261},
+  westAfrica:{label:'West Africa',port:'Lagos',d:'M838 163C742 219 623 247 509 232',x:509,y:232},
+  europe:{label:'Europe',port:'Antwerp',d:'M838 163C704 126 596 105 512 108',x:512,y:108},
+  latinAmerica:{label:'Latin America',port:'Santos',d:'M838 163C684 320 514 388 371 316',x:371,y:316},
+  caribbean:{label:'Caribbean',port:'Kingston',d:'M838 163C720 214 590 230 455 248C392 255 334 250 286 240',x:286,y:240},
+};
 
 function apiUrl(path) { return API_BASE + path; }
 function pageUrl(path) { return new URL('./' + String(path || '').replace(/^\/+/, ''), location.href).href; }
@@ -327,17 +467,24 @@ async function doLogin(e){ e.preventDefault(); $('err').textContent='';
 async function doLogout(){ sessionStorage.removeItem(SESSION_KEY); await api('logout',{method:'POST'}); location.reload(); }
 
 function showApp(user){
+  if (user.role === 'sales') {
+    location.replace(pageUrl('sales.html'));
+    return;
+  }
   $('login').style.display='none'; $('app').style.display='block';
   $('who').textContent = 'Signed in: ' + (user.name||user.u);
+  $('openSalesViewBtn').style.display = '';
   if(user.role==='master'){ $('editLiveBtn').style.display=''; $('portalTitle').textContent='Master Console'; }
   loadDashboard(); loadHeatmap(); loadShipments();
 }
 
 async function loadShipments(){
   const r=await api('shipments'); if(!r.ok) return;
+  ownerShipments = r.shipments || [];
   $('shipPill').textContent=(r.shipments.length||0)+' tracked';
   const tb=$('shipTbl').querySelector('tbody');
   tb.innerHTML = r.shipments.length ? r.shipments.map(s=>`<tr><td>${esc(s.code)}</td><td>${esc(s.vehicle)}</td><td>${esc(s.vessel||'-')}</td><td>${esc((s.origin||'?')+' → '+(s.dest||'?'))}</td><td>${esc(s.eta||'-')}</td><td>${esc(s.status||'-')}</td><td><a href="${pageUrl('track.html?id='+encodeURIComponent(s.code))}" target="_blank">open</a> · <button class="del" style="color:var(--green2)" onclick="copyTrack('${esc(s.code)}')">copy</button></td><td><button class="del" onclick="delShipment('${esc(s.code)}')">✕</button></td></tr>`).join('') : '<tr><td colspan="8" class="empty">No shipments yet — add one above to give a customer a live tracking link with a countdown.</td></tr>';
+  renderOwnerStaffRouteMap($('ownerRoutePort')?.value || ownerSelectedLead?.port || 'Mombasa');
 }
 async function addShipment(e){ e.preventDefault();
   const idv=$('sImo').value.trim();
@@ -392,6 +539,8 @@ function buildAiSuggestions(h) {
 async function loadDashboard(){
   const d = await api('dashboard');
   if(!d.ok){ location.reload(); return; }
+  ownerLeads = d.leads || [];
+  ownerSelectedLead = ownerSelectedLead || ownerLeads[0] || null;
   $('cVisits').textContent = (d.visits.total||0).toLocaleString();
   $('cToday').textContent = (d.visits.today||0).toLocaleString();
   $('cLeads').textContent = (d.leadCount||0).toLocaleString();
@@ -415,6 +564,9 @@ async function loadDashboard(){
   $('fProfit').textContent = money(d.finance.profit); $('fProfit').className = d.finance.profit<0?'amt-out':'amt-in';
   const lb = $('ledgerTbl').querySelector('tbody');
   lb.innerHTML = d.ledger.length ? d.ledger.map(e=>`<tr><td>${esc(e.date)}</td><td>${e.type==='income'?'🟢 In':'🔴 Out'}</td><td>${esc(e.label)}</td><td style="text-align:right" class="${e.type==='income'?'amt-in':'amt-out'}">${e.type==='income'?'+':'-'}${money(e.amount)}</td><td><button class="del" onclick="delLedger('${e.id}')">✕</button></td></tr>`).join('') : '<tr><td colspan="5" class="empty">No entries yet — add income or expenses above.</td></tr>';
+  renderOwnerSalesLeads();
+  renderOwnerLeadTable();
+  updateOwnerDeal();
 }
 
 async function addLedger(e){ e.preventDefault();
@@ -426,6 +578,133 @@ async function delLedger(id){ await api('ledger-delete',{method:'POST',body:JSON
 function bar(lbl,n,max){ return `<div class="bar"><span class="lbl" title="${esc(lbl)}">${esc(lbl)}</span><div class="track"><div class="fill" style="width:${Math.round(n/max*100)}%"></div></div><span class="n">${n}</span></div>`; }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function fmtT(s){ if(!s) return '-'; try{ const d=new Date(s); return (d.getMonth()+1)+'/'+d.getDate()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }catch(_){ return s; } }
+
+function ownerVehicleName(v){ return v ? `${v.year} ${v.make} ${v.model}` : 'No vehicle selected'; }
+function ownerImgFor(v){ return v?.img || (Array.isArray(v?.imgs) ? v.imgs.find(Boolean) : '') || ''; }
+function ownerTrackUrl(id){ return pageUrl('track.html?id=' + encodeURIComponent(id)); }
+function ownerRouteFor(port){
+  const p=String(port||'').toLowerCase();
+  if(p.includes('jebel')) return ['Gulf lane','18-26 days','Premium SUV / EV sedan'];
+  if(p.includes('mombasa')) return ['East Africa lane','22-30 days','SUV / PHEV / value units'];
+  if(p.includes('lagos')) return ['West Africa lane','28-38 days','SUV / value stock'];
+  if(p.includes('antwerp')) return ['Europe lane','30-40 days','Docs-first EV'];
+  if(p.includes('santos')) return ['Latin America lane','32-48 days','EV / fleet'];
+  if(p.includes('kingston')) return ['Caribbean lane','30-45 days','Compact SUV / value sedan'];
+  return ['Custom lane','Confirm with freight partner','Confirm vehicle type'];
+}
+function ownerRouteKey(port){
+  const p=String(port||'').toLowerCase();
+  if(p.includes('jebel')||p.includes('dubai')||p.includes('dammam')) return 'gulf';
+  if(p.includes('mombasa')||p.includes('dar')) return 'eastAfrica';
+  if(p.includes('lagos')||p.includes('tema')) return 'westAfrica';
+  if(p.includes('antwerp')||p.includes('rotterdam')||p.includes('hamburg')) return 'europe';
+  if(p.includes('santos')||p.includes('callao')) return 'latinAmerica';
+  if(p.includes('kingston')||p.includes('santo domingo')) return 'caribbean';
+  return 'custom';
+}
+function ownerRouteCounts(){
+  const out={};
+  ownerShipments.forEach(s=>{ const k=ownerRouteKey(s.dest||s.route||''); out[k]=(out[k]||0)+1; });
+  return out;
+}
+function ownerMatchLeadVehicle(lead){
+  if(!lead) return invVehicles[0] || null;
+  const text=[lead.vehicle, lead.message].join(' ').toLowerCase();
+  return invVehicles.find(v => text.includes(stockIdForVehicle(v).toLowerCase()) || (v.make && text.includes(String(v.make).toLowerCase()) && v.model && text.includes(String(v.model).split(' ')[0].toLowerCase()))) || invVehicles[0] || null;
+}
+function showSalesTab(name,btn){
+  document.querySelectorAll('.sales-tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('.sales-section').forEach(s=>s.classList.remove('active'));
+  $('sales-tab-'+name)?.classList.add('active');
+}
+function showSalesTabByName(name){
+  const label = name === 'deal' ? 'deal' : name === 'stock' ? 'vehicle' : name;
+  const btn=[...document.querySelectorAll('.sales-tab')].find(b=>b.textContent.toLowerCase().includes(label));
+  showSalesTab(name,btn);
+}
+function renderOwnerSalesLeads(){
+  if(!$('ownerLeadList')) return;
+  const q=($('ownerLeadSearch')?.value||'').toLowerCase();
+  const list=ownerLeads.filter(l=>[l.name,l.contact,l.vehicle,l.country,l.port,l.message,l.id].join(' ').toLowerCase().includes(q));
+  $('ownerLeadCount').textContent=list.length;
+  $('ownerLeadList').innerHTML=list.length?list.map((l)=>`<button class="sales-row ${ownerSelectedLead===l?'active':''}" onclick="selectOwnerLead(${ownerLeads.indexOf(l)})"><b>${esc(l.name||'Unnamed client')} <span class="pill">${esc(l.id||'NVQ pending')}</span></b><span>${esc(l.contact||'No contact')} · ${esc([l.country,l.port].filter(Boolean).join(' / ')||'No route')}</span><span>${esc(l.vehicle||'Vehicle not selected')}</span></button>`).join(''):'<div class="empty">No client data yet.</div>';
+}
+function renderOwnerLeadTable(){
+  if(!$('ownerLeadTable')) return;
+  $('ownerLeadTableCount').textContent=ownerLeads.length;
+  $('ownerLeadTable').innerHTML=ownerLeads.length?ownerLeads.map((l,i)=>`<button class="sales-vehicle-card" onclick="selectOwnerLead(${i});showSalesTabByName('deal')"><div class="pill">${esc(l.id||'NVQ pending')}</div><div><b>${esc(l.name||'Unnamed')} · ${esc(l.contact||'No contact')}</b><span>${esc(l.vehicle||'No vehicle')} · ${esc([l.country,l.port].filter(Boolean).join(' / ')||'No destination')}</span><span>${esc((l.message||'').slice(0,120))}</span></div><span class="pill">${esc(l.source||'site')}</span></button>`).join(''):'<div class="empty">No leads captured yet.</div>';
+}
+function renderOwnerSalesVehicles(){
+  if(!$('ownerVehicleList')) return;
+  const q=($('ownerVehicleSearch')?.value||'').toLowerCase(), f=$('ownerVehicleFilter')?.value || 'all';
+  let list=invVehicles.filter(v=>[stockIdForVehicle(v),v.make,v.model,v.fuel,v.body,v.location,v.docsStatus,v.inspectionStatus].join(' ').toLowerCase().includes(q));
+  if(f==='ev') list=list.filter(v=>v.ev || /electric|phev|erev/i.test(v.fuel||''));
+  if(f==='fuel') list=list.filter(v=>!v.ev && !/electric|phev|erev/i.test(v.fuel||''));
+  if(f==='premium') list=list.filter(v=>v.premium);
+  if(f==='ready') list=list.filter(v=>/ready|check|available/i.test([v.docsStatus,v.inspectionStatus].join(' ')));
+  $('ownerVehicleCount').textContent=list.length;
+  $('ownerVehicleList').innerHTML=list.length?list.map(v=>`<button class="sales-vehicle-card ${ownerSelectedVehicle===v?'active':''}" onclick="selectOwnerVehicle(${invVehicles.indexOf(v)});showSalesTabByName('deal')">${ownerImgFor(v)?`<img src="${esc(ownerImgFor(v))}" alt="">`:'<div class="sales-img">No photo</div>'}<div><b>${esc(stockIdForVehicle(v))} · ${esc(ownerVehicleName(v))}</b><span>${esc(v.condition||'')} · ${esc(v.fuel||'')} · ${esc(v.body||'')} · ${money(v.price)}</span><span class="sales-backroom">${esc(v.location||'Back-room location not set')} · ${esc(v.docsStatus||'Docs check available')}</span></div><span class="pill">${esc(v.status||'sample')}</span></button>`).join(''):'<div class="empty">No vehicle data loaded yet.</div>';
+}
+function selectOwnerLead(i){
+  ownerSelectedLead=ownerLeads[i]||null;
+  ownerSelectedVehicle=ownerMatchLeadVehicle(ownerSelectedLead);
+  renderOwnerSalesLeads();
+  renderOwnerSalesVehicles();
+  updateOwnerDeal();
+}
+function selectOwnerVehicle(i){
+  ownerSelectedVehicle=invVehicles[i]||null;
+  renderOwnerSalesVehicles();
+  updateOwnerDeal();
+}
+function ownerKv(k,v){return `<div class="sales-kv"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`;}
+function updateOwnerDeal(){
+  if(!$('ownerDealBrief')) return;
+  if(!ownerSelectedVehicle) ownerSelectedVehicle = ownerMatchLeadVehicle(ownerSelectedLead);
+  const l=ownerSelectedLead, v=ownerSelectedVehicle;
+  if(!v){
+    $('ownerDealBrief').textContent='Select a vehicle.';
+    return;
+  }
+  const port=(l?.port)||$('ownerRoutePort')?.value||'Mombasa';
+  if($('ownerRoutePort') && l?.port) $('ownerRoutePort').value=[...$('ownerRoutePort').options].some(o=>o.value===l.port)?l.port:$('ownerRoutePort').value;
+  const route=ownerRouteFor(port);
+  const stock=stockIdForVehicle(v);
+  const photos=Array.isArray(v.imgs)?v.imgs.filter(Boolean).length:(v.img?1:0);
+  const track=ownerTrackUrl(stock);
+  $('ownerDealState').textContent=l?.id || stock;
+  $('ownerDealBrief').innerHTML=`<div class="sales-brief"><div class="sales-img">${ownerImgFor(v)?`<img src="${esc(ownerImgFor(v))}" alt="">`:'No photo'}</div><div><div class="pill">${esc(stock)}</div><div class="sales-title">${esc(ownerVehicleName(v))}</div><div class="empty" style="padding:0">${esc(v.condition||'')} · ${esc(v.fuel||'')} · ${esc(v.body||'')} · ${esc(v.drive||'')}</div><div class="sales-price">${money(v.price)} <span style="font-size:12px;color:var(--muted)">FOB</span></div><div class="route-line">${esc(route[0])} · ${esc(route[1])}</div></div></div><div class="sales-grid">${ownerKv('Client',l?.name||'No lead selected')}${ownerKv('Contact',l?.contact||'—')}${ownerKv('Country / port',[l?.country,port].filter(Boolean).join(' / ')||'—')}${ownerKv('Customer wants',l?.vehicle||'Match from inventory')}${ownerKv('Back-room location',v.location||'Set in portal')}${ownerKv('Docs',v.docsStatus||'Docs check available')}${ownerKv('Inspection',v.inspectionStatus||'Photo/video available')}${ownerKv('Photos',photos+' available')}${ownerKv('Private VIN',v.vinPrivate||'Only after staff confirms')}${ownerKv('Shipment link',v.shipmentId||'Create NVS after booking')}${ownerKv('Public track',track)}${ownerKv('Recommended unit',route[2])}</div>`;
+  ownerLastScript=buildOwnerScript(l,v,route,port,track);
+  ownerLastSummary=buildOwnerSummary(l,v,route,port,track);
+  $('ownerSalesScript').textContent=ownerLastScript;
+  $('ownerBackroomNotes').textContent=`Back-room only\nStock ID: ${stock}\nLocation: ${v.location||'not set'}\nPrivate VIN/frame: ${v.vinPrivate||'not set'}\nDocs: ${v.docsStatus||'check available'}\nInspection: ${v.inspectionStatus||'photo/video available'}\nShipment: ${v.shipmentId||'not booked yet'}\nLead source: ${l?.source||'manual'}\nLead message: ${l?.message||'none'}`;
+  $('ownerCloseChecklist').innerHTML=['Confirm buyer WhatsApp and country','Send exact stock ID and public car photo','Confirm FOB price and destination port','Offer current stock photos or live video call','Confirm docs/inspection status before deposit','Create NVS shipment link only after booking'].map(x=>`<label class="check"><input type="checkbox"> <span>${esc(x)}</span></label>`).join('');
+  $('ownerRouteCard').innerHTML=`${ownerKv('Route',route[0])}${ownerKv('Transit estimate',route[1])}${ownerKv('Best fit',route[2])}${ownerKv('Public wording','Route preview; vessel confirmed after booking')}`;
+  $('ownerClosePacket').textContent=ownerLastSummary;
+  $('ownerNextAction').textContent=`Next action: ${($('ownerUrgency')?.value||'Normal quote')}.\nSend current photos for ${stock}, confirm ${port} CIF range, then ask for deposit decision or inspection booking.`;
+  renderOwnerStaffRouteMap(port);
+}
+function buildOwnerScript(l,v,route,port,track){
+  return `Hi ${l?.name||'there'}, this is New Vision.\n\nI matched your request to ${stockIdForVehicle(v)} — ${ownerVehicleName(v)}.\nFOB price: ${money(v.price)}\nDestination: ${port}\nRoute: ${route[0]} (${route[1]} estimate)\n\nI can send current stock photos, inspection/video proof, and a CIF estimate. This public stock link is for the exact unit reference:\n${track}\n\nTo move forward, please confirm: preferred color/trim, destination port, and whether you want inspection before deposit.`;
+}
+function buildOwnerSummary(l,v,route,port,track){
+  return `Deal summary\nClient: ${l?.name||'No selected lead'}\nContact: ${l?.contact||'—'}\nVehicle: ${stockIdForVehicle(v)} ${ownerVehicleName(v)}\nFOB: ${money(v.price)}\nDestination: ${port}\nRoute: ${route[0]} / ${route[1]}\nBack-room location: ${v.location||'not set'}\nDocs: ${v.docsStatus||'check available'}\nInspection: ${v.inspectionStatus||'available'}\nPublic tracking/reference: ${track}`;
+}
+function copyOwnerText(text){ try{navigator.clipboard.writeText(text);}catch(_){} alert('Copied.'); }
+function copyOwnerScript(){ copyOwnerText(ownerLastScript); }
+function copyOwnerSummary(){ copyOwnerText(ownerLastSummary); }
+function renderOwnerStaffRouteMap(port){
+  if(!$('ownerStaffMap')) return;
+  const active=ownerRouteKey(port);
+  const counts=ownerRouteCounts();
+  $('ownerShipmentCount').textContent=ownerShipments.length+' shipped';
+  const routes=Object.entries(OWNER_ROUTE_META).map(([k,r])=>`<path class="map-route ${k===active?'active':''}" d="${r.d}"></path>`).join('');
+  const ports=Object.entries(OWNER_ROUTE_META).map(([k,r])=>`<g><circle class="map-port" cx="${r.x}" cy="${r.y}" r="7"></circle><text class="map-label" x="${r.x+10}" y="${r.y-4}">${r.port}</text><text class="map-count" x="${r.x+10}" y="${r.y+12}">${counts[k]||0} shipped</text></g>`).join('');
+  $('ownerStaffMap').innerHTML=`<svg class="staff-map" viewBox="0 0 1000 500" role="img" aria-label="Advanced staff shipment route map"><rect width="1000" height="500" fill="#dff0f6"></rect><image href="img/world-map-110m.svg" x="0" y="0" width="1000" height="500" preserveAspectRatio="none" opacity=".96"></image>${routes}<circle class="map-home" cx="838" cy="163" r="8"></circle><text class="map-label" x="848" y="158">Shanghai / Ningbo</text><text class="map-count" x="848" y="174">China loading lane</text>${ports}</svg><div class="route-stats">${Object.entries(OWNER_ROUTE_META).map(([k,r])=>`<div class="route-stat"><b>${counts[k]||0}</b><span>${r.label} · ${r.port}</span></div>`).join('')}</div>`;
+  const routed=ownerShipments.filter(s=>ownerRouteKey(s.dest||'')===active);
+  $('ownerRouteShipments').innerHTML=routed.length?routed.map(s=>`<div class="sales-row"><b>${esc(s.code||'NVS pending')} · ${esc(s.vehicle||'vehicle')}</b><span>${esc(s.origin||'China')} → ${esc(s.dest||'destination')} · ${esc(s.status||'status')}</span><span>${esc(s.vessel||'Vessel not assigned')} · ETA ${esc(s.eta||'not set')}</span></div>`).join(''):'<div class="empty">No shipments recorded for this lane yet. Once Andy/Eissa creates NVS shipments, they appear here.</div>';
+}
 
 // Google sign-in (real) — only when a client id is configured
 async function initGoogle(){
@@ -459,6 +738,8 @@ async function loadInventory() {
     try { const r = await fetch('/data/vehicles.json'); if(r.ok) invVehicles = await r.json(); } catch(_) {}
   }
   renderInvTable();
+  renderOwnerSalesVehicles();
+  updateOwnerDeal();
 }
 
 function renderInvTable() {
