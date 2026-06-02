@@ -1432,6 +1432,7 @@ function calcEst(){
           <div class="modal-tab active" onclick="switchTab('specs',this)" data-i18n="tab_specs">Specifications</div>
           <div class="modal-tab" onclick="switchTab('docs',this)" data-i18n="tab_docs">Documents</div>
           <div class="modal-tab" onclick="switchTab('shipping',this)" data-i18n="tab_ship">Shipping</div>
+          <div class="modal-tab" onclick="switchTab('video',this)" data-i18n="tab_video">📹 Video</div>
         </div>
         <div id="tabSpecs"><div class="specs-grid" id="modalSpecs"></div></div>
         <div id="tabDocs" style="display:none">
@@ -1452,6 +1453,7 @@ function calcEst(){
             <div style="background:var(--surface2);border-radius:7px;padding:10px 13px;font-size:13px"><strong>Active Routes:</strong> <span style="color:var(--muted2)">Ghana · Algeria · Egypt · UAE · Saudi · Cambodia · Morocco · Nigeria · South Africa · Iran</span></div>
           </div>
         </div>
+        <div id="tabVideo" style="display:none"></div>
       </div>
       <div class="modal-sidebar">
         <div class="price-box">
@@ -2716,8 +2718,18 @@ function openModal(id) {
     v.condition==='New'?`<span class="badge badge-new">${trTerm('condition','New')}</span>`:`<span class="badge badge-used">${trTerm('condition','Used')}</span>`,
     v.ev?`<span class="badge badge-ev">${trTerm('badge','ev')}</span>`:'',
     v.premium?`<span class="badge badge-premium">★ ${trTerm('badge','premium')}</span>`:'',
+    v.video?`<span class="badge" style="background:#111;color:#fff">▶ Video</span>`:'',
   ].join('');
   document.getElementById('modalBadges').innerHTML=badges;
+  // Video walkaround — real embed if the vehicle has a video, else a request-walkaround CTA
+  const vid=v.video||'';
+  const ytId=(vid.match(/(?:youtu\.be\/|[?&]v=|embed\/)([\w-]{11})/)||[])[1];
+  const vname=(v.year+' '+v.make+' '+v.model).replace(/'/g,'\\u2019');
+  document.getElementById('tabVideo').innerHTML = vid
+    ? (ytId
+        ? `<div style="position:relative;padding-top:56.25%;border-radius:10px;overflow:hidden"><iframe src="https://www.youtube.com/embed/${ytId}" title="Walkaround" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe></div>`
+        : `<video src="${vid}" controls playsinline preload="metadata" style="width:100%;border-radius:10px"></video>`)
+    : `<div style="text-align:center;padding:16px 10px"><div style="font-size:34px">📹</div><div style="font-weight:700;color:var(--green2);margin:8px 0 4px" data-i18n="vid_h">See this exact vehicle on video</div><div style="color:var(--muted2);font-size:13px;margin-bottom:14px;line-height:1.6">Our team records a full walkaround — or does a <b>live video call</b> — of this ${vname} so you buy with confidence before it ships.</div><button class="btn-fw btn-fw-green" onclick="goToQuote({vehicle:'${vname}',message:'Please send a video walkaround (or schedule a live video call) for the ${vname}.'})" data-i18n="vid_cta">Request a video walkaround →</button></div>`;
   const specs=[
     ['Year',v.year],['Mileage',v.condition==='New'?'0 km':v.mileage.toLocaleString()+' km'],
     ['Fuel',trTerm('fuel',v.fuel)],['Transmission',v.trans],
@@ -2740,10 +2752,10 @@ function updateFreight() {
   document.getElementById('mFreight').textContent=fmt(fr);
   document.getElementById('mCif').textContent=fmt(selV.price+fr+180);
 }
-function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.classList.remove('modal-open'); document.body.style.overflow=''; }
+function closeModal() { var tv=document.getElementById('tabVideo'); if(tv) tv.innerHTML=''; document.getElementById('modalOverlay').classList.remove('open'); document.body.classList.remove('modal-open'); document.body.style.overflow=''; }
 function closeModalOnOverlay(e) { if(e.target===document.getElementById('modalOverlay')) closeModal(); }
 function switchTab(tab,btn) {
-  ['tabSpecs','tabDocs','tabShipping'].forEach(t=>document.getElementById(t).style.display='none');
+  ['tabSpecs','tabDocs','tabShipping','tabVideo'].forEach(t=>document.getElementById(t).style.display='none');
   document.getElementById('tab'+tab.charAt(0).toUpperCase()+tab.slice(1)).style.display='';
   document.querySelectorAll('.modal-tab').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
