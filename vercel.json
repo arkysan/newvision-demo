@@ -1,4 +1,11 @@
 {
+  "rewrites": [
+    { "source": "/api/upload",   "destination": "/api/upload.js"   },
+    { "source": "/api/vehicles", "destination": "/api/vehicles.js" },
+    { "source": "/api/cms",      "destination": "/api/cms.js"      },
+    { "source": "/api/lead",     "destination": "/api/lead.js"     },
+    { "source": "/api/portal",   "destination": "/api/portal.js"   }
+  ],
   "headers": [
     { "source": "/(.*)\\.(html)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }] },
     { "source": "/(.*)\\.(js|css)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }] },
