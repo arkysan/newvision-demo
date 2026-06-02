@@ -172,6 +172,24 @@ for (const [snippet, message] of requiredPublicGalleryControls) {
   if (!html.includes(snippet)) fail(message);
 }
 
+const requiredShippingMapControls = [
+  ['id="global-shipping-map"', 'Footer area must include the full-width global shipping map'],
+  ['id="shippingMapSvg"', 'Shipping map must render as a 2D SVG map'],
+  ['id="shippingRouteLoop"', 'Shipping map must define the animated route path'],
+  ['animateMotion', 'Shipping map must animate the ship marker along the route'],
+  ['id="shippingClock"', 'Shipping map must show a current route-preview timestamp'],
+  ['Shanghai', 'Shipping map must include Shanghai origin port'],
+  ['Jebel Ali', 'Shipping map must include Jebel Ali port'],
+  ['Mombasa', 'Shipping map must include Mombasa port'],
+  ['Lagos', 'Shipping map must include Lagos port'],
+  ['Antwerp', 'Shipping map must include Antwerp port'],
+  ['Santos', 'Shipping map must include Santos port'],
+  ['exact vessel schedules, freight, and ETA are confirmed', 'Shipping map must not pretend the route preview is live AIS tracking'],
+];
+for (const [snippet, message] of requiredShippingMapControls) {
+  if (!html.includes(snippet)) fail(message);
+}
+
 const requiredVehicleApiControls = [
   ["require('node:crypto')", 'Vehicles API admin-token comparison must import node:crypto'],
   ['BLOB_KEY', 'Vehicles API must define a Blob storage key'],

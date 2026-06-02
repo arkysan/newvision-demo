@@ -313,6 +313,31 @@
     .footer-col a:hover { color: var(--green); }
     .footer-bottom { padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .footer-bottom p { font-size: 12px; color: var(--muted); }
+    .shipping-map-section { padding: 0 24px 34px; background: var(--surface); }
+    .shipping-map-shell { max-width: 1280px; margin: 0 auto; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: linear-gradient(180deg,#f8fcf9,#eef7f2); }
+    .shipping-map-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); }
+    .shipping-map-head h2 { font-size: clamp(22px,3vw,32px); line-height: 1.1; color: var(--green2); font-weight: 800; }
+    .shipping-map-head p { color: var(--muted2); font-size: 13px; max-width: 58ch; line-height: 1.55; margin-top: 6px; }
+    .shipping-map-status { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; min-width: 220px; }
+    .shipping-map-pill { border: 1px solid var(--border2); background: #fff; color: var(--green2); border-radius: 999px; padding: 7px 12px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .shipping-map-wrap { position: relative; min-height: 430px; background: #dff0f6; }
+    .shipping-map-svg { display: block; width: 100%; height: auto; min-height: 430px; }
+    .map-ocean { fill: #dff0f6; }
+    .map-grid { stroke: rgba(46,125,50,.14); stroke-width: 1; }
+    .map-land { fill: #d5e8d5; stroke: rgba(46,125,50,.22); stroke-width: 1.2; }
+    .map-route { fill: none; stroke: rgba(46,125,50,.38); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 8 10; }
+    .map-route-main { fill: none; stroke: #2e7d32; stroke-width: 4.8; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 2px 2px rgba(18,74,36,.22)); }
+    .map-route-fade { fill: none; stroke: rgba(212,175,55,.5); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; opacity: .5; }
+    .map-port-dot { fill: #fff; stroke: var(--green2); stroke-width: 3; }
+    .map-port-home { fill: var(--gold); stroke: var(--green2); stroke-width: 3; }
+    .map-port-label { font-size: 13px; fill: #17351d; font-weight: 800; paint-order: stroke; stroke: rgba(255,255,255,.85); stroke-width: 4; stroke-linejoin: round; }
+    .map-port-note { font-size: 10px; fill: #456550; font-weight: 700; paint-order: stroke; stroke: rgba(255,255,255,.85); stroke-width: 3; }
+    .map-ship-body { fill: #0f5030; stroke: #fff; stroke-width: 2; }
+    .map-ship-deck { fill: var(--gold); }
+    .shipping-map-legend { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 1px; border-top: 1px solid var(--border); background: var(--border); }
+    .shipping-map-legend div { background: #fff; padding: 12px 14px; min-width: 0; }
+    .shipping-map-legend b { display: block; color: var(--green2); font-size: 12px; margin-bottom: 3px; }
+    .shipping-map-legend span { display: block; color: var(--muted2); font-size: 11px; line-height: 1.35; }
 
     /* ── MOBILE APP BAR ── */
     .mobile-app-bar { display: none; }
@@ -420,6 +445,9 @@
       .modal-body { grid-template-columns: 1fr; }
       .modal-info { border-right: none; border-bottom: 1px solid var(--border); }
       .footer-grid { grid-template-columns: 1fr 1fr; }
+      .shipping-map-head { align-items: flex-start; flex-direction: column; }
+      .shipping-map-status { justify-content: flex-start; min-width: 0; }
+      .shipping-map-legend { grid-template-columns: repeat(3,minmax(0,1fr)); }
       .steps { grid-template-columns: repeat(3,1fr); }
       .categories { grid-template-columns: 1fr; }
     }
@@ -484,6 +512,12 @@
       .vehicle-card { flex: 0 0 84%; scroll-snap-align: start; }
       .steps { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+      .shipping-map-section { padding: 0 14px 24px; }
+      .shipping-map-head { padding: 16px 14px 12px; }
+      .shipping-map-wrap { min-height: 310px; overflow-x: auto; }
+      .shipping-map-svg { width: 760px; min-height: 310px; }
+      .shipping-map-legend { grid-template-columns: 1fr 1fr; }
+      .shipping-map-legend div { padding: 10px 11px; }
       .cta-block { padding: 22px 16px; gap: 16px; border-radius: 12px; }
       .cta-actions, .btn-lg { width: 100%; justify-content: center; }
       #floatWA { display: none !important; }
@@ -1396,6 +1430,105 @@ function calcEst(){
     (fob?'<div><div style="font-size:12px;color:var(--muted)">Estimated CIF (FOB + freight + ins.)</div><div style="font-size:22px;font-weight:800;color:var(--orange)">$'+cifLo.toLocaleString()+'–$'+cifHi.toLocaleString()+'</div></div>':'')+
     '</div><button onclick="goToQuote({message:\'I used the shipping estimator and want an exact CIF quote.\'})" style="margin-top:14px;background:var(--green);color:#fff;border:0;border-radius:8px;padding:11px 20px;font-weight:700;cursor:pointer">Get exact CIF quote →</button>';
 }
+</script>
+
+<!-- ── GLOBAL SHIPPING MAP ── -->
+<section class="shipping-map-section" id="global-shipping-map" aria-label="New Vision global shipping route map">
+  <div class="shipping-map-shell">
+    <div class="shipping-map-head">
+      <div>
+        <h2>Global shipping route map</h2>
+        <p>New Vision exports from China through Shanghai port to major buyer ports. The ship animation loops through real port positions; exact vessel schedules, freight, and ETA are confirmed when you request a CIF quote.</p>
+      </div>
+      <div class="shipping-map-status" aria-label="shipping route status">
+        <span class="shipping-map-pill">Origin: Yiwu to Shanghai</span>
+        <span class="shipping-map-pill" id="shippingClock">Route preview loading</span>
+      </div>
+    </div>
+    <div class="shipping-map-wrap">
+      <svg class="shipping-map-svg" id="shippingMapSvg" viewBox="0 0 1000 500" role="img" aria-labelledby="shippingMapTitle shippingMapDesc">
+        <title id="shippingMapTitle">Animated world shipping route map</title>
+        <desc id="shippingMapDesc">A two-dimensional world map with route lines from Shanghai, China to Jebel Ali, Mombasa, Lagos, Antwerp, and Santos. A ship marker loops along the route.</desc>
+        <rect class="map-ocean" width="1000" height="500"></rect>
+        <path class="map-grid" d="M0 125H1000M0 250H1000M0 375H1000M250 0V500M500 0V500M750 0V500"></path>
+        <path class="map-land" d="M88 120L137 86L213 83L265 122L280 176L252 230L282 291L260 365L210 424L151 409L131 332L99 272L63 207Z"></path>
+        <path class="map-land" d="M275 114L350 83L422 99L482 134L462 186L403 193L366 232L316 214L298 166Z"></path>
+        <path class="map-land" d="M382 205L454 203L506 250L504 320L467 392L419 386L391 324L356 285Z"></path>
+        <path class="map-land" d="M454 86L560 75L655 100L724 146L812 136L902 182L888 236L799 230L722 208L650 190L590 210L528 180L466 172Z"></path>
+        <path class="map-land" d="M702 235L764 238L816 285L802 345L741 354L700 315Z"></path>
+        <path class="map-land" d="M726 348L792 370L829 428L776 454L714 421Z"></path>
+        <path class="map-route" d="M838 163C785 167 718 174 653 181"></path>
+        <path class="map-route" d="M653 181C646 214 631 244 610 261"></path>
+        <path class="map-route" d="M610 261C575 247 540 237 509 232"></path>
+        <path class="map-route" d="M509 232C503 171 506 129 512 108"></path>
+        <path class="map-route" d="M512 108C441 172 390 252 371 316"></path>
+        <path class="map-route-fade" d="M838 163C785 167 718 174 653 181C646 214 631 244 610 261C575 247 540 237 509 232C503 171 506 129 512 108C441 172 390 252 371 316C498 385 704 304 838 163"></path>
+        <path class="map-route-main" id="shippingRouteLoop" d="M838 163C785 167 718 174 653 181C646 214 631 244 610 261C575 247 540 237 509 232C503 171 506 129 512 108C441 172 390 252 371 316C498 385 704 304 838 163"></path>
+
+        <g>
+          <circle class="map-port-home" cx="838" cy="163" r="8"></circle>
+          <text class="map-port-label" x="848" y="158">Shanghai</text>
+          <text class="map-port-note" x="848" y="172">China export port</text>
+        </g>
+        <g>
+          <circle class="map-port-dot" cx="653" cy="181" r="7"></circle>
+          <text class="map-port-label" x="663" y="176">Jebel Ali</text>
+          <text class="map-port-note" x="663" y="190">UAE Gulf hub</text>
+        </g>
+        <g>
+          <circle class="map-port-dot" cx="610" cy="261" r="7"></circle>
+          <text class="map-port-label" x="620" y="256">Mombasa</text>
+          <text class="map-port-note" x="620" y="270">East Africa</text>
+        </g>
+        <g>
+          <circle class="map-port-dot" cx="509" cy="232" r="7"></circle>
+          <text class="map-port-label" x="454" y="225">Lagos</text>
+          <text class="map-port-note" x="436" y="239">West Africa</text>
+        </g>
+        <g>
+          <circle class="map-port-dot" cx="512" cy="108" r="7"></circle>
+          <text class="map-port-label" x="522" y="103">Antwerp</text>
+          <text class="map-port-note" x="522" y="117">Europe</text>
+        </g>
+        <g>
+          <circle class="map-port-dot" cx="371" cy="316" r="7"></circle>
+          <text class="map-port-label" x="310" y="311">Santos</text>
+          <text class="map-port-note" x="284" y="325">Brazil</text>
+        </g>
+        <g>
+          <circle class="map-port-home" cx="835" cy="160" r="4"></circle>
+          <text class="map-port-label" x="798" y="142">Yiwu</text>
+          <text class="map-port-note" x="770" y="128">factory sourcing base</text>
+        </g>
+
+        <g>
+          <animateMotion dur="18s" repeatCount="indefinite" rotate="auto">
+            <mpath href="#shippingRouteLoop"></mpath>
+          </animateMotion>
+          <path class="map-ship-body" d="M-16 -6H8L17 0L8 6H-16L-21 0Z"></path>
+          <rect class="map-ship-deck" x="-6" y="-10" width="10" height="7" rx="2"></rect>
+        </g>
+      </svg>
+    </div>
+    <div class="shipping-map-legend">
+      <div><b>Shanghai</b><span>New Vision export loading through China port lanes.</span></div>
+      <div><b>Jebel Ali</b><span>Gulf distribution and re-export hub.</span></div>
+      <div><b>Mombasa</b><span>East Africa buyer and dealer lane.</span></div>
+      <div><b>Lagos</b><span>West Africa vehicle import demand.</span></div>
+      <div><b>Antwerp</b><span>Europe destination and onward logistics.</span></div>
+      <div><b>Santos</b><span>Brazil and Latin America quote lane.</span></div>
+    </div>
+  </div>
+</section>
+<script>
+(function updateShippingClock(){
+  const el = document.getElementById('shippingClock');
+  if (!el) return;
+  const now = new Date();
+  const text = now.toISOString().slice(11,16) + ' UTC route preview';
+  el.textContent = text;
+  setTimeout(updateShippingClock, 60000);
+})();
 </script>
 
 <!-- ── FOOTER ── -->
