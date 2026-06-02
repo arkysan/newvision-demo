@@ -84,6 +84,20 @@
   .vf-grid input,.vf-grid select{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;font:inherit;background:#fbfdfb}
   .vf-grid input:focus,.vf-grid select:focus{outline:0;border-color:var(--green)}
   @media(max-width:600px){.vf-grid{grid-template-columns:1fr}.vf-grid [style*="span 2"]{grid-column:span 1}}
+  /* image upload slots */
+  .img-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+  .img-slot{aspect-ratio:4/3;border:2px dashed var(--line);border-radius:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;position:relative;background:var(--bg);transition:border-color .2s;user-select:none}
+  .img-slot:hover{border-color:var(--green)}
+  .img-slot.has-img{border-style:solid;border-color:var(--green3)}
+  .img-slot.uploading{border-color:var(--green);pointer-events:none}
+  .img-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+  .slot-label{font-size:10px;font-weight:800;color:var(--muted);position:absolute;bottom:0;left:0;right:0;text-align:center;background:rgba(255,255,255,.82);padding:3px 0;z-index:1;letter-spacing:.02em}
+  .slot-plus{font-size:26px;color:var(--muted);line-height:1;margin-bottom:14px}
+  .slot-remove{position:absolute;top:4px;right:4px;background:rgba(255,255,255,.9);border:0;border-radius:50%;width:22px;height:22px;font-size:12px;cursor:pointer;align-items:center;justify-content:center;color:var(--red);z-index:2;display:none}
+  .img-slot.has-img .slot-remove{display:flex}
+  .slot-spinner{font-size:20px;color:var(--green);animation:spin .7s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(max-width:600px){.img-slots{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -246,7 +260,11 @@
       <div><label>Range (km, EV only)</label><input id="vf_range" type="number" min="0" placeholder="leave blank if petrol" /></div>
       <div style="grid-column:span 2"><label>Transmission</label><input id="vf_trans" placeholder="e.g. DCT 7-Speed" /></div>
       <div style="grid-column:span 2"><label>Engine</label><input id="vf_engine" placeholder="e.g. 1.5T 118kW/250Nm" /></div>
-      <div style="grid-column:span 2"><label>Image path</label><input id="vf_img" placeholder="img/nvn-v36-brand-model.jpg" /></div>
+      <div style="grid-column:span 2">
+        <label>Photos — up to 4 (first = thumbnail shown on vehicle cards)</label>
+        <div class="img-slots" id="imgSlots"></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:5px">JPG · PNG · WebP · max 4MB each. Uploads to Vercel Blob (requires BLOB_READ_WRITE_TOKEN).</div>
+      </div>
     </div>
     <div style="display:flex;gap:10px;margin-top:8px">
       <label style="display:flex;align-items:center;gap:5px;font-size:13px"><input type="checkbox" id="vf_ev" /> EV</label>
@@ -433,7 +451,7 @@ function openVehicleForm(id) {
   set('vf_range',   v?.range_km ?? '');
   set('vf_trans',   v?.trans   || '');
   set('vf_engine',  v?.engine  || '');
-  set('vf_img',     v?.img     || '');
+  resetImgSlots(v?.imgs && v.imgs.length ? v.imgs : (v?.img ? [v.img] : []));
   chk('vf_ev',      v?.ev);
   chk('vf_hot',     v?.hot);
   chk('vf_premium', v?.premium);
@@ -462,7 +480,8 @@ function saveVehicleForm() {
     range_km:   $('vf_range').value !== '' ? parseInt($('vf_range').value, 10) : null,
     trans:      $('vf_trans').value.trim(),
     engine:     $('vf_engine').value.trim(),
-    img:        $('vf_img').value.trim() || 'img/placeholder.webp',
+    imgs:       invImgUrls.filter(Boolean),
+    img:        invImgUrls.find(Boolean) || (invEditId ? (invVehicles.find(v=>v.id===invEditId)?.img || '') : ''),
     ev:         $('vf_ev').checked,
     hot:        $('vf_hot').checked,
     premium:    $('vf_premium').checked,
@@ -523,6 +542,84 @@ function downloadInventoryJSON() {
 }
 
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── IMAGE UPLOAD SLOTS ─────────────────────────────────────────────────────
+let invImgUrls = [null, null, null, null];
+const SLOT_LABELS = ['Main photo', 'Photo 2', 'Photo 3', 'Photo 4'];
+
+function buildSlotHTML(i, url) {
+  if (url) {
+    return `<div class="img-slot has-img" id="slot_${i}" onclick="triggerSlotPick(${i})">
+      <img src="${url}" alt="photo ${i+1}" />
+      <span class="slot-label">${SLOT_LABELS[i]}</span>
+      <button class="slot-remove" onclick="removeSlotImg(event,${i})" title="Remove">✕</button>
+      <input type="file" accept="image/jpeg,image/jpg,image/png,image/webp" style="display:none" id="slotFile_${i}" onchange="handleSlotFile(${i},this)" />
+    </div>`;
+  }
+  return `<div class="img-slot" id="slot_${i}" onclick="triggerSlotPick(${i})">
+    <span class="slot-plus">+</span>
+    <span class="slot-label">${SLOT_LABELS[i]}</span>
+    <button class="slot-remove" onclick="removeSlotImg(event,${i})" title="Remove">✕</button>
+    <input type="file" accept="image/jpeg,image/jpg,image/png,image/webp" style="display:none" id="slotFile_${i}" onchange="handleSlotFile(${i},this)" />
+  </div>`;
+}
+
+function resetImgSlots(imgs) {
+  invImgUrls = [null, null, null, null];
+  (imgs || []).slice(0, 4).forEach((url, i) => { invImgUrls[i] = url || null; });
+  const container = $('imgSlots');
+  if (container) container.innerHTML = [0,1,2,3].map(i => buildSlotHTML(i, invImgUrls[i])).join('');
+}
+
+function triggerSlotPick(i) {
+  const fi = document.getElementById('slotFile_' + i);
+  if (fi) fi.click();
+}
+
+async function handleSlotFile(i, input) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+  if (file.size > 4 * 1024 * 1024) { alert('Image too large (max 4MB). Please compress and try again.'); input.value = ''; return; }
+
+  // Show spinner
+  const slot = document.getElementById('slot_' + i);
+  if (slot) { slot.className = 'img-slot uploading'; slot.innerHTML = `<span class="slot-spinner">⟳</span><span class="slot-label">${SLOT_LABELS[i]}</span>`; }
+
+  const token = localStorage.getItem('newvision.cms.token') || '';
+  try {
+    const r = await fetch('/api/upload?filename=' + encodeURIComponent(file.name), {
+      method: 'POST',
+      headers: { 'Content-Type': file.type, 'x-newvision-admin-token': token },
+      body: file,
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!data.url) throw new Error(data.message || data.error || 'Upload failed (no URL returned)');
+    invImgUrls[i] = data.url;
+  } catch (e) {
+    invImgUrls[i] = null;
+    alert('Upload failed: ' + e.message + '\n\nCheck that BLOB_READ_WRITE_TOKEN is set in Vercel project settings.');
+  }
+  // Re-render this slot
+  const container = $('imgSlots');
+  if (container) {
+    const newSlot = document.createElement('div');
+    newSlot.innerHTML = buildSlotHTML(i, invImgUrls[i]);
+    const existing = document.getElementById('slot_' + i);
+    if (existing) existing.replaceWith(newSlot.firstElementChild);
+  }
+}
+
+function removeSlotImg(e, i) {
+  e.stopPropagation();
+  invImgUrls[i] = null;
+  const container = $('imgSlots');
+  if (container) {
+    const newSlot = document.createElement('div');
+    newSlot.innerHTML = buildSlotHTML(i, null);
+    const existing = document.getElementById('slot_' + i);
+    if (existing) existing.replaceWith(newSlot.firstElementChild);
+  }
+}
 
 // Load inventory when portal app opens (hook into showApp)
 const _origShowApp = showApp;
