@@ -63,6 +63,12 @@
   .amt-in{color:var(--green)}.amt-out{color:var(--red)}
   .del{background:none;border:0;color:var(--red);cursor:pointer;font-size:14px}
   .empty{color:var(--muted);font-size:13px;padding:14px 4px}
+  .heat-wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:18px}
+  .heat-stage{position:relative;background:#0d2a14;border-radius:12px;height:360px;overflow:hidden;border:1px solid var(--line)}
+  .heat-stage .hint{position:absolute;top:8px;left:10px;right:10px;color:#9fc4cf;font-size:11px;z-index:2;line-height:1.3}
+  .heat-dot{position:absolute;width:16px;height:16px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(67,160,71,.75),rgba(67,160,71,0));pointer-events:none;mix-blend-mode:screen}
+  .heat-dot.q{background:radial-gradient(circle,rgba(201,162,75,.95),rgba(201,162,75,0));width:20px;height:20px}
+  @media(max-width:860px){.heat-wrap{grid-template-columns:1fr}}
   @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.ledger-form{grid-template-columns:1fr 1fr}}
 </style>
 </head>
@@ -122,6 +128,20 @@
       </div>
     </div>
 
+    <div class="panel" style="margin-bottom:22px">
+      <h2>🔥 Interaction heatmap <span class="pill" id="heatPill"></span></h2>
+      <div class="heat-wrap">
+        <div class="heat-stage" id="heatStage"><span class="hint">Click density — top → bottom of the page. Gold = visitors who requested a quote, green = everyone else.</span></div>
+        <div>
+          <div style="font-size:13px;margin-bottom:10px;color:var(--muted)">Sessions: <strong id="hSessions">0</strong> · Requested a quote: <strong id="hQuote">0</strong></div>
+          <div style="font-weight:700;font-size:13px;margin:8px 0 6px;color:var(--green2)">Most-clicked things</div>
+          <div class="bars" id="hEls"></div>
+          <div style="font-weight:700;font-size:13px;margin:14px 0 6px;color:var(--green2)">How far visitors scroll</div>
+          <div class="bars" id="hScroll"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid2">
       <div class="panel">
         <h2>💰 Revenue &amp; expenses</h2>
@@ -166,7 +186,19 @@ async function doLogout(){ await api('logout',{method:'POST'}); location.reload(
 function showApp(user){
   $('login').style.display='none'; $('app').style.display='block';
   $('who').textContent = 'Signed in: ' + (user.name||user.u);
-  loadDashboard();
+  loadDashboard(); loadHeatmap();
+}
+
+async function loadHeatmap(){
+  const h = await api('heatmap'); if(!h.ok) return;
+  $('heatPill').textContent = (h.clicks.length||0)+' clicks';
+  $('hSessions').textContent = h.sessions||0; $('hQuote').textContent = h.quoteSessions||0;
+  const stage=$('heatStage'); stage.querySelectorAll('.heat-dot').forEach(d=>d.remove());
+  (h.clicks||[]).forEach(c=>{ const d=document.createElement('div'); d.className='heat-dot'+(c.q?' q':''); d.style.left=c.x+'%'; d.style.top=c.y+'%'; stage.appendChild(d); });
+  const elMax=Math.max(1,...(h.topEls||[]).map(e=>e[1]));
+  $('hEls').innerHTML = (h.topEls&&h.topEls.length)? h.topEls.map(e=>bar(e[0],e[1],elMax)).join('') : '<div class="empty">No clicks captured yet.</div>';
+  const order=['0-25','25-50','50-75','75-90','90-100']; const sMax=Math.max(1,...order.map(k=>(h.scroll||{})[k]||0));
+  $('hScroll').innerHTML = order.map(k=>bar(k+'%',(h.scroll||{})[k]||0,sMax)).join('');
 }
 
 async function loadDashboard(){

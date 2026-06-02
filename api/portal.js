@@ -46,6 +46,33 @@ module.exports = async (req, res) => {
     // ── visitor tracking (public, no auth) ──
     if (action === 'track') { const v = await trackVisit(); return send(res, 200, { ok: true, total: v.total }); }
 
+    // ── heatmap ingest (public): batched interaction events from the site ──
+    if (action === 'heat' && req.method === 'POST') {
+      const b = await readBody(req);
+      const isQuote = !!b.quote;
+      const page = String(b.page || '/').slice(0, 40);
+      const clicks = Array.isArray(b.clicks) ? b.clicks.slice(0, 40) : [];
+      const heat = await store.readData('heat', { clicks: [], scroll: {}, pages: {}, sessions: 0 });
+      clicks.forEach((c) => {
+        heat.clicks.push({ x: Math.max(0, Math.min(100, Math.round(+c.x || 0))), y: Math.max(0, Math.min(100, Math.round(+c.y || 0))), el: String(c.el || '').slice(0, 60), q: isQuote ? 1 : 0, p: page });
+      });
+      if (heat.clicks.length > 6000) heat.clicks = heat.clicks.slice(-6000);
+      const sd = Math.max(0, Math.min(100, Math.round(+b.scrollMax || 0)));
+      const bucket = sd >= 90 ? '90-100' : sd >= 75 ? '75-90' : sd >= 50 ? '50-75' : sd >= 25 ? '25-50' : '0-25';
+      heat.scroll[bucket] = (heat.scroll[bucket] || 0) + 1;
+      if (b.newSession) heat.sessions = (heat.sessions || 0) + 1;
+      heat.pages[page] = (heat.pages[page] || 0) + 1;
+      await store.writeData('heat', heat);
+      // detailed movement only for quote-requesters (encrypted, PII-linked)
+      if (isQuote && clicks.length) {
+        const j = await store.readData('journeys', []);
+        j.unshift({ sid: String(b.sid || '').slice(0, 40), at: new Date().toISOString(), page, scrollMax: sd,
+          clicks: clicks.map((c) => ({ x: Math.round(+c.x || 0), y: Math.round(+c.y || 0), el: String(c.el || '').slice(0, 40) })) });
+        await store.writeData('journeys', j.slice(0, 400));
+      }
+      return send(res, 200, { ok: true });
+    }
+
     // ── owner login ──
     if (action === 'login' && req.method === 'POST') {
       const b = await readBody(req);
@@ -107,6 +134,18 @@ module.exports = async (req, res) => {
         ledger: ledger.slice(0, 500),
         finance: { income, expense, profit: income - expense },
       });
+    }
+
+    if (action === 'heatmap') {
+      const [heat, journeys] = await Promise.all([
+        store.readData('heat', { clicks: [], scroll: {}, pages: {}, sessions: 0 }),
+        store.readData('journeys', []),
+      ]);
+      const elCount = {};
+      heat.clicks.forEach((c) => { if (c.el) elCount[c.el] = (elCount[c.el] || 0) + 1; });
+      const topEls = Object.entries(elCount).sort((a, b) => b[1] - a[1]).slice(0, 12);
+      const quoteSids = new Set(journeys.map((j) => j.sid));
+      return send(res, 200, { ok: true, clicks: heat.clicks.slice(-3000), scroll: heat.scroll || {}, pages: heat.pages || {}, sessions: heat.sessions || 0, quoteSessions: quoteSids.size, topEls, journeys: journeys.slice(0, 40) });
     }
 
     if (action === 'ledger' && req.method === 'POST') {
