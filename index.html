@@ -181,7 +181,10 @@
     .section-sub { font-size: 13px; color: var(--muted2); margin-top: 3px; }
 
     /* ── FILTERS ── */
-    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .inventory-organizer { display: grid; gap: 12px; margin: 0 0 20px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface2); }
+    .inventory-filter-group { display: grid; grid-template-columns: 116px 1fr; align-items: start; gap: 10px; }
+    .inventory-filter-label { min-height: 34px; display: flex; align-items: center; font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 0; }
     .filter-btn { padding: 7px 15px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted2); font-size: 13px; transition: all .2s; }
     .filter-btn:hover, .filter-btn.active { border-color: var(--green); color: var(--green); background: rgba(76,175,80,0.07); }
     .filter-select { padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted2); font-size: 13px; outline: none; }
@@ -216,7 +219,7 @@
     .btn-secondary { padding: 8px 12px; background: none; border: 1px solid var(--border); border-radius: 7px; color: var(--muted2); font-size: 13px; transition: all .2s; }
     .btn-secondary:hover { border-color: var(--green); color: var(--green); }
 
-    /* ── BRAND PARTNERS ── */
+    /* ── BRAND FILTERS ── */
     .brands-grouped { display: grid; gap: 10px; }
     .brands-quick, .brands-grid { display: flex; flex-wrap: wrap; gap: 8px; }
     .brand-more { border: 1px solid var(--border); border-radius: 8px; background: var(--surface); overflow: hidden; }
@@ -485,10 +488,9 @@
       .hero-tags::-webkit-scrollbar { display: none; }
       .hero-tag { flex: 0 0 auto; }
       .category-band, .stats, .trust { display: none !important; }
-      .brand-section { padding: 18px 14px 20px; }
-      .brand-section .section-header { margin-bottom: 10px; }
-      .brand-section .section-title { font-size: 22px; }
-      .brand-section .section-sub { display: none; }
+      .inventory-organizer { padding: 10px; gap: 10px; margin-bottom: 14px; max-height: 360px; overflow-y: auto; }
+      .inventory-filter-group { grid-template-columns: 1fr; gap: 6px; }
+      .inventory-filter-label { min-height: auto; }
       .brands-quick { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
       .brands-quick::-webkit-scrollbar { display: none; }
       .brand-pill { flex: 0 0 auto; min-height: 36px; padding: 7px 11px; }
@@ -504,22 +506,33 @@
       #inventory .section-header { margin-bottom: 12px; }
       #inventory .section-sub { display: none; }
       #inventory .filter-select { width: 100%; min-height: 40px; }
-      #filterBar { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; margin-bottom: 12px; scrollbar-width: none; }
-      #filterBar::-webkit-scrollbar { display: none; }
-      #filterBar .filter-btn { flex: 0 0 auto; min-height: 38px; padding: 7px 12px; }
+      .inventory-organizer .filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+      .inventory-organizer .filters::-webkit-scrollbar { display: none; }
+      .inventory-organizer .filter-btn { flex: 0 0 auto; min-height: 38px; padding: 7px 12px; }
       .categories { padding: 12px 14px 18px; gap: 8px; }
       .cat-card { padding: 13px; border-radius: 10px; }
       .cat-icon { width: 36px; height: 36px; }
       .cat-info p { display: none; }
       section { padding: 36px 14px; }
-      /* Phone: cars become a horizontal swipe-scroll carousel */
+      /* Phone: dense marketplace grid inspired by used-car shopping apps */
       .vehicle-grid {
-        display: flex; grid-template-columns: none;
-        overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-        gap: 14px; padding: 2px 14px 12px; margin: 0 -14px; scrollbar-width: none;
+        display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+        overflow: visible; scroll-snap-type: none;
+        gap: 10px; padding: 0; margin: 0;
       }
-      .vehicle-grid::-webkit-scrollbar { display: none; }
-      .vehicle-card { flex: 0 0 84%; scroll-snap-align: start; }
+      .vehicle-card { flex: none; scroll-snap-align: none; border-radius: 10px; contain-intrinsic-size: 250px 280px; }
+      .vehicle-img { aspect-ratio: 1.12; }
+      .vehicle-badges { top: 7px; left: 7px; gap: 3px; }
+      .badge { font-size: 9px; padding: 2px 5px; border-radius: 4px; }
+      .vehicle-body { padding: 9px 10px 10px; }
+      .vehicle-brand { font-size: 10px; margin-bottom: 2px; }
+      .vehicle-name { min-height: 38px; font-size: 13px; line-height: 1.42; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .vehicle-meta { gap: 6px; font-size: 11px; margin-bottom: 7px; }
+      .vehicle-price-row { align-items: flex-start; flex-direction: column; gap: 2px; }
+      .vehicle-fob { font-size: 17px; }
+      .vehicle-cif { font-size: 11px; }
+      .vehicle-actions { gap: 6px; margin-top: 8px; }
+      .btn-primary, .btn-secondary { min-height: 34px; font-size: 12px; padding: 7px 8px; }
       .steps { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 20px; }
       .shipping-map-section { padding: 0 14px 24px; }
@@ -720,17 +733,114 @@
     </select>
   </div>
 
-  <div class="filters" id="filterBar">
-    <button class="filter-btn active" onclick="setTypeFilter('all',this)" data-i18n="filter_all">All</button>
-    <button class="filter-btn" onclick="setTypeFilter('EV',this)" data-i18n="filter_ev">New Energy</button>
-    <button class="filter-btn" onclick="setTypeFilter('SUV',this)" data-i18n="filter_suv">SUV</button>
-    <button class="filter-btn" onclick="setTypeFilter('Sedan',this)" data-i18n="filter_sedan">Sedan</button>
-    <button class="filter-btn" onclick="setTypeFilter('Premium',this)" data-i18n="filter_premium">Premium</button>
-    <button class="filter-btn" onclick="setTypeFilter('New',this)" data-i18n="filter_new">Brand New</button>
-    <button class="filter-btn" onclick="setTypeFilter('Used',this)" data-i18n="filter_used">Used Cars</button>
-    <button class="filter-btn" onclick="setPriceFilter('under15k',this)">Under $15K</button>
-    <button class="filter-btn" onclick="setPriceFilter('15k-30k',this)">$15K–$30K</button>
-    <button class="filter-btn" onclick="setPriceFilter('over30k',this)">$30K+</button>
+  <div class="inventory-organizer" id="inventoryOrganizer" aria-label="Vehicle inventory filters">
+    <div class="inventory-filter-group">
+      <div class="inventory-filter-label" data-i18n="org_brand">Brand</div>
+      <div id="brandGrid" class="brands-grouped">
+        <div class="brands-quick" aria-label="Quick brand filters">
+          <button type="button" class="brand-pill active" onclick="filterByBrand('',this)" data-i18n="brand_all">All Brands</button>
+          <button type="button" class="brand-pill" onclick="filterByBrand('BYD',this)" data-brand="BYD">BYD 比亚迪</button>
+          <button type="button" class="brand-pill" onclick="filterByBrand('Tesla',this)" data-brand="Tesla">Tesla 特斯拉</button>
+          <button type="button" class="brand-pill" onclick="filterByBrand('Li Auto',this)" data-brand="Li Auto">Li Auto 理想</button>
+          <button type="button" class="brand-pill" onclick="filterByBrand('BMW',this)" data-brand="BMW">BMW 宝马</button>
+          <button type="button" class="brand-pill" onclick="filterByBrand('Toyota',this)" data-brand="Toyota">Toyota 丰田</button>
+        </div>
+        <details class="brand-more">
+          <summary data-i18n="brand_more">More brand filters</summary>
+          <div class="brand-groups">
+            <div class="brand-group">
+              <div class="brand-group-label" data-i18n="brand_grp_cn">China makers</div>
+              <div class="brands-grid">
+                <button type="button" class="brand-pill" onclick="filterByBrand('BYD',this)" data-brand="BYD">BYD 比亚迪</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Li Auto',this)" data-brand="Li Auto">Li Auto 理想</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Xiaomi',this)" data-brand="Xiaomi">Xiaomi 小米</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Changan',this)" data-brand="Changan">Changan 长安</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Geely',this)" data-brand="Geely">Geely 吉利</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Leapmotor',this)" data-brand="Leapmotor">Leapmotor 零跑</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Jetour',this)" data-brand="Jetour">Jetour 捷途</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Great Wall',this)" data-brand="Great Wall">Great Wall 长城</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Tank',this)" data-brand="Tank">Tank 坦克</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('MG',this)" data-brand="MG">MG 名爵</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Formula Leopard',this)" data-brand="Formula Leopard">Formula Leopard 方程豹</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Livan',this)" data-brand="Livan">Livan 睿蓝</button>
+              </div>
+            </div>
+            <div class="brand-group">
+              <div class="brand-group-label" data-i18n="brand_grp_jp">Japan</div>
+              <div class="brands-grid">
+                <button type="button" class="brand-pill" onclick="filterByBrand('Toyota',this)" data-brand="Toyota">Toyota 丰田</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Honda',this)" data-brand="Honda">Honda 本田</button>
+              </div>
+            </div>
+            <div class="brand-group">
+              <div class="brand-group-label" data-i18n="brand_grp_de">Germany</div>
+              <div class="brands-grid">
+                <button type="button" class="brand-pill" onclick="filterByBrand('BMW',this)" data-brand="BMW">BMW 宝马</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Mercedes-Benz',this)" data-brand="Mercedes-Benz">Mercedes-Benz 奔驰</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Volkswagen',this)" data-brand="Volkswagen">Volkswagen 大众</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Audi',this)" data-brand="Audi">Audi 奥迪</button>
+              </div>
+            </div>
+            <div class="brand-group">
+              <div class="brand-group-label" data-i18n="brand_grp_kr">Korea</div>
+              <div class="brands-grid">
+                <button type="button" class="brand-pill" onclick="filterByBrand('Hyundai',this)" data-brand="Hyundai">Hyundai 现代</button>
+                <button type="button" class="brand-pill" onclick="filterByBrand('Kia',this)" data-brand="Kia">Kia 起亚</button>
+              </div>
+            </div>
+            <div class="brand-group">
+              <div class="brand-group-label" data-i18n="brand_grp_us">USA</div>
+              <div class="brands-grid">
+                <button type="button" class="brand-pill" onclick="filterByBrand('Tesla',this)" data-brand="Tesla">Tesla 特斯拉</button>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+    <div class="inventory-filter-group">
+      <div class="inventory-filter-label" data-i18n="org_power">Power</div>
+      <div class="filters" id="powerFilterBar">
+        <button class="filter-btn active" onclick="setInventoryFilter('power','all',this)" data-i18n="filter_all">All</button>
+        <button class="filter-btn" onclick="setInventoryFilter('power','EV',this)" data-i18n="filter_ev">Electric / Hybrid</button>
+        <button class="filter-btn" onclick="setInventoryFilter('power','Fuel',this)" data-i18n="filter_fuel">Gas / Petrol</button>
+      </div>
+    </div>
+    <div class="inventory-filter-group">
+      <div class="inventory-filter-label" data-i18n="org_body">Category</div>
+      <div class="filters" id="bodyFilterBar">
+        <button class="filter-btn active" onclick="setInventoryFilter('body','all',this)" data-i18n="filter_all">All</button>
+        <button class="filter-btn" onclick="setInventoryFilter('body','SUV',this)" data-i18n="filter_suv">SUV</button>
+        <button class="filter-btn" onclick="setInventoryFilter('body','Sedan',this)" data-i18n="filter_sedan">Sedan</button>
+        <button class="filter-btn" onclick="setInventoryFilter('body','Pickup',this)">Pickup</button>
+        <button class="filter-btn" onclick="setInventoryFilter('body','Hatchback',this)">Hatchback</button>
+      </div>
+    </div>
+    <div class="inventory-filter-group">
+      <div class="inventory-filter-label" data-i18n="org_tier">Tier</div>
+      <div class="filters" id="tierFilterBar">
+        <button class="filter-btn active" onclick="setInventoryFilter('tier','all',this)" data-i18n="filter_all">All</button>
+        <button class="filter-btn" onclick="setInventoryFilter('tier','Premium',this)" data-i18n="filter_premium">Premium</button>
+        <button class="filter-btn" onclick="setInventoryFilter('tier','Value',this)" data-i18n="filter_value">Value</button>
+      </div>
+    </div>
+    <div class="inventory-filter-group">
+      <div class="inventory-filter-label" data-i18n="org_stock">Stock</div>
+      <div class="filters" id="stockFilterBar">
+        <button class="filter-btn active" onclick="setInventoryFilter('condition','all',this)" data-i18n="filter_all">All</button>
+        <button class="filter-btn" onclick="setInventoryFilter('condition','New',this)" data-i18n="filter_new">Brand New</button>
+        <button class="filter-btn" onclick="setInventoryFilter('condition','Used',this)" data-i18n="filter_used">Used Cars</button>
+      </div>
+    </div>
+    <div class="inventory-filter-group">
+      <div class="inventory-filter-label" data-i18n="org_budget">Budget</div>
+      <div class="filters" id="priceFilterBar">
+        <button class="filter-btn active" onclick="setPriceFilter('all',this)" data-i18n="filter_all">All</button>
+        <button class="filter-btn" onclick="setPriceFilter('under15k',this)">Under $15K</button>
+        <button class="filter-btn" onclick="setPriceFilter('15k-30k',this)">$15K-$30K</button>
+        <button class="filter-btn" onclick="setPriceFilter('over30k',this)">$30K+</button>
+      </div>
+    </div>
   </div>
 
   <div class="vehicle-grid" id="vehicleGrid"></div>
@@ -775,82 +885,6 @@
   <div class="trust-item"><div class="trust-icon">DOC</div><div class="trust-text"><strong data-i18n="trust5_s">Full Documentation</strong><span data-i18n="trust5_p">B/L, CoO, customs, invoice, insurance</span></div></div>
   <div class="trust-item"><div class="trust-icon">GLB</div><div class="trust-text"><strong data-i18n="trust6_s">Global Network</strong><span data-i18n="trust6_p">Asia · Europe · Africa · Middle East · S. America</span></div></div>
 </div>
-
-<!-- ── BRAND PARTNERS ── -->
-<section class="brand-section" id="brands">
-  <div class="section-header">
-    <div>
-      <h2 class="section-title" data-i18n-html="sec_brands">Brand <span>Partners</span></h2>
-      <div class="section-sub" data-i18n="brand_sub">Focused brand filters for common export requests.</div>
-    </div>
-  </div>
-  <div id="brandGrid" class="brands-grouped">
-    <div class="brands-quick" aria-label="Quick brand filters">
-      <button type="button" class="brand-pill active" onclick="filterByBrand('',this)" data-i18n="brand_all">All Brands</button>
-      <button type="button" class="brand-pill" onclick="filterByBrand('BYD',this)" data-brand="BYD">BYD 比亚迪</button>
-      <button type="button" class="brand-pill" onclick="filterByBrand('Tesla',this)" data-brand="Tesla">Tesla 特斯拉</button>
-      <button type="button" class="brand-pill" onclick="filterByBrand('Li Auto',this)" data-brand="Li Auto">Li Auto 理想</button>
-      <button type="button" class="brand-pill" onclick="filterByBrand('BMW',this)" data-brand="BMW">BMW 宝马</button>
-      <button type="button" class="brand-pill" onclick="filterByBrand('Toyota',this)" data-brand="Toyota">Toyota 丰田</button>
-    </div>
-    <details class="brand-more">
-      <summary data-i18n="brand_more">More brand filters</summary>
-      <div class="brand-groups">
-        <div class="brand-group">
-          <div class="brand-group-label" data-i18n="brand_grp_cn">China makers</div>
-          <div class="brands-grid">
-            <button type="button" class="brand-pill" onclick="filterByBrand('BYD',this)" data-brand="BYD">BYD 比亚迪</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Li Auto',this)" data-brand="Li Auto">Li Auto 理想</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Xiaomi',this)" data-brand="Xiaomi">Xiaomi 小米</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Changan',this)" data-brand="Changan">Changan 长安</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Chery',this)" data-brand="Chery">Chery 奇瑞</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Geely',this)" data-brand="Geely">Geely 吉利</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Leapmotor',this)" data-brand="Leapmotor">Leapmotor 零跑</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Wuling',this)" data-brand="Wuling">Wuling 五菱</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Yadea',this)" data-brand="Yadea">Yadea 雅迪</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('MAEXTRO',this)" data-brand="MAEXTRO">MAEXTRO 问界</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Trumpchi',this)" data-brand="Trumpchi">Trumpchi 传祺</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Jetour',this)" data-brand="Jetour">Jetour 捷途</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Great Wall',this)" data-brand="Great Wall">Great Wall 长城</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Tank',this)" data-brand="Tank">Tank 坦克</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('MG',this)" data-brand="MG">MG 名爵</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Formula Leopard',this)" data-brand="Formula Leopard">Formula Leopard 方程豹</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Livan',this)" data-brand="Livan">Livan 睿蓝</button>
-          </div>
-        </div>
-        <div class="brand-group">
-          <div class="brand-group-label" data-i18n="brand_grp_jp">Japan</div>
-          <div class="brands-grid">
-            <button type="button" class="brand-pill" onclick="filterByBrand('Toyota',this)" data-brand="Toyota">Toyota 丰田</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Honda',this)" data-brand="Honda">Honda 本田</button>
-          </div>
-        </div>
-        <div class="brand-group">
-          <div class="brand-group-label" data-i18n="brand_grp_de">Germany</div>
-          <div class="brands-grid">
-            <button type="button" class="brand-pill" onclick="filterByBrand('BMW',this)" data-brand="BMW">BMW 宝马</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Mercedes-Benz',this)" data-brand="Mercedes-Benz">Mercedes-Benz 奔驰</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Volkswagen',this)" data-brand="Volkswagen">Volkswagen 大众</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Audi',this)" data-brand="Audi">Audi 奥迪</button>
-          </div>
-        </div>
-        <div class="brand-group">
-          <div class="brand-group-label" data-i18n="brand_grp_kr">Korea</div>
-          <div class="brands-grid">
-            <button type="button" class="brand-pill" onclick="filterByBrand('Hyundai',this)" data-brand="Hyundai">Hyundai 现代</button>
-            <button type="button" class="brand-pill" onclick="filterByBrand('Kia',this)" data-brand="Kia">Kia 起亚</button>
-          </div>
-        </div>
-        <div class="brand-group">
-          <div class="brand-group-label" data-i18n="brand_grp_us">USA</div>
-          <div class="brands-grid">
-            <button type="button" class="brand-pill" onclick="filterByBrand('Tesla',this)" data-brand="Tesla">Tesla 特斯拉</button>
-          </div>
-        </div>
-      </div>
-    </details>
-  </div>
-</section>
 
 <!-- ── SHOWROOM ── -->
 <div class="showroom">
@@ -1718,7 +1752,7 @@ const T = {
     hero_badge:'Demo inventory - contact for current stock',
     hero_h1:'Buy Cars <span>Direct from China</span><br>Delivered to Your Country',
     hero_sub:'Focusing on green and smart travel since 2019. Full-chain export solutions — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO and 16+ brands.',
-    filter_all:'All', filter_ev:'New Energy', filter_suv:'SUV', filter_sedan:'Sedan', filter_premium:'Premium', filter_new:'Brand New',
+    filter_all:'All', filter_ev:'New Energy', filter_fuel:'Gas / Petrol', filter_suv:'SUV', filter_sedan:'Sedan', filter_premium:'Premium', filter_value:'Value', filter_new:'Brand New',
     sort_latest:'Latest Arrivals', sort_price_asc:'Price: Low → High', sort_price_desc:'Price: High → Low', sort_mileage:'Lowest Mileage',
     step1_h:'Browse & Select', step1_p:'Search 3,200+ vehicles by brand, type, budget',
     step2_h:'Get Your Quote', step2_p:'FOB + CIF estimate to your port within 2 hours via WhatsApp',
@@ -1742,6 +1776,7 @@ const T = {
     trust4_s:'Door-to-Port Logistics', trust4_p:'Shanghai port, full customs handling',
     trust5_s:'Full Documentation', trust5_p:'B/L, CoO, customs, invoice, insurance',
     trust6_s:'Global Network', trust6_p:'Asia · Europe · Africa · Middle East · S. America',
+    org_brand:'Brand', org_power:'Power', org_body:'Category', org_tier:'Tier', org_stock:'Stock', org_budget:'Budget',
     brand_sub:'Focused brand filters for common export requests.',
     brand_all:'All Brands', brand_more:'More brand filters',
     brand_grp_cn:'China makers', brand_grp_jp:'Japan', brand_grp_de:'Germany', brand_grp_kr:'Korea', brand_grp_us:'USA',
@@ -1806,7 +1841,7 @@ const T = {
     hero_badge:'Inventaire démo - contactez-nous pour le stock réel',
     hero_h1:'Achetez des voitures <span>Directement de Chine</span><br>Livrées dans votre pays',
     hero_sub:'Spécialiste de la mobilité verte depuis 2019. Solutions d\'export complètes — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO et 16+ marques.',
-    filter_all:'Tous', filter_ev:'Électrique', filter_suv:'SUV', filter_sedan:'Berline', filter_premium:'Premium', filter_new:'Neuf',
+    filter_all:'Tous', filter_ev:'Électrique', filter_fuel:'Essence', filter_suv:'SUV', filter_sedan:'Berline', filter_premium:'Premium', filter_value:'Valeur', filter_new:'Neuf',
     sort_latest:'Dernières arrivées', sort_price_asc:'Prix croissant', sort_price_desc:'Prix décroissant', sort_mileage:'Kilométrage min.',
     step1_h:'Parcourir & Choisir', step1_p:'Rechercher parmi 3 200+ véhicules par marque, type, budget',
     step2_h:'Obtenir un devis', step2_p:'Estimation FOB + CIF vers votre port sous 2h via WhatsApp',
@@ -1830,6 +1865,7 @@ const T = {
     trust4_s:'Logistique Port-à-Port', trust4_p:'Port de Shanghai, gestion douanière complète',
     trust5_s:'Documentation Complète', trust5_p:'B/L, CoO, douane, facture, assurance',
     trust6_s:'Réseau Mondial', trust6_p:'Asie · Europe · Afrique · Moyen-Orient · Amérique du Sud',
+    org_brand:'Marque', org_power:'Énergie', org_body:'Catégorie', org_tier:'Gamme', org_stock:'Stock', org_budget:'Budget',
     brand_sub:'Filtres de marques ciblés pour les demandes export courantes.',
     brand_all:'Toutes Marques', brand_more:'Plus de filtres marques',
     brand_grp_cn:'Marques chinoises', brand_grp_jp:'Japon', brand_grp_de:'Allemagne', brand_grp_kr:'Coree', brand_grp_us:'USA',
@@ -1894,7 +1930,7 @@ const T = {
     hero_badge:'مخزون تجريبي - تواصل للمخزون الحالي',
     hero_h1:'اشتر سيارات <span>مباشرة من الصين</span><br>توصيل إلى بلدك',
     hero_sub:'متخصصون في التنقل الأخضر منذ 2019. حلول تصدير متكاملة — BYD، تسلا، BMW، مرسيدس، لي أوتو، MAEXTRO و16+ علامة.',
-    filter_all:'الكل', filter_ev:'طاقة جديدة', filter_suv:'SUV', filter_sedan:'سيدان', filter_premium:'فاخر', filter_new:'جديد',
+    filter_all:'الكل', filter_ev:'طاقة جديدة', filter_fuel:'بنزين', filter_suv:'SUV', filter_sedan:'سيدان', filter_premium:'فاخر', filter_value:'اقتصادي', filter_new:'جديد',
     sort_latest:'أحدث الواردات', sort_price_asc:'السعر: الأقل أولاً', sort_price_desc:'السعر: الأعلى أولاً', sort_mileage:'أقل عداد',
     step1_h:'تصفح واختر', step1_p:'ابحث في 3,200+ مركبة حسب العلامة والنوع والميزانية',
     step2_h:'احصل على عرض', step2_p:'تقدير FOB + CIF لميناؤك خلال ساعتين عبر واتساب',
@@ -1918,6 +1954,7 @@ const T = {
     trust4_s:'لوجستيات باب إلى ميناء', trust4_p:'ميناء شنغهاي، إدارة جمارك كاملة',
     trust5_s:'وثائق كاملة', trust5_p:'بوليصة الشحن، شهادة المنشأ، جمارك، فاتورة',
     trust6_s:'شبكة عالمية', trust6_p:'آسيا · أوروبا · أفريقيا · الشرق الأوسط · أمريكا الجنوبية',
+    org_brand:'العلامة', org_power:'الطاقة', org_body:'الفئة', org_tier:'المستوى', org_stock:'المخزون', org_budget:'الميزانية',
     brand_sub:'فلاتر علامات مركزة لطلبات التصدير الشائعة.',
     brand_all:'كل العلامات', brand_more:'فلاتر علامات إضافية',
     brand_grp_cn:'الصين', brand_grp_jp:'اليابان', brand_grp_de:'ألمانيا', brand_grp_kr:'كوريا', brand_grp_us:'أمريكا',
@@ -1982,7 +2019,7 @@ const T = {
     hero_badge:'演示库存 - 请联系确认当前库存',
     hero_h1:'直接从中国<span>购买汽车</span><br>送达您的国家',
     hero_sub:'专注绿色智慧出行，自2019年起提供全链条新能源汽车出口服务——比亚迪、特斯拉、宝马、奔驰、理想及16+品牌。',
-    filter_all:'全部', filter_ev:'新能源', filter_suv:'SUV', filter_sedan:'轿车', filter_premium:'豪华', filter_new:'新车',
+    filter_all:'全部', filter_ev:'新能源', filter_fuel:'燃油车', filter_suv:'SUV', filter_sedan:'轿车', filter_premium:'豪华', filter_value:'高性价比', filter_new:'新车',
     sort_latest:'最新到港', sort_price_asc:'价格从低到高', sort_price_desc:'价格从高到低', sort_mileage:'最低里程',
     step1_h:'浏览选车', step1_p:'按品牌、类型、预算搜索3,200+辆车',
     step2_h:'获取报价', step2_p:'2小时内通过WhatsApp提供FOB+CIF到港报价',
@@ -2006,6 +2043,7 @@ const T = {
     trust4_s:'门到港物流', trust4_p:'上海港，全程清关',
     trust5_s:'完整出口文件', trust5_p:'提单、产地证、报关单、发票、保险',
     trust6_s:'全球网络', trust6_p:'亚洲·欧洲·非洲·中东·南美',
+    org_brand:'品牌', org_power:'能源', org_body:'车型', org_tier:'级别', org_stock:'库存', org_budget:'预算',
     brand_sub:'常用出口品牌快速筛选。',
     brand_all:'全部品牌', brand_more:'更多品牌筛选',
     brand_grp_cn:'中国品牌', brand_grp_jp:'日本', brand_grp_de:'德国', brand_grp_kr:'韩国', brand_grp_us:'美国',
@@ -2723,7 +2761,7 @@ const vehicles = [
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
-let typeFilter='all', priceFilter='all', makeFilter='', selV=null;
+let powerFilter='all', bodyFilter='all', tierFilter='all', conditionQuickFilter='all', priceFilter='all', makeFilter='', selV=null;
 let contentOverrides = {};
 const editableContentKeys = ['demo_notice','hero_h1','hero_sub','inv_sub','showroom_desc'];
 
@@ -2854,12 +2892,12 @@ function applyFilters() {
   else if (type === 'SUV') list = list.filter(v => v.body==='SUV');
   else if (type === 'Sedan') list = list.filter(v => v.body==='Sedan');
   else if (type === 'Premium') list = list.filter(v => v.premium);
-  if (typeFilter==='EV') list=list.filter(v=>v.ev);
-  else if (typeFilter==='SUV') list=list.filter(v=>v.body==='SUV');
-  else if (typeFilter==='Sedan') list=list.filter(v=>v.body==='Sedan');
-  else if (typeFilter==='Premium') list=list.filter(v=>v.premium);
-  else if (typeFilter==='New') list=list.filter(v=>v.condition==='New');
-  else if (typeFilter==='Used') list=list.filter(v=>v.condition==='Used');
+  if (powerFilter==='EV') list=list.filter(v=>v.ev);
+  else if (powerFilter==='Fuel') list=list.filter(v=>!v.ev);
+  if (bodyFilter!=='all') list=list.filter(v=>v.body===bodyFilter);
+  if (tierFilter==='Premium') list=list.filter(v=>v.premium);
+  else if (tierFilter==='Value') list=list.filter(v=>!v.premium);
+  if (conditionQuickFilter!=='all') list=list.filter(v=>v.condition===conditionQuickFilter);
   if (priceFilter==='under15k') list=list.filter(v=>v.price<15000);
   else if (priceFilter==='15k-30k') list=list.filter(v=>v.price>=15000&&v.price<=30000);
   else if (priceFilter==='over30k') list=list.filter(v=>v.price>30000);
@@ -2870,16 +2908,39 @@ function applyFilters() {
   renderGrid(list);
 }
 
-function setTypeFilter(f,btn) {
-  typeFilter=f; priceFilter='all'; makeFilter='';
-  document.querySelectorAll('#filterBar .filter-btn').forEach(b=>b.classList.remove('active'));
+function setActiveFilterButton(btn) {
+  if (!btn) return;
+  const group = btn.closest('.filters');
+  if (!group) return;
+  group.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
+}
+function setInventoryFilter(group,value,btn) {
+  if (group==='power') powerFilter=value;
+  else if (group==='body') bodyFilter=value;
+  else if (group==='tier') tierFilter=value;
+  else if (group==='condition') conditionQuickFilter=value;
+  setActiveFilterButton(btn);
   applyFilters();
 }
+function setTypeFilter(f,btn) {
+  if (f==='EV' || f==='Fuel') setInventoryFilter('power',f,btn);
+  else if (f==='SUV' || f==='Sedan' || f==='Pickup' || f==='Hatchback') setInventoryFilter('body',f,btn);
+  else if (f==='Premium' || f==='Value') setInventoryFilter('tier',f,btn);
+  else if (f==='New' || f==='Used') setInventoryFilter('condition',f,btn);
+  else {
+    powerFilter='all'; bodyFilter='all'; tierFilter='all'; conditionQuickFilter='all'; priceFilter='all'; makeFilter='';
+    document.getElementById('heroMake').value='';
+    document.querySelectorAll('.inventory-organizer .filter-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.inventory-organizer .filters .filter-btn:first-child').forEach(b=>b.classList.add('active'));
+    document.querySelectorAll('#brandGrid .brand-pill').forEach(b=>b.classList.remove('active'));
+    document.querySelector('#brandGrid .brand-pill')?.classList.add('active');
+    applyFilters();
+  }
+}
 function setPriceFilter(f,btn) {
-  priceFilter=f; typeFilter='all'; makeFilter='';
-  document.querySelectorAll('#filterBar .filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  priceFilter=f;
+  setActiveFilterButton(btn);
   applyFilters();
 }
 function filterByBrand(brand,btn) {
@@ -2892,13 +2953,12 @@ function filterByBrand(brand,btn) {
   scrollToInventory();
 }
 function filterTag(tag) {
-  const fb = document.querySelectorAll('#filterBar .filter-btn');
-  if (tag==='EV') setTypeFilter('EV',fb[1]);
-  else if (tag==='SUV') setTypeFilter('SUV',fb[2]);
-  else if (tag==='Sedan') setTypeFilter('Sedan',fb[3]);
-  else if (tag==='Premium') setTypeFilter('Premium',fb[4]);
-  else if (tag==='New') setTypeFilter('New',fb[5]);
-  else if (tag==='Under $15K') setPriceFilter('under15k',fb[6]);
+  if (tag==='EV') setTypeFilter('EV',document.querySelector('#powerFilterBar .filter-btn:nth-child(2)'));
+  else if (tag==='SUV') setTypeFilter('SUV',document.querySelector('#bodyFilterBar .filter-btn:nth-child(2)'));
+  else if (tag==='Sedan') setTypeFilter('Sedan',document.querySelector('#bodyFilterBar .filter-btn:nth-child(3)'));
+  else if (tag==='Premium') setTypeFilter('Premium',document.querySelector('#tierFilterBar .filter-btn:nth-child(2)'));
+  else if (tag==='New') setTypeFilter('New',document.querySelector('#stockFilterBar .filter-btn:nth-child(2)'));
+  else if (tag==='Under $15K') setPriceFilter('under15k',document.querySelector('#priceFilterBar .filter-btn:nth-child(2)'));
   else if (tag==='BYD') filterByBrand('BYD',document.querySelector('.brand-pill[data-brand="BYD"]'));
   else if (tag==='Tesla') filterByBrand('Tesla',document.querySelector('.brand-pill[data-brand="Tesla"]'));
   scrollToInventory();

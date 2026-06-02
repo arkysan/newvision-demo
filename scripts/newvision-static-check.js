@@ -80,6 +80,29 @@ for (const [snippet, message] of requiredQuoteWiring) {
   if (!html.includes(snippet)) fail(message);
 }
 
+const requiredInventoryOrganization = [
+  ['id="inventoryOrganizer"', 'Inventory must expose the grouped buyer filter organizer'],
+  ['data-i18n="org_brand"', 'Inventory organizer must label brand filters'],
+  ['id="brandGrid"', 'Brand filters must live inside the inventory shopping surface'],
+  ['id="powerFilterBar"', 'Inventory organizer must separate electric/hybrid from gas/petrol vehicles'],
+  ["setInventoryFilter('power','EV'", 'Power filter must expose an EV/PHEV lane'],
+  ["setInventoryFilter('power','Fuel'", 'Power filter must expose a gas/petrol lane'],
+  ['id="bodyFilterBar"', 'Inventory organizer must separate SUV/sedan/body categories'],
+  ['id="tierFilterBar"', 'Inventory organizer must separate premium from value vehicles'],
+  ['id="stockFilterBar"', 'Inventory organizer must separate new/used stock condition'],
+  ['id="priceFilterBar"', 'Inventory organizer must keep budget separate from new/used stock'],
+  ["if (powerFilter==='EV')", 'Filter logic must apply the EV/PHEV filter'],
+  ["else if (powerFilter==='Fuel')", 'Filter logic must apply the gas/petrol filter'],
+  ["if (tierFilter==='Premium')", 'Filter logic must apply the premium filter'],
+  ["else if (tierFilter==='Value')", 'Filter logic must apply the value filter'],
+  ['function setActiveFilterButton', 'Grouped filter buttons must keep active state scoped per group'],
+  ['grid-template-columns: repeat(2, minmax(0, 1fr))', 'Phone inventory must render as a dense two-column marketplace grid'],
+  ['max-height: 360px', 'Phone filter organizer must stay compact instead of pushing vehicles too far down'],
+];
+for (const [snippet, message] of requiredInventoryOrganization) {
+  if (!html.includes(snippet)) fail(message);
+}
+
 function tagHasRequired(id) {
   const pattern = new RegExp(`<(?:input|select|textarea)[^>]*id=["']${id}["'][^>]*\\brequired\\b`, 'i');
   return pattern.test(html);
