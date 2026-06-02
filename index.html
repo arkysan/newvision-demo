@@ -79,6 +79,8 @@
     .nav-brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .nav-logo-link { display: flex; align-items: center; }
     .nav-logo-img { height: 42px; width: auto; display: block; }
+    .nav-burger { display: none; background: none; border: 0; font-size: 23px; color: var(--green2); cursor: pointer; padding: 4px 8px; line-height: 1; }
+    .mobile-menu { display: none; }
     .nav-brand-text { display: flex; flex-direction: column; line-height: 1.1; }
     .nav-brand-en { font-weight: 800; font-size: 16px; letter-spacing: 2px; color: var(--green); }
     .nav-brand-zh { font-size: 11px; color: var(--muted2); letter-spacing: 1px; }
@@ -417,7 +419,8 @@
       .lang-btn { padding: 5px 7px; font-size: 11px; }
       .demo-banner, .china-strip { display: none !important; }
       .hero { padding: 16px 14px 18px; text-align: left; }
-      .hero-logo { display: none; }
+      .hero-logo { display: flex; justify-content: flex-start; margin: 0 0 12px; }
+      .hero-logo-img { width: 190px; }
       .hero-badge { margin-bottom: 10px; padding: 5px 11px; font-size: 12px; }
       .hero h1 { font-size: 25px; line-height: 1.12; margin-bottom: 10px; }
       .hero-sub { font-size: 14px; line-height: 1.55; margin: 0 0 12px; max-width: none; }
@@ -427,7 +430,15 @@
       .hero-tags { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
       .hero-tags::-webkit-scrollbar { display: none; }
       .hero-tag { flex: 0 0 auto; }
-      .category-band, .stats, .trust, .brand-section { display: none !important; }
+      .category-band, .stats, .trust { display: none !important; }
+      .brand-section { padding: 22px 14px; }
+      .brand-section .brand-group-label { margin: 12px 0 7px; }
+      /* mobile menu (hamburger) */
+      .nav-burger { display: flex !important; }
+      .mobile-menu { position: fixed; top: 58px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--border); box-shadow: 0 14px 30px rgba(13,42,20,.12); z-index: 95; flex-direction: column; padding: 6px 0; display: none; max-height: 80vh; overflow-y: auto; }
+      .mobile-menu.open { display: flex; }
+      .mobile-menu a { padding: 14px 20px; font-size: 15px; color: var(--text); border-bottom: 1px solid var(--surface2); }
+      .mobile-menu a.portal { color: var(--green); font-weight: 700; }
       #inventory { padding-top: 18px; }
       #inventory .section-header { margin-bottom: 12px; }
       #inventory .section-sub { display: none; }
@@ -529,7 +540,20 @@
     WhatsApp
   </button>
   <button class="btn-cn" onclick="copyChinaContact()">微信/电话</button>
+  <button class="nav-burger" id="navBurger" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
 </nav>
+
+<!-- Mobile menu (phone): clear access to all pages + tracking + login -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#inventory" onclick="closeMobileMenu()" data-i18n="nav_inventory">Inventory</a>
+  <a href="#brands" onclick="closeMobileMenu()" data-i18n="nav_brands">Brands</a>
+  <a href="#estimator" onclick="closeMobileMenu()" data-i18n="est_menu">Shipping Estimator</a>
+  <a href="#how" onclick="closeMobileMenu()" data-i18n="nav_process">How It Works</a>
+  <a href="#about" onclick="closeMobileMenu()" data-i18n="nav_about">About Us</a>
+  <a href="#quote" onclick="closeMobileMenu()" data-i18n="nav_contact">Contact / Get a Quote</a>
+  <a href="https://newvision-demo.vercel.app/track.html" target="_blank" rel="noopener" class="portal">🚢 Track My Vehicle</a>
+  <a href="https://newvision-demo.vercel.app/portal.html" target="_blank" rel="noopener" class="portal">🔑 Owner / Staff Login</a>
+</div>
 
 <div class="mobile-lang-panel" id="mobileLangPanel" aria-hidden="true">
   <button class="mobile-lang-choice active" data-lang-choice="EN" type="button" onclick="setLang('EN', document.querySelector('.lang-btn[data-lang=&quot;EN&quot;]'))">EN</button>
@@ -656,7 +680,7 @@
   <div class="section-header">
     <div>
       <h2 class="section-title" data-i18n-html="sec_brands">Brand <span>Partners</span></h2>
-      <div class="section-sub" data-i18n="brand_sub">16+ global automotive brands — new energy · traditional · premium · engineering</div></div>
+      <div class="section-sub" data-i18n="brand_sub">20+ global automotive brands — Chinese · Japanese · German · Korean · American</div></div>
     </div>
   </div>
   <div id="brandGrid" class="brands-grouped">
@@ -1322,6 +1346,9 @@ function quoteVehicle(id) {
     message: `Interested in: ${vehicle} at FOB ${fmt(v.price)}. Please send a full quote.`,
   });
 }
+
+function toggleMobileMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+function closeMobileMenu(){ document.getElementById('mobileMenu').classList.remove('open'); }
 
 // ── Shipping / CIF estimator (rule-based, illustrative; exact CIF via quote) ──
 const EST = { ea:[900,1400,22,30], wa:[1100,1700,28,38], 'sa-af':[1000,1500,26,34], me:[700,1100,18,26], carib:[1800,2600,30,45], latam:[1900,2800,32,48], sea:[500,900,12,20], eu:[1000,1600,30,40] };
