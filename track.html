@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Track Your Vehicle — New Vision</title>
+<meta name="robots" content="noindex" />
+<style>
+  :root{--green:#2E7D32;--green2:#1B5E20;--green3:#43A047;--gold:#C9A24B;--ink:#13201b;--muted:#6a7a6a;--line:#e3ebe4;--bg:#f4f8f4;--card:#fff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh}
+  header{background:var(--green2);color:#fff;padding:0 20px;height:60px;display:flex;align-items:center;gap:12px}
+  header img{height:34px;background:#fff;border-radius:6px;padding:3px 6px}
+  .wrap{max-width:760px;margin:0 auto;padding:26px 18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:18px;box-shadow:0 8px 26px rgba(13,42,20,.05)}
+  h1{font-size:21px;color:var(--green2);margin-bottom:4px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:18px}
+  .find{display:flex;gap:10px}
+  .find input{flex:1;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;text-transform:uppercase}
+  .find button,.btn{background:var(--green);color:#fff;border:0;border-radius:10px;padding:0 20px;font:700 15px inherit;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;justify-content:center}
+  .btn{padding:13px 18px}
+  .find button:hover,.btn:hover{background:var(--green2)}
+  .err{color:#c0392b;font-size:14px;margin-top:12px}
+  /* countdown */
+  .cd{display:flex;gap:12px;justify-content:center;margin:8px 0 4px}
+  .cd .unit{background:var(--green2);color:#fff;border-radius:12px;min-width:74px;padding:14px 6px;text-align:center}
+  .cd .n{font-size:30px;font-weight:800;line-height:1}
+  .cd .l{font-size:11px;opacity:.85;margin-top:5px;text-transform:uppercase;letter-spacing:.5px}
+  .eta{text-align:center;color:var(--muted);font-size:13px;margin-top:8px}
+  .arrived{text-align:center;background:#eaf7ee;color:var(--green2);border-radius:12px;padding:16px;font-weight:700;font-size:17px}
+  /* route */
+  .route{display:flex;align-items:center;gap:8px;margin:16px 0}
+  .route .pt{flex:1;text-align:center}
+  .route .pt .city{font-weight:800;color:var(--green2);font-size:15px}
+  .route .pt .lbl{font-size:11px;color:var(--muted);text-transform:uppercase}
+  .route .ship{flex:0 0 auto;font-size:22px;color:var(--green3)}
+  .route .ln{flex:1;height:3px;background:linear-gradient(90deg,var(--green3),var(--line));border-radius:3px;position:relative}
+  .kv{display:grid;grid-template-columns:120px 1fr;gap:6px 12px;font-size:14px;margin-top:6px}
+  .kv .k{color:var(--muted)}
+  .kv .v{font-weight:600}
+  /* timeline */
+  .tl{display:flex;justify-content:space-between;margin:20px 0 6px;position:relative}
+  .tl::before{content:'';position:absolute;top:11px;left:6%;right:6%;height:3px;background:var(--line);z-index:0}
+  .tl .st{position:relative;z-index:1;text-align:center;flex:1}
+  .tl .dot{width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--line);margin:0 auto 6px}
+  .tl .st.done .dot{background:var(--green3);border-color:var(--green3)}
+  .tl .st.now .dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,162,75,.25)}
+  .tl .st .t{font-size:11px;color:var(--muted)}
+  .tl .st.done .t,.tl .st.now .t{color:var(--green2);font-weight:700}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .btn.gold{background:var(--gold);color:#13201b}
+  .note{font-size:12px;color:var(--muted);margin-top:14px;text-align:center}
+  #result{display:none}
+</style>
+</head>
+<body>
+<header>
+  <img src="logo-mark.png" alt="New Vision" />
+  <strong>Vehicle Shipment Tracking</strong>
+</header>
+<div class="wrap">
+  <div class="card">
+    <h1>Track your vehicle</h1>
+    <div class="sub">Enter the tracking code New Vision sent you (e.g. NV-XXXXXX).</div>
+    <div class="find">
+      <input id="code" placeholder="NV-XXXXXX" />
+      <button onclick="track()">Track →</button>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div id="result">
+    <div class="card">
+      <div id="cdWrap">
+        <div style="text-align:center;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Estimated arrival in</div>
+        <div class="cd" id="cd"></div>
+        <div class="eta" id="etaLine"></div>
+      </div>
+      <div class="route">
+        <div class="pt"><div class="city" id="rOrigin">—</div><div class="lbl">Origin</div></div>
+        <div class="ln"></div><div class="ship">🚢</div><div class="ln"></div>
+        <div class="pt"><div class="city" id="rDest">—</div><div class="lbl">Destination</div></div>
+      </div>
+      <div class="tl" id="timeline"></div>
+    </div>
+
+    <div class="card">
+      <div class="kv">
+        <div class="k">Vehicle</div><div class="v" id="dVehicle">—</div>
+        <div class="k">Vessel</div><div class="v" id="dVessel">—</div>
+        <div class="k">Tracking code</div><div class="v" id="dCode">—</div>
+        <div class="k">Status</div><div class="v" id="dStatus">—</div>
+      </div>
+      <div class="actions" id="liveLinks"></div>
+      <div class="note">Live position is provided by MarineTraffic / MyShipTracking using the vessel's public AIS signal. Arrival time is an estimate and can shift with weather and port schedules.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API='/api/portal';
+const $=(id)=>document.getElementById(id);
+const STAGES=['Booked','Loaded','In transit','Arrived','Delivered'];
+let timer=null;
+
+async function track(){
+  const code=$('code').value.trim().toUpperCase(); $('err').textContent='';
+  if(!code){ $('err').textContent='Enter your tracking code.'; return; }
+  const r=await fetch(API+'?action=shiptrack&code='+encodeURIComponent(code)).then(x=>x.json()).catch(()=>({ok:false}));
+  if(!r.ok){ $('err').textContent=r.error||'Tracking code not found.'; $('result').style.display='none'; return; }
+  render(r.shipment);
+}
+
+function render(s){
+  $('result').style.display='block';
+  $('rOrigin').textContent=s.origin||'China'; $('rDest').textContent=s.dest||'—';
+  $('dVehicle').textContent=s.vehicle||'—'; $('dVessel').textContent=s.vessel||'—';
+  $('dCode').textContent=s.code||'—'; $('dStatus').textContent=s.status||'—';
+  // timeline
+  const idx=Math.max(0,STAGES.indexOf(s.status));
+  $('timeline').innerHTML=STAGES.map((st,i)=>`<div class="st ${i<idx?'done':i===idx?'now':''}"><div class="dot"></div><div class="t">${st}</div></div>`).join('');
+  // live links (free deep-links by IMO/MMSI)
+  const links=[]; const id=s.imo?('imo-'+s.imo):(s.mmsi?('mmsi-'+s.mmsi):'');
+  if(s.imo||s.mmsi){
+    links.push(`<a class="btn" target="_blank" rel="noopener" href="https://www.myshiptracking.com/vessels/${id}">🛰️ Live position (MyShipTracking)</a>`);
+    const mt = s.imo? ('imo:'+s.imo) : ('mmsi:'+s.mmsi);
+    links.push(`<a class="btn gold" target="_blank" rel="noopener" href="https://www.marinetraffic.com/en/ais/details/ships/${mt}">🌊 MarineTraffic</a>`);
+  } else { links.push('<span class="note" style="margin:0">Live vessel link will appear once the vessel is assigned.</span>'); }
+  $('liveLinks').innerHTML=links.join('');
+  // countdown
+  if(timer) clearInterval(timer);
+  const eta=s.eta?new Date(s.eta+(s.eta.length<=10?'T12:00:00Z':'')):null;
+  function tick(){
+    if(!eta||isNaN(eta)){ $('cdWrap').innerHTML='<div class="arrived">Arrival date will be confirmed once loaded.</div>'; return; }
+    let diff=eta.getTime()-Date.now();
+    if(diff<=0 || /arriv|deliver/i.test(s.status||'')){ $('cdWrap').innerHTML='<div class="arrived">✅ '+(/(deliver)/i.test(s.status||'')?'Delivered':'Arrived at destination port')+'</div>'; clearInterval(timer); return; }
+    const d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5), m=Math.floor(diff%36e5/6e4), sec=Math.floor(diff%6e4/1e3);
+    $('cd').innerHTML=[[d,'Days'],[h,'Hours'],[m,'Mins'],[sec,'Secs']].map(u=>`<div class="unit"><div class="n">${u[0]}</div><div class="l">${u[1]}</div></div>`).join('');
+    $('etaLine').textContent='Estimated arrival: '+eta.toDateString();
+  }
+  tick(); timer=setInterval(tick,1000);
+}
+
+// auto-track from ?id=
+(function(){ const id=new URLSearchParams(location.search).get('id'); if(id){ $('code').value=id; track(); } })();
+</script>
+</body>
+</html>

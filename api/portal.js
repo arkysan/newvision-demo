@@ -44,6 +44,15 @@ module.exports = async (req, res) => {
     // ── public config (Google client id is public-safe) ──
     if (action === 'config') { return send(res, 200, { ok: true, googleClientId: process.env.GOOGLE_CLIENT_ID || '' }); }
 
+    // ── public shipment tracking (by tracking code; no customer PII) ──
+    if (action === 'shiptrack') {
+      const code = String((new URL(req.url, 'http://x')).searchParams.get('code') || '').trim().toUpperCase();
+      if (!code) return send(res, 400, { ok: false, error: 'tracking code required' });
+      const s = (await store.readData('shipments', [])).find((x) => (x.code || '').toUpperCase() === code);
+      if (!s) return send(res, 404, { ok: false, error: 'Tracking code not found' });
+      return send(res, 200, { ok: true, shipment: { code: s.code, vehicle: s.vehicle, vessel: s.vessel, imo: s.imo, mmsi: s.mmsi, origin: s.origin, dest: s.dest, etd: s.etd, eta: s.eta, status: s.status } });
+    }
+
     // ── visitor tracking (public, no auth) ──
     if (action === 'track') { const v = await trackVisit(); return send(res, 200, { ok: true, total: v.total }); }
 
@@ -154,6 +163,29 @@ module.exports = async (req, res) => {
       const topEls = Object.entries(elCount).sort((a, b) => b[1] - a[1]).slice(0, 12);
       const quoteSids = new Set(journeys.map((j) => j.sid));
       return send(res, 200, { ok: true, clicks: heat.clicks.slice(-3000), scroll: heat.scroll || {}, pages: heat.pages || {}, sessions: heat.sessions || 0, quoteSessions: quoteSids.size, topEls, journeys: journeys.slice(0, 40) });
+    }
+
+    if (action === 'shipments') { return send(res, 200, { ok: true, shipments: await store.readData('shipments', []) }); }
+
+    if (action === 'shipment' && req.method === 'POST') {
+      const b = await readBody(req);
+      const list = await store.readData('shipments', []);
+      const code = (String(b.code || '').trim().toUpperCase()) || ('NV-' + Date.now().toString(36).toUpperCase());
+      const s = (k) => String(b[k] || '').slice(0, 80);
+      const entry = { code, vehicle: s('vehicle'), customer: s('customer'), contact: s('contact'), vessel: s('vessel'),
+        imo: String(b.imo || '').slice(0, 20), mmsi: String(b.mmsi || '').slice(0, 20), origin: s('origin'), dest: s('dest'),
+        etd: String(b.etd || '').slice(0, 20), eta: String(b.eta || '').slice(0, 20), status: String(b.status || 'In transit').slice(0, 30), by: u.name, at: new Date().toISOString() };
+      const i = list.findIndex((x) => (x.code || '').toUpperCase() === code);
+      if (i >= 0) list[i] = Object.assign(list[i], entry); else list.unshift(entry);
+      await store.writeData('shipments', list.slice(0, 2000));
+      return send(res, 200, { ok: true, shipment: entry });
+    }
+
+    if (action === 'shipment-delete' && req.method === 'POST') {
+      const b = await readBody(req);
+      const list = (await store.readData('shipments', [])).filter((x) => (x.code || '').toUpperCase() !== String(b.code || '').toUpperCase());
+      await store.writeData('shipments', list);
+      return send(res, 200, { ok: true });
     }
 
     if (action === 'ledger' && req.method === 'POST') {

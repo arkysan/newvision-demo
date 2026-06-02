@@ -69,6 +69,10 @@
   .heat-dot{position:absolute;width:16px;height:16px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(67,160,71,.75),rgba(67,160,71,0));pointer-events:none;mix-blend-mode:screen}
   .heat-dot.q{background:radial-gradient(circle,rgba(201,162,75,.95),rgba(201,162,75,0));width:20px;height:20px}
   @media(max-width:860px){.heat-wrap{grid-template-columns:1fr}}
+  .ship-form{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+  .ship-form input,.ship-form select{padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;font:inherit;min-width:0}
+  .ship-form button{background:var(--green);color:#fff;border:0;border-radius:8px;font:700 13px inherit;cursor:pointer;padding:10px 14px}
+  @media(max-width:860px){.ship-form{grid-template-columns:1fr 1fr}}
   @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.ledger-form{grid-template-columns:1fr 1fr}}
 </style>
 </head>
@@ -130,6 +134,24 @@
     </div>
 
     <div class="panel" style="margin-bottom:22px">
+      <h2>🚢 Shipments &amp; live tracking <span class="pill" id="shipPill"></span></h2>
+      <form class="ship-form" onsubmit="return addShipment(event)">
+        <input id="sVehicle" placeholder="Vehicle (e.g. BYD Seal)" required />
+        <input id="sCustomer" placeholder="Customer (optional)" />
+        <input id="sVessel" placeholder="Vessel name" />
+        <input id="sImo" placeholder="IMO (7-digit) or MMSI (9-digit)" />
+        <input id="sOrigin" placeholder="Origin port (e.g. Shanghai)" />
+        <input id="sDest" placeholder="Destination port (e.g. Mombasa)" />
+        <input id="sEtd" type="date" title="Departure (ETD)" />
+        <input id="sEta" type="date" title="Arrival (ETA)" />
+        <select id="sStatus"><option>Booked</option><option>Loaded</option><option selected>In transit</option><option>Arrived</option><option>Delivered</option></select>
+        <input id="sCode" placeholder="Tracking code (blank = auto)" />
+        <button type="submit" style="grid-column:span 2">Save shipment + get tracking link</button>
+      </form>
+      <div style="overflow-x:auto"><table id="shipTbl"><thead><tr><th>Code</th><th>Vehicle</th><th>Vessel</th><th>Route</th><th>ETA</th><th>Status</th><th>Customer link</th><th></th></tr></thead><tbody></tbody></table></div>
+    </div>
+
+    <div class="panel" style="margin-bottom:22px">
       <h2>🔥 Interaction heatmap <span class="pill" id="heatPill"></span></h2>
       <div class="heat-wrap">
         <div class="heat-stage" id="heatStage"><span class="hint">Click density — top → bottom of the page. Gold = visitors who requested a quote, green = everyone else.</span></div>
@@ -188,8 +210,27 @@ function showApp(user){
   $('login').style.display='none'; $('app').style.display='block';
   $('who').textContent = 'Signed in: ' + (user.name||user.u);
   if(user.role==='master'){ $('editLiveBtn').style.display=''; $('portalTitle').textContent='Master Console'; }
-  loadDashboard(); loadHeatmap();
+  loadDashboard(); loadHeatmap(); loadShipments();
 }
+
+async function loadShipments(){
+  const r=await api('shipments'); if(!r.ok) return;
+  $('shipPill').textContent=(r.shipments.length||0)+' tracked';
+  const tb=$('shipTbl').querySelector('tbody');
+  tb.innerHTML = r.shipments.length ? r.shipments.map(s=>`<tr><td>${esc(s.code)}</td><td>${esc(s.vehicle)}</td><td>${esc(s.vessel||'-')}</td><td>${esc((s.origin||'?')+' → '+(s.dest||'?'))}</td><td>${esc(s.eta||'-')}</td><td>${esc(s.status||'-')}</td><td><a href="/track.html?id=${encodeURIComponent(s.code)}" target="_blank">open</a> · <button class="del" style="color:var(--green2)" onclick="copyTrack('${esc(s.code)}')">copy</button></td><td><button class="del" onclick="delShipment('${esc(s.code)}')">✕</button></td></tr>`).join('') : '<tr><td colspan="8" class="empty">No shipments yet — add one above to give a customer a live tracking link with a countdown.</td></tr>';
+}
+async function addShipment(e){ e.preventDefault();
+  const idv=$('sImo').value.trim();
+  const body={vehicle:$('sVehicle').value,customer:$('sCustomer').value,vessel:$('sVessel').value,
+    imo:/^\d{7}$/.test(idv)?idv:'', mmsi:/^\d{9}$/.test(idv)?idv:'',
+    origin:$('sOrigin').value,dest:$('sDest').value,etd:$('sEtd').value,eta:$('sEta').value,status:$('sStatus').value,code:$('sCode').value};
+  const r=await api('shipment',{method:'POST',body:JSON.stringify(body)});
+  if(r.ok){ ['sVehicle','sCustomer','sVessel','sImo','sOrigin','sDest','sCode'].forEach(id=>$(id).value=''); loadShipments();
+    alert('Saved ✓  Send this tracking link to the customer:\n'+location.origin+'/track.html?id='+r.shipment.code); }
+  return false;
+}
+async function delShipment(code){ if(!confirm('Delete shipment '+code+'?')) return; await api('shipment-delete',{method:'POST',body:JSON.stringify({code})}); loadShipments(); }
+function copyTrack(code){ const url=location.origin+'/track.html?id='+code; try{navigator.clipboard.writeText(url);}catch(_){} alert('Tracking link copied:\n'+url); }
 
 async function editSiteLive(){
   const r = await api('master-token');
