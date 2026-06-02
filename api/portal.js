@@ -3,7 +3,8 @@
 const store = require('../lib/store');
 
 const OWNER_PASSWORD = process.env.OWNER_PASSWORD || '1234';
-const OWNERS = { andy: 'Andy', eissa: 'Eissa' };          // username -> display name
+// username -> display + role. 'master' (Arky) controls everything incl. live site editing.
+const OWNERS = { andy: { name: 'Andy', role: 'owner' }, eissa: { name: 'Eissa', role: 'owner' }, arky: { name: 'Arky', role: 'master' } };
 const COOKIE = 'nv_portal';
 
 function send(res, status, body) {
@@ -79,9 +80,10 @@ module.exports = async (req, res) => {
       const user = String(b.user || '').trim().toLowerCase();
       const pass = String(b.password || '');
       if (OWNERS[user] && pass === OWNER_PASSWORD) {
-        const token = store.sign({ u: user, name: OWNERS[user], role: 'owner' }, 7);
-        setCookie(res, token, 7);
-        return send(res, 200, { ok: true, user: { u: user, name: OWNERS[user], role: 'owner' } });
+        const o = OWNERS[user];
+        const u2 = { u: user, name: o.name, role: o.role };
+        setCookie(res, store.sign(u2, 7), 7);
+        return send(res, 200, { ok: true, user: u2 });
       }
       return send(res, 401, { ok: false, error: 'Wrong name or password' });
     }
@@ -110,6 +112,12 @@ module.exports = async (req, res) => {
     // ── everything below requires a session ──
     const u = sessionUser(req);
     if (!u) return send(res, 401, { ok: false, error: 'Not signed in' });
+
+    // master-only: hand the live-edit admin token to the master portal session
+    if (action === 'master-token') {
+      if (u.role !== 'master') return send(res, 403, { ok: false, error: 'Master only' });
+      return send(res, 200, { ok: true, token: process.env.NEWVISION_ADMIN_TOKEN || '' });
+    }
 
     if (action === 'dashboard') {
       const [visits, leads, ledger] = await Promise.all([

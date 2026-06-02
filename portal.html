@@ -98,8 +98,9 @@
 <div id="app">
   <header>
     <img src="logo-mark.png" alt="New Vision" />
-    <strong>Owner Portal</strong>
+    <strong id="portalTitle">Owner Portal</strong>
     <span class="who" id="who"></span>
+    <button id="editLiveBtn" onclick="editSiteLive()" style="display:none;background:var(--gold);color:#13201b;border-color:var(--gold);font-weight:700">🛠 Edit Site Live</button>
     <button onclick="doLogout()">Sign out</button>
   </header>
   <div class="wrap">
@@ -186,7 +187,15 @@ async function doLogout(){ await api('logout',{method:'POST'}); location.reload(
 function showApp(user){
   $('login').style.display='none'; $('app').style.display='block';
   $('who').textContent = 'Signed in: ' + (user.name||user.u);
+  if(user.role==='master'){ $('editLiveBtn').style.display=''; $('portalTitle').textContent='Master Console'; }
   loadDashboard(); loadHeatmap();
+}
+
+async function editSiteLive(){
+  const r = await api('master-token');
+  if(!r.ok || !r.token){ alert('Could not get the edit token — are you the master account?'); return; }
+  localStorage.setItem('newvision.cms.token', r.token);   // editor reads this → publish needs no prompt
+  window.open('/?arkedit=1','_blank');                     // opens the live site straight into edit mode
 }
 
 async function loadHeatmap(){
