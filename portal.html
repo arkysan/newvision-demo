@@ -74,6 +74,16 @@
   .ship-form button{background:var(--green);color:#fff;border:0;border-radius:8px;font:700 13px inherit;cursor:pointer;padding:10px 14px}
   @media(max-width:860px){.ship-form{grid-template-columns:1fr 1fr}}
   @media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.ledger-form{grid-template-columns:1fr 1fr}}
+  /* inventory */
+  .inv-btn{padding:8px 14px;border-radius:8px;font:700 13px inherit;cursor:pointer;border:1.5px solid var(--line);background:#fff;color:var(--ink)}
+  .inv-btn.green{background:var(--green);color:#fff;border-color:var(--green)}
+  .inv-btn.muted{background:var(--bg);color:var(--muted)}
+  .inv-btn:hover{opacity:.85}
+  .vf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .vf-grid label{font-size:12px;font-weight:700;color:var(--green2);display:block;margin-bottom:4px}
+  .vf-grid input,.vf-grid select{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;font:inherit;background:#fbfdfb}
+  .vf-grid input:focus,.vf-grid select:focus{outline:0;border-color:var(--green)}
+  @media(max-width:600px){.vf-grid{grid-template-columns:1fr}.vf-grid [style*="span 2"]{grid-column:span 1}}
 </style>
 </head>
 <body>
@@ -188,6 +198,64 @@
         <h2>🔎 Where requests come from</h2>
         <div class="bars" id="bySource"></div>
       </div>
+    </div>
+
+    <!-- ── INVENTORY MANAGER ── -->
+    <div class="panel" id="invPanel" style="margin-bottom:22px">
+      <h2 style="justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <span>🚗 Inventory manager <span class="pill" id="invPill"></span></span>
+        <span style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="inv-btn green" onclick="openVehicleForm()">+ Add vehicle</button>
+          <button class="inv-btn" onclick="saveInventoryToServer()" id="invSaveBtn">Save to server</button>
+          <button class="inv-btn muted" onclick="downloadInventoryJSON()">Download JSON</button>
+        </span>
+      </h2>
+      <div id="invSaveStatus" style="font-size:12px;color:var(--muted);margin:-8px 0 10px;min-height:16px"></div>
+      <div style="overflow-x:auto">
+        <table id="invTable">
+          <thead><tr><th>ID</th><th>Make</th><th>Model</th><th>Year</th><th>Price USD</th><th>Condition</th><th>Type</th><th>Fuel</th><th>Hot</th><th></th></tr></thead>
+          <tbody id="invBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── VEHICLE FORM MODAL ── -->
+<div id="vModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center;padding:16px">
+  <div style="background:#fff;border-radius:16px;padding:28px 26px;width:min(680px,100%);max-height:90vh;overflow-y:auto;position:relative">
+    <button onclick="closeVehicleForm()" style="position:absolute;top:14px;right:14px;background:none;border:0;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+    <h2 style="font-size:17px;color:var(--green2);margin-bottom:18px" id="vFormTitle">Add vehicle</h2>
+    <div class="vf-grid">
+      <div><label>Make *</label><input id="vf_make" placeholder="BYD" required /></div>
+      <div><label>Model *</label><input id="vf_model" placeholder="Seal 2024 Long Range" required /></div>
+      <div><label>Year *</label><input id="vf_year" type="number" min="2000" max="2030" placeholder="2025" required /></div>
+      <div><label>Price (USD) *</label><input id="vf_price" type="number" min="0" step="100" placeholder="15000" required /></div>
+      <div><label>Mileage (km)</label><input id="vf_mileage" type="number" min="0" placeholder="0" /></div>
+      <div><label>Condition</label>
+        <select id="vf_condition"><option>New</option><option>Used</option></select></div>
+      <div><label>Type</label>
+        <select id="vf_type"><option>EV</option><option>SUV</option><option>Premium</option><option>Motorcycle</option><option>Commercial</option></select></div>
+      <div><label>Fuel</label>
+        <select id="vf_fuel"><option>Electric</option><option>PHEV</option><option>EREV</option><option>Petrol</option><option>Diesel</option><option>Hybrid</option></select></div>
+      <div><label>Body</label>
+        <select id="vf_body"><option>SUV</option><option>Sedan</option><option>Hatchback</option><option>Pickup</option><option>MPV</option><option>Van</option></select></div>
+      <div><label>Drive</label>
+        <select id="vf_drive"><option>FWD</option><option>RWD</option><option>AWD</option><option>4WD</option></select></div>
+      <div><label>Seats</label><input id="vf_seats" type="number" min="1" max="9" placeholder="5" /></div>
+      <div><label>Range (km, EV only)</label><input id="vf_range" type="number" min="0" placeholder="leave blank if petrol" /></div>
+      <div style="grid-column:span 2"><label>Transmission</label><input id="vf_trans" placeholder="e.g. DCT 7-Speed" /></div>
+      <div style="grid-column:span 2"><label>Engine</label><input id="vf_engine" placeholder="e.g. 1.5T 118kW/250Nm" /></div>
+      <div style="grid-column:span 2"><label>Image path</label><input id="vf_img" placeholder="img/nvn-v36-brand-model.jpg" /></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <label style="display:flex;align-items:center;gap:5px;font-size:13px"><input type="checkbox" id="vf_ev" /> EV</label>
+      <label style="display:flex;align-items:center;gap:5px;font-size:13px"><input type="checkbox" id="vf_hot" /> Hot</label>
+      <label style="display:flex;align-items:center;gap:5px;font-size:13px"><input type="checkbox" id="vf_premium" /> Premium</label>
+    </div>
+    <div style="margin-top:18px;display:flex;gap:10px">
+      <button class="inv-btn green" onclick="saveVehicleForm()" style="flex:1;padding:13px">Save vehicle</button>
+      <button class="inv-btn muted" onclick="closeVehicleForm()" style="padding:13px 20px">Cancel</button>
     </div>
   </div>
 </div>
@@ -306,6 +374,159 @@ async function initGoogle(){
   const me = await api('me');
   if(me.ok){ showApp(me.user); } else { initGoogle(); }
 })();
+
+// ── INVENTORY MANAGER ──────────────────────────────────────────────────────
+let invVehicles = [];
+let invEditId = null; // null = add, number = edit
+
+async function loadInventory() {
+  try {
+    const r = await fetch('/api/vehicles');
+    if (r.ok) invVehicles = await r.json();
+  } catch(_) {}
+  if (!invVehicles.length) {
+    // fallback: try static file
+    try { const r = await fetch('/data/vehicles.json'); if(r.ok) invVehicles = await r.json(); } catch(_) {}
+  }
+  renderInvTable();
+}
+
+function renderInvTable() {
+  $('invPill').textContent = invVehicles.length + ' vehicles';
+  const tb = $('invBody');
+  if (!invVehicles.length) { tb.innerHTML = '<tr><td colspan="10" class="empty">No vehicles loaded.</td></tr>'; return; }
+  tb.innerHTML = invVehicles.map(v => `
+    <tr>
+      <td style="color:var(--muted);font-size:11px">${v.id}</td>
+      <td><strong>${esc(v.make)}</strong></td>
+      <td style="max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(v.model)}</td>
+      <td>${v.year}</td>
+      <td>$${Number(v.price).toLocaleString()}</td>
+      <td><span class="pill" style="${v.condition==='New'?'':'background:#fdf3e3;color:#a05000'}">${esc(v.condition)}</span></td>
+      <td>${esc(v.type)}</td>
+      <td>${esc(v.fuel)}</td>
+      <td style="text-align:center">${v.hot?'🔥':''}</td>
+      <td style="white-space:nowrap">
+        <button class="inv-btn" style="padding:5px 10px;font-size:12px" onclick="openVehicleForm(${v.id})">Edit</button>
+        <button class="inv-btn" style="padding:5px 10px;font-size:12px;color:var(--red);border-color:var(--red)" onclick="deleteVehicle(${v.id})">Delete</button>
+      </td>
+    </tr>`).join('');
+}
+
+function openVehicleForm(id) {
+  invEditId = id || null;
+  $('vFormTitle').textContent = id ? 'Edit vehicle' : 'Add vehicle';
+  const v = id ? invVehicles.find(x=>x.id===id) : null;
+  const set = (fid, val) => { const el=$(fid); if(el) el.value = val ?? ''; };
+  const chk = (fid, val) => { const el=$(fid); if(el) el.checked = !!val; };
+  set('vf_make',    v?.make    || '');
+  set('vf_model',   v?.model   || '');
+  set('vf_year',    v?.year    || new Date().getFullYear());
+  set('vf_price',   v?.price   || '');
+  set('vf_mileage', v?.mileage || 0);
+  set('vf_condition', v?.condition || 'New');
+  set('vf_type',    v?.type    || 'EV');
+  set('vf_fuel',    v?.fuel    || 'Electric');
+  set('vf_body',    v?.body    || 'SUV');
+  set('vf_drive',   v?.drive   || 'FWD');
+  set('vf_seats',   v?.seats   || 5);
+  set('vf_range',   v?.range_km ?? '');
+  set('vf_trans',   v?.trans   || '');
+  set('vf_engine',  v?.engine  || '');
+  set('vf_img',     v?.img     || '');
+  chk('vf_ev',      v?.ev);
+  chk('vf_hot',     v?.hot);
+  chk('vf_premium', v?.premium);
+  $('vModal').style.display = 'flex';
+}
+
+function closeVehicleForm() { $('vModal').style.display = 'none'; }
+
+function saveVehicleForm() {
+  const make  = $('vf_make').value.trim();
+  const model = $('vf_model').value.trim();
+  const year  = parseInt($('vf_year').value, 10);
+  const price = parseFloat($('vf_price').value);
+  if (!make || !model || isNaN(year) || isNaN(price)) { alert('Make, model, year and price are required.'); return; }
+  const entry = {
+    id:         invEditId || (Math.max(0, ...invVehicles.map(v=>v.id)) + 1),
+    make, model, year, price,
+    mileage:    parseInt($('vf_mileage').value, 10) || 0,
+    condition:  $('vf_condition').value,
+    type:       $('vf_type').value,
+    fuel:       $('vf_fuel').value,
+    body:       $('vf_body').value,
+    drive:      $('vf_drive').value,
+    seats:      parseInt($('vf_seats').value, 10) || 5,
+    doors:      4,
+    range_km:   $('vf_range').value !== '' ? parseInt($('vf_range').value, 10) : null,
+    trans:      $('vf_trans').value.trim(),
+    engine:     $('vf_engine').value.trim(),
+    img:        $('vf_img').value.trim() || 'img/placeholder.webp',
+    ev:         $('vf_ev').checked,
+    hot:        $('vf_hot').checked,
+    premium:    $('vf_premium').checked,
+  };
+  if (invEditId) {
+    const idx = invVehicles.findIndex(v => v.id === invEditId);
+    if (idx >= 0) invVehicles[idx] = entry;
+  } else {
+    invVehicles.push(entry);
+  }
+  renderInvTable();
+  closeVehicleForm();
+  $('invSaveStatus').textContent = 'Unsaved changes — click "Save to server" or "Download JSON".';
+  $('invSaveStatus').style.color = 'var(--gold)';
+}
+
+function deleteVehicle(id) {
+  const v = invVehicles.find(x=>x.id===id);
+  if (!v || !confirm(`Delete ${v.make} ${v.model}?`)) return;
+  invVehicles = invVehicles.filter(x=>x.id!==id);
+  renderInvTable();
+  $('invSaveStatus').textContent = 'Unsaved changes — click "Save to server" or "Download JSON".';
+  $('invSaveStatus').style.color = 'var(--gold)';
+}
+
+async function saveInventoryToServer() {
+  const token = localStorage.getItem('newvision.cms.token');
+  if (!token) { alert('You need to be signed in as master to save to the server.'); return; }
+  $('invSaveBtn').textContent = 'Saving…';
+  try {
+    const r = await fetch('/api/vehicles', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'x-newvision-admin-token': token },
+      body: JSON.stringify(invVehicles),
+    });
+    const data = await r.json();
+    if (data.ok) {
+      $('invSaveStatus').textContent = `Saved ${data.count} vehicles to server.`;
+      $('invSaveStatus').style.color = 'var(--green)';
+    } else {
+      $('invSaveStatus').textContent = data.message || data.error || 'Save failed.';
+      $('invSaveStatus').style.color = 'var(--red)';
+    }
+  } catch(e) {
+    $('invSaveStatus').textContent = 'Network error: ' + e.message;
+    $('invSaveStatus').style.color = 'var(--red)';
+  }
+  $('invSaveBtn').textContent = 'Save to server';
+}
+
+function downloadInventoryJSON() {
+  const blob = new Blob([JSON.stringify(invVehicles, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'vehicles.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// Load inventory when portal app opens (hook into showApp)
+const _origShowApp = showApp;
+showApp = function(user) { _origShowApp(user); loadInventory(); };
 </script>
 </body>
 </html>

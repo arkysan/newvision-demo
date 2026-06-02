@@ -2870,6 +2870,10 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 
 populateQuoteVehicles();
 renderGrid(vehicles);
+// Non-blocking refresh from server (portal edits take effect without git push)
+fetch('/api/vehicles').then(r=>r.ok?r.json():null).then(data=>{
+  if(Array.isArray(data)&&data.length){vehicles.length=0;data.forEach(v=>vehicles.push(v));renderGrid(vehicles);populateQuoteVehicles();}
+}).catch(()=>{});
 if (canAutoLoadCmsState()) loadCmsState();
 setCount('cVehicles',3200);
 setCount('cShipping',138);
