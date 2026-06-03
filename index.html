@@ -181,13 +181,13 @@
     .section-sub { font-size: 13px; color: var(--muted2); margin-top: 3px; }
 
     /* ── FILTERS ── */
-    .inventory-filter-drawer { margin: 0 0 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface2); overflow: hidden; }
-    .inventory-filter-drawer summary { min-height: 48px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--green2); font-weight: 900; cursor: pointer; list-style: none; }
+    .inventory-filter-drawer { margin: 0 0 18px; border: 0; background: transparent; overflow: visible; }
+    .inventory-filter-drawer summary { width: fit-content; min-height: 38px; padding: 0 12px 0 15px; display: inline-flex; align-items: center; justify-content: flex-start; gap: 10px; color: var(--green2); font-weight: 900; cursor: pointer; list-style: none; border: 1px solid rgba(46,125,50,.18); border-radius: 999px; background: #fff; box-shadow: 0 6px 18px rgba(15,80,48,.06); }
     .inventory-filter-drawer summary::-webkit-details-marker { display: none; }
-    .inventory-filter-drawer summary::after { content: '+'; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 18px; line-height: 1; flex: 0 0 auto; }
+    .inventory-filter-drawer summary::after { content: '+'; width: 22px; height: 22px; border-radius: 50%; background: rgba(46,125,50,.07); border: 1px solid rgba(46,125,50,.16); display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 15px; line-height: 1; flex: 0 0 auto; }
     .inventory-filter-drawer[open] summary::after { content: '-'; }
-    .inventory-filter-summary small { display: block; color: var(--muted2); font-size: 11px; font-weight: 650; margin-top: 2px; }
-    .inventory-organizer { display: grid; gap: 12px; margin: 0 0 20px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface2); }
+    .inventory-filter-summary small { display: inline; color: var(--muted2); font-size: 11px; font-weight: 650; margin-left: 7px; }
+    .inventory-organizer { display: grid; gap: 12px; margin: 10px 0 20px; padding: 14px; border: 1px solid rgba(46,125,50,.14); border-radius: 14px; background: var(--surface2); }
     .inventory-filter-group { display: grid; grid-template-columns: 116px 1fr; align-items: start; gap: 10px; }
     .inventory-filter-label { min-height: 34px; display: flex; align-items: center; font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
     .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 0; }
@@ -503,8 +503,9 @@
       .hero-tag { flex: 0 0 auto; }
       .category-band, .stats, .trust { display: none !important; }
       .inventory-filter-drawer { margin-bottom: 12px; }
-      .inventory-filter-drawer summary { min-height: 44px; padding: 0 12px; }
-      .inventory-organizer { padding: 10px; gap: 10px; margin: 0; max-height: 320px; overflow-y: auto; border: 0; border-top: 1px solid var(--border); border-radius: 0; }
+      .inventory-filter-drawer summary { min-height: 38px; padding: 0 11px 0 13px; }
+      .inventory-filter-summary small { display: none; }
+      .inventory-organizer { padding: 10px; gap: 10px; margin: 10px 0 0; max-height: 320px; overflow-y: auto; border: 1px solid rgba(46,125,50,.14); border-radius: 12px; }
       .inventory-filter-group { grid-template-columns: 1fr; gap: 6px; }
       .inventory-filter-label { min-height: auto; }
       .brands-quick { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
@@ -754,7 +755,7 @@
   </div>
 
   <details class="inventory-filter-drawer" id="inventoryFilterDrawer">
-    <summary><span class="inventory-filter-summary">Filter inventory<small>Brand, power, category, tier, stock, budget</small></span></summary>
+    <summary><span class="inventory-filter-summary">Refine inventory<small>Brand, power, stock, budget</small></span></summary>
   <div class="inventory-organizer" id="inventoryOrganizer" aria-label="Vehicle inventory filters">
     <div class="inventory-filter-group">
       <div class="inventory-filter-label" data-i18n="org_brand">Brand</div>
@@ -3246,7 +3247,7 @@ setCount('cShipping',138);
   }
 })();
 </script>
-<script src="arkreview.js?v=20260602-review-engine"></script>
+<script src="arkreview.js?v=20260603-annotation-fix"></script>
 <script src="admin.js"></script>
 <!-- Visitor analytics + interaction heatmap for the owner portal (fire-and-forget, both hosts) -->
 <script>try{fetch(apiUrl('/api/portal?action=track'),{method:'POST',keepalive:true}).catch(function(){});}catch(e){}</script>

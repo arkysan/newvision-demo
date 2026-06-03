@@ -83,7 +83,7 @@ for (const [snippet, message] of requiredQuoteWiring) {
 
 const requiredInventoryOrganization = [
   ['id="inventoryFilterDrawer"', 'Inventory filters must live in a compact dropdown drawer'],
-  ['Filter inventory', 'Inventory filter drawer must use clear customer-facing dropdown wording'],
+  ['Refine inventory', 'Inventory filter drawer must use clear customer-facing dropdown wording'],
   ['id="inventoryOrganizer"', 'Inventory must expose the grouped buyer filter organizer'],
   ['data-i18n="org_brand"', 'Inventory organizer must label brand filters'],
   ['id="brandGrid"', 'Brand filters must live inside the inventory shopping surface'],
@@ -128,10 +128,12 @@ const requiredReviewControls = [
   ['rv-move-up', 'Review edit bar missing move-up control'],
   ['function moveSelected', 'Review widget missing selected-section move support'],
   ['function annotateSelected', 'Review widget missing selected-section annotation support'],
+  ['Saved as selected-section annotation', 'Annotation must save through the structured review-note flow'],
   ['selectedRangeElement', 'Review widget must support highlighted text as a movable/annotatable target'],
   ['data-action="size-up"', 'Review quick chips must expose direct bigger action'],
   ['data-action="move-down"', 'Review quick chips must expose directional move action'],
   ['data-action="whatsapp"', 'Review quick chips must expose WhatsApp flow action'],
+  ['data-action="annotate"', 'Review quick chips must expose visible annotation action'],
   ['function handleQuickAction', 'Review quick chips must run action handlers instead of only filling the note box'],
   ['function addStructuredNote', 'Review quick chips must create structured notes'],
   ['rv-main-cmd', 'Hybrid review editor must expose one primary Tell ARK command box'],

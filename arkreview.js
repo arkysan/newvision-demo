@@ -27,9 +27,8 @@
   // ---- styles ----
   var css = document.createElement('style');
   css.textContent = `
-   #rv-fab{position:fixed;right:24px;bottom:24px;z-index:99997;max-width:calc(100vw - 48px);background:#D4AF37;color:#0f1219;border:none;border-radius:50px;padding:18px 30px;font:800 18px 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;box-shadow:0 12px 36px rgba(212,175,55,.5);display:flex;align-items:center;gap:11px;animation:rvpulse 2.4s ease-in-out infinite}
-   @keyframes rvpulse{0%,100%{box-shadow:0 12px 36px rgba(212,175,55,.4);transform:scale(1)}50%{box-shadow:0 14px 50px rgba(212,175,55,.8);transform:scale(1.03)}}
-   #rv-fab:hover{background:#F5E6A3;animation:none;transform:translateY(-2px) scale(1.04)}
+   #rv-fab{position:fixed;right:24px;bottom:24px;z-index:99997;max-width:calc(100vw - 48px);background:#D4AF37;color:#0f1219;border:none;border-radius:50px;padding:18px 30px;font:800 18px 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;box-shadow:0 12px 36px rgba(212,175,55,.5);display:flex;align-items:center;gap:11px;transition:background .18s ease,box-shadow .18s ease}
+   #rv-fab:hover{background:#F5E6A3;box-shadow:0 14px 42px rgba(212,175,55,.58)}
    #rv-fab .rv-fab-mobile{display:none}
    #rv-fab .b{background:#0f1219;color:#D4AF37;border-radius:20px;min-width:26px;height:26px;display:none;align-items:center;justify-content:center;font-size:14px;font-weight:800;padding:0 7px}
    #rv-fab .b.show{display:flex}
@@ -192,6 +191,7 @@
         '<button class="warn" data-action="add-more" data-c="Add more detail here">Add more</button>'+
         '<button class="warn" data-action="stock-photo" data-c="Request a current stock photo here">Stock photo</button>'+
         '<button class="warn" data-action="spacing" data-c="Fix the spacing here">Fix spacing</button>'+
+        '<button class="warn" data-action="annotate" data-c="Annotate this area">Annotate</button>'+
         '<button class="warn" data-action="mobile" data-c="Fix this on phone too">Fix phone</button>'+
         '<button class="warn" data-action="whatsapp" data-c="Fix the WhatsApp or quote flow here">WhatsApp flow</button>'+
         '<button class="warn" data-action="language" data-c="Fix language/translation here">Language</button>'+
@@ -336,6 +336,7 @@
   function primarySuggestion(intent){
     if(intent && intent.safe) return { kind:'preview', label:'Preview' };
     if(intent && intent.kind==='phone') return { kind:'phone-preview-note', label:'Phone preview' };
+    if(intent && intent.kind==='annotate') return { kind:'annotate', label:'Annotate' };
     return { kind:'note', label:'Add note' };
   }
   function renderSuggestions(){
@@ -389,6 +390,8 @@
     } else if(kind==='note'){
       addStructuredNote(intent.label, cmd || byId('rv-ta').value.trim() || 'Review this selected area.', taggedTarget(), intent.status);
       input.value='';
+    } else if(kind==='annotate'){
+      annotateSelected();
     } else if(kind==='publish'){
       if(cmd) addStructuredNote(intent.label, cmd, taggedTarget(), intent.status);
       input.value='';
@@ -477,6 +480,11 @@
       addStructuredNote('Stock photo', label, target, 'Needs current stock photo from sales/source');
     } else if(action==='spacing'){
       addStructuredNote('Fix spacing', label, target, 'Needs layout spacing update');
+    } else if(action==='annotate'){
+      var cmd=byId('rv-main-cmd');
+      if(cmd && !cmd.value.trim()) cmd.value=label || 'Annotate this area';
+      selectedEl=movableBlock(target);
+      annotateSelected();
     } else if(action==='mobile'){
       addStructuredNote('Fix phone', label, target, 'Must verify phone viewport');
     } else if(action==='whatsapp'){
@@ -649,11 +657,18 @@
     renderSuggestions();
   }
   function annotateSelected(){
-    var el=selectedEl || movableBlock(document.activeElement);
+    var el=(tagged && tagged.el && document.documentElement.contains(tagged.el)) ? tagged.el : (selectedEl || movableBlock(document.activeElement));
     if(!isMine(el)){ showToast('Highlight or click a section first'); return; }
-    var note=window.prompt('Annotation for ARK to fix:');
+    var cmd=byId('rv-main-cmd');
+    var detail=byId('rv-ta');
+    var note=(cmd && cmd.value ? cmd.value.trim() : '') || (detail && detail.value ? detail.value.trim() : '');
+    if(!note && window.prompt) note=window.prompt('Annotation for ARK to fix:');
     if(!note || !note.trim()) return;
+    addStructuredNote('Annotate', note.trim(), el, 'Saved as selected-section annotation');
     record('annotation', el, '', note.trim(), 'annotation: '+note.trim().slice(0,50));
+    if(cmd) cmd.value='';
+    if(detail) detail.value='';
+    renderSuggestions();
   }
   function moveSelected(dir){
     var rangeEl=selectedRangeElement();
@@ -668,7 +683,7 @@
   function doCommand(){
     var inp=byId('rv-cmd'); var t=inp.value.trim(); if(!t){ inp.focus(); return; }
     var low=t.toLowerCase();
-    if(/\b(annotate|annotation|note)\b/i.test(low)){ inp.value=''; annotateSelected(); return; }
+    if(/\b(annotate|annotation|note)\b/i.test(low)){ annotateSelected(); return; }
     if(/\bmove\b.*\b(up|higher)\b/i.test(low)){ inp.value=''; moveSelected('up'); return; }
     if(/\bmove\b.*\b(down|lower)\b/i.test(low)){ inp.value=''; moveSelected('down'); return; }
     // change X to Y (text) — applies immediately
@@ -1156,6 +1171,7 @@
   }
   function pickTarget(t){
     // climb to a meaningful block
+    if(t && t.closest && t.closest('summary')) return t.closest('summary');
     var n = t, hops=0;
     while(n && hops<4 && n.textContent && n.textContent.trim().length<3){ n=n.parentElement; hops++; }
     return n;
