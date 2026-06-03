@@ -211,7 +211,8 @@
 const VERCEL_API_ORIGIN='https://newvision-demo.vercel.app';
 const IS_GITHUB_PAGES=location.hostname==='arkysan.github.io';
 const IS_STATIC_PREVIEW=['localhost','127.0.0.1'].includes(location.hostname);
-const API_BASE=(IS_GITHUB_PAGES || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN : '';
+const IS_STATIC_PUBLIC_HOST=IS_GITHUB_PAGES || location.hostname==='cdn.jsdelivr.net' || location.hostname.endsWith('.pages.dev');
+const API_BASE=(IS_STATIC_PUBLIC_HOST || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN : '';
 const API='/api/portal';
 const SESSION_KEY='newvision.portal.session';
 const $=id=>document.getElementById(id);

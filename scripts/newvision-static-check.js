@@ -211,6 +211,9 @@ const requiredPublicGalleryControls = [
   ['galleryNav', 'Public vehicle modal must expose previous/next gallery navigation'],
   ["fetch(apiUrl('/api/vehicles'", 'Public site must refresh vehicle inventory through the host-aware API base'],
   ['const API_BASE', 'Public site must define a GitHub/Vercel API base helper'],
+  ['const IS_STATIC_PUBLIC_HOST', 'Public site must route GitHub, jsDelivr, and Pages static hosts through the Vercel API base'],
+  ["location.hostname === 'cdn.jsdelivr.net'", 'Public site must route jsDelivr static pages through the Vercel API base'],
+  ["location.hostname.endsWith('.pages.dev')", 'Public site must route Cloudflare Pages through the Vercel API base'],
   ['data-stock-id="${stockIdForVehicle(v)}"', 'Vehicle cards must expose public stock IDs'],
   ['vehiclePublicLane', 'Customer-facing vehicle cards must show a public export lane, not exact back-room location'],
   ['vehicle-spec-strip', 'Vehicle cards must show compact detail facts before opening the modal'],
@@ -229,7 +232,9 @@ for (const [snippet, message] of requiredPublicGalleryControls) {
 const requiredVehicleDealPageControls = [
   ['China vehicle export deal desk', 'Vehicle deal page must be branded as the export deal desk'],
   ['function stockIdForVehicle', 'Vehicle deal page must resolve public stock IDs'],
-  ['API_BASE=(IS_GITHUB_PAGES || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN :', 'Vehicle deal page must call Vercel APIs from GitHub/static mode'],
+  ['IS_STATIC_PUBLIC_HOST=IS_GITHUB_PAGES', 'Vehicle deal page must route public static hosts through Vercel APIs'],
+  ["location.hostname==='cdn.jsdelivr.net'", 'Vehicle deal page must support jsDelivr static hosting'],
+  ["location.hostname.endsWith('.pages.dev')", 'Vehicle deal page must support Cloudflare Pages static hosting'],
   ['Export readiness', 'Vehicle deal page must show export readiness'],
   ['Export quote preview', 'Vehicle deal page must show a quote preview'],
   ['Capture NVQ and open WhatsApp', 'Vehicle deal page must capture a quote ID before WhatsApp handoff'],
@@ -394,9 +399,18 @@ for (const [snippet, message] of [
 for (const [snippet, message] of [
   ['Stock IDs start with NV, quote IDs start with NVQ, and booked shipments start with NVS', 'Tracking page must explain stock, quote, and shipment ID formats'],
   ['Quote ID found. Sales has the buyer, vehicle, destination port, estimate request, and proof/docs choices', 'Tracking page must explain captured quote IDs'],
-  ['API_BASE+API', 'Tracking page must call Vercel APIs from GitHub Pages'],
+  ['IS_STATIC_PUBLIC_HOST=IS_GITHUB_PAGES', 'Tracking page must route public static hosts through Vercel APIs'],
+  ['API_BASE+API', 'Tracking page must call Vercel APIs from static public hosts'],
 ]) {
   if (!track.includes(snippet)) fail(message);
+}
+for (const [name, text] of [
+  ['sales.html', sales],
+  ['portal.html', portal],
+]) {
+  if (!text.includes('IS_STATIC_PUBLIC_HOST')) fail(`${name} must route public static hosts through the Vercel API base`);
+  if (!text.includes("location.hostname==='cdn.jsdelivr.net'") && !text.includes("location.hostname === 'cdn.jsdelivr.net'")) fail(`${name} must support jsDelivr static hosting`);
+  if (!text.includes("location.hostname.endsWith('.pages.dev')")) fail(`${name} must support Cloudflare Pages static hosting`);
 }
 
 const emojiPattern = /\p{Extended_Pictographic}/gu;
