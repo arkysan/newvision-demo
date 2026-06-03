@@ -1,45 +1,42 @@
 # Active Task
 
-Task id: `NEWVISION-QUOTE-EDITOR-PUBLISH-20260601`
+Task id: `NEWVISION-EXPORT-DEAL-DESK-20260603`
 
 Objective:
-- Keep the quote form between How It Works and Active Shipping Routes.
-- Route visible WhatsApp/contact CTAs through the required quote form.
-- Require buyer name, country, WhatsApp/phone, vehicle, destination port, and message before WhatsApp handoff.
-- Prepare the same completed request for New Vision Sales, Eissah, and Andy.
-- Let the review editor move highlighted/selected sections, annotate, redo, and publish through the live CMS review-patches path when deployed with an admin token.
+- Keep GitHub Pages and Vercel as identical public buyer surfaces.
+- Upgrade the public buyer journey into an Export Deal Desk: inventory card -> vehicle detail page -> export quote preview -> `NVQ` quote capture -> WhatsApp sales handoff -> tracking link.
+- Preserve the green/white New Vision identity and public/private data separation.
+- Surface quote-preview fields in sales and owner portals without letting sales users access owner-only panels.
 
 Allowed files:
 - `index.html`
-- `arkreview.js`
-- `api/cms.js`
+- `vehicle.html`
+- `track.html`
+- `sales.html`
+- `portal.html`
+- `api/lead.js`
 - `scripts/newvision-static-check.js`
+- `sitemap.xml`
 - `runtime/pcmaster/*`
-- `C:\PCMaster-Control\inventory\projects.md`
-- `C:\PCMaster-Control\tasks\active-task.md`
-- `C:\PCMaster-Control\status\latest-status.md`
 
 Blocked files/actions:
-- Production deployment, Vercel alias changes, GitHub Pages deploy, or push without owner approval.
 - Secrets, tokens, cookies, browser profiles, or raw private logs.
-- Stale `C:\Users\ARKAI\Desktop\ARKV2\docs\newvision` as a source of truth. It may only receive a deliberate mirror after source proof passes.
+- Stale `C:\Users\ARKAI\Desktop\ARKV2\docs\newvision` as a source of truth.
+- CMS live editor publish remains blocked until Vercel has `NEWVISION_ADMIN_TOKEN` and Blob storage.
 
 Test commands:
-- `node -c api\cms.js; node -c arkreview.js; node -c scripts\newvision-static-check.js`
+- `node -c api\lead.js; node -c api\portal.js; node -c scripts\newvision-static-check.js`
 - `npm test`
 - `npm run check:pcmaster`
-- Rendered Playwright mobile quote/editor proof against `http://127.0.0.1:52452/`.
+- `npm run check:deploy-drift`
+- Rendered Playwright proof against `http://127.0.0.1:52452/` at desktop and `390x844`.
 
 Rollback path:
-- Revert only the latest changes in `index.html`, `arkreview.js`, `api/cms.js`, and `scripts/newvision-static-check.js`.
-- Restore the previous mirrored copies under `C:\Users\ARKAI\Desktop\ARKV2\docs\newvision` only if the mirror is the source of the fault.
-- Do not reset unrelated dirty work.
+- Revert only the files listed in Allowed files for this task.
+- If public deployment is performed, restore the previous commit on GitHub Pages and redeploy the prior Vercel production deployment.
+- Do not use destructive git reset or checkout against unrelated dirty work.
 
 Status:
-- `PASS`: static checks, PCMaster contract check, syntax checks, rendered mobile quote proof, editor control proof, and language smoke proof passed locally.
-- `PARTIAL`: public live publish was not executed because deployed-site admin token and Vercel Blob storage are owner/config gated.
-
-Phone review sheet addendum:
-- `PASS`: phone review button is visible on the 390px phone viewport.
-- `PASS`: opening review now uses a bottom sheet instead of a full-screen cover, leaving the website visible above the editor.
-- `PASS`: quick actions stay usable in a two-column phone grid and the bottom app dock hides only while the editor sheet is open.
+- `PASS`: local syntax/static/PCMaster checks passed.
+- `PASS`: local desktop/phone rendered proof passed for inventory cards, vehicle detail page, quote preview, query prefill, mocked `NVQ` capture, validation, API-unavailable fallback, bad stock state, and role boundary.
+- `PENDING`: live GitHub/Vercel sync proof. Current public drift is expected until this branch is deployed to both surfaces.

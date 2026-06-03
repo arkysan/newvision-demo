@@ -24,9 +24,10 @@ module.exports = async (req, res) => {
     const contact = String(b.contact || b.phone || b.whatsapp || b.email || '').slice(0, 120).trim();
     const message = String(b.message || b.details || b.notes || '').slice(0, 1500).trim();
     const extra = {};
-    for (const k of ['country', 'vehicle', 'port', 'business', 'businessType', 'practice', 'role', 'topic']) {
+    for (const k of ['country', 'vehicle', 'port', 'stockId', 'quoteEstimate', 'freightEstimate', 'inspectionOption', 'docsOption', 'vehiclePageUrl', 'business', 'businessType', 'practice', 'role', 'topic']) {
       if (b[k]) extra[k] = String(b[k]).slice(0, 200);
     }
+    if (extra.vehiclePageUrl) extra.vehiclePageUrl = String(b.vehiclePageUrl).slice(0, 500);
     if (!name && !contact) { res.status(400).json({ ok: false, error: 'name or contact required' }); return; }
     const leadId = 'NVQ-' + Date.now().toString(36).toUpperCase();
 

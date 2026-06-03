@@ -61,7 +61,7 @@
 <div class="wrap">
   <div class="card">
     <h1>Track your vehicle</h1>
-    <div class="sub">Enter a stock ID, quote ID, or shipment tracking ID (e.g. NV-2026-0001 or NVS-XXXXXX).</div>
+    <div class="sub">Enter a stock ID, quote ID, or shipment tracking ID. Stock IDs start with NV, quote IDs start with NVQ, and booked shipments start with NVS.</div>
     <div class="find">
       <input id="code" placeholder="NV-2026-0001 / NVQ-... / NVS-..." />
       <button onclick="track()">Track →</button>
@@ -128,9 +128,9 @@ function render(s){
   // live links (free deep-links by IMO/MMSI)
   const links=[]; const id=s.imo?('imo-'+s.imo):(s.mmsi?('mmsi-'+s.mmsi):'');
   if(isQuote){
-    links.push('<span class="note" style="margin:0">Quote request found. New Vision will use this ID to connect the buyer, vehicle, destination port, and any future shipment booking.</span>');
+    links.push('<span class="note" style="margin:0">Quote ID found. Sales has the buyer, vehicle, destination port, estimate request, and proof/docs choices. Shipment tracking appears after booking.</span>');
   } else if(isVehicle){
-    links.push('<span class="note" style="margin:0">This is a public stock ID. Ask New Vision for a CIF quote, inspection, or shipment booking to receive an NVS shipment link.</span>');
+    links.push('<span class="note" style="margin:0">Public stock ID found. Use this exact vehicle reference to request CIF pricing, photos/video proof, inspection, docs, and an NVQ quote ID.</span>');
   } else if(s.imo||s.mmsi){
     links.push(`<a class="btn" target="_blank" rel="noopener" href="https://www.myshiptracking.com/vessels/${id}">🛰️ Live position (MyShipTracking)</a>`);
     const mt = s.imo? ('imo:'+s.imo) : ('mmsi:'+s.mmsi);
@@ -140,7 +140,7 @@ function render(s){
   // countdown
   if(timer) clearInterval(timer);
   if(isVehicle || isQuote){
-    $('cdWrap').innerHTML='<div class="arrived">'+(isQuote?'Quote ID found. Shipment ETA appears after booking.':'Vehicle stock ID found. Shipment ETA appears after booking.')+'</div>';
+    $('cdWrap').innerHTML='<div class="arrived">'+(isQuote?'Quote captured. ETA appears after deposit, booking, and NVS shipment assignment.':'Vehicle reference found. ETA appears after quote, deposit, and NVS shipment assignment.')+'</div>';
     return;
   }
   const eta=s.eta?new Date(s.eta+(s.eta.length<=10?'T12:00:00Z':'')):null;

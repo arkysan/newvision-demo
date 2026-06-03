@@ -4,6 +4,7 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 const INDEX = path.join(ROOT, 'index.html');
 const html = fs.readFileSync(INDEX, 'utf8');
+const vehicleDeal = fs.readFileSync(path.join(ROOT, 'vehicle.html'), 'utf8');
 const portal = fs.readFileSync(path.join(ROOT, 'portal.html'), 'utf8');
 const sales = fs.readFileSync(path.join(ROOT, 'sales.html'), 'utf8');
 const review = fs.readFileSync(path.join(ROOT, 'arkreview.js'), 'utf8');
@@ -76,6 +77,12 @@ const requiredQuoteWiring = [
   ['id="qContact"', 'WhatsApp/phone field is required for sales handoff data'],
   ['WhatsApp / Phone: ${contact}', 'Quote message must include buyer WhatsApp/phone'],
   ['Multiple vehicles / Fleet order', 'Vehicle select must include a usable fleet-order option'],
+  ['id="quotePreview"', 'Quote form must expose an export quote preview panel'],
+  ['quoteEstimate', 'Lead payload must include quote estimate context'],
+  ['freightEstimate', 'Lead payload must include freight estimate context'],
+  ['inspectionOption', 'Lead payload must include proof/inspection choice'],
+  ['docsOption', 'Lead payload must include document choice'],
+  ['async function captureLead', 'Quote flow must still capture the lead before WhatsApp handoff'],
 ];
 for (const [snippet, message] of requiredQuoteWiring) {
   if (!html.includes(snippet)) fail(message);
@@ -207,6 +214,9 @@ const requiredPublicGalleryControls = [
   ['data-stock-id="${stockIdForVehicle(v)}"', 'Vehicle cards must expose public stock IDs'],
   ['vehiclePublicLane', 'Customer-facing vehicle cards must show a public export lane, not exact back-room location'],
   ['vehicle-spec-strip', 'Vehicle cards must show compact detail facts before opening the modal'],
+  ['vehicleDealUrl', 'Vehicle cards must link to a public full deal page'],
+  ['View full deal', 'Vehicle cards must expose a full deal CTA'],
+  ['FOB + freight preview', 'Vehicle cards must communicate the export quote preview path'],
   ["openModal(${v.id},'specs')", 'Vehicle cards must expose a dedicated full specs button'],
   ['data-tab="specs"', 'Vehicle detail modal must expose stable tab keys for translated UI'],
   ['requestCurrentStockPhoto', 'Vehicle detail modal must route current-photo requests into the quote flow'],
@@ -214,6 +224,27 @@ const requiredPublicGalleryControls = [
 ];
 for (const [snippet, message] of requiredPublicGalleryControls) {
   if (!html.includes(snippet)) fail(message);
+}
+
+const requiredVehicleDealPageControls = [
+  ['China vehicle export deal desk', 'Vehicle deal page must be branded as the export deal desk'],
+  ['function stockIdForVehicle', 'Vehicle deal page must resolve public stock IDs'],
+  ['API_BASE=(IS_GITHUB_PAGES || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN :', 'Vehicle deal page must call Vercel APIs from GitHub/static mode'],
+  ['Export readiness', 'Vehicle deal page must show export readiness'],
+  ['Export quote preview', 'Vehicle deal page must show a quote preview'],
+  ['Capture NVQ and open WhatsApp', 'Vehicle deal page must capture a quote ID before WhatsApp handoff'],
+  ['quoteEstimate', 'Vehicle deal page lead payload must include quote estimate'],
+  ['freightEstimate', 'Vehicle deal page lead payload must include freight estimate'],
+  ['inspectionOption', 'Vehicle deal page lead payload must include proof/inspection choice'],
+  ['docsOption', 'Vehicle deal page lead payload must include document choice'],
+  ['vehiclePageUrl', 'Vehicle deal page lead payload must include its public URL'],
+  ['trackUrl(leadId)', 'Vehicle deal page must link returned NVQ IDs to tracking'],
+];
+for (const [snippet, message] of requiredVehicleDealPageControls) {
+  if (!vehicleDeal.includes(snippet)) fail(message);
+}
+if (/vinPrivate|Back-room location|v\.location|vehicleLocation/i.test(vehicleDeal)) {
+  fail('Vehicle deal page must not expose private VIN or exact back-room location fields');
 }
 
 const requiredShippingMapControls = [
@@ -287,6 +318,10 @@ const requiredSalesPortalControls = [
   ["api('sales-dashboard')", 'Sales portal must use the limited sales dashboard, not owner finance dashboard'],
   ['id="ownerPortalLink"', 'Sales portal must hide the owner portal link unless an owner/master is signed in'],
   ["fetch(apiUrl('/api/vehicles')", 'Sales portal must read the full vehicle list from the Vercel-backed API'],
+  ['Quote estimate', 'Sales portal must surface buyer quote-preview estimates'],
+  ['Freight estimate', 'Sales portal must surface buyer freight estimates'],
+  ['Proof choice', 'Sales portal must surface buyer inspection/proof choices'],
+  ['Vehicle page', 'Sales portal must surface the public vehicle deal page URL'],
 ];
 for (const [snippet, message] of requiredSalesPortalControls) {
   if (!sales.includes(snippet)) fail(message);
@@ -296,6 +331,10 @@ const requiredOwnerSalesControls = [
   ["user.role === 'sales'", 'Owner portal must redirect sales users out of owner-only panels'],
   ['id="ownerSalesDesk"', 'Owner portal must include an owner-only sales oversight panel'],
   ['Sales portal oversight', 'Owner sales panel must be clearly labeled as oversight, not the staff portal itself'],
+  ['Quote estimate', 'Owner sales panel must surface buyer quote-preview estimates'],
+  ['Freight estimate', 'Owner sales panel must surface buyer freight estimates'],
+  ['Proof choice', 'Owner sales panel must surface buyer inspection/proof choices'],
+  ['Vehicle page', 'Owner sales panel must surface the public vehicle deal page URL'],
 ];
 for (const [snippet, message] of requiredOwnerSalesControls) {
   if (!portal.includes(snippet)) fail(message);
@@ -343,11 +382,18 @@ for (const [snippet, message] of [
 for (const [snippet, message] of [
   ['NVQ-', 'Lead capture must generate public quote IDs'],
   ['leadId', 'Lead API must return the generated quote ID'],
+  ['stockId', 'Lead API must preserve public stock IDs'],
+  ['quoteEstimate', 'Lead API must preserve quote estimates'],
+  ['freightEstimate', 'Lead API must preserve freight estimates'],
+  ['inspectionOption', 'Lead API must preserve inspection choices'],
+  ['docsOption', 'Lead API must preserve document choices'],
+  ['vehiclePageUrl', 'Lead API must preserve vehicle deal page URLs'],
 ]) {
   if (!leadApi.includes(snippet)) fail(message);
 }
 for (const [snippet, message] of [
-  ['NV-2026-0001 / NVQ-... / NVS-...', 'Tracking page must accept stock, quote, and shipment ID formats'],
+  ['Stock IDs start with NV, quote IDs start with NVQ, and booked shipments start with NVS', 'Tracking page must explain stock, quote, and shipment ID formats'],
+  ['Quote ID found. Sales has the buyer, vehicle, destination port, estimate request, and proof/docs choices', 'Tracking page must explain captured quote IDs'],
   ['API_BASE+API', 'Tracking page must call Vercel APIs from GitHub Pages'],
 ]) {
   if (!track.includes(snippet)) fail(message);

@@ -103,3 +103,20 @@ Phone review bottom-sheet proof:
 - Browser console warnings/errors: `0`.
 - Static guard added so phone review editor cannot regress to hidden/full-screen behavior.
 - Screenshot: `artifacts/phone-review-bottom-sheet-20260601.png`.
+
+Export Deal Desk proof:
+- Time: `2026-06-03 16:11 Asia/Shanghai`.
+- Source of truth: `C:\Users\ARKAI\Desktop\newvision-demo`.
+- Branch: `codex/newvision-wow-upgrade`.
+- Changed buyer path: inventory cards expose `View full deal`, `FOB + freight preview`, proof/docs options, and `NVQ` quote ID path.
+- New public detail page: `vehicle.html?id=NV-2026-0001` renders gallery, specs, export readiness, quote preview, `NVQ` capture, tracking link, and WhatsApp handoff without exposing private VIN or exact back-room location.
+- Quote capture proof: mocked `/api/lead` returned `NVQ-TEST-WOW`; buyer handoff rendered `Track NVQ-TEST-WOW`; lead payload included `stockId`, `quoteEstimate`, `freightEstimate`, `inspectionOption`, `docsOption`, and `vehiclePageUrl`.
+- Failure proof: bad stock ID rendered an honest not-found state; Vercel vehicles API failure fell back to static `data/vehicles.json`; empty quote submit was blocked by required fields.
+- Role proof: Andy login returned `sales`; `sales-dashboard` returned `200`; sales access to owner dashboard returned `403`; master dashboard returned `200` with finance.
+- Desktop rendered proof: 35 vehicle cards, 35 full-deal links, quote preview panel present, and UAE/Saudi/Nigeria market quote buttons present.
+- Phone rendered proof: `390x844` vehicle detail page had no horizontal overflow and rendered CIF quote preview.
+- Screenshots saved by Browser: `newvision-wow-desktop-home.png`, `newvision-wow-phone-vehicle.png`.
+- Syntax proof: `node -c api\lead.js; node -c api\portal.js; node -c scripts\newvision-static-check.js` passed.
+- Static proof: `npm test` passed with `ok: true`, `vehicles: 35`, `vehicleImages: 35`.
+- PCMaster contract proof: `npm run check:pcmaster` passed with `ok: true`, `requiredFiles: 10`.
+- Live drift proof before deploy: `npm run check:deploy-drift` failed because Vercel served `arkreview.js?v=20260602-review-engine` and GitHub served `arkreview.js?v=20260603-annotation-fix`; this remains expected until the same committed source is published to both public surfaces.
