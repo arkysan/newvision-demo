@@ -120,3 +120,13 @@ Export Deal Desk proof:
 - Static proof: `npm test` passed with `ok: true`, `vehicles: 35`, `vehicleImages: 35`.
 - PCMaster contract proof: `npm run check:pcmaster` passed with `ok: true`, `requiredFiles: 10`.
 - Live drift proof before deploy: `npm run check:deploy-drift` failed because Vercel served `arkreview.js?v=20260602-review-engine` and GitHub served `arkreview.js?v=20260603-annotation-fix`; this remains expected until the same committed source is published to both public surfaces.
+
+Export Deal Desk live sync proof:
+- Time: `2026-06-03 16:41 Asia/Shanghai`.
+- Source of truth: `C:\Users\ARKAI\Desktop\newvision-demo`.
+- Branch: `master`.
+- Commit pushed to GitHub: `64f2e55 feat(newvision): add export deal desk buyer path`.
+- Vercel production deploy: `npx vercel --prod --yes` passed, deployment `dpl_GyWdg8je62DGLGWwyhD6ta6snzCc`.
+- `npm run check:deploy-drift`: PASS; Vercel and GitHub both returned `mapped` with normalized hash `c8e1c3fc1b074c11`.
+- Public fetch proof: both `https://arkysan.github.io/newvision-demo/` and `https://newvision-demo.vercel.app/` served `arkreview.js?v=20260603-annotation-fix`, `View full deal`, `quotePreview`, and `vehicleDealUrl`.
+- Live rendered proof: Playwright passed on both public URLs for 35 inventory cards, 35 full-deal links, `vehicle.html?id=NV-2026-0001`, no private VIN/back-room copy, phone `390x844` no horizontal overflow, quote preview, and mocked `NVQ-LIVE-MOCK` dispatch/tracking link.

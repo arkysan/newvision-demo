@@ -30,6 +30,7 @@ Test commands:
 - `npm run check:pcmaster`
 - `npm run check:deploy-drift`
 - Rendered Playwright proof against `http://127.0.0.1:52452/` at desktop and `390x844`.
+- Rendered Playwright proof against `https://arkysan.github.io/newvision-demo/` and `https://newvision-demo.vercel.app/` at desktop and `390x844`.
 
 Rollback path:
 - Revert only the files listed in Allowed files for this task.
@@ -39,4 +40,5 @@ Rollback path:
 Status:
 - `PASS`: local syntax/static/PCMaster checks passed.
 - `PASS`: local desktop/phone rendered proof passed for inventory cards, vehicle detail page, quote preview, query prefill, mocked `NVQ` capture, validation, API-unavailable fallback, bad stock state, and role boundary.
-- `PENDING`: live GitHub/Vercel sync proof. Current public drift is expected until this branch is deployed to both surfaces.
+- `PASS`: `master` pushed to GitHub, Vercel production deployed, deploy-drift check passed, and live rendered proof passed on both public surfaces.
+- `BLOCKED`: CMS live editor publish still requires `NEWVISION_ADMIN_TOKEN` and Vercel Blob storage.

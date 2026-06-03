@@ -1,6 +1,6 @@
 # Latest Status
 
-Generated: `2026-06-03 16:11 Asia/Shanghai`
+Generated: `2026-06-03 16:41 Asia/Shanghai`
 
 Project:
 - New Vision vehicle website
@@ -9,7 +9,7 @@ Source of truth:
 - `C:\Users\ARKAI\Desktop\newvision-demo`
 
 Current branch:
-- `codex/newvision-wow-upgrade`
+- `master`
 
 Status:
 - `PASS`: Export Deal Desk buyer path is implemented locally.
@@ -20,7 +20,7 @@ Status:
 - `PASS`: Sales and owner portals surface quote estimate, freight estimate, proof/docs choice, and public vehicle page URL while preserving owner/sales role separation.
 - `PASS`: Tracking page copy now separates public stock IDs, quote IDs, and shipment IDs.
 - `PASS`: Local desktop and phone rendered proof passed.
-- `BLOCKED`: Live GitHub/Vercel sync proof still fails until the same committed source is published to both public surfaces.
+- `PASS`: Live GitHub Pages and Vercel public surfaces now pass the deploy drift gate and rendered browser proof.
 - `BLOCKED`: CMS live editor publish remains disabled until `NEWVISION_ADMIN_TOKEN` and Vercel Blob storage are configured.
 
 Verification:
@@ -32,7 +32,10 @@ Verification:
 - Mocked buyer submit proof: PASS, `/api/lead` payload included `stockId`, `quoteEstimate`, `freightEstimate`, `inspectionOption`, `docsOption`, `vehiclePageUrl`; response `NVQ-TEST-WOW` rendered a tracking link.
 - Failure probes: PASS, bad stock state, API-unavailable inventory fallback, and empty quote required-field validation.
 - Role proof: PASS, sales dashboard `200`, sales owner-dashboard access `403`, master dashboard `200` with finance.
-- `npm run check:deploy-drift`: FAIL as expected before deploy; Vercel and GitHub currently serve different public hashes.
+- `git push origin master`: PASS, pushed commit `64f2e55` to GitHub.
+- `npx vercel --prod --yes`: PASS, production deployment `dpl_GyWdg8je62DGLGWwyhD6ta6snzCc`.
+- `npm run check:deploy-drift`: PASS, GitHub Pages and Vercel both returned `mapped` with normalized hash `c8e1c3fc1b074c11`.
+- Live rendered proof against both public URLs: PASS, desktop inventory/deal links, vehicle detail page, phone `390x844` no-overflow detail page, and mocked `NVQ-LIVE-MOCK` quote dispatch/tracking link.
 
 Next gate:
-- Commit, publish the same source to GitHub Pages and Vercel, then rerun `npm run check:deploy-drift` plus live desktop/phone smoke proof on both URLs.
+- Configure `NEWVISION_ADMIN_TOKEN` and Vercel Blob storage before enabling CMS live editor publish.
