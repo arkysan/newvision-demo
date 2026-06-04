@@ -11,12 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup wrangler auth
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup wrangler auth (OAuth)
         run: |
           mkdir -p ~/.wrangler/config
-          printf 'oauth_token = "%s"\n' "$CF_OAUTH_TOKEN" > ~/.wrangler/config/default.toml
-        env:
-          CF_OAUTH_TOKEN: ${{ secrets.CF_OAUTH_TOKEN }}
+          cat > ~/.wrangler/config/default.toml << EOF
+          oauth_token = "${{ secrets.CF_OAUTH_TOKEN }}"
+          refresh_token = "${{ secrets.CF_REFRESH_TOKEN }}"
+          expiration_time = "2099-01-01T00:00:00.000Z"
+          EOF
 
       - name: Deploy to Cloudflare Pages
         run: npx wrangler@4.95.0 pages deploy . --project-name=newvision --branch=main
