@@ -52,7 +52,7 @@ Status:
 - `PASS LOCAL`: Customer/default world map hides the World Events panel and skips risk-zone overlays; back-room roles `sales`, `andy`, `eissa`, `owner`, `admin`, `master`, and `arky` keep world-event intelligence.
 - `PASS LOCAL`: Owner/admin portal links open `worldmap.html?role=admin`; Andy/Eissa sales links open `worldmap.html?role=sales`.
 - `PASS LOCAL`: 3D globe repaired locally with copied World Monitor `lib/globe.gl.min.js` and World Monitor texture assets.
-- `LOCAL ONLY`: Latest map-placement and role-split changes are not committed, pushed, or deployed yet.
+- `PASS GITHUB PAGES`: Premium brand catalog and local Leaflet runtime are committed and pushed on `master`.
 - `PASS`: GitHub Pages main gate is live and includes `worldmap.html`.
 - `PASS`: local `npm test` and worldmap syntax checks passed after removing emoji-style UI markers from `index.html`.
 - `PASS`: live fetch proof returned `200` for `/`, `/worldmap.html`, `/track.html`, and `/vehicle.html?id=NV-2026-0001` on GitHub Pages.

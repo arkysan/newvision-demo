@@ -188,3 +188,14 @@ Premium brands and map dependency proof:
 - Remaining external dependency proof: map tile URLs still use CARTO/OpenStreetMap and OpenSeaMap; `#mapDependencyNote` now labels this honestly on the customer shipping-map section.
 - 3D globe proof: local `worldmap.html` click on `#view3dBtn` opened `#globe-wrap.show`, rendered 1 canvas, no fallback text, and no browser console errors.
 - Syntax/static proof: `node --check scripts/newvision-static-check.js`, `node --check api/worldmap.js`, `node --check api/worldmap-watch.js`, `npm test`, and `npm run check:pcmaster` passed.
+
+Premium brands GitHub Pages live proof:
+- Time: `2026-06-05 04:56 Asia/Shanghai`.
+- Commit pushed: `d4d285b feat(newvision): add premium brands catalog`.
+- Public fetch proof: `https://arkysan.github.io/newvision-demo/brands.html` returned `200` and contained `Premium Brand Catalog`; `https://arkysan.github.io/newvision-demo/lib/leaflet/leaflet.js` returned `200`; `https://arkysan.github.io/newvision-demo/` returned `200` and contained `./brands.html`.
+- Live home proof: desktop nav Brands href was `./brands.html`; `#mapDependencyNote` disclosed local map runtime and external CARTO/OpenStreetMap/OpenSeaMap tile dependency.
+- Live brand proof: `https://arkysan.github.io/newvision-demo/brands.html` rendered 23 cards, 35 stock vehicles, 2 sourcing request lanes, and owner edit link `./brands.html?arkedit=1`.
+- Live quote proof: clicking `Quote premium` landed at `https://arkysan.github.io/newvision-demo/#quote`; `#qMsg` contained `Premium brand request: BMW / 2025 BMW X3 2025 xDrive30L M Sport...`.
+- Live map proof: `https://arkysan.github.io/newvision-demo/worldmap.html?embed=1` loaded Leaflet from `https://arkysan.github.io/newvision-demo/lib/leaflet/leaflet.js`, rendered 60 tiles, and hid embed chrome.
+- Live 3D globe proof: `https://arkysan.github.io/newvision-demo/worldmap.html` click on `#view3dBtn` rendered 1 canvas, no fallback text, and no browser console errors.
+- Live phone proof: `390x844` on `/brands.html` rendered 23 cards with `scrollWidth=390`, no horizontal overflow, and edit link `./brands.html?arkedit=1`.
