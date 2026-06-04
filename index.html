@@ -338,6 +338,15 @@
     .shipping-map-pill { border: 1px solid var(--border2); background: #fff; color: var(--green2); border-radius: 999px; padding: 7px 12px; font-size: 12px; font-weight: 800; white-space: nowrap; }
     .shipping-map-wrap { position: relative; height: 540px; background: #0a1510; overflow: hidden; }
     .shipping-map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .shipping-map-panel { position: absolute; left: 18px; bottom: 18px; width: min(360px, calc(100% - 36px)); background: rgba(255,255,255,.9); border: 1px solid rgba(46,125,50,.2); border-radius: 13px; padding: 14px; box-shadow: 0 14px 34px rgba(15,80,48,.14); backdrop-filter: blur(8px); z-index: 2; }
+    .shipping-map-panel .k { font-size: 10px; font-weight: 900; color: var(--green); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 5px; }
+    .shipping-map-panel b { display: block; color: var(--green2); font-size: 15px; line-height: 1.3; }
+    .shipping-map-panel p { color: var(--muted2); font-size: 12px; line-height: 1.5; margin: 6px 0 10px; }
+    .shipping-route-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0 0; }
+    .shipping-route-tab { border: 1px solid rgba(46,125,50,.22); background: rgba(255,255,255,.78); color: var(--green2); border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 900; cursor: pointer; }
+    .shipping-route-tab.active { background: var(--green2); color: #fff; border-color: var(--green2); }
+    .shipping-map-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
+    .shipping-map-metrics span { border: 1px solid var(--border); border-radius: 9px; padding: 8px 7px; color: var(--green2); background: #f8fcf9; font-size: 11px; font-weight: 800; text-align: center; }
     .shipping-map-legend { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 1px; border-top: 1px solid var(--border); background: var(--border); }
     .shipping-map-legend div { background: #fff; padding: 12px 14px; min-width: 0; }
     .shipping-map-legend b { display: block; color: var(--green2); font-size: 12px; margin-bottom: 3px; }
@@ -503,6 +512,7 @@
       .shipping-map-head { align-items: flex-start; flex-direction: column; }
       .shipping-map-status { justify-content: flex-start; min-width: 0; }
       .shipping-map-legend { grid-template-columns: repeat(3,minmax(0,1fr)); }
+      .shipping-map-panel { position: static; width: auto; margin: 12px; }
       .steps { grid-template-columns: repeat(3,1fr); }
       .categories { grid-template-columns: 1fr; }
     }
@@ -593,6 +603,7 @@
       .shipping-map-wrap { height: 380px; }
       .shipping-map-legend { grid-template-columns: 1fr 1fr; }
       .shipping-map-legend div { padding: 10px 11px; }
+      .shipping-map-metrics { grid-template-columns: 1fr; }
       .cta-block { padding: 22px 16px; gap: 16px; border-radius: 12px; }
       .cta-actions, .btn-lg { width: 100%; justify-content: center; }
       /* Mobile: full-screen modal */
@@ -784,7 +795,7 @@
     <a class="nav-link" href="#best-markets" data-i18n="nav_markets">Markets</a>
     <a class="nav-link" href="#about" data-i18n="nav_about">About Us</a>
     <a class="nav-link" href="#quote" data-i18n="nav_contact">Contact</a>
-    <a class="nav-link" href="./worldmap.html" style="color:var(--green3);font-weight:700">Ship Map</a>
+    <a class="nav-link" href="#global-shipping-map" style="color:var(--green3);font-weight:700">Ship Routes</a>
     <a class="nav-link" href="./portal.html" data-i18n="nav_login" style="color:var(--green);font-weight:700">Login</a>
   </div>
   <!-- Market color theme picker -->
@@ -1899,7 +1910,7 @@ function calcEst(){
       </div>
     </div>
     <div class="shipping-map-wrap">
-      <iframe src="./routemap.html" title="New Vision Global Shipping Routes — Live Map" loading="lazy" allowfullscreen></iframe>
+      <iframe src="./routemap.html" title="New Vision Global Shipping Routes" loading="lazy"></iframe>
     </div>
     <div class="shipping-map-legend">
       <div><b>Shanghai</b><span>New Vision export loading through China port lanes.</span><button onclick="goToQuote({port:'Shanghai',message:'Please confirm FOB export readiness from Shanghai/Ningbo for my selected vehicle.'})">Quote this route</button></div>
@@ -1915,7 +1926,7 @@ function calcEst(){
     <div class="st-strip" id="liveShipTracker">
       <div class="st-strip-head">
         <h3><span class="st-live-dot"></span>Live Ship Tracker &amp; World Intelligence</h3>
-        <a href="./worldmap.html" class="st-open-btn">Open Full World Map →</a>
+        <a href="./track.html" class="st-open-btn">Track My Shipment →</a>
       </div>
       <div class="st-body">
         <!-- LEFT: search + vessel info -->
@@ -2032,7 +2043,7 @@ function calcEst(){
       if(r.vesselfinderUrl) links.push(`<a class="st-ext" href="${r.vesselfinderUrl}" target="_blank" rel="noopener">VesselFinder</a>`);
       if(r.myshiptrackingUrl) links.push(`<a class="st-ext" href="${r.myshiptrackingUrl}" target="_blank" rel="noopener">MyShipTracking</a>`);
       if(r.marinetrafficUrl) links.push(`<a class="st-ext" href="${r.marinetrafficUrl}" target="_blank" rel="noopener">MarineTraffic</a>`);
-      links.push(`<a class="st-ext" href="./worldmap.html?id=${encodeURIComponent(q)}" target="_blank">World Map</a>`);
+      links.push(`<a class="st-ext" href="./track.html?id=${encodeURIComponent(q)}" target="_blank">Track Shipment</a>`);
       $('st_links').innerHTML=links.join('');
     } catch(e){
       $('st_vessel').innerHTML=`<div class="st-idle">Network error</div>`;
