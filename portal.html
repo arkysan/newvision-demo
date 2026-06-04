@@ -176,6 +176,7 @@
     <span class="who" id="who"></span>
     <button id="editLiveBtn" onclick="editSiteLive()" style="display:none;background:var(--gold);color:#13201b;border-color:var(--gold);font-weight:700">🛠 Edit Site Live</button>
     <button id="openSalesViewBtn" onclick="window.open(pageUrl('sales.html'),'_blank')" style="display:none">Sales View</button>
+    <button onclick="window.open(pageUrl('worldmap.html'),'_blank')" style="background:#0f2518;border-color:#2e5e35;color:#81C784">🌍 World Map</button>
     <button onclick="doLogout()">Sign out</button>
   </header>
   <div class="wrap">
@@ -300,7 +301,39 @@
         <input id="sCode" placeholder="Tracking code (blank = auto)" />
         <button type="submit" style="grid-column:span 2">Save shipment + get tracking link</button>
       </form>
-      <div style="overflow-x:auto"><table id="shipTbl"><thead><tr><th>Code</th><th>Vehicle</th><th>Vessel</th><th>Route</th><th>ETA</th><th>Status</th><th>Customer link</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div style="overflow-x:auto"><table id="shipTbl"><thead><tr><th>Code</th><th>Vehicle</th><th>Vessel</th><th>Route</th><th>ETA</th><th>Status</th><th>Intelligence</th><th>Customer</th><th></th></tr></thead><tbody></tbody></table></div>
+    </div>
+
+    <!-- ── WORLD SHIPPING MAP ──────────────────────────────────── -->
+    <div class="panel" style="margin-bottom:22px;background:linear-gradient(135deg,#0a1c10,#0f2518);border-color:#1e3a26">
+      <h2 style="color:#81C784">🌍 World Shipping Map <span class="pill" style="background:rgba(67,160,71,.2);color:#81C784">Live Intelligence</span></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px">
+        <div style="background:rgba(0,0,0,.3);border:1px solid #1e3a26;border-radius:11px;padding:12px">
+          <div style="font-size:10px;font-weight:900;color:#4a7a4a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">AIS + Trade Routes</div>
+          <div style="font-size:12px;color:#81C784;font-weight:700">6 active lanes</div>
+          <div style="font-size:11px;color:#4a7a4a;margin-top:3px">Yiwu → Africa, Gulf, Europe, Americas</div>
+        </div>
+        <div style="background:rgba(0,0,0,.3);border:1px solid #1e3a26;border-radius:11px;padding:12px">
+          <div style="font-size:10px;font-weight:900;color:#4a7a4a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Risk Zones</div>
+          <div style="font-size:12px;color:#e53935;font-weight:700">Red Sea — Critical</div>
+          <div style="font-size:11px;color:#4a7a4a;margin-top:3px">9 monitored zones · Houthi / piracy / conflict</div>
+        </div>
+        <div style="background:rgba(0,0,0,.3);border:1px solid #1e3a26;border-radius:11px;padding:12px">
+          <div style="font-size:10px;font-weight:900;color:#4a7a4a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">3D Globe</div>
+          <div style="font-size:12px;color:#81C784;font-weight:700">Globe.gl WebGL</div>
+          <div style="font-size:11px;color:#4a7a4a;margin-top:3px">Rotating 3D earth with live arc routes</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <a href="./worldmap.html" target="_blank" style="background:#1B5E20;color:#81C784;border:1px solid #2e5e35;border-radius:9px;padding:10px 18px;font:700 13px inherit;text-decoration:none;display:inline-flex;align-items:center;gap:7px">🗺️ Open World Map →</a>
+        <div style="display:flex;gap:8px;align-items:center;flex:1;min-width:0">
+          <input id="wm_trackInput" placeholder="Quick-track NVS code or vessel…" style="flex:1;padding:9px 11px;border:1.5px solid #1e3a26;border-radius:9px;background:rgba(0,0,0,.4);color:#81C784;font:inherit;font-size:13px;min-width:0" />
+          <button onclick="(function(){const q=document.getElementById('wm_trackInput').value.trim();if(q)window.open('./worldmap.html?id='+encodeURIComponent(q),'_blank');})()" style="background:#1B5E20;color:#81C784;border:1px solid #2e5e35;border-radius:9px;padding:9px 14px;font:700 13px inherit;cursor:pointer;white-space:nowrap">Track →</button>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#4a7a4a;margin-top:10px">
+        ⚠ <strong style="color:#FFCC80">Active alert:</strong> Red Sea / Houthi attacks ongoing. Routes via Suez to Europe/Gulf are affected. Re-routing via Cape adds 10–14 days. NV-booked Jebel Ali and Antwerp shipments should be confirmed with captain.
+      </div>
     </div>
 
     <div class="panel" style="margin-bottom:22px">
@@ -484,7 +517,13 @@ async function loadShipments(){
   ownerShipments = r.shipments || [];
   $('shipPill').textContent=(r.shipments.length||0)+' tracked';
   const tb=$('shipTbl').querySelector('tbody');
-  tb.innerHTML = r.shipments.length ? r.shipments.map(s=>`<tr><td>${esc(s.code)}</td><td>${esc(s.vehicle)}</td><td>${esc(s.vessel||'-')}</td><td>${esc((s.origin||'?')+' → '+(s.dest||'?'))}</td><td>${esc(s.eta||'-')}</td><td>${esc(s.status||'-')}</td><td><a href="${pageUrl('track.html?id='+encodeURIComponent(s.code))}" target="_blank">open</a> · <button class="del" style="color:var(--green2)" onclick="copyTrack('${esc(s.code)}')">copy</button></td><td><button class="del" onclick="delShipment('${esc(s.code)}')">✕</button></td></tr>`).join('') : '<tr><td colspan="8" class="empty">No shipments yet — add one above to give a customer a live tracking link with a countdown.</td></tr>';
+  const WM_ROUTE_LINKS={'mombasa':'https://www.worldmonitor.app/?lat=-1&lon=72&zoom=2.5&timeRange=7d&layers=conflicts%2Cais%2Cwaterways%2Chotspots','jebel ali':'https://www.worldmonitor.app/?lat=18&lon=58&zoom=2.5&timeRange=7d&layers=conflicts%2Cais%2Cwaterways%2CiranAttacks','lagos':'https://www.worldmonitor.app/?lat=2&lon=12&zoom=2.5&timeRange=7d&layers=conflicts%2Cais%2Chotspots','antwerp':'https://www.worldmonitor.app/?lat=30&lon=32&zoom=2.5&timeRange=7d&layers=conflicts%2Cais%2Cwaterways%2Csanctions','santos':'https://www.worldmonitor.app/?lat=-10&lon=-20&zoom=2.5&timeRange=7d&layers=ais%2Cwaterways%2CtradeRoutes','kingston':'https://www.worldmonitor.app/?lat=15&lon=-78&zoom=3&timeRange=7d&layers=ais%2Cwaterways%2Cnatural'};
+  function wmLinkFor(dest){ const k=Object.keys(WM_ROUTE_LINKS).find(k=>(dest||'').toLowerCase().includes(k)); return k?WM_ROUTE_LINKS[k]:null; }
+  tb.innerHTML = r.shipments.length ? r.shipments.map(s=>{
+    const wm=wmLinkFor(s.dest||'');
+    const wmCol=wm?`<a href="${wm}" target="_blank" rel="noopener" title="WorldMonitor corridor view" style="margin-right:4px">🌐</a><a href="${pageUrl('worldmap.html?id='+encodeURIComponent(s.code))}" target="_blank" title="World Map + Risk Brief" style="font-size:11px;font-weight:700;color:var(--green2)">⚡ Brief</a>`:'<span style="color:var(--muted);font-size:11px">—</span>';
+    return `<tr><td>${esc(s.code)}</td><td>${esc(s.vehicle)}</td><td>${esc(s.vessel||'-')}</td><td>${esc((s.origin||'?')+' → '+(s.dest||'?'))}</td><td>${esc(s.eta||'-')}</td><td>${esc(s.status||'-')}</td><td>${wmCol}</td><td><a href="${pageUrl('track.html?id='+encodeURIComponent(s.code))}" target="_blank">open</a> · <button class="del" style="color:var(--green2)" onclick="copyTrack('${esc(s.code)}')">copy</button></td><td><button class="del" onclick="delShipment('${esc(s.code)}')">✕</button></td></tr>`;
+  }).join('') : '<tr><td colspan="9" class="empty">No shipments yet — add one above to give a customer a live tracking link with a countdown.</td></tr>';
   renderOwnerStaffRouteMap($('ownerRoutePort')?.value || ownerSelectedLead?.port || 'Mombasa');
 }
 async function addShipment(e){ e.preventDefault();

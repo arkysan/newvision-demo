@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>World Shipping Map — New Vision</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+/* ─── TOKENS ─────────────────────────────────────────────── */
+:root{
+  --bg:#0a1510;--panel:#0f1e14;--card:#152019;--border:#1e3326;
+  --green:#2E7D32;--green2:#1B5E20;--green3:#43A047;--green4:#81C784;
+  --gold:#C9A24B;--red:#e53935;--orange:#FF8F00;--blue:#1E88E5;
+  --ink:#e8f5e9;--muted:#7a9e7e;--line:#1e3326;
+  --critical:#e53935;--high:#FF8F00;--medium:#FDD835;--low:#43A047;--tension:#1E88E5;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:var(--green4);text-decoration:none}
+button{cursor:pointer;font:inherit}
+
+/* ─── HEADER ─────────────────────────────────────────────── */
+#hdr{
+  height:52px;background:var(--panel);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;padding:0 16px;flex-shrink:0;z-index:100;position:relative;
+}
+#hdr img{height:30px;background:#fff;border-radius:5px;padding:2px 5px}
+#hdr strong{color:var(--green4);font-size:15px}
+#hdr .tag{background:rgba(67,160,71,.18);color:var(--green4);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;letter-spacing:.5px}
+.hdr-gap{flex:1}
+.hdr-btn{border:1px solid var(--border);background:rgba(255,255,255,.05);color:var(--ink);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px}
+.hdr-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-btn.active{background:var(--green2);border-color:var(--green2);color:#fff}
+#view3dBtn.on{background:#1a2f1e;border-color:var(--green4);color:var(--green4)}
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+#shell{display:flex;height:calc(100vh - 52px);overflow:hidden}
+
+/* ─── LEFT PANEL ─────────────────────────────────────────── */
+#left{
+  width:300px;flex-shrink:0;background:var(--panel);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+#left .phead{padding:12px 14px 8px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+#left .phead h2{font-size:13px;font-weight:800;color:var(--green4);text-transform:uppercase;letter-spacing:.5px}
+#left .scroll{flex:1;overflow-y:auto;padding:12px 14px}
+#left .scroll::-webkit-scrollbar{width:4px}
+#left .scroll::-webkit-scrollbar-track{background:transparent}
+#left .scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* search */
+.search-box{display:flex;gap:6px;margin-bottom:12px}
+.search-box input{
+  flex:1;background:var(--card);border:1.5px solid var(--border);border-radius:9px;
+  color:var(--ink);padding:9px 10px;font:inherit;font-size:13px;min-width:0;
+}
+.search-box input::placeholder{color:var(--muted)}
+.search-box input:focus{outline:0;border-color:var(--green3)}
+.search-box button{background:var(--green);color:#fff;border:0;border-radius:9px;padding:0 14px;font-weight:800;font-size:13px;flex-shrink:0}
+.search-box button:hover{background:var(--green2)}
+.hint-text{font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.5}
+
+/* vessel card */
+.vessel-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px}
+.vessel-card .vc-name{font-size:16px;font-weight:900;color:var(--green4);margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.vessel-card .vc-flag{font-size:18px}
+.kv{display:grid;grid-template-columns:90px 1fr;gap:4px 8px;font-size:12px}
+.kv .k{color:var(--muted);font-weight:700}
+.kv .v{color:var(--ink);font-weight:600;word-break:break-word}
+.kv .v.live{color:var(--green4)}
+
+/* status badge */
+.sbadge{display:inline-block;border-radius:20px;padding:2px 8px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.5px}
+.sbadge.critical{background:rgba(229,57,53,.2);color:var(--critical);border:1px solid rgba(229,57,53,.3)}
+.sbadge.high{background:rgba(255,143,0,.2);color:var(--orange);border:1px solid rgba(255,143,0,.3)}
+.sbadge.medium{background:rgba(253,216,53,.15);color:#FDD835;border:1px solid rgba(253,216,53,.2)}
+.sbadge.low{background:rgba(67,160,71,.2);color:var(--green4);border:1px solid rgba(67,160,71,.3)}
+.sbadge.ok{background:rgba(67,160,71,.2);color:var(--green4);border:1px solid rgba(67,160,71,.3)}
+.sbadge.caution{background:rgba(255,143,0,.2);color:var(--orange);border:1px solid rgba(255,143,0,.3)}
+
+/* ETA */
+.eta-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px}
+.eta-block .eta-label{font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.cd{display:flex;gap:6px}
+.cd .unit{flex:1;background:#0a1510;border:1px solid var(--border);border-radius:8px;text-align:center;padding:8px 4px}
+.cd .n{font-size:22px;font-weight:900;color:var(--green4);line-height:1}
+.cd .l{font-size:9px;color:var(--muted);text-transform:uppercase;margin-top:3px}
+.eta-detail{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
+.eta-detail span{color:var(--ink)}
+.arrived-msg{text-align:center;padding:10px;background:rgba(67,160,71,.15);border-radius:9px;color:var(--green4);font-weight:800;font-size:14px}
+
+/* timeline */
+.tl-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px}
+.tl-block .tl-label{font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.tl-steps{display:flex;flex-direction:column;gap:0}
+.tl-step{display:flex;align-items:flex-start;gap:8px;padding:6px 0;position:relative}
+.tl-step:not(:last-child)::before{content:'';position:absolute;left:9px;top:22px;bottom:-2px;width:2px;background:var(--border)}
+.tl-step.done::before{background:var(--green3)}
+.tl-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;border:2px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:9px;z-index:1}
+.tl-step.done .tl-dot{background:var(--green3);border-color:var(--green3);color:#fff}
+.tl-step.now .tl-dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.25)}
+.tl-txt{font-size:12px;padding-top:2px}
+.tl-txt .ts{color:var(--ink);font-weight:700}
+.tl-txt .td{color:var(--muted);font-size:10px;margin-top:1px}
+
+/* external links */
+.ext-links{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.ext-link{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--card);border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:700;color:var(--ink);transition:border-color .15s}
+.ext-link:hover{border-color:var(--green3);color:var(--green4)}
+.ext-link .el-icon{font-size:16px;flex-shrink:0}
+.ext-link .el-sub{font-size:10px;color:var(--muted);font-weight:600;display:block;margin-top:1px}
+
+/* idle state */
+.idle-msg{text-align:center;padding:20px 10px}
+.idle-msg .im-icon{font-size:36px;margin-bottom:8px}
+.idle-msg .im-title{color:var(--green4);font-size:14px;font-weight:800;margin-bottom:6px}
+.idle-msg .im-sub{color:var(--muted);font-size:12px;line-height:1.5}
+
+/* error */
+.err-msg{background:rgba(229,57,53,.12);border:1px solid rgba(229,57,53,.25);border-radius:9px;padding:10px;color:#ef9a9a;font-size:12px;margin-bottom:10px}
+
+/* ─── MAP ────────────────────────────────────────────────── */
+#map-wrap{flex:1;position:relative;overflow:hidden}
+#map{width:100%;height:100%;background:#0a1510}
+/* leaflet overrides */
+.leaflet-container{background:#091410}
+.leaflet-tile-pane{opacity:.85}
+.leaflet-control-zoom{display:none}
+.leaflet-attribution-flag{display:none!important}
+.leaflet-control-attribution{background:rgba(0,0,0,.5)!important;color:#4a7a4a!important;font-size:10px}
+.leaflet-control-attribution a{color:#4a7a4a!important}
+
+/* vessel pulse — live AIS */
+@keyframes pulse{0%{transform:scale(1);opacity:1}100%{transform:scale(2.5);opacity:0}}
+.vessel-dot{position:relative;width:14px;height:14px}
+.vessel-dot .core{width:14px;height:14px;border-radius:50%;background:var(--green3);border:2px solid #fff}
+.vessel-dot .ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--green3);animation:pulse 1.6s ease-out infinite}
+/* estimated position marker (amber, no pulse) */
+.est-dot{width:14px;height:14px;border-radius:50%;background:#C9A24B;border:2px solid #fff;box-shadow:0 0 8px rgba(201,162,75,.6)}
+/* route progress bar */
+.prog-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.1);margin:8px 0 4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green3),var(--gold));transition:width .5s}
+/* VesselFinder modal */
+#vf-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center}
+#vf-modal.show{display:flex}
+.vf-box{background:var(--panel);border:1px solid var(--border);border-radius:16px;overflow:hidden;width:min(780px,96vw);max-height:90vh;display:flex;flex-direction:column}
+.vf-head{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.vf-head h3{flex:1;font-size:14px;font-weight:800;color:var(--green4)}
+.vf-close{background:rgba(255,255,255,.1);border:1px solid var(--border);color:var(--ink);border-radius:7px;padding:6px 12px;font-size:12px;font-weight:700}
+.vf-iframe{width:100%;height:420px;border:0;background:#091410}
+
+/* map pop-ups */
+.leaflet-popup-content-wrapper{background:var(--card)!important;border:1px solid var(--border)!important;color:var(--ink)!important;border-radius:12px!important;padding:0!important;box-shadow:0 4px 24px rgba(0,0,0,.5)!important}
+.leaflet-popup-content{margin:12px 14px!important;font-size:12px;min-width:160px}
+.leaflet-popup-tip-container{display:none}
+.popup-title{font-size:13px;font-weight:800;color:var(--green4);margin-bottom:6px}
+.leaflet-popup-close-button{color:var(--muted)!important;top:8px!important;right:8px!important;font-size:16px!important}
+
+/* 3D globe overlay */
+#globe-wrap{
+  display:none;position:absolute;inset:0;background:#050d08;z-index:50;
+  flex-direction:column;align-items:center;justify-content:center;
+}
+#globe-wrap.show{display:flex}
+#globe-canvas{width:100%;height:100%}
+#globe-close{position:absolute;top:14px;right:16px;background:rgba(0,0,0,.5);border:1px solid var(--border);color:var(--ink);border-radius:8px;padding:7px 14px;font-weight:700;font-size:12px}
+
+/* ─── RIGHT PANEL ────────────────────────────────────────── */
+#right{
+  width:268px;flex-shrink:0;background:var(--panel);border-left:1px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+#right .phead{padding:12px 14px 8px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+#right .phead h2{font-size:13px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+#right .scroll{flex:1;overflow-y:auto;padding:10px 12px}
+#right .scroll::-webkit-scrollbar{width:4px}
+#right .scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.r-section{margin-bottom:14px}
+.r-sec-title{font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.r-sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.zone-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:9px 10px;margin-bottom:6px;cursor:pointer;transition:border-color .15s}
+.zone-card:hover{border-color:var(--green3)}
+.zone-card .zc-top{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px}
+.zone-card .zc-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.zone-card .zc-name{font-size:11px;font-weight:800;color:var(--ink);line-height:1.3;flex:1}
+.zone-card .zc-detail{font-size:10px;color:var(--muted);line-height:1.45}
+.zone-card .zc-affect{font-size:10px;color:var(--green4);margin-top:4px;font-weight:700}
+
+.port-row{display:flex;align-items:center;gap:8px;padding:7px 9px;background:var(--card);border:1px solid var(--border);border-radius:9px;margin-bottom:5px;cursor:pointer;transition:border-color .15s}
+.port-row:hover{border-color:var(--green3)}
+.port-row .pr-name{flex:1;font-size:12px;font-weight:700;color:var(--ink)}
+.port-row .pr-region{font-size:10px;color:var(--muted);display:block;margin-top:1px}
+.port-row .pr-status{flex-shrink:0}
+
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green3);box-shadow:0 0 6px var(--green3);flex-shrink:0}
+
+/* news event card */
+.news-card{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:8px 10px;margin-bottom:5px}
+.news-card .nc-src{font-size:9px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.news-card .nc-title{font-size:11px;color:var(--ink);line-height:1.35;font-weight:600}
+.news-card a{color:var(--green4);font-size:10px;display:block;margin-top:3px}
+
+/* source count badges */
+.src-badges{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.src-badge{background:rgba(67,160,71,.12);border:1px solid rgba(67,160,71,.2);color:var(--green4);border-radius:999px;padding:2px 7px;font-size:10px;font-weight:700}
+
+/* risk brief modal */
+#brief-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;align-items:center;justify-content:center;padding:16px}
+#brief-modal.show{display:flex}
+.brief-box{background:#0f1e14;border:1px solid var(--border);border-radius:16px;width:min(700px,98vw);max-height:90vh;overflow-y:auto;display:flex;flex-direction:column}
+.brief-box::-webkit-scrollbar{width:4px}
+.brief-box::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.brief-head{padding:16px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;position:sticky;top:0;background:#0f1e14;z-index:1}
+.brief-head h3{flex:1;font-size:15px;font-weight:900;color:var(--green4)}
+.brief-close{background:rgba(255,255,255,.08);border:1px solid var(--border);color:var(--ink);border-radius:7px;padding:6px 12px;font:700 12px inherit;cursor:pointer}
+.brief-body{padding:16px 18px}
+.brief-score{text-align:center;margin-bottom:18px}
+.brief-score .bs-num{font-size:72px;font-weight:900;line-height:1}
+.brief-score .bs-label{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.brief-score .bs-note{font-size:12px;color:var(--muted);margin-top:6px}
+.brief-bars{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+.brief-bar{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.brief-bar .bb-label{font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.brief-bar .bb-track{height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.brief-bar .bb-fill{height:100%;border-radius:4px}
+.brief-bar .bb-val{font-size:13px;font-weight:900}
+.brief-section{margin-bottom:16px}
+.brief-section .bs-title{font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.brief-section .bs-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.zone-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(0,0,0,.35);border:1px solid var(--border);border-radius:8px;padding:5px 9px;font-size:11px;font-weight:700;color:var(--ink);margin:3px 3px 0 0}
+.rec-item{display:flex;align-items:flex-start;gap:8px;background:rgba(0,0,0,.3);border:1px solid rgba(67,160,71,.15);border-radius:9px;padding:9px 11px;margin-bottom:6px;font-size:12px;color:var(--ink);line-height:1.4}
+.brief-eta{background:rgba(201,162,75,.12);border:1px solid rgba(201,162,75,.25);border-radius:10px;padding:12px 14px;text-align:center;margin-bottom:14px}
+.brief-eta .be-days{font-size:32px;font-weight:900;color:var(--gold);line-height:1}
+.brief-eta .be-label{font-size:11px;color:var(--muted);margin-top:3px}
+.brief-wm-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(30,136,229,.15);border:1px solid rgba(30,136,229,.3);color:#90CAF9;border-radius:10px;padding:11px 16px;font:700 13px inherit;text-decoration:none;width:100%;margin-top:6px}
+.brief-wm-btn:hover{background:rgba(30,136,229,.25)}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media(max-width:900px){
+  #right{display:none}
+  #left{width:260px}
+}
+@media(max-width:600px){
+  #left{display:none}
+  #hdr strong{display:none}
+  #hdr .tag{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="hdr">
+  <img src="logo-mark.png" alt="New Vision" />
+  <strong>New Vision</strong>
+  <span class="tag">🌍 WORLD SHIPPING MAP</span>
+  <div class="hdr-gap"></div>
+  <button class="hdr-btn" id="briefBtn" onclick="openBriefPanel()">⚡ Route Brief</button>
+  <button class="hdr-btn" id="view3dBtn" onclick="toggle3D()">🌐 3D Globe</button>
+  <a class="hdr-btn" href="./portal.html" id="backPortalBtn">Owner Portal</a>
+  <a class="hdr-btn" href="./sales.html" id="backSalesBtn" style="display:none">Sales Portal</a>
+  <a class="hdr-btn" href="./">← Site</a>
+</div>
+
+<div id="shell">
+  <!-- LEFT PANEL -->
+  <div id="left">
+    <div class="phead"><h2>Ship Tracker</h2></div>
+    <div class="scroll" id="leftScroll">
+      <div class="search-box">
+        <input id="qInput" placeholder="NVS-… IMO MMSI vessel name" onkeydown="if(event.key==='Enter')search()" />
+        <button onclick="search()">→</button>
+      </div>
+      <div class="hint-text">Enter an NVS shipment code, IMO number, MMSI, or vessel name to track live position and ETA.</div>
+      <div id="errBox" class="err-msg" style="display:none"></div>
+      <div id="vesselBox"></div>
+      <div id="etaBox"></div>
+      <div id="tlBox"></div>
+      <div id="linksBox"></div>
+      <div id="idleBox">
+        <div class="idle-msg">
+          <div class="im-icon">🛳️</div>
+          <div class="im-title">Track any vessel</div>
+          <div class="im-sub">Enter your NVS shipment ID, IMO number, or vessel name.<br><br>The map shows live New Vision trade routes, global risk zones, and destination ports.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div id="map-wrap">
+    <div id="map"></div>
+    <!-- 3D Globe overlay -->
+    <div id="globe-wrap">
+      <div id="globe-canvas"></div>
+      <button id="globe-close" onclick="toggle3D()">✕ Close 3D</button>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div id="right">
+    <div class="phead">
+      <h2>⚠ World Events</h2>
+      <div class="live-dot" title="Live data"></div>
+    </div>
+    <div class="scroll">
+      <div class="r-section">
+        <div class="r-sec-title">Risk Zones</div>
+        <div id="zonesBox">Loading…</div>
+      </div>
+      <div class="r-section">
+        <div class="r-sec-title">NV Destination Ports</div>
+        <div id="portsBox">Loading…</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Route Risk Brief Modal -->
+<div id="brief-modal">
+  <div class="brief-box">
+    <div class="brief-head">
+      <h3>⚡ Route Risk Brief</h3>
+      <button class="brief-close" onclick="closeBrief()">✕ Close</button>
+    </div>
+    <div class="brief-body">
+      <!-- quick-launch form when no route is pre-loaded -->
+      <div id="brief-form">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:10px">Select destination port to generate a live risk brief:</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+          ${['Mombasa','Jebel Ali','Lagos','Antwerp','Santos','Kingston','Durban'].map(p=>`<button onclick="loadBrief('Shanghai','${p}')" style="border:1px solid var(--border);background:rgba(0,0,0,.3);color:var(--green4);border-radius:8px;padding:7px 12px;font:700 12px inherit;cursor:pointer">${p}</button>`).join('')}
+        </div>
+      </div>
+      <div id="brief-loading" style="display:none;text-align:center;padding:40px;color:var(--muted)">⏳ Fetching live intelligence…</div>
+      <div id="brief-content" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<!-- VesselFinder Live AIS Modal -->
+<div id="vf-modal">
+  <div class="vf-box">
+    <div class="vf-head">
+      <h3>🛰️ Live AIS — VesselFinder</h3>
+      <span id="vf-title" style="font-size:12px;color:var(--muted)"></span>
+      <button class="vf-close" onclick="closeVFModal()">✕ Close</button>
+    </div>
+    <iframe id="vf-frame" class="vf-iframe" src="" allow="geolocation" loading="lazy" title="VesselFinder Live AIS"></iframe>
+  </div>
+</div>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Globe.gl for 3D -->
+<script src="https://unpkg.com/globe.gl@2.31.1/dist/globe.gl.min.js"></script>
+
+<script>
+/* ── CONFIG ───────────────────────────────────────────────── */
+const VERCEL_ORIGIN = 'https://newvision-demo.vercel.app';
+const IS_STATIC = ['localhost','127.0.0.1','arkysan.github.io'].includes(location.hostname)
+                || location.hostname.endsWith('.pages.dev');
+const API_BASE  = IS_STATIC ? VERCEL_ORIGIN : '';
+const API_WM    = API_BASE + '/api/worldmap';
+const API_PORTAL= API_BASE + '/api/portal';
+
+const $ = id => document.getElementById(id);
+
+/* ── NV TRADE ROUTES (origin: Shanghai ~121.5E, 31.2N) ──── */
+const ROUTES = [
+  { name:'East Africa (Mombasa)',   color:'#43A047', pts:[[31.2,121.5],[1.3,103.8],[-4.1,39.7]] },
+  { name:'Gulf (Jebel Ali)',         color:'#C9A24B', pts:[[31.2,121.5],[1.3,103.8],[4.5,72.0],[25.0,55.1]] },
+  { name:'West Africa (Lagos)',      color:'#EF6C00', pts:[[31.2,121.5],[1.3,103.8],[-33.9,25.5],[6.5,3.4]] },
+  { name:'Europe (Antwerp)',         color:'#1E88E5', pts:[[31.2,121.5],[22.3,113.8],[4.5,72.0],[30.0,32.3],[36.5,14.0],[51.2,4.4]] },
+  { name:'Latin America (Santos)',   color:'#8E24AA', pts:[[31.2,121.5],[1.3,103.8],[-33.9,25.5],[-23.9,-46.3]] },
+  { name:'Caribbean (Kingston)',     color:'#00ACC1', pts:[[31.2,121.5],[22.3,113.8],[9.1,-79.7],[18.0,-76.8]] },
+];
+
+/* ── PORT COORDS ─────────────────────────────────────────── */
+const PORTS_MAP = {
+  'Shanghai': [31.23,121.47],'Mombasa':[-4.05,39.67],'Jebel Ali':[25.01,55.09],
+  'Lagos':[6.45,3.40],'Antwerp':[51.23,4.40],'Santos':[-23.94,-46.31],
+  'Kingston':[17.98,-76.79],'Durban':[-29.87,31.03],
+};
+
+/* ── HAVERSINE ETA ENGINE ────────────────────────────────── */
+function haversineNM(lat1,lon1,lat2,lon2){
+  const R=3440.065,f1=lat1*Math.PI/180,f2=lat2*Math.PI/180;
+  const df=(lat2-lat1)*Math.PI/180,dl=(lon2-lon1)*Math.PI/180;
+  const a=Math.sin(df/2)**2+Math.cos(f1)*Math.cos(f2)*Math.sin(dl/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+function calcETA(lat,lon,destLat,destLon,sog){
+  const speed=isFinite(sog)&&sog>0.5?sog:12; // default 12kn
+  const nm=haversineNM(lat,lon,destLat,destLon);
+  const hrs=nm/speed*1.12; // 12% buffer
+  const etaDate=new Date(Date.now()+hrs*3600000);
+  return {nm:Math.round(nm),hrs:Math.round(hrs),eta:etaDate,speed:Math.round(speed*10)/10};
+}
+
+/* ── MAP SETUP ──────────────────────────────────────────── */
+const map = L.map('map', { center:[15,60], zoom:3, zoomControl:false, attributionControl:true });
+
+// Dark base layer (CartoDB Dark Matter — free, no key)
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution:'&copy; <a href="https://carto.com">CARTO</a> &copy; <a href="https://openstreetmap.org">OSM</a>',
+  subdomains:'abcd', maxZoom:19,
+}).addTo(map);
+
+// OpenSeaMap nautical overlay (free)
+L.tileLayer('https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png', {
+  maxZoom:18, opacity:0.5, attribution:'&copy; <a href="https://openseamap.org">OpenSeaMap</a>',
+}).addTo(map);
+
+// Draw trade routes
+ROUTES.forEach(r => {
+  const latLngs = r.pts.map(p => [p[0],p[1]]);
+  L.polyline(latLngs, { color:r.color, weight:2, opacity:0.55, dashArray:'6 5', smoothFactor:1.5 })
+   .addTo(map)
+   .bindPopup(`<div class="popup-title">🚢 ${r.name}</div><div style="color:var(--muted);font-size:11px">New Vision active lane</div>`);
+});
+
+// Port markers
+const portIcon = L.divIcon({ className:'', html:`<div style="width:10px;height:10px;border-radius:50%;background:#43A047;border:2px solid #fff;box-shadow:0 0 8px #43A047"></div>`, iconSize:[10,10] });
+const originIcon = L.divIcon({ className:'', html:`<div style="width:12px;height:12px;border-radius:50%;background:#C9A24B;border:2px solid #fff;box-shadow:0 0 10px #C9A24B"></div>`, iconSize:[12,12] });
+Object.entries(PORTS_MAP).forEach(([name,pos]) => {
+  const icon = name==='Shanghai' ? originIcon : portIcon;
+  L.marker(pos, {icon}).addTo(map)
+   .bindPopup(`<div class="popup-title">${name==='Shanghai'?'🏭':'⚓'} ${name}</div><div style="color:var(--muted);font-size:11px">${name==='Shanghai'?'Origin port':'Destination port'}</div>`);
+});
+
+// Risk zones (circles) — loaded from API
+let riskLayers = [];
+function drawRiskZones(zones){
+  riskLayers.forEach(l=>map.removeLayer(l));
+  riskLayers=[];
+  const colors={critical:'#e53935',high:'#FF8F00',medium:'#FDD835',low:'#43A047',tension:'#1E88E5',congestion:'#9E9E9E'};
+  zones.forEach(z=>{
+    const c=colors[z.severity]||colors[z.type]||'#FF8F00';
+    const circle=L.circle([z.lat,z.lon],{
+      radius:(z.radius||300)*1000,color:c,weight:1.5,opacity:0.7,fillColor:c,fillOpacity:0.08,
+    }).addTo(map)
+     .bindPopup(`<div class="popup-title">${typeIcon(z.type)} ${z.name}</div>`+
+       `<div class="sbadge ${z.severity}" style="margin-bottom:6px">${z.severity}</div>`+
+       `<div style="color:var(--muted);font-size:11px;line-height:1.4">${z.detail}</div>`+
+       (z.affect?`<div style="color:#81C784;font-size:10px;margin-top:5px;font-weight:700">Affects: ${z.affect}</div>`:''));
+    riskLayers.push(circle);
+  });
+}
+
+function typeIcon(t){
+  return {conflict:'⚔️',piracy:'🏴‍☠️',tension:'⚠️',congestion:'🚧',sanctions:'🚫'}[t]||'⚠️';
+}
+
+// Vessel / position marker (single)
+let vesselMarker=null, routeLine=null, cdTimer=null;
+function placePosition(lat, lon, name, isEstimated){
+  if(vesselMarker){ map.removeLayer(vesselMarker); }
+  const icon = isEstimated
+    ? L.divIcon({ className:'', html:`<div class="est-dot"></div>`, iconSize:[14,14], iconAnchor:[7,7] })
+    : L.divIcon({ className:'', html:`<div class="vessel-dot"><div class="core"></div><div class="ring"></div></div>`, iconSize:[14,14], iconAnchor:[7,7] });
+  const label = isEstimated ? 'Estimated position (route interpolation)' : 'Live AIS position';
+  vesselMarker = L.marker([lat,lon],{icon}).addTo(map)
+    .bindPopup(`<div class="popup-title">${isEstimated?'📍':'🛳️'} ${name||'Vessel'}</div><div style="color:var(--muted);font-size:11px">${label}</div>`);
+  map.flyTo([lat,lon],5,{duration:1.5});
+}
+function drawRouteLine(vesLat,vesLon,destLat,destLon,dashed){
+  if(routeLine){ map.removeLayer(routeLine); }
+  routeLine=L.polyline([[vesLat,vesLon],[destLat,destLon]],
+    {color:'#C9A24B',weight:2.5,opacity:0.85,dashArray:dashed?'8 6':null}).addTo(map);
+}
+
+// VesselFinder modal
+function openVFModal(widgetUrl, vesselName){
+  $('vf-frame').src=widgetUrl;
+  $('vf-title').textContent=vesselName||'';
+  $('vf-modal').classList.add('show');
+}
+function closeVFModal(){
+  $('vf-modal').classList.remove('show');
+  $('vf-frame').src='';
+}
+
+/* ── ETA COUNTDOWN ──────────────────────────────────────── */
+function startCountdown(etaDate,destName,nm,speed){
+  if(cdTimer) clearInterval(cdTimer);
+  function tick(){
+    const diff=etaDate.getTime()-Date.now();
+    if(diff<=0){
+      $('etaBox').innerHTML=`<div class="eta-block"><div class="arrived-msg">✅ Arrived / Near port</div></div>`;
+      clearInterval(cdTimer); return;
+    }
+    const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
+    $('etaBox').innerHTML=`<div class="eta-block">
+      <div class="eta-label">Estimated arrival in</div>
+      <div class="cd">
+        ${[[d,'Days'],[h,'Hrs'],[m,'Min'],[s,'Sec']].map(u=>`<div class="unit"><div class="n">${u[0]}</div><div class="l">${u[1]}</div></div>`).join('')}
+      </div>
+      <div class="eta-detail">
+        <span>${etaDate.toDateString()}</span> · ${nm} nm remaining<br>
+        Avg ${speed} kn · <span>${destName}</span>
+      </div>
+    </div>`;
+  }
+  tick(); cdTimer=setInterval(tick,1000);
+}
+
+/* ── VESSEL INFO RENDER ─────────────────────────────────── */
+function renderVessel(data){
+  $('idleBox').style.display='none';
+  $('errBox').style.display='none';
+  const s   = data.shipment||{};
+  const pos = data.position||null;   // {lat,lon,estimated?,speed?,progressPct?,remainingNM?,etaDate?}
+  const hasPos    = !!(pos && pos.lat && pos.lon);
+  const isLive    = hasPos && !pos.estimated;
+  const isEst     = hasPos && !!pos.estimated;
+  const vesName   = s.vessel || '—';
+
+  // Position source badge
+  const posBadge = isLive ? '<span class="live-dot" title="Live AIS"></span> <span style="font-size:10px;color:var(--green4)">LIVE AIS</span>'
+                 : isEst  ? '<span style="font-size:10px;color:#FFCC80;font-weight:700">📍 EST. POSITION</span>'
+                 : '';
+
+  // vessel card
+  $('vesselBox').innerHTML=`<div class="vessel-card">
+    <div class="vc-name">${posBadge}</div>
+    <div class="vc-name" style="font-size:14px;margin-top:2px;margin-bottom:8px">${esc(vesName)}</div>
+    <div class="kv">
+      ${s.vehicle     ?`<div class="k">Vehicle</div><div class="v">${esc(s.vehicle)}</div>`:''}
+      ${s.code        ?`<div class="k">NVS Code</div><div class="v">${esc(s.code)}</div>`:''}
+      ${s.imo         ?`<div class="k">IMO</div><div class="v">${esc(s.imo)}</div>`:''}
+      ${s.mmsi        ?`<div class="k">MMSI</div><div class="v">${esc(s.mmsi)}</div>`:''}
+      <div class="k">Origin</div><div class="v">${esc(s.origin||'Shanghai')}</div>
+      <div class="k">Destination</div><div class="v">${esc(s.dest||'—')}</div>
+      ${s.departure   ?`<div class="k">Departed</div><div class="v">${esc(fmtDate(s.departure))}</div>`:''}
+      ${s.status      ?`<div class="k">Status</div><div class="v">${esc(s.status)}</div>`:''}
+      ${hasPos        ?`<div class="k">Position</div><div class="v ${isLive?'live':''}">${pos.lat.toFixed(3)}°, ${pos.lon.toFixed(3)}°</div>`:''}
+      ${isLive&&pos.speed ?`<div class="k">Speed</div><div class="v live">${pos.speed} kn</div>`:''}
+      ${isLive&&pos.heading?`<div class="k">Heading</div><div class="v live">${pos.heading}°</div>`:''}
+      ${isEst&&pos.elapsedDays!=null?`<div class="k">Days at sea</div><div class="v">${pos.elapsedDays} days</div>`:''}
+      ${isEst&&pos.traveledNM?`<div class="k">Traveled</div><div class="v">${pos.traveledNM} nm</div>`:''}
+    </div>
+    ${isEst&&pos.progressPct!=null?`
+      <div style="margin-top:8px">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:3px"><span>Route progress</span><span>${pos.progressPct}%</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${pos.progressPct}%"></div></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px">${pos.remainingNM||0} nm remaining · ${pos.avgSpeedKn||12} kn avg</div>
+      </div>`:''
+    }
+    ${isEst?`<div style="margin-top:8px;font-size:10px;color:rgba(201,162,75,.8);line-height:1.4">📍 Estimated from departure date. Add AISSTREAM_KEY for live dot.</div>`:''}
+  </div>`;
+
+  // ETA + map marker
+  if(hasPos && data.destCoords){
+    placePosition(pos.lat, pos.lon, vesName, isEst);
+    drawRouteLine(pos.lat,pos.lon,data.destCoords.lat,data.destCoords.lon,true);
+    // Use live Haversine ETA if live AIS, or api-provided etaDate for estimated
+    if(isLive){
+      const {nm,eta,speed}=calcETA(pos.lat,pos.lon,data.destCoords.lat,data.destCoords.lon,pos.speed);
+      startCountdown(eta, s.dest||'Destination', nm, speed);
+    } else if(pos.etaDate){
+      const etaD=new Date(pos.etaDate);
+      if(!isNaN(etaD)) startCountdown(etaD, s.dest||'Destination', pos.remainingNM||'—', pos.avgSpeedKn||12);
+    }
+  } else if(s.eta){
+    const etaD=new Date(s.eta+(s.eta.length<=10?'T12:00:00Z':''));
+    if(!isNaN(etaD)) startCountdown(etaD, s.dest||'Destination', '—', '—');
+    const destKey=Object.keys(PORTS_MAP).find(k=>(s.dest||'').toLowerCase().includes(k.toLowerCase()));
+    if(destKey) map.flyTo(PORTS_MAP[destKey],5,{duration:1.5});
+  } else {
+    $('etaBox').innerHTML=`<div class="eta-block"><div class="arrived-msg" style="background:rgba(255,143,0,.12);color:#FFCC80">ETA not yet confirmed</div></div>`;
+    const destKey=Object.keys(PORTS_MAP).find(k=>(s.dest||'').toLowerCase().includes(k.toLowerCase()));
+    if(destKey) map.flyTo(PORTS_MAP[destKey],4,{duration:1.5});
+  }
+
+  // Timeline
+  const STAGES=['Booked','Loaded','In transit','Arrived','Delivered'];
+  const curIdx=Math.max(0,STAGES.indexOf(s.status||''));
+  $('tlBox').innerHTML=`<div class="tl-block">
+    <div class="tl-label">Shipment Progress</div>
+    <div class="tl-steps">
+      ${STAGES.map((st,i)=>`<div class="tl-step ${i<curIdx?'done':i===curIdx?'now':''}">
+        <div class="tl-dot">${i<curIdx?'✓':i===curIdx?'●':''}</div>
+        <div class="tl-txt"><div class="ts">${st}</div><div class="td">${i===curIdx?'Current stage':i<curIdx?'Completed':''}</div></div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+
+  // Links + VesselFinder embed button
+  const links=[];
+  if(data.vesselfinderWidget){
+    const wUrl=data.vesselfinderWidget, vName=vesName;
+    links.push(`<button class="ext-link" onclick="openVFModal('${esc(wUrl)}','${esc(vName)}')" style="cursor:pointer;width:100%;text-align:left"><span class="el-icon">🛰️</span><span>Live AIS View<span class="el-sub">VesselFinder embedded map</span></span></button>`);
+  }
+  if(data.vesselfinderUrl)   links.push(`<a class="ext-link" href="${data.vesselfinderUrl}" target="_blank" rel="noopener"><span class="el-icon">🛰️</span><span>VesselFinder<span class="el-sub">Open in new tab</span></span> ↗</a>`);
+  if(data.myshiptrackingUrl) links.push(`<a class="ext-link" href="${data.myshiptrackingUrl}" target="_blank" rel="noopener"><span class="el-icon">🌊</span><span>MyShipTracking<span class="el-sub">Vessel details & history</span></span> ↗</a>`);
+  if(data.marinetrafficUrl)  links.push(`<a class="ext-link" href="${data.marinetrafficUrl}" target="_blank" rel="noopener"><span class="el-icon">📡</span><span>MarineTraffic<span class="el-sub">Port calls & AIS data</span></span> ↗</a>`);
+  // WorldMonitor deep-link + Route Brief button
+  if(data.worldmonitorUrl||data.routeKey){
+    const wmUrl=data.worldmonitorUrl||`https://www.worldmonitor.app/?lat=15&lon=60&zoom=2.5&view=global&timeRange=7d&layers=ais%2Cconflicts%2Cwaterways`;
+    links.push(`<a class="ext-link" href="${esc(wmUrl)}" target="_blank" rel="noopener"><span class="el-icon">🌐</span><span>WorldMonitor<span class="el-sub">Live corridor intelligence</span></span> ↗</a>`);
+  }
+  if(s.dest&&data.routeKey){
+    links.push(`<button class="ext-link" onclick="loadBrief('Shanghai','${esc(s.dest)}')" style="cursor:pointer;width:100%;text-align:left"><span class="el-icon">⚡</span><span>Route Risk Brief<span class="el-sub">${esc(s.dest)} lane · live score</span></span></button>`);
+  }
+  $('linksBox').innerHTML=links.length?`<div class="ext-links">${links.join('')}</div>`:'';
+}
+
+/* ── SEARCH ─────────────────────────────────────────────── */
+async function search(){
+  const q=($('qInput').value||'').trim().toUpperCase();
+  if(!q) return;
+  $('errBox').style.display='none';
+  $('idleBox').style.display='none';
+  $('vesselBox').innerHTML=`<div class="idle-msg"><div class="im-icon">⏳</div><div class="im-title">Searching…</div></div>`;
+  $('etaBox').innerHTML=''; $('tlBox').innerHTML=''; $('linksBox').innerHTML='';
+  if(cdTimer){ clearInterval(cdTimer); cdTimer=null; }
+
+  try {
+    const r=await fetch(`${API_WM}?action=vessel&q=${encodeURIComponent(q)}`).then(x=>x.json());
+    if(!r.ok){
+      $('vesselBox').innerHTML='';
+      $('idleBox').style.display='block';
+      $('errBox').textContent=r.error||'Vessel not found.';
+      $('errBox').style.display='block';
+      return;
+    }
+    renderVessel(r);
+  } catch(e){
+    $('vesselBox').innerHTML='';
+    $('idleBox').style.display='block';
+    $('errBox').textContent='Network error. Check connection and try again.';
+    $('errBox').style.display='block';
+  }
+}
+
+/* ── EVENTS & PORTS ─────────────────────────────────────── */
+async function loadEventsAndPorts(){
+  // Events — all live sources in parallel
+  try{
+    const r=await fetch(`${API_WM}?action=events`).then(x=>x.json());
+    if(r.ok){
+      drawRiskZones(r.zones||[]);
+      renderZones(r.zones||[], r.events||[], r.sources||{});
+    } else { renderZones([]); }
+  }catch(_){ renderZones([]); }
+
+  // Port status with IMF PortWatch
+  try{
+    const r=await fetch(`${API_WM}?action=ports`).then(x=>x.json());
+    if(r.ok) renderPorts(r.ports||[]);
+    else renderPorts([]);
+  }catch(_){ renderPorts([]); }
+}
+
+function renderZones(zones, liveEvents=[], sources={}){
+  const sev=['critical','high','medium','low','tension','congestion'];
+  const sorted=[...zones].sort((a,b)=>sev.indexOf(a.severity)-sev.indexOf(b.severity));
+
+  // Source count badges
+  const srcTotal=Object.values(sources).reduce((a,b)=>a+b,0);
+  const badgesHtml=srcTotal?`<div class="src-badges">
+    ${sources.gdacs?`<span class="src-badge">GDACS ${sources.gdacs}</span>`:''}
+    ${sources.usgs?`<span class="src-badge">USGS ${sources.usgs}</span>`:''}
+    ${sources.eonet?`<span class="src-badge">EONET ${sources.eonet}</span>`:''}
+    ${sources.acled?`<span class="src-badge">ACLED ${sources.acled}</span>`:''}
+    ${sources.gdelt?`<span class="src-badge">GDELT ${sources.gdelt}</span>`:''}
+  </div>`:'';
+
+  // Static risk zones
+  const zonesHtml=sorted.map(z=>`
+    <div class="zone-card" onclick="map.flyTo([${z.lat},${z.lon}],5,{duration:1.2});${z.id?`loadBrief('Shanghai','${z.affect?z.affect.split(',')[0].trim():''}')`:''}">
+      <div class="zc-top"><span class="zc-icon">${typeIcon(z.type)}</span>
+        <div><div class="zc-name">${esc(z.name)}</div><span class="sbadge ${z.severity}">${z.severity}</span></div>
+      </div>
+      <div class="zc-detail">${esc((z.detail||'').slice(0,90))}</div>
+      ${z.affect?`<div class="zc-affect">↳ ${esc(z.affect)}</div>`:''}
+    </div>`).join('');
+
+  // Live events (GDACS, USGS, EONET) — show top 5 non-news
+  const liveFiltered=liveEvents.filter(e=>e.lat&&e.lon&&e.type!=='news').slice(0,5);
+  const liveHtml=liveFiltered.length?`
+    <div class="r-sec-title" style="margin-top:10px">Live Events<span></span></div>
+    ${liveFiltered.map(e=>`<div class="zone-card" onclick="map.flyTo([${e.lat},${e.lon}],5,{duration:1.2})">
+      <div class="zc-top"><span class="zc-icon">${typeIcon(e.type)}</span>
+        <div><div class="zc-name">${esc(e.name)}</div><span class="sbadge ${e.severity||'medium'}">${esc(e.source||'live')}</span></div>
+      </div>
+      <div class="zc-detail">${esc((e.detail||'').slice(0,90))}</div>
+    </div>`).join('')}`:'';
+
+  // GDELT news (top 4)
+  const news=liveEvents.filter(e=>e.type==='news').slice(0,4);
+  const newsHtml=news.length?`
+    <div class="r-sec-title" style="margin-top:10px">Intelligence Feed<span></span></div>
+    ${news.map(n=>`<div class="news-card">
+      <div class="nc-src">📰 GDELT</div>
+      <div class="nc-title">${esc((n.name||'').slice(0,120))}</div>
+      ${n.url?`<a href="${esc(n.url)}" target="_blank" rel="noopener">Read source ↗</a>`:''}
+    </div>`).join('')}`:'';
+
+  $('zonesBox').innerHTML=badgesHtml+zonesHtml+liveHtml+newsHtml||'<div style="color:var(--muted);font-size:12px">Loading events…</div>';
+}
+
+function renderPorts(ports){
+  if(!ports.length){ $('portsBox').innerHTML=`<div style="color:var(--muted);font-size:12px">Loading port data…</div>`; return; }
+  $('portsBox').innerHTML=ports.map(p=>`
+    <div class="port-row" onclick="map.flyTo([${p.lat},${p.lon}],7,{duration:1.2})">
+      <div style="flex:1">
+        <div class="pr-name">${esc(p.name)}</div>
+        <span class="pr-region">${esc(p.region||'')}</span>
+        ${p.note?`<span class="pr-region" style="color:${p.portwatch?'#81C784':'var(--muted)'}">${esc(p.note)}</span>`:''}
+      </div>
+      <span class="sbadge ${p.status||'ok'}">${p.status||'OK'}</span>
+    </div>`).join('');
+}
+
+/* ── ROUTE RISK BRIEF ───────────────────────────────────── */
+function openBriefPanel(){ $('brief-modal').classList.add('show'); }
+function closeBrief(){ $('brief-modal').classList.remove('show'); }
+
+async function loadBrief(from, to){
+  if(!to){ openBriefPanel(); return; }
+  $('brief-modal').classList.add('show');
+  $('brief-form').style.display='none';
+  $('brief-loading').style.display='block';
+  $('brief-content').style.display='none';
+  try{
+    const r=await fetch(`${API_WM}?action=brief&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`).then(x=>x.json());
+    $('brief-loading').style.display='none';
+    if(!r.ok){ $('brief-content').innerHTML=`<div style="color:#ef9a9a;font-size:13px">${esc(r.error||'Brief failed')}</div>`; $('brief-content').style.display='block'; return; }
+    renderBrief(r);
+  }catch(e){
+    $('brief-loading').style.display='none';
+    $('brief-content').innerHTML=`<div style="color:#ef9a9a;font-size:13px">Network error — try again.</div>`;
+    $('brief-content').style.display='block';
+  }
+}
+
+function briefBarColor(score){ return score>=75?'#e53935':score>=50?'#FF8F00':score>=25?'#FDD835':'#43A047'; }
+
+function renderBrief(r){
+  const sc=r.scores||{};
+  const html=`
+    <div style="text-align:center;margin-bottom:6px;font-size:12px;color:var(--muted)">
+      ${esc(r.from||'Shanghai')} → ${esc(r.to||'')} · ${esc(r.routeKey||'')} lane
+    </div>
+    <div class="brief-score">
+      <div class="bs-num" style="color:${r.color||'#43A047'}">${r.overall||0}</div>
+      <div class="bs-label" style="color:${r.color||'#43A047'}">${r.label||'LOW'} RISK</div>
+      <div class="bs-note">Overall route risk score (0–100)</div>
+    </div>
+    ${r.etaImpactDays?`<div class="brief-eta">
+      <div class="be-days">+${r.etaImpactDays} days</div>
+      <div class="be-label">${esc(r.etaNote||'Estimated ETA impact from active disruptions')}</div>
+    </div>`:''}
+    <div class="brief-bars">
+      ${[['Conflict',sc.conflict],['Piracy',sc.piracy],['Natural',sc.natural],['Congestion',sc.congestion]].map(([k,v])=>`
+        <div class="brief-bar">
+          <div class="bb-label">${k}</div>
+          <div class="bb-track"><div class="bb-fill" style="width:${v||0}%;background:${briefBarColor(v||0)}"></div></div>
+          <div class="bb-val" style="color:${briefBarColor(v||0)}">${v||0}</div>
+        </div>`).join('')}
+    </div>
+    ${r.zonesOnRoute&&r.zonesOnRoute.length?`
+      <div class="brief-section">
+        <div class="bs-title">Active Zones on Route</div>
+        <div>${r.zonesOnRoute.map(z=>`<span class="zone-chip"><span class="sbadge ${z.severity}" style="padding:1px 5px;font-size:9px">${z.severity}</span> ${esc(z.name)}</span>`).join('')}</div>
+      </div>`:''}
+    ${r.nearRouteEvents&&r.nearRouteEvents.length?`
+      <div class="brief-section">
+        <div class="bs-title">Live Events Near Corridor</div>
+        ${r.nearRouteEvents.map(e=>`<div class="news-card"><div class="nc-src">${esc(e.source||'live')}</div><div class="nc-title">${esc(e.name)}</div></div>`).join('')}
+      </div>`:''}
+    <div class="brief-section">
+      <div class="bs-title">Recommendations</div>
+      ${(r.recommendations||[]).map(rec=>`<div class="rec-item"><span>→</span><span>${esc(rec)}</span></div>`).join('')}
+    </div>
+    <a class="brief-wm-btn" href="${esc(r.worldmonitorUrl||'https://worldmonitor.app')}" target="_blank" rel="noopener">
+      🌐 View ${esc(r.to||'')} corridor in WorldMonitor →
+    </a>
+    <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:8px">Generated ${esc(r.generatedAt?new Date(r.generatedAt).toUTCString():'now')} · Sources: GDACS · USGS · NASA EONET · Static zones</div>`;
+  $('brief-content').innerHTML=html;
+  $('brief-content').style.display='block';
+}
+
+/* ── 3D GLOBE ────────────────────────────────────────────── */
+let globeInited=false, globe3d=null;
+function toggle3D(){
+  const wrap=$('globe-wrap');
+  const on=wrap.classList.toggle('show');
+  $('view3dBtn').textContent=on?'✕ Close 3D':'🌐 3D Globe';
+  $('view3dBtn').classList.toggle('on',on);
+  if(on && !globeInited) initGlobe();
+}
+
+function initGlobe(){
+  globeInited=true;
+  globe3d=Globe()($('globe-canvas'))
+    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+    .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+    .width($('globe-canvas').offsetWidth||800)
+    .height($('globe-canvas').offsetHeight||600)
+    .showAtmosphere(true)
+    .atmosphereColor('#43A047')
+    .atmosphereAltitude(0.15);
+
+  // Trade route arcs
+  const arcs=ROUTES.map(r=>{
+    const pts=r.pts;
+    return {
+      startLat: pts[0][0], startLng: pts[0][1],
+      endLat:   pts[pts.length-1][0], endLng: pts[pts.length-1][1],
+      color:    r.color, label: r.name,
+    };
+  });
+  globe3d.arcsData(arcs)
+    .arcColor('color').arcDashLength(0.6).arcDashGap(0.3)
+    .arcDashAnimateTime(2500).arcStroke(0.5).arcLabel('label');
+
+  // Port markers
+  const portData=Object.entries(PORTS_MAP).map(([n,p])=>({lat:p[0],lng:p[1],label:n,isOrigin:n==='Shanghai'}));
+  globe3d.pointsData(portData)
+    .pointLat('lat').pointLng('lng').pointLabel('label')
+    .pointColor(d=>d.isOrigin?'#C9A24B':'#43A047').pointRadius(0.5).pointAltitude(0.01);
+
+  // Auto-rotate
+  globe3d.controls().autoRotate=true;
+  globe3d.controls().autoRotateSpeed=0.5;
+  globe3d.pointOfView({lat:10,lng:70,altitude:2});
+}
+
+/* ── URL PARAMS (auto-search from ?id=) ──────────────────── */
+(function(){
+  const id=new URLSearchParams(location.search).get('id');
+  const role=new URLSearchParams(location.search).get('role');
+  if(role==='sales'){ $('backSalesBtn').style.display=''; $('backPortalBtn').style.display='none'; }
+  if(id){ $('qInput').value=id; search(); }
+})();
+
+/* ── INIT ────────────────────────────────────────────────── */
+loadEventsAndPorts();
+
+/* ── HELPERS ─────────────────────────────────────────────── */
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmtDate(d){ try{ return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }catch(_){return String(d);} }
+</script>
+</body>
+</html>

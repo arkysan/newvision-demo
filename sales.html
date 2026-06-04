@@ -120,6 +120,7 @@
       <button class="tab" onclick="showTab('leads',this)">Client Data</button>
       <button class="tab" onclick="showTab('inventory',this)">Vehicle List</button>
       <button class="tab" onclick="showTab('route',this)">Route & Close</button>
+      <button class="tab" onclick="showTab('worldmap',this)" style="background:#0f2518;border-color:#2e5e35;color:#81C784">🌍 Ship Tracker</button>
     </div>
 
     <section id="tab-desk" class="section active">
@@ -204,9 +205,48 @@
         </div>
       </div>
     </section>
+
+    <!-- WORLD MAP TAB -->
+    <section id="tab-worldmap" class="section">
+      <div style="background:linear-gradient(135deg,#0a1c10,#0f2518);border:1px solid #1e3a26;border-radius:14px;padding:18px;margin-bottom:14px">
+        <h2 style="font-size:15px;color:#81C784;margin-bottom:12px">🌍 World Shipping Map — Live Intelligence</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+          <div style="background:rgba(0,0,0,.35);border:1px solid #1e3a26;border-radius:10px;padding:11px">
+            <div style="font-size:10px;font-weight:900;color:#4a7a4a;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Track a shipment</div>
+            <div style="font-size:12px;color:#81C784;margin-bottom:3px">Enter NVS code or vessel name</div>
+            <div style="display:flex;gap:7px;margin-top:7px">
+              <input id="wm_salesQ" placeholder="NVS-… or vessel name" style="flex:1;padding:8px 10px;border:1.5px solid #1e3a26;border-radius:8px;background:rgba(0,0,0,.4);color:#81C784;font:inherit;font-size:12px;min-width:0" onkeydown="if(event.key==='Enter')wmSalesTrack()" />
+              <button onclick="wmSalesTrack()" style="background:#1B5E20;color:#81C784;border:1px solid #2e5e35;border-radius:8px;padding:8px 12px;font:700 12px inherit;cursor:pointer;white-space:nowrap">Track →</button>
+            </div>
+          </div>
+          <div style="background:rgba(0,0,0,.35);border:1px solid #1e3a26;border-radius:10px;padding:11px">
+            <div style="font-size:10px;font-weight:900;color:#4a7a4a;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Open full map</div>
+            <div style="font-size:12px;color:#81C784;margin-bottom:8px">3D Globe · AIS · Risk zones · Port status</div>
+            <a href="./worldmap.html?role=sales" target="_blank" style="background:#1B5E20;color:#81C784;border:1px solid #2e5e35;border-radius:8px;padding:8px 14px;font:700 12px inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px">🗺️ Open World Map →</a>
+          </div>
+        </div>
+        <!-- Risk alert for sales use -->
+        <div style="background:rgba(229,57,53,.1);border:1px solid rgba(229,57,53,.25);border-radius:10px;padding:10px 12px;font-size:12px;color:#ef9a9a;line-height:1.5">
+          <strong style="color:#e57373">⚠ Active Shipping Alerts:</strong><br>
+          <strong>Red Sea / Houthi:</strong> Critical. Routes via Suez affected — Jebel Ali &amp; Europe lanes now go around Cape (+10-14 days). Tell clients their ETA is 2 weeks longer than normal.<br>
+          <strong>Gulf of Guinea:</strong> High piracy risk near Lagos. Vessels take precautions — no ETA impact but crews on alert.<br>
+          <strong>Strait of Malacca:</strong> All NV shipments pass here. Medium piracy. Normal operations.
+        </div>
+        <!-- Port quick-status grid -->
+        <div style="margin-top:12px">
+          <div style="font-size:10px;font-weight:900;color:#4a7a4a;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px">NV Destination Port Status</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px" id="wm_portGrid">
+            ${['Mombasa:OK:East Africa','Jebel Ali:CAUTION:Gulf','Lagos:CAUTION:W. Africa','Antwerp:OK:Europe','Santos:OK:Latam','Kingston:OK:Caribbean','Durban:OK:S. Africa','Shanghai:OK:Origin'].map(p=>{const [n,s,r]=p.split(':');return`<div style="background:rgba(0,0,0,.3);border:1px solid ${s==='OK'?'#1e3a26':'#3a2000'};border-radius:8px;padding:8px 9px;cursor:pointer" onclick="window.open('./worldmap.html?role=sales','_blank')"><div style="font-size:11px;font-weight:800;color:${s==='OK'?'#81C784':'#FFCC80'}">${n}</div><div style="font-size:10px;color:#4a7a4a;margin-top:2px">${r}</div><div style="font-size:10px;font-weight:900;color:${s==='OK'?'#43A047':'#FF8F00'};margin-top:3px">${s}</div></div>`;}).join('')}
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 
+<script>
+function wmSalesTrack(){const q=(document.getElementById('wm_salesQ').value||'').trim();if(q)window.open('./worldmap.html?id='+encodeURIComponent(q)+'&role=sales','_blank');}
+</script>
 <script>
 const VERCEL_API_ORIGIN='https://newvision-demo.vercel.app';
 const IS_GITHUB_PAGES=location.hostname==='arkysan.github.io';

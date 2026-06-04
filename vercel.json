@@ -4,7 +4,12 @@
     { "source": "/api/vehicles", "destination": "/api/vehicles.js" },
     { "source": "/api/cms",      "destination": "/api/cms.js"      },
     { "source": "/api/lead",     "destination": "/api/lead.js"     },
-    { "source": "/api/portal",   "destination": "/api/portal.js"   }
+    { "source": "/api/portal",         "destination": "/api/portal.js"        },
+    { "source": "/api/worldmap",       "destination": "/api/worldmap.js"      },
+    { "source": "/api/worldmap-watch", "destination": "/api/worldmap-watch.js"}
+  ],
+  "crons": [
+    { "path": "/api/worldmap-watch", "schedule": "0 8 * * *" }
   ],
   "headers": [
     { "source": "/(.*)\\.(html)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }] },

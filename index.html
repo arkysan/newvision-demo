@@ -367,6 +367,46 @@
     .shipping-map-legend b { display: block; color: var(--green2); font-size: 12px; margin-bottom: 3px; }
     .shipping-map-legend span { display: block; color: var(--muted2); font-size: 11px; line-height: 1.35; }
     .shipping-map-legend button { margin-top: 8px; border: 1px solid rgba(46,125,50,.22); background: #f8fcf9; color: var(--green2); border-radius: 8px; padding: 7px 9px; font: 800 11px inherit; cursor: pointer; }
+    /* ── LIVE SHIP TRACKER STRIP ── */
+    .st-strip { border-top: 2px solid var(--green); background: linear-gradient(135deg,#0a1c10,#0f2518); padding: 22px 22px 20px; border-radius: 0 0 13px 13px; }
+    .st-strip-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+    .st-strip-head h3 { color: #81C784; font-size: 16px; font-weight: 900; display: flex; align-items: center; gap: 8px; }
+    .st-strip-head .st-live-dot { width: 8px; height: 8px; border-radius: 50%; background: #43A047; box-shadow: 0 0 8px #43A047; flex-shrink: 0; }
+    .st-strip-head .st-open-btn { border: 1px solid #2e5e35; background: rgba(46,125,50,.2); color: #81C784; border-radius: 8px; padding: 8px 14px; font: 800 12px inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .st-strip-head .st-open-btn:hover { background: rgba(46,125,50,.35); }
+    .st-body { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .st-left { display: flex; flex-direction: column; gap: 8px; }
+    .st-search { display: flex; gap: 8px; }
+    .st-search input { flex: 1; background: rgba(0,0,0,.4); border: 1.5px solid #1e3a26; border-radius: 9px; color: #e8f5e9; padding: 10px 12px; font: inherit; font-size: 13px; min-width: 0; }
+    .st-search input::placeholder { color: #4a7a4a; }
+    .st-search input:focus { outline: 0; border-color: #43A047; }
+    .st-search button { background: #1B5E20; color: #81C784; border: 1px solid #2e5e35; border-radius: 9px; padding: 0 16px; font: 800 13px inherit; cursor: pointer; white-space: nowrap; }
+    .st-search button:hover { background: #2E7D32; }
+    .st-hint { font-size: 11px; color: #4a7a4a; line-height: 1.4; }
+    .st-err { color: #ef9a9a; font-size: 12px; background: rgba(229,57,53,.12); border: 1px solid rgba(229,57,53,.2); border-radius: 7px; padding: 8px 10px; display: none; }
+    .st-result { background: rgba(0,0,0,.3); border: 1px solid #1e3a26; border-radius: 11px; padding: 12px; min-height: 100px; }
+    .st-idle { color: #4a7a4a; font-size: 12px; text-align: center; padding: 24px 10px; }
+    .st-vessel-name { font-size: 14px; font-weight: 900; color: #81C784; margin-bottom: 8px; display: flex; align-items: center; gap: 7px; }
+    .st-kv { display: grid; grid-template-columns: 90px 1fr; gap: 3px 8px; font-size: 11px; }
+    .st-kv .k { color: #4a7a4a; font-weight: 700; }
+    .st-kv .v { color: #e8f5e9; font-weight: 600; }
+    .st-prog { height: 5px; background: rgba(255,255,255,.1); border-radius: 3px; margin: 8px 0 4px; overflow: hidden; }
+    .st-prog-fill { height: 100%; background: linear-gradient(90deg,#43A047,#C9A24B); border-radius: 3px; }
+    .st-right { display: flex; flex-direction: column; gap: 8px; }
+    .st-cd { display: flex; gap: 6px; }
+    .st-cd .unit { flex: 1; background: rgba(0,0,0,.4); border: 1px solid #1e3a26; border-radius: 7px; text-align: center; padding: 8px 4px; }
+    .st-cd .n { font-size: 22px; font-weight: 900; color: #81C784; line-height: 1; }
+    .st-cd .l { font-size: 9px; color: #4a7a4a; text-transform: uppercase; margin-top: 2px; }
+    .st-eta-detail { font-size: 11px; color: #4a7a4a; line-height: 1.5; }
+    .st-eta-detail span { color: #81C784; }
+    .st-alerts { background: rgba(229,57,53,.08); border: 1px solid rgba(229,57,53,.18); border-radius: 9px; padding: 10px 11px; }
+    .st-alert-title { font-size: 10px; font-weight: 900; color: #e57373; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+    .st-alert-row { display: flex; align-items: flex-start; gap: 6px; font-size: 11px; color: #ef9a9a; margin-bottom: 4px; line-height: 1.3; }
+    .st-alert-row:last-child { margin-bottom: 0; }
+    .st-links { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 6px; }
+    .st-ext { border: 1px solid #1e3a26; background: rgba(0,0,0,.3); color: #81C784; border-radius: 7px; padding: 7px 10px; font: 700 11px inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+    .st-ext:hover { border-color: #43A047; background: rgba(46,125,50,.2); }
+    @media(max-width:700px){.st-body{grid-template-columns:1fr}.st-right{order:-1}}
 
     /* ── MOBILE APP BAR ── */
     .mobile-app-bar { display: none; }
@@ -2001,6 +2041,41 @@ function calcEst(){
       <div><b>Santos</b><span>Brazil and Latin America quote lane.</span><button onclick="goToQuote({port:'Santos',message:'Please quote the Latin America route preview to Santos for my selected vehicle.'})">Quote this route</button></div>
       <div><b>Kingston</b><span>Caribbean dealer and island-port quote lane.</span><button onclick="goToQuote({port:'Kingston',message:'Please quote the Caribbean route preview to Kingston for my selected vehicle.'})">Quote this route</button></div>
     </div>
+
+    <!-- ── LIVE SHIP TRACKER ── -->
+    <div class="st-strip" id="liveShipTracker">
+      <div class="st-strip-head">
+        <h3><span class="st-live-dot"></span>🛳️ Live Ship Tracker &amp; World Intelligence</h3>
+        <a href="./worldmap.html" class="st-open-btn">🌍 Open Full World Map →</a>
+      </div>
+      <div class="st-body">
+        <!-- LEFT: search + vessel info -->
+        <div class="st-left">
+          <div class="st-search">
+            <input id="st_input" placeholder="NVS-2026-... · IMO number · vessel name" onkeydown="if(event.key==='Enter')stTrack()" />
+            <button onclick="stTrack()">Track →</button>
+          </div>
+          <div class="st-hint">Enter your NVS shipment code to get live position, ETA countdown, and route progress. Or enter any IMO / vessel name for AIS links.</div>
+          <div class="st-err" id="st_err"></div>
+          <div class="st-result" id="st_vessel">
+            <div class="st-idle">Enter a tracking code above to see vessel position, ETA, and shipment status.</div>
+          </div>
+          <div class="st-links" id="st_links"></div>
+        </div>
+        <!-- RIGHT: ETA + risk alerts -->
+        <div class="st-right">
+          <div class="st-result" id="st_eta">
+            <div class="st-idle">ETA countdown appears here.</div>
+          </div>
+          <div class="st-alerts">
+            <div class="st-alert-title">⚠ Active Shipping Alerts</div>
+            <div class="st-alert-row"><span>🔴</span><span><strong style="color:#e57373">Red Sea / Houthi</strong> — Critical. Routes via Suez affected. Expect +10–14 days on Jebel Ali &amp; Europe lanes.</span></div>
+            <div class="st-alert-row"><span>🟠</span><span><strong style="color:#FFCC80">Gulf of Guinea</strong> — High piracy. Lagos area. Port ops normal, maritime vigilance required.</span></div>
+            <div class="st-alert-row"><span>🟡</span><span><strong style="color:#FDD835">Strait of Malacca</strong> — Medium. All NV shipments transit here. Crew vigilance required.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 <script>
@@ -2030,6 +2105,110 @@ function selectShippingRoute(key) {
   set('routeBoardTransit', route.transit);
   set('routeBoardVehicle', route.vehicle);
 }
+</script>
+<!-- ── LIVE SHIP TRACKER LOGIC ── -->
+<script>
+(function(){
+  const VERCEL_ORIGIN='https://newvision-demo.vercel.app';
+  const IS_STATIC=['localhost','127.0.0.1','arkysan.github.io'].includes(location.hostname)||location.hostname.endsWith('.pages.dev');
+  const API_BASE=IS_STATIC?VERCEL_ORIGIN:'';
+  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const $=id=>document.getElementById(id);
+  let _cdTimer=null;
+
+  function fmtDate(d){ try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}catch(_){return String(d);} }
+
+  function startCD(etaDate,destName,nm,speed){
+    if(_cdTimer) clearInterval(_cdTimer);
+    function tick(){
+      const diff=etaDate.getTime()-Date.now();
+      if(diff<=0){
+        $('st_eta').innerHTML=`<div style="text-align:center;padding:18px;color:#81C784;font-weight:800;font-size:14px">✅ Arrived / Near port</div>`;
+        clearInterval(_cdTimer); return;
+      }
+      const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
+      $('st_eta').innerHTML=`
+        <div style="font-size:10px;font-weight:900;color:#4a7a4a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Estimated arrival in</div>
+        <div class="st-cd">${[[d,'Days'],[h,'Hrs'],[m,'Min'],[s,'Sec']].map(u=>`<div class="unit"><div class="n">${u[0]}</div><div class="l">${u[1]}</div></div>`).join('')}</div>
+        <div class="st-eta-detail" style="margin-top:8px"><span>${etaDate.toDateString()}</span><br>${nm?nm+' nm remaining · ':''}<span>${destName||'Destination'}</span>${speed?' · '+speed+' kn avg':''}</div>`;
+    }
+    tick(); _cdTimer=setInterval(tick,1000);
+  }
+
+  window.stTrack = async function(){
+    const q=($('st_input').value||'').trim().toUpperCase();
+    if(!q) return;
+    $('st_err').style.display='none';
+    $('st_vessel').innerHTML=`<div class="st-idle">🔍 Searching…</div>`;
+    $('st_eta').innerHTML=`<div class="st-idle">Loading ETA…</div>`;
+    $('st_links').innerHTML='';
+    if(_cdTimer){clearInterval(_cdTimer);_cdTimer=null;}
+    try{
+      const r=await fetch(API_BASE+'/api/worldmap?action=vessel&q='+encodeURIComponent(q)).then(x=>x.json());
+      if(!r.ok){
+        $('st_vessel').innerHTML=`<div class="st-idle">Not found</div>`;
+        $('st_eta').innerHTML=`<div class="st-idle">—</div>`;
+        $('st_err').textContent=r.error||'Tracking code not found. Check with your sales contact.';
+        $('st_err').style.display='block';
+        return;
+      }
+      const s=r.shipment||{}, pos=r.position||null;
+      const isEst=pos&&pos.estimated, isLive=pos&&!pos.estimated&&pos.lat;
+      const posBadge=isLive?'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#43A047;box-shadow:0 0 6px #43A047;margin-right:5px;vertical-align:middle"></span><span style="font-size:10px;color:#43A047;font-weight:900">LIVE AIS</span>':isEst?'<span style="font-size:10px;color:#FFCC80;font-weight:900">📍 EST. POSITION</span>':'';
+      $('st_vessel').innerHTML=`
+        <div class="st-vessel-name">${posBadge}</div>
+        <div class="st-vessel-name" style="font-size:13px;margin-top:2px;margin-bottom:7px">${esc(s.vessel||'Vessel pending assignment')}</div>
+        <div class="st-kv">
+          ${s.vehicle?`<div class="k">Vehicle</div><div class="v">${esc(s.vehicle)}</div>`:''}
+          ${s.code?`<div class="k">NVS Code</div><div class="v">${esc(s.code)}</div>`:''}
+          <div class="k">Origin</div><div class="v">${esc(s.origin||'Shanghai')}</div>
+          <div class="k">Destination</div><div class="v">${esc(s.dest||'—')}</div>
+          ${s.departure?`<div class="k">Departed</div><div class="v">${esc(fmtDate(s.departure))}</div>`:''}
+          ${s.status?`<div class="k">Status</div><div class="v">${esc(s.status)}</div>`:''}
+          ${pos&&pos.lat?`<div class="k">Position</div><div class="v">${pos.lat.toFixed(2)}°, ${pos.lon.toFixed(2)}°</div>`:''}
+          ${isEst&&pos.elapsedDays!=null?`<div class="k">Days at sea</div><div class="v">${pos.elapsedDays} days</div>`:''}
+        </div>
+        ${isEst&&pos.progressPct!=null?`
+          <div style="margin-top:9px">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#4a7a4a;margin-bottom:3px"><span>Route progress</span><span>${pos.progressPct}%</span></div>
+            <div class="st-prog"><div class="st-prog-fill" style="width:${pos.progressPct}%"></div></div>
+            <div style="font-size:10px;color:#4a7a4a;margin-top:2px">${pos.remainingNM||0} nm remaining</div>
+          </div>`:''
+        }
+        ${isEst?`<div style="margin-top:7px;font-size:10px;color:rgba(201,162,75,.7)">📍 Position estimated from departure date + route. Live dot available with AIS key.</div>`:''}`;
+      // ETA
+      if(pos&&pos.etaDate){
+        const etaD=new Date(pos.etaDate);
+        if(!isNaN(etaD)) startCD(etaD,s.dest,pos.remainingNM,pos.avgSpeedKn);
+      } else if(s.eta){
+        const etaD=new Date(s.eta+(s.eta.length<=10?'T12:00:00Z':''));
+        if(!isNaN(etaD)) startCD(etaD,s.dest,'—','—');
+      } else {
+        $('st_eta').innerHTML=`<div class="st-idle" style="color:#FFCC80;padding:18px">ETA confirmed after vessel assignment.</div>`;
+      }
+      // Links
+      const links=[];
+      if(r.vesselfinderUrl) links.push(`<a class="st-ext" href="${r.vesselfinderUrl}" target="_blank" rel="noopener">🛰️ VesselFinder</a>`);
+      if(r.myshiptrackingUrl) links.push(`<a class="st-ext" href="${r.myshiptrackingUrl}" target="_blank" rel="noopener">🌊 MyShipTracking</a>`);
+      if(r.marinetrafficUrl) links.push(`<a class="st-ext" href="${r.marinetrafficUrl}" target="_blank" rel="noopener">📡 MarineTraffic</a>`);
+      links.push(`<a class="st-ext" href="./worldmap.html?id=${encodeURIComponent(q)}" target="_blank">🌍 World Map</a>`);
+      $('st_links').innerHTML=links.join('');
+    } catch(e){
+      $('st_vessel').innerHTML=`<div class="st-idle">Network error</div>`;
+      $('st_eta').innerHTML='';
+      $('st_err').textContent='Connection error. Try again.';
+      $('st_err').style.display='block';
+    }
+  };
+
+  // Auto-track from URL param ?track=
+  const trackParam=new URLSearchParams(location.search).get('track');
+  if(trackParam){
+    const el=$('st_input');
+    if(el){el.value=trackParam;}
+    setTimeout(()=>window.stTrack&&window.stTrack(),300);
+  }
+})();
 </script>
 
 <!-- ── FOOTER ── -->
@@ -2088,7 +2267,7 @@ function selectShippingRoute(key) {
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
     <div class="modal-gallery">
-      <img id="modalImg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" onerror="this.style.display='none';document.getElementById('modalPhotoFallback').style.display='flex'">
+      <img id="modalImg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" onerror="if(!this._tried){this._tried=1;var p=this.src.split('/').pop();this.src='img/thumbs/'+p.replace(/\.[^.]+$/,'.webp');}else{this.style.display='none';document.getElementById('modalPhotoFallback').style.display='flex';}">
       <div id="modalPhotoFallback" style="font-size:13px;color:var(--muted2);font-weight:700;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;text-align:center;width:100%;height:100%;padding:24px;">Photo unavailable - request current stock photo</div>
       <div class="modal-gallery-badges" id="modalBadges"></div>
       <button class="gallery-nav gallery-prev" id="galleryPrev" onclick="galleryNav(-1)" aria-label="Previous photo">&#8249;</button>
