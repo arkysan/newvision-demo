@@ -13,16 +13,21 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Setup wrangler auth (OAuth)
         run: |
           mkdir -p ~/.wrangler/config
-          cat > ~/.wrangler/config/default.toml << EOF
-          oauth_token = "${{ secrets.CF_OAUTH_TOKEN }}"
-          refresh_token = "${{ secrets.CF_REFRESH_TOKEN }}"
+          cat > ~/.wrangler/config/default.toml << 'TOML'
+          oauth_token = "CF_OAUTH_PLACEHOLDER"
+          refresh_token = "CF_REFRESH_PLACEHOLDER"
           expiration_time = "2099-01-01T00:00:00.000Z"
-          EOF
+          TOML
+          sed -i "s|CF_OAUTH_PLACEHOLDER|$CF_OAUTH_TOKEN|g" ~/.wrangler/config/default.toml
+          sed -i "s|CF_REFRESH_PLACEHOLDER|$CF_REFRESH_TOKEN|g" ~/.wrangler/config/default.toml
+        env:
+          CF_OAUTH_TOKEN: ${{ secrets.CF_OAUTH_TOKEN }}
+          CF_REFRESH_TOKEN: ${{ secrets.CF_REFRESH_TOKEN }}
 
       - name: Deploy to Cloudflare Pages
         run: npx wrangler@4.95.0 pages deploy . --project-name=newvision --branch=main
