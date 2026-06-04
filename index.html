@@ -196,10 +196,10 @@
     .filter-select { padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted2); font-size: 13px; outline: none; }
 
     /* ── VEHICLE GRID ── */
-    .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 20px; }
-    .vehicle-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all .25s; cursor: pointer; content-visibility: auto; contain-intrinsic-size: 360px 360px; }
+    .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 22px; }
+    .vehicle-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all .22s; cursor: pointer; content-visibility: auto; contain-intrinsic-size: 360px 360px; box-shadow: 0 2px 12px rgba(46,125,50,0.06); }
     .vehicle-card { will-change: transform; }
-    .vehicle-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(46,125,50,0.13); }
+    .vehicle-card:hover { border-color: var(--green); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(46,125,50,0.16); }
     .vehicle-img { position: relative; aspect-ratio: 16/9; background: var(--surface2); overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .vehicle-photo-fallback { font-size: 13px; color: var(--muted2); font-weight: 700; letter-spacing: .02em; text-transform: uppercase; text-align: center; padding: 18px; }
     .vehicle-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
@@ -336,32 +336,8 @@
     .shipping-map-head p { color: var(--muted2); font-size: 13px; max-width: 58ch; line-height: 1.55; margin-top: 6px; }
     .shipping-map-status { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; min-width: 220px; }
     .shipping-map-pill { border: 1px solid var(--border2); background: #fff; color: var(--green2); border-radius: 999px; padding: 7px 12px; font-size: 12px; font-weight: 800; white-space: nowrap; }
-    .shipping-map-wrap { position: relative; min-height: 430px; background: #dff0f6; }
-    .shipping-map-svg { display: block; width: 100%; height: auto; min-height: 430px; }
-    .map-real-base { opacity: .98; }
-    .map-ocean { fill: #dff0f6; }
-    .map-grid { stroke: rgba(46,125,50,.14); stroke-width: 1; }
-    .map-land { display: none; }
-    .map-route { fill: none; stroke: rgba(46,125,50,.38); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 8 10; }
-    .map-route-main { fill: none; stroke: #2e7d32; stroke-width: 4.8; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 2px 2px rgba(18,74,36,.22)); }
-    .map-route-fade { fill: none; stroke: rgba(212,175,55,.5); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; opacity: .5; }
-    .map-route-secondary { fill: none; stroke: rgba(15,80,48,.35); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 4 8; }
-    .map-port-dot { fill: #fff; stroke: var(--green2); stroke-width: 3; }
-    .map-port-home { fill: var(--gold); stroke: var(--green2); stroke-width: 3; }
-    .map-port-label { font-size: 13px; fill: #17351d; font-weight: 800; paint-order: stroke; stroke: rgba(255,255,255,.85); stroke-width: 4; stroke-linejoin: round; }
-    .map-port-note { font-size: 10px; fill: #456550; font-weight: 700; paint-order: stroke; stroke: rgba(255,255,255,.85); stroke-width: 3; }
-    .map-ship-body { fill: #0f5030; stroke: #fff; stroke-width: 2; }
-    .map-ship-deck { fill: var(--gold); }
-    .map-ship-dot { fill: var(--gold); stroke: #fff; stroke-width: 2; filter: drop-shadow(0 2px 4px rgba(15,80,48,.28)); }
-    .shipping-map-panel { position: absolute; left: 18px; bottom: 18px; width: min(360px, calc(100% - 36px)); background: rgba(255,255,255,.9); border: 1px solid rgba(46,125,50,.2); border-radius: 13px; padding: 14px; box-shadow: 0 14px 34px rgba(15,80,48,.14); backdrop-filter: blur(8px); }
-    .shipping-map-panel .k { font-size: 10px; font-weight: 900; color: var(--green); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 5px; }
-    .shipping-map-panel b { display: block; color: var(--green2); font-size: 15px; line-height: 1.3; }
-    .shipping-map-panel p { color: var(--muted2); font-size: 12px; line-height: 1.5; margin: 6px 0 10px; }
-    .shipping-route-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0 0; }
-    .shipping-route-tab { border: 1px solid rgba(46,125,50,.22); background: rgba(255,255,255,.78); color: var(--green2); border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 900; cursor: pointer; }
-    .shipping-route-tab.active { background: var(--green2); color: #fff; border-color: var(--green2); }
-    .shipping-map-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
-    .shipping-map-metrics span { border: 1px solid var(--border); border-radius: 9px; padding: 8px 7px; color: var(--green2); background: #f8fcf9; font-size: 11px; font-weight: 800; text-align: center; }
+    .shipping-map-wrap { position: relative; height: 540px; background: #0a1510; overflow: hidden; }
+    .shipping-map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
     .shipping-map-legend { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 1px; border-top: 1px solid var(--border); background: var(--border); }
     .shipping-map-legend div { background: #fff; padding: 12px 14px; min-width: 0; }
     .shipping-map-legend b { display: block; color: var(--green2); font-size: 12px; margin-bottom: 3px; }
@@ -527,7 +503,6 @@
       .shipping-map-head { align-items: flex-start; flex-direction: column; }
       .shipping-map-status { justify-content: flex-start; min-width: 0; }
       .shipping-map-legend { grid-template-columns: repeat(3,minmax(0,1fr)); }
-      .shipping-map-panel { position: static; width: auto; margin: 12px; }
       .steps { grid-template-columns: repeat(3,1fr); }
       .categories { grid-template-columns: 1fr; }
     }
@@ -615,13 +590,16 @@
       .footer-grid { grid-template-columns: 1fr; gap: 20px; }
       .shipping-map-section { padding: 0 14px 24px; }
       .shipping-map-head { padding: 16px 14px 12px; }
-      .shipping-map-wrap { min-height: 310px; overflow-x: auto; }
-      .shipping-map-svg { width: 760px; min-height: 310px; }
+      .shipping-map-wrap { height: 380px; }
       .shipping-map-legend { grid-template-columns: 1fr 1fr; }
       .shipping-map-legend div { padding: 10px 11px; }
-      .shipping-map-metrics { grid-template-columns: 1fr; }
       .cta-block { padding: 22px 16px; gap: 16px; border-radius: 12px; }
       .cta-actions, .btn-lg { width: 100%; justify-content: center; }
+      /* Mobile: full-screen modal */
+      .modal-overlay { padding: 0; align-items: flex-end; }
+      .modal { border-radius: 18px 18px 0 0; max-width: 100%; margin: 0; max-height: 92dvh; overflow-y: auto; }
+      .modal-gallery { height: 220px; }
+      .modal-close { top: 10px; right: 10px; }
       #floatWA { display: none !important; }
       .mobile-app-bar {
         position: fixed;
@@ -806,45 +784,45 @@
     <a class="nav-link" href="#best-markets" data-i18n="nav_markets">Markets</a>
     <a class="nav-link" href="#about" data-i18n="nav_about">About Us</a>
     <a class="nav-link" href="#quote" data-i18n="nav_contact">Contact</a>
-    <a class="nav-link" href="./worldmap.html" style="color:var(--green3);font-weight:700">🌍 Ship Map</a>
+    <a class="nav-link" href="./worldmap.html" style="color:var(--green3);font-weight:700">Ship Map</a>
     <a class="nav-link" href="./portal.html" data-i18n="nav_login" style="color:var(--green);font-weight:700">Login</a>
   </div>
   <!-- Market color theme picker -->
   <div class="market-theme-wrap" id="marketThemeWrap">
     <button class="market-theme-btn" id="marketThemeBtn" onclick="toggleMarketDrop()" aria-haspopup="listbox" aria-expanded="false">
-      <span class="mflag" id="marketThemeFlag">🌍</span>
+      <span class="mflag" id="marketThemeFlag">GL</span>
       <span id="marketThemeLabel">Market</span>
       <span class="marrow">▼</span>
     </button>
     <div class="market-theme-drop" id="marketThemeDrop" role="listbox">
       <div class="mtheme-group-label">Global</div>
-      <button class="mtheme-option active" data-theme="" onclick="setMarketTheme('','🌍','Global',this)"><span class="mflag2">🌍</span><span class="mcountry">Global Default</span></button>
+      <button class="mtheme-option active" data-theme="" onclick="setMarketTheme('','GL','Global',this)"><span class="mflag2">GL</span><span class="mcountry">Global Default</span></button>
 
       <div class="mtheme-group-label">Middle East — الشرق الأوسط</div>
-      <button class="mtheme-option" data-theme="iraq" onclick="setMarketTheme('iraq','🇮🇶','Iraq',this)"><span class="mflag2">🇮🇶</span><span class="mcountry">Iraq<span class="mhint"> · Olive + Off-white + Dark Red</span></span></button>
-      <button class="mtheme-option" data-theme="egypt" onclick="setMarketTheme('egypt','🇪🇬','Egypt',this)"><span class="mflag2">🇪🇬</span><span class="mcountry">Egypt<span class="mhint"> · Off-white + Warm Red + Gold</span></span></button>
-      <button class="mtheme-option" data-theme="yemen" onclick="setMarketTheme('yemen','🇾🇪','Yemen',this)"><span class="mflag2">🇾🇪</span><span class="mcountry">Yemen<span class="mhint"> · Pure White + Crimson + Green</span></span></button>
-      <button class="mtheme-option" data-theme="iran" onclick="setMarketTheme('iran','🇮🇷','Iran',this)"><span class="mflag2">🇮🇷</span><span class="mcountry">Iran<span class="mhint"> · Dark Green + Cream + Burgundy</span></span></button>
-      <button class="mtheme-option" data-theme="uae" onclick="setMarketTheme('uae','🇦🇪','UAE / Dubai',this)"><span class="mflag2">🇦🇪</span><span class="mcountry">UAE / Dubai<span class="mhint"> · Beige + Emerald + Gold</span></span></button>
+      <button class="mtheme-option" data-theme="iraq" onclick="setMarketTheme('iraq','IQ','Iraq',this)"><span class="mflag2">IQ</span><span class="mcountry">Iraq<span class="mhint"> · Olive + Off-white + Dark Red</span></span></button>
+      <button class="mtheme-option" data-theme="egypt" onclick="setMarketTheme('egypt','EG','Egypt',this)"><span class="mflag2">EG</span><span class="mcountry">Egypt<span class="mhint"> · Off-white + Warm Red + Gold</span></span></button>
+      <button class="mtheme-option" data-theme="yemen" onclick="setMarketTheme('yemen','YE','Yemen',this)"><span class="mflag2">YE</span><span class="mcountry">Yemen<span class="mhint"> · Pure White + Crimson + Green</span></span></button>
+      <button class="mtheme-option" data-theme="iran" onclick="setMarketTheme('iran','IR','Iran',this)"><span class="mflag2">IR</span><span class="mcountry">Iran<span class="mhint"> · Dark Green + Cream + Burgundy</span></span></button>
+      <button class="mtheme-option" data-theme="uae" onclick="setMarketTheme('uae','AE','UAE / Dubai',this)"><span class="mflag2">AE</span><span class="mcountry">UAE / Dubai<span class="mhint"> · Beige + Emerald + Gold</span></span></button>
 
       <div class="mtheme-group-label">North Africa — شمال أفريقيا</div>
-      <button class="mtheme-option" data-theme="algeria" onclick="setMarketTheme('algeria','🇩🇿','Algeria',this)"><span class="mflag2">🇩🇿</span><span class="mcountry">Algeria<span class="mhint"> · Sky Blue + Off-white + Yellow</span></span></button>
-      <button class="mtheme-option" data-theme="morocco-blue" onclick="setMarketTheme('morocco-blue','🇲🇦','Morocco (Blue)',this)"><span class="mflag2">🇲🇦</span><span class="mcountry">Morocco Blue<span class="mhint"> · Chefchaouen Blue + White</span></span></button>
-      <button class="mtheme-option" data-theme="morocco-red" onclick="setMarketTheme('morocco-red','🇲🇦','Morocco (Red)',this)"><span class="mflag2">🇲🇦</span><span class="mcountry">Morocco Red<span class="mhint"> · Terracotta + Dark Green</span></span></button>
-      <button class="mtheme-option" data-theme="sudan" onclick="setMarketTheme('sudan','🇸🇩','Sudan',this)"><span class="mflag2">🇸🇩</span><span class="mcountry">Sudan<span class="mhint"> · Warm Yellow + White + Green</span></span></button>
+      <button class="mtheme-option" data-theme="algeria" onclick="setMarketTheme('algeria','DZ','Algeria',this)"><span class="mflag2">DZ</span><span class="mcountry">Algeria<span class="mhint"> · Sky Blue + Off-white + Yellow</span></span></button>
+      <button class="mtheme-option" data-theme="morocco-blue" onclick="setMarketTheme('morocco-blue','MA','Morocco (Blue)',this)"><span class="mflag2">MA</span><span class="mcountry">Morocco Blue<span class="mhint"> · Chefchaouen Blue + White</span></span></button>
+      <button class="mtheme-option" data-theme="morocco-red" onclick="setMarketTheme('morocco-red','MA','Morocco (Red)',this)"><span class="mflag2">MA</span><span class="mcountry">Morocco Red<span class="mhint"> · Terracotta + Dark Green</span></span></button>
+      <button class="mtheme-option" data-theme="sudan" onclick="setMarketTheme('sudan','SD','Sudan',this)"><span class="mflag2">SD</span><span class="mcountry">Sudan<span class="mhint"> · Warm Yellow + White + Green</span></span></button>
 
       <div class="mtheme-group-label">West Africa — غرب أفريقيا</div>
-      <button class="mtheme-option" data-theme="nigeria" onclick="setMarketTheme('nigeria','🇳🇬','Nigeria',this)"><span class="mflag2">🇳🇬</span><span class="mcountry">Nigeria<span class="mhint"> · Dark Green + White + Orange</span></span></button>
-      <button class="mtheme-option" data-theme="guinea" onclick="setMarketTheme('guinea','🇬🇳','Guinea',this)"><span class="mflag2">🇬🇳</span><span class="mcountry">Guinea<span class="mhint"> · Red + Yellow + Green</span></span></button>
-      <button class="mtheme-option" data-theme="burkinafaso" onclick="setMarketTheme('burkinafaso','🇧🇫','Burkina Faso',this)"><span class="mflag2">🇧🇫</span><span class="mcountry">Burkina Faso<span class="mhint"> · Red + Yellow + Green</span></span></button>
-      <button class="mtheme-option" data-theme="ethiopia" onclick="setMarketTheme('ethiopia','🇪🇹','Ethiopia',this)"><span class="mflag2">🇪🇹</span><span class="mcountry">Ethiopia<span class="mhint"> · Red + Emerald + Yellow</span></span></button>
+      <button class="mtheme-option" data-theme="nigeria" onclick="setMarketTheme('nigeria','NG','Nigeria',this)"><span class="mflag2">NG</span><span class="mcountry">Nigeria<span class="mhint"> · Dark Green + White + Orange</span></span></button>
+      <button class="mtheme-option" data-theme="guinea" onclick="setMarketTheme('guinea','GN','Guinea',this)"><span class="mflag2">GN</span><span class="mcountry">Guinea<span class="mhint"> · Red + Yellow + Green</span></span></button>
+      <button class="mtheme-option" data-theme="burkinafaso" onclick="setMarketTheme('burkinafaso','BF','Burkina Faso',this)"><span class="mflag2">BF</span><span class="mcountry">Burkina Faso<span class="mhint"> · Red + Yellow + Green</span></span></button>
+      <button class="mtheme-option" data-theme="ethiopia" onclick="setMarketTheme('ethiopia','ET','Ethiopia',this)"><span class="mflag2">ET</span><span class="mcountry">Ethiopia<span class="mhint"> · Red + Emerald + Yellow</span></span></button>
 
       <div class="mtheme-group-label">Central Asia — آسيا الوسطى</div>
-      <button class="mtheme-option" data-theme="centralasia" onclick="setMarketTheme('centralasia','🏔️','Central Asia',this)"><span class="mflag2">🏔️</span><span class="mcountry">Central Asia<span class="mhint"> · Sky Blue + Off-white + Earth Brown</span></span></button>
+      <button class="mtheme-option" data-theme="centralasia" onclick="setMarketTheme('centralasia','CA','Central Asia',this)"><span class="mflag2">CA</span><span class="mcountry">Central Asia<span class="mhint"> · Sky Blue + Off-white + Earth Brown</span></span></button>
 
       <div class="mtheme-group-label">Southeast Asia — آسيا الجنوبية الشرقية</div>
-      <button class="mtheme-option" data-theme="seasia-islamic" onclick="setMarketTheme('seasia-islamic','🕌','SE Asia (Islamic)',this)"><span class="mflag2">🕌</span><span class="mcountry">SE Asia Islamic<span class="mhint"> · Grass Green + White + Blue</span></span></button>
-      <button class="mtheme-option" data-theme="seasia-buddhist" onclick="setMarketTheme('seasia-buddhist','🛕','SE Asia (Buddhist)',this)"><span class="mflag2">🛕</span><span class="mcountry">SE Asia Buddhist<span class="mhint"> · Gold + Vermilion + Teal</span></span></button>
+      <button class="mtheme-option" data-theme="seasia-islamic" onclick="setMarketTheme('seasia-islamic','SEA','SE Asia (Islamic)',this)"><span class="mflag2">SEA</span><span class="mcountry">SE Asia Islamic<span class="mhint"> · Grass Green + White + Blue</span></span></button>
+      <button class="mtheme-option" data-theme="seasia-buddhist" onclick="setMarketTheme('seasia-buddhist','SEB','SE Asia (Buddhist)',this)"><span class="mflag2">SEB</span><span class="mcountry">SE Asia Buddhist<span class="mhint"> · Gold + Vermilion + Teal</span></span></button>
     </div>
   </div>
 
@@ -875,16 +853,16 @@
   <a href="./sales.html" target="_blank" rel="noopener" class="portal">Andy / Eissa Sales Portal</a>
   <div style="padding:10px 20px 4px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:var(--surface2);">Market Theme</div>
   <div id="mobileThemePicker" style="display:flex;flex-wrap:wrap;gap:6px;padding:10px 14px 14px;">
-    <button onclick="setMarketTheme('','🌍','Global',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🌍 Global</button>
-    <button onclick="setMarketTheme('iraq','🇮🇶','Iraq',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇮🇶 Iraq</button>
-    <button onclick="setMarketTheme('egypt','🇪🇬','Egypt',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇪🇬 Egypt</button>
-    <button onclick="setMarketTheme('yemen','🇾🇪','Yemen',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇾🇪 Yemen</button>
-    <button onclick="setMarketTheme('iran','🇮🇷','Iran',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇮🇷 Iran</button>
-    <button onclick="setMarketTheme('uae','🇦🇪','UAE',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇦🇪 UAE</button>
-    <button onclick="setMarketTheme('nigeria','🇳🇬','Nigeria',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇳🇬 Nigeria</button>
-    <button onclick="setMarketTheme('algeria','🇩🇿','Algeria',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇩🇿 Algeria</button>
-    <button onclick="setMarketTheme('centralasia','🏔️','C.Asia',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🏔️ C.Asia</button>
-    <button onclick="setMarketTheme('seasia-islamic','🕌','SE Asia',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🕌 SE Asia</button>
+    <button onclick="setMarketTheme('','GL','Global',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">GL Global</button>
+    <button onclick="setMarketTheme('iraq','IQ','Iraq',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">IQ Iraq</button>
+    <button onclick="setMarketTheme('egypt','EG','Egypt',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">EG Egypt</button>
+    <button onclick="setMarketTheme('yemen','YE','Yemen',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">YE Yemen</button>
+    <button onclick="setMarketTheme('iran','IR','Iran',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">IR Iran</button>
+    <button onclick="setMarketTheme('uae','AE','UAE',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">AE UAE</button>
+    <button onclick="setMarketTheme('nigeria','NG','Nigeria',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">NG Nigeria</button>
+    <button onclick="setMarketTheme('algeria','DZ','Algeria',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">DZ Algeria</button>
+    <button onclick="setMarketTheme('centralasia','CA','C.Asia',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">CA C.Asia</button>
+    <button onclick="setMarketTheme('seasia-islamic','SEA','SE Asia',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">SEA SE Asia</button>
   </div>
 </div>
 
@@ -1912,125 +1890,16 @@ function calcEst(){
   <div class="shipping-map-shell">
     <div class="shipping-map-head">
       <div>
-        <h2>Global shipping route map</h2>
-        <p>New Vision exports from China through Shanghai port to major buyer ports. The ship animation loops through real port positions; exact vessel schedules, freight, and ETA are confirmed when you request a CIF quote.</p>
+        <h2>Live Global Shipping Routes</h2>
+        <p>New Vision exports from Shanghai to Jebel Ali, Mombasa, Lagos, Antwerp, Santos, and Kingston. Click a route to explore transit times and request a CIF quote.</p>
       </div>
       <div class="shipping-map-status" aria-label="shipping route status">
-        <span class="shipping-map-pill">Origin: Yiwu to Shanghai</span>
-        <span class="shipping-map-pill" id="shippingClock">Route preview loading</span>
+        <span class="shipping-map-pill">6 active lanes</span>
+        <span class="shipping-map-pill">16–48 days FOB→CIF</span>
       </div>
     </div>
     <div class="shipping-map-wrap">
-      <svg class="shipping-map-svg" id="shippingMapSvg" viewBox="0 0 1000 500" role="img" aria-labelledby="shippingMapTitle shippingMapDesc">
-        <title id="shippingMapTitle">Animated world shipping route map</title>
-        <desc id="shippingMapDesc">A two-dimensional world map with route lines from Shanghai, China to Jebel Ali, Mombasa, Lagos, Antwerp, Santos, and Kingston. A ship marker loops along the route.</desc>
-        <rect class="map-ocean" width="1000" height="500"></rect>
-        <image class="map-real-base" href="img/world-map-110m.svg" x="0" y="0" width="1000" height="500" preserveAspectRatio="none"></image>
-        <path class="map-grid" d="M0 125H1000M0 250H1000M0 375H1000M250 0V500M500 0V500M750 0V500"></path>
-        <path class="map-land" d="M88 120L137 86L213 83L265 122L280 176L252 230L282 291L260 365L210 424L151 409L131 332L99 272L63 207Z"></path>
-        <path class="map-land" d="M275 114L350 83L422 99L482 134L462 186L403 193L366 232L316 214L298 166Z"></path>
-        <path class="map-land" d="M382 205L454 203L506 250L504 320L467 392L419 386L391 324L356 285Z"></path>
-        <path class="map-land" d="M454 86L560 75L655 100L724 146L812 136L902 182L888 236L799 230L722 208L650 190L590 210L528 180L466 172Z"></path>
-        <path class="map-land" d="M702 235L764 238L816 285L802 345L741 354L700 315Z"></path>
-        <path class="map-land" d="M726 348L792 370L829 428L776 454L714 421Z"></path>
-        <path class="map-route" id="routeGulf" d="M838 163C785 167 718 174 653 181"></path>
-        <path class="map-route" id="routeMombasa" d="M838 163C756 196 682 238 610 261"></path>
-        <path class="map-route" id="routeLagos" d="M838 163C742 219 623 247 509 232"></path>
-        <path class="map-route" id="routeEurope" d="M838 163C704 126 596 105 512 108"></path>
-        <path class="map-route" id="routeLatam" d="M838 163C684 320 514 388 371 316"></path>
-        <path class="map-route" id="routeCaribbean" d="M838 163C720 214 590 230 455 248C392 255 334 250 286 240"></path>
-        <path class="map-route-secondary" d="M653 181C646 214 631 244 610 261"></path>
-        <path class="map-route-secondary" d="M610 261C575 247 540 237 509 232"></path>
-        <path class="map-route-secondary" d="M509 232C503 171 506 129 512 108"></path>
-        <path class="map-route-secondary" d="M512 108C441 172 390 252 371 316"></path>
-        <path class="map-route-fade" d="M838 163C785 167 718 174 653 181C646 214 631 244 610 261C575 247 540 237 509 232C503 171 506 129 512 108C441 172 390 252 371 316C498 385 704 304 838 163"></path>
-        <path class="map-route-main" id="shippingRouteLoop" d="M838 163C785 167 718 174 653 181C646 214 631 244 610 261C575 247 540 237 509 232C503 171 506 129 512 108C441 172 390 252 371 316C498 385 704 304 838 163"></path>
-
-        <g>
-          <circle class="map-port-home" cx="838" cy="163" r="8"></circle>
-          <text class="map-port-label" x="848" y="158">Shanghai</text>
-          <text class="map-port-note" x="848" y="172">China export port</text>
-        </g>
-        <g>
-          <circle class="map-port-dot" cx="653" cy="181" r="7"></circle>
-          <text class="map-port-label" x="663" y="176">Jebel Ali</text>
-          <text class="map-port-note" x="663" y="190">UAE Gulf hub</text>
-        </g>
-        <g>
-          <circle class="map-port-dot" cx="610" cy="261" r="7"></circle>
-          <text class="map-port-label" x="620" y="256">Mombasa</text>
-          <text class="map-port-note" x="620" y="270">East Africa</text>
-        </g>
-        <g>
-          <circle class="map-port-dot" cx="509" cy="232" r="7"></circle>
-          <text class="map-port-label" x="454" y="225">Lagos</text>
-          <text class="map-port-note" x="436" y="239">West Africa</text>
-        </g>
-        <g>
-          <circle class="map-port-dot" cx="512" cy="108" r="7"></circle>
-          <text class="map-port-label" x="522" y="103">Antwerp</text>
-          <text class="map-port-note" x="522" y="117">Europe</text>
-        </g>
-        <g>
-          <circle class="map-port-dot" cx="371" cy="316" r="7"></circle>
-          <text class="map-port-label" x="310" y="311">Santos</text>
-          <text class="map-port-note" x="284" y="325">Brazil</text>
-        </g>
-        <g>
-          <circle class="map-port-dot" cx="286" cy="240" r="7"></circle>
-          <text class="map-port-label" x="220" y="235">Kingston</text>
-          <text class="map-port-note" x="200" y="249">Caribbean</text>
-        </g>
-        <g>
-          <circle class="map-port-home" cx="835" cy="160" r="4"></circle>
-          <text class="map-port-label" x="798" y="142">Yiwu</text>
-          <text class="map-port-note" x="770" y="128">factory sourcing base</text>
-        </g>
-
-        <g>
-          <animateMotion dur="18s" repeatCount="indefinite" rotate="auto">
-            <mpath href="#shippingRouteLoop"></mpath>
-          </animateMotion>
-          <path class="map-ship-body" d="M-16 -6H8L17 0L8 6H-16L-21 0Z"></path>
-          <rect class="map-ship-deck" x="-6" y="-10" width="10" height="7" rx="2"></rect>
-        </g>
-        <circle class="map-ship-dot" r="5">
-          <animateMotion dur="8s" repeatCount="indefinite" begin="0s"><mpath href="#routeGulf"></mpath></animateMotion>
-        </circle>
-        <circle class="map-ship-dot" r="5">
-          <animateMotion dur="10s" repeatCount="indefinite" begin="1s"><mpath href="#routeMombasa"></mpath></animateMotion>
-        </circle>
-        <circle class="map-ship-dot" r="5">
-          <animateMotion dur="12s" repeatCount="indefinite" begin="2s"><mpath href="#routeLagos"></mpath></animateMotion>
-        </circle>
-        <circle class="map-ship-dot" r="5">
-          <animateMotion dur="14s" repeatCount="indefinite" begin="3s"><mpath href="#routeEurope"></mpath></animateMotion>
-        </circle>
-        <circle class="map-ship-dot" r="5">
-          <animateMotion dur="16s" repeatCount="indefinite" begin="4s"><mpath href="#routeLatam"></mpath></animateMotion>
-        </circle>
-        <circle class="map-ship-dot" r="5">
-          <animateMotion dur="15s" repeatCount="indefinite" begin="5s"><mpath href="#routeCaribbean"></mpath></animateMotion>
-        </circle>
-      </svg>
-      <div class="shipping-map-panel">
-        <div class="k">Advanced route board</div>
-        <b id="routeBoardTitle">China export loop with active destination lanes</b>
-        <p id="routeBoardCopy">Animated ships show the route logic from Yiwu sourcing to Shanghai loading, then out to Gulf, Africa, Europe, Latin America, and Caribbean ports. This is a route preview; the quote team confirms the actual vessel, sailing date, freight, and ETA.</p>
-        <div class="shipping-route-tabs" id="shippingRouteTabs">
-          <button class="shipping-route-tab active" data-route="gulf" onclick="selectShippingRoute('gulf')">Gulf</button>
-          <button class="shipping-route-tab" data-route="eastAfrica" onclick="selectShippingRoute('eastAfrica')">East Africa</button>
-          <button class="shipping-route-tab" data-route="westAfrica" onclick="selectShippingRoute('westAfrica')">West Africa</button>
-          <button class="shipping-route-tab" data-route="europe" onclick="selectShippingRoute('europe')">Europe</button>
-          <button class="shipping-route-tab" data-route="latinAmerica" onclick="selectShippingRoute('latinAmerica')">Latin America</button>
-          <button class="shipping-route-tab" data-route="caribbean" onclick="selectShippingRoute('caribbean')">Caribbean</button>
-        </div>
-        <div class="shipping-map-metrics">
-          <span id="routeBoardPort">6 ports</span>
-          <span id="routeBoardTransit">12-48 days</span>
-          <span id="routeBoardVehicle">FOB to CIF</span>
-        </div>
-      </div>
+      <iframe src="./routemap.html" title="New Vision Global Shipping Routes — Live Map" loading="lazy" allowfullscreen></iframe>
     </div>
     <div class="shipping-map-legend">
       <div><b>Shanghai</b><span>New Vision export loading through China port lanes.</span><button onclick="goToQuote({port:'Shanghai',message:'Please confirm FOB export readiness from Shanghai/Ningbo for my selected vehicle.'})">Quote this route</button></div>
@@ -2045,8 +1914,8 @@ function calcEst(){
     <!-- ── LIVE SHIP TRACKER ── -->
     <div class="st-strip" id="liveShipTracker">
       <div class="st-strip-head">
-        <h3><span class="st-live-dot"></span>🛳️ Live Ship Tracker &amp; World Intelligence</h3>
-        <a href="./worldmap.html" class="st-open-btn">🌍 Open Full World Map →</a>
+        <h3><span class="st-live-dot"></span>Live Ship Tracker &amp; World Intelligence</h3>
+        <a href="./worldmap.html" class="st-open-btn">Open Full World Map →</a>
       </div>
       <div class="st-body">
         <!-- LEFT: search + vessel info -->
@@ -2068,44 +1937,16 @@ function calcEst(){
             <div class="st-idle">ETA countdown appears here.</div>
           </div>
           <div class="st-alerts">
-            <div class="st-alert-title">⚠ Active Shipping Alerts</div>
-            <div class="st-alert-row"><span>🔴</span><span><strong style="color:#e57373">Red Sea / Houthi</strong> — Critical. Routes via Suez affected. Expect +10–14 days on Jebel Ali &amp; Europe lanes.</span></div>
-            <div class="st-alert-row"><span>🟠</span><span><strong style="color:#FFCC80">Gulf of Guinea</strong> — High piracy. Lagos area. Port ops normal, maritime vigilance required.</span></div>
-            <div class="st-alert-row"><span>🟡</span><span><strong style="color:#FDD835">Strait of Malacca</strong> — Medium. All NV shipments transit here. Crew vigilance required.</span></div>
+            <div class="st-alert-title">Active Shipping Alerts</div>
+            <div class="st-alert-row"><span>CRIT</span><span><strong style="color:#e57373">Red Sea / Houthi</strong> — Critical. Routes via Suez affected. Expect +10–14 days on Jebel Ali &amp; Europe lanes.</span></div>
+            <div class="st-alert-row"><span>HIGH</span><span><strong style="color:#FFCC80">Gulf of Guinea</strong> — High piracy. Lagos area. Port ops normal, maritime vigilance required.</span></div>
+            <div class="st-alert-row"><span>MED</span><span><strong style="color:#FDD835">Strait of Malacca</strong> — Medium. All NV shipments transit here. Crew vigilance required.</span></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<script>
-(function updateShippingClock(){
-  const el = document.getElementById('shippingClock');
-  if (!el) return;
-  const now = new Date();
-  const text = now.toISOString().slice(11,16) + ' UTC route preview';
-  el.textContent = text;
-  setTimeout(updateShippingClock, 60000);
-})();
-const SHIPPING_ROUTE_BOARD = {
-  gulf: { title: 'Gulf lane: Shanghai/Ningbo to Jebel Ali', copy: 'Fast Gulf routing for UAE, Saudi, Qatar, Oman, and re-export buyers. Good for premium SUVs, EV sedans, and mixed dealer batches.', port: 'Jebel Ali', transit: '18-26 days', vehicle: 'Premium / EV' },
-  eastAfrica: { title: 'East Africa lane: Shanghai/Ningbo to Mombasa', copy: 'Dealer-focused East Africa lane for Kenya, Tanzania, Uganda, and nearby markets. Useful for EV/PHEV trials and value SUVs.', port: 'Mombasa', transit: '22-30 days', vehicle: 'SUV / PHEV' },
-  westAfrica: { title: 'West Africa lane: Shanghai/Ningbo to Lagos', copy: 'High-demand West Africa quote lane. Best verified with current freight, import rules, age limits, and destination clearing partner.', port: 'Lagos', transit: '28-38 days', vehicle: 'SUV / Value' },
-  europe: { title: 'Europe lane: Shanghai/Ningbo to Antwerp', copy: 'Europe route preview for compliant units, documents, and onward delivery planning. Battery declarations and homologation checks must be confirmed.', port: 'Antwerp', transit: '30-40 days', vehicle: 'Docs-first EV' },
-  latinAmerica: { title: 'Latin America lane: Shanghai/Ningbo to Santos', copy: 'Longer-distance South America route preview for Brazil and regional buyer planning. Confirm RoRo/container availability before deposit.', port: 'Santos', transit: '32-48 days', vehicle: 'EV / fleet' },
-  caribbean: { title: 'Caribbean lane: Shanghai/Ningbo to Kingston', copy: 'Island-port route preview for Caribbean dealer and private-buyer lanes. Useful for compact SUVs, value sedans, and mixed low-volume orders.', port: 'Kingston', transit: '30-45 days', vehicle: 'Compact / value' },
-};
-function selectShippingRoute(key) {
-  const route = SHIPPING_ROUTE_BOARD[key] || SHIPPING_ROUTE_BOARD.gulf;
-  document.querySelectorAll('.shipping-route-tab').forEach(btn => btn.classList.toggle('active', btn.dataset.route === key));
-  const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
-  set('routeBoardTitle', route.title);
-  set('routeBoardCopy', route.copy);
-  set('routeBoardPort', route.port);
-  set('routeBoardTransit', route.transit);
-  set('routeBoardVehicle', route.vehicle);
-}
-</script>
 <!-- ── LIVE SHIP TRACKER LOGIC ── -->
 <script>
 (function(){
@@ -2123,7 +1964,7 @@ function selectShippingRoute(key) {
     function tick(){
       const diff=etaDate.getTime()-Date.now();
       if(diff<=0){
-        $('st_eta').innerHTML=`<div style="text-align:center;padding:18px;color:#81C784;font-weight:800;font-size:14px">✅ Arrived / Near port</div>`;
+        $('st_eta').innerHTML=`<div style="text-align:center;padding:18px;color:#81C784;font-weight:800;font-size:14px">Arrived / Near port</div>`;
         clearInterval(_cdTimer); return;
       }
       const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
@@ -2139,7 +1980,7 @@ function selectShippingRoute(key) {
     const q=($('st_input').value||'').trim().toUpperCase();
     if(!q) return;
     $('st_err').style.display='none';
-    $('st_vessel').innerHTML=`<div class="st-idle">🔍 Searching…</div>`;
+    $('st_vessel').innerHTML=`<div class="st-idle">Searching...</div>`;
     $('st_eta').innerHTML=`<div class="st-idle">Loading ETA…</div>`;
     $('st_links').innerHTML='';
     if(_cdTimer){clearInterval(_cdTimer);_cdTimer=null;}
@@ -2154,7 +1995,7 @@ function selectShippingRoute(key) {
       }
       const s=r.shipment||{}, pos=r.position||null;
       const isEst=pos&&pos.estimated, isLive=pos&&!pos.estimated&&pos.lat;
-      const posBadge=isLive?'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#43A047;box-shadow:0 0 6px #43A047;margin-right:5px;vertical-align:middle"></span><span style="font-size:10px;color:#43A047;font-weight:900">LIVE AIS</span>':isEst?'<span style="font-size:10px;color:#FFCC80;font-weight:900">📍 EST. POSITION</span>':'';
+      const posBadge=isLive?'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#43A047;box-shadow:0 0 6px #43A047;margin-right:5px;vertical-align:middle"></span><span style="font-size:10px;color:#43A047;font-weight:900">LIVE AIS</span>':isEst?'<span style="font-size:10px;color:#FFCC80;font-weight:900">EST. POSITION</span>':'';
       $('st_vessel').innerHTML=`
         <div class="st-vessel-name">${posBadge}</div>
         <div class="st-vessel-name" style="font-size:13px;margin-top:2px;margin-bottom:7px">${esc(s.vessel||'Vessel pending assignment')}</div>
@@ -2175,7 +2016,7 @@ function selectShippingRoute(key) {
             <div style="font-size:10px;color:#4a7a4a;margin-top:2px">${pos.remainingNM||0} nm remaining</div>
           </div>`:''
         }
-        ${isEst?`<div style="margin-top:7px;font-size:10px;color:rgba(201,162,75,.7)">📍 Position estimated from departure date + route. Live dot available with AIS key.</div>`:''}`;
+        ${isEst?`<div style="margin-top:7px;font-size:10px;color:rgba(201,162,75,.7)">Position estimated from departure date + route. Live dot available with AIS key.</div>`:''}`;
       // ETA
       if(pos&&pos.etaDate){
         const etaD=new Date(pos.etaDate);
@@ -2188,10 +2029,10 @@ function selectShippingRoute(key) {
       }
       // Links
       const links=[];
-      if(r.vesselfinderUrl) links.push(`<a class="st-ext" href="${r.vesselfinderUrl}" target="_blank" rel="noopener">🛰️ VesselFinder</a>`);
-      if(r.myshiptrackingUrl) links.push(`<a class="st-ext" href="${r.myshiptrackingUrl}" target="_blank" rel="noopener">🌊 MyShipTracking</a>`);
-      if(r.marinetrafficUrl) links.push(`<a class="st-ext" href="${r.marinetrafficUrl}" target="_blank" rel="noopener">📡 MarineTraffic</a>`);
-      links.push(`<a class="st-ext" href="./worldmap.html?id=${encodeURIComponent(q)}" target="_blank">🌍 World Map</a>`);
+      if(r.vesselfinderUrl) links.push(`<a class="st-ext" href="${r.vesselfinderUrl}" target="_blank" rel="noopener">VesselFinder</a>`);
+      if(r.myshiptrackingUrl) links.push(`<a class="st-ext" href="${r.myshiptrackingUrl}" target="_blank" rel="noopener">MyShipTracking</a>`);
+      if(r.marinetrafficUrl) links.push(`<a class="st-ext" href="${r.marinetrafficUrl}" target="_blank" rel="noopener">MarineTraffic</a>`);
+      links.push(`<a class="st-ext" href="./worldmap.html?id=${encodeURIComponent(q)}" target="_blank">World Map</a>`);
       $('st_links').innerHTML=links.join('');
     } catch(e){
       $('st_vessel').innerHTML=`<div class="st-idle">Network error</div>`;
@@ -3808,7 +3649,7 @@ setCount('cShipping',138);
     document.documentElement.setAttribute('data-theme', key || '');
     var btn = document.getElementById('marketThemeBtn');
     if (btn) {
-      document.getElementById('marketThemeFlag').textContent = flag || '🌍';
+      document.getElementById('marketThemeFlag').textContent = flag || 'GL';
       document.getElementById('marketThemeLabel').textContent = label || 'Market';
     }
     // Mark active option
@@ -3865,10 +3706,10 @@ setCount('cShipping',138);
           var key = COUNTRY_THEMES[cc];
           // Map key back to a flag + label
           var flagMap = {
-            iraq:'🇮🇶', egypt:'🇪🇬', yemen:'🇾🇪', iran:'🇮🇷', uae:'🇦🇪',
-            algeria:'🇩🇿', 'morocco-blue':'🇲🇦', sudan:'🇸🇩',
-            nigeria:'🇳🇬', guinea:'🇬🇳', burkinafaso:'🇧🇫', ethiopia:'🇪🇹',
-            centralasia:'🏔️', 'seasia-islamic':'🕌', 'seasia-buddhist':'🛕'
+            iraq:'IQ', egypt:'EG', yemen:'YE', iran:'IR', uae:'AE',
+            algeria:'DZ', 'morocco-blue':'MA', sudan:'SD',
+            nigeria:'NG', guinea:'GN', burkinafaso:'BF', ethiopia:'ET',
+            centralasia:'CA', 'seasia-islamic':'SEA', 'seasia-buddhist':'SEB'
           };
           var labelMap = {
             iraq:'Iraq', egypt:'Egypt', yemen:'Yemen', iran:'Iran', uae:'UAE',
@@ -3876,7 +3717,7 @@ setCount('cShipping',138);
             nigeria:'Nigeria', guinea:'Guinea', burkinafaso:'Burkina Faso', ethiopia:'Ethiopia',
             centralasia:'Central Asia', 'seasia-islamic':'SE Asia', 'seasia-buddhist':'SE Asia'
           };
-          applyTheme(key, flagMap[key] || '🌍', labelMap[key] || 'Market');
+          applyTheme(key, flagMap[key] || 'GL', labelMap[key] || 'Market');
         }
       }).catch(function(){});
   } catch(e){}
