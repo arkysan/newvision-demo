@@ -7,6 +7,7 @@ const html = fs.readFileSync(INDEX, 'utf8');
 const vehicleDeal = fs.readFileSync(path.join(ROOT, 'vehicle.html'), 'utf8');
 const portal = fs.readFileSync(path.join(ROOT, 'portal.html'), 'utf8');
 const sales = fs.readFileSync(path.join(ROOT, 'sales.html'), 'utf8');
+const worldmap = fs.readFileSync(path.join(ROOT, 'worldmap.html'), 'utf8');
 const review = fs.readFileSync(path.join(ROOT, 'arkreview.js'), 'utf8');
 const cms = fs.readFileSync(path.join(ROOT, 'api', 'cms.js'), 'utf8');
 const vehiclesApi = fs.readFileSync(path.join(ROOT, 'api', 'vehicles.js'), 'utf8');
@@ -253,22 +254,17 @@ if (/vinPrivate|Back-room location|v\.location|vehicleLocation/i.test(vehicleDea
 }
 
 const requiredShippingMapControls = [
-  ['id="global-shipping-map"', 'Footer area must include the full-width global shipping map'],
-  ['id="shippingMapSvg"', 'Shipping map must render as a 2D SVG map'],
-  ['img/world-map-110m.svg', 'Shipping map must use the generated real world-map asset'],
-  ['id="shippingRouteLoop"', 'Shipping map must define the animated route path'],
-  ['animateMotion', 'Shipping map must animate the ship marker along the route'],
-  ['routeGulf', 'Shipping map must expose the Gulf route lane'],
-  ['routeMombasa', 'Shipping map must expose the East Africa route lane'],
-  ['routeLagos', 'Shipping map must expose the West Africa route lane'],
-  ['routeEurope', 'Shipping map must expose the Europe route lane'],
-  ['routeLatam', 'Shipping map must expose the Latin America route lane'],
-  ['routeCaribbean', 'Shipping map must expose the Caribbean route lane'],
+  ['id="global-shipping-map"', 'Post-inventory area must include the full-width global shipping map'],
+  ['src="./worldmap.html?embed=1"', 'Shipping map must embed the live Leaflet world map'],
+  ['title="New Vision live world shipping route map"', 'Shipping map iframe must have an accessible title'],
+  ['allow="geolocation"', 'Shipping map iframe must allow geolocation for the map runtime'],
   ['id="shippingRouteTabs"', 'Shipping map must expose route selector tabs'],
   ['selectShippingRoute', 'Shipping map route board must update selected route details'],
   ['Quote this route', 'Shipping map port cards must route buyers into quote requests'],
   ['shipping-map-panel', 'Shipping map must include the advanced route-board panel'],
   ['id="shippingClock"', 'Shipping map must show a current route-preview timestamp'],
+  ['focusShippingMapOnLanding', 'Home page must start at the customer shipping map when loaded without another hash'],
+  ["hash && hash !== '#global-shipping-map'", 'Shipping-map landing focus must respect explicit hash deep links'],
   ['Shanghai', 'Shipping map must include Shanghai origin port'],
   ['Jebel Ali', 'Shipping map must include Jebel Ali port'],
   ['Mombasa', 'Shipping map must include Mombasa port'],
@@ -280,6 +276,36 @@ const requiredShippingMapControls = [
 ];
 for (const [snippet, message] of requiredShippingMapControls) {
   if (!html.includes(snippet)) fail(message);
+}
+const inventoryPos = html.indexOf('id="vehicleGrid"');
+const shippingMapPos = html.indexOf('id="global-shipping-map"');
+const categoriesPos = html.indexOf('<!-- ── CATEGORIES ── -->');
+if (inventoryPos < 0 || shippingMapPos < 0 || shippingMapPos < inventoryPos) {
+  fail('Customer shipping map must sit directly below the vehicle inventory results');
+}
+if (categoriesPos > 0 && shippingMapPos > categoriesPos) {
+  fail('Customer shipping map must appear before the post-inventory category band');
+}
+if (html.includes('World Intelligence') || html.includes('Active Shipping Alerts')) {
+  fail('Customer page must not expose back-room world-events intelligence');
+}
+if (html.includes('routemap.html')) {
+  fail('Shipping map must use worldmap.html?embed=1, not the old routemap.html surface');
+}
+if (!fs.existsSync(path.join(ROOT, 'worldmap.html'))) {
+  fail('Live world map page is missing: worldmap.html');
+}
+if (!worldmap.includes('BACK_ROOM_ROLES') || !worldmap.includes('customer-mode') || !portal.includes('worldmap.html?role=admin')) {
+  fail('World map must separate customer view from sales/admin back-room intelligence');
+}
+if (!worldmap.includes('src="./lib/globe.gl.min.js"')) {
+  fail('3D globe must use the local World Monitor globe.gl bundle, not a CDN-only runtime');
+}
+if (!fs.existsSync(path.join(ROOT, 'lib', 'globe.gl.min.js'))) {
+  fail('3D globe runtime missing: lib/globe.gl.min.js');
+}
+for (const texture of ['earth-topo-bathy.jpg', 'night-sky.png']) {
+  if (!fs.existsSync(path.join(ROOT, 'textures', texture))) fail(`3D globe texture missing: textures/${texture}`);
 }
 if (!fs.existsSync(path.join(ROOT, 'img', 'world-map-110m.svg'))) {
   fail('Generated world map asset is missing: img/world-map-110m.svg');

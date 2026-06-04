@@ -330,6 +330,7 @@
     .footer-bottom { padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .footer-bottom p { font-size: 12px; color: var(--muted); }
     .shipping-map-section { padding: 0 24px 34px; background: var(--surface); }
+    #global-shipping-map { scroll-margin-top: 72px; }
     .shipping-map-shell { max-width: 1280px; margin: 0 auto; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: linear-gradient(180deg,#f8fcf9,#eef7f2); box-shadow: 0 18px 46px rgba(31,91,47,.08); }
     .shipping-map-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); }
     .shipping-map-head h2 { font-size: clamp(22px,3vw,32px); line-height: 1.1; color: var(--green2); font-weight: 800; }
@@ -1226,6 +1227,32 @@ function selectShippingRoute(key, btn) {
   const now = new Date();
   el.textContent = now.toISOString().slice(11,16) + ' UTC route preview';
   setTimeout(updateShippingClock, 60000);
+})();
+(function focusShippingMapOnLanding(){
+  const hash = window.location.hash;
+  if (hash && hash !== '#global-shipping-map') return;
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  let userMoved = false;
+  const markUserMoved = () => { userMoved = true; };
+  ['wheel','touchstart','keydown','mousedown'].forEach(type => {
+    window.addEventListener(type, markUserMoved, { once: true, passive: true });
+  });
+  const placeMap = () => {
+    if (userMoved) return;
+    const target = document.getElementById('global-shipping-map');
+    if (!target) return;
+    const nav = document.querySelector('nav');
+    const navOffset = nav ? Math.ceil(nav.getBoundingClientRect().height) + 10 : 72;
+    const top = target.getBoundingClientRect().top + window.scrollY - navOffset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+  };
+  [0, 120, 360, 720, 1200, 1900, 2800, 3900].forEach(delay => setTimeout(placeMap, delay));
+  window.addEventListener('load', () => {
+    placeMap();
+    setTimeout(placeMap, 250);
+    setTimeout(placeMap, 900);
+    setTimeout(placeMap, 1800);
+  }, { once: true });
 })();
 </script>
 
@@ -3748,9 +3775,9 @@ setCount('cShipping',138);
     guinea: { flag:'🇬🇳', country:'Guinea — Guinée', swatches:['#FFFAF0','#CE1126','#009460'], note:'West African flag tricolour (red/yellow/green) is culturally dominant. Conakry buyers are emerging-market importers; volume deals and fleet purchases common. French is the business language. Emphasize: durability, spare parts availability, and local dealer support.' },
     burkinafaso: { flag:'🇧🇫', country:'Burkina Faso — Burkina Faso', swatches:['#FFFDF0','#EF2B2D','#00A000'], note:'Bold colour-block design with red, yellow, green. Landlocked country — all vehicles are imports. Ouagadougou buyers focus on reliability, fuel economy, and ground clearance (unpaved roads common). French business language. Compact SUVs and pickups are preferred body types.' },
     ethiopia: { flag:'🇪🇹', country:'Ethiopia — ኢትዮጵያ', swatches:['#F0FFF0','#DA121A','#1E8020'], note:'One of Africa\'s fastest-growing economies. Ancient civilization (3,000+ years) with unique cultural pride. CRITICAL: avoid all-black backgrounds — associated with mourning. Red + green + yellow is the pan-African tricolour. Addis Ababa buyers are educated and growth-oriented. Amharic + English. EVs gaining traction due to hydro-powered electricity.' },
-    centralasia: { flag:'🌐', country:'Central Asia — Орта Азия', swatches:['#F4F8FF','#3A80CC','#8B5914'], note:'Sky blue + earth brown reflects the Silk Road steppes and Central Asian ikat/suzani textile tradition. Low-saturation, stable design preferred. Business culture is relationship-first, post-Soviet formal. Russian + local language expected. Kazakhstan and Uzbekistan are the main volume markets. Winters are harsh — buyers value heated seats, AWD, and reliability in extreme cold.' },
-    'seasia-islamic': { flag:'🕌', country:'SE Asia Islamic — Asia Tenggara', swatches:['#F5FFF8','#1A8A58','#A8DDEE'], note:'Indonesia + Malaysia + Brunei — world\'s largest Muslim population block. Grass green + white is the Islamic aesthetic. Halal certification awareness matters in all marketing. Ramadan and Eid are peak buying seasons. Indonesian buyers: practical, value-focused, family vehicles. Malaysian buyers: brand-conscious, premium aspirational. Light blue accent reflects the Pacific/Indian Ocean maritime identity.' },
-    'seasia-buddhist': { flag:'🛕', country:'SE Asia Buddhist — เอเชียตะวันออกเฉียงใต้', swatches:['#FFFBEC','#D42B20','#007878'], note:'Thailand + Cambodia + Myanmar. Temple gold + vermilion red is the sacred Buddhist aesthetic. Avoid: disrespecting the monarchy (Thailand), depicting Buddha in commercial contexts. Thai buyers: status-conscious, brand-loyal, prefer showroom experience. Teak green/teal represents prosperity in Thai culture. Patient, long-term relationship building is essential before a deal closes.' },
+    centralasia: { flag:'CA', country:'Central Asia — Орта Азия', swatches:['#F4F8FF','#3A80CC','#8B5914'], note:'Sky blue + earth brown reflects the Silk Road steppes and Central Asian ikat/suzani textile tradition. Low-saturation, stable design preferred. Business culture is relationship-first, post-Soviet formal. Russian + local language expected. Kazakhstan and Uzbekistan are the main volume markets. Winters are harsh — buyers value heated seats, AWD, and reliability in extreme cold.' },
+    'seasia-islamic': { flag:'SEA', country:'SE Asia Islamic — Asia Tenggara', swatches:['#F5FFF8','#1A8A58','#A8DDEE'], note:'Indonesia + Malaysia + Brunei — world\'s largest Muslim population block. Grass green + white is the Islamic aesthetic. Halal certification awareness matters in all marketing. Ramadan and Eid are peak buying seasons. Indonesian buyers: practical, value-focused, family vehicles. Malaysian buyers: brand-conscious, premium aspirational. Light blue accent reflects the Pacific/Indian Ocean maritime identity.' },
+    'seasia-buddhist': { flag:'SEA', country:'SE Asia Buddhist — เอเชียตะวันออกเฉียงใต้', swatches:['#FFFBEC','#D42B20','#007878'], note:'Thailand + Cambodia + Myanmar. Temple gold + vermilion red is the sacred Buddhist aesthetic. Avoid: disrespecting the monarchy (Thailand), depicting Buddha in commercial contexts. Thai buyers: status-conscious, brand-loyal, prefer showroom experience. Teak green/teal represents prosperity in Thai culture. Patient, long-term relationship building is essential before a deal closes.' },
   };
 
   function applyTheme(key, flag, label) {

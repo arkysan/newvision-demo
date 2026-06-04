@@ -128,6 +128,9 @@ body.embed-mode #left,
 body.embed-mode #right{display:none!important}
 body.embed-mode #shell{height:100vh!important;display:block!important}
 body.embed-mode #map-wrap{position:fixed!important;inset:0!important;width:100%!important;height:100%!important}
+body.customer-mode #right,
+body.customer-mode #briefBtn,
+body.customer-mode #backPortalBtn{display:none!important}
 /* leaflet overrides */
 .leaflet-container{background:#091410}
 .leaflet-tile-pane{opacity:.85}
@@ -168,7 +171,11 @@ body.embed-mode #map-wrap{position:fixed!important;inset:0!important;width:100%!
   flex-direction:column;align-items:center;justify-content:center;
 }
 #globe-wrap.show{display:flex}
-#globe-canvas{width:100%;height:100%}
+#globe-canvas{position:relative;width:100%;height:100%;overflow:hidden}
+#globe-canvas canvas{position:absolute!important;inset:0;width:100%!important;height:100%!important}
+.globe-fallback{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:24px;color:var(--muted)}
+.globe-fallback strong{color:var(--green4);font-size:15px}
+.globe-fallback span{max-width:360px;font-size:12px;line-height:1.5}
 #globe-close{position:absolute;top:14px;right:16px;background:rgba(0,0,0,.5);border:1px solid var(--border);color:var(--ink);border-radius:8px;padding:7px 14px;font-weight:700;font-size:12px}
 
 /* ─── RIGHT PANEL ────────────────────────────────────────── */
@@ -289,7 +296,7 @@ body.embed-mode #map-wrap{position:fixed!important;inset:0!important;width:100%!
         <div class="idle-msg">
           <div class="im-icon">🛳️</div>
           <div class="im-title">Track any vessel</div>
-          <div class="im-sub">Enter your NVS shipment ID, IMO number, or vessel name.<br><br>The map shows live New Vision trade routes, global risk zones, and destination ports.</div>
+          <div class="im-sub">Enter your NVS shipment ID, IMO number, or vessel name.<br><br>The customer map shows New Vision trade routes and destination ports.</div>
         </div>
       </div>
     </div>
@@ -360,7 +367,7 @@ body.embed-mode #map-wrap{position:fixed!important;inset:0!important;width:100%!
 <!-- Leaflet -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <!-- Globe.gl for 3D -->
-<script src="https://unpkg.com/globe.gl@2.31.1/dist/globe.gl.min.js"></script>
+<script src="./lib/globe.gl.min.js"></script>
 
 <script>
 /* ── CONFIG ───────────────────────────────────────────────── */
@@ -370,6 +377,11 @@ const IS_STATIC = ['localhost','127.0.0.1','arkysan.github.io'].includes(locatio
 const API_BASE  = IS_STATIC ? VERCEL_ORIGIN : '';
 const API_WM    = API_BASE + '/api/worldmap';
 const API_PORTAL= API_BASE + '/api/portal';
+const MAP_PARAMS = new URLSearchParams(location.search);
+const MAP_ROLE = (MAP_PARAMS.get('role') || 'customer').toLowerCase();
+const BACK_ROOM_ROLES = new Set(['sales','andy','eissa','owner','admin','master','arky']);
+const BACK_ROOM_VIEW = BACK_ROOM_ROLES.has(MAP_ROLE);
+document.body.classList.add(BACK_ROOM_VIEW ? 'backroom-mode' : 'customer-mode');
 
 const $ = id => document.getElementById(id);
 
@@ -674,6 +686,10 @@ async function search(){
 
 /* ── EVENTS & PORTS ─────────────────────────────────────── */
 async function loadEventsAndPorts(){
+  if(!BACK_ROOM_VIEW){
+    drawRiskZones([]);
+    return;
+  }
   // Events — all live sources in parallel
   try{
     const r=await fetch(`${API_WM}?action=events`).then(x=>x.json());
@@ -822,7 +838,11 @@ function renderBrief(r){
 }
 
 /* ── 3D GLOBE ────────────────────────────────────────────── */
-let globeInited=false, globe3d=null;
+const GLOBE_TEXTURES={
+  earth:'./textures/earth-topo-bathy.jpg',
+  sky:'./textures/night-sky.png',
+};
+let globeInited=false, globe3d=null, globeResizeBound=false;
 function toggle3D(){
   const wrap=$('globe-wrap');
   const on=wrap.classList.toggle('show');
@@ -831,48 +851,101 @@ function toggle3D(){
   if(on && !globeInited) initGlobe();
 }
 
+function showGlobeFallback(message){
+  const target=$('globe-canvas');
+  target.innerHTML=`<div class="globe-fallback"><strong>3D globe unavailable</strong><span>${esc(message)}</span></div>`;
+}
+
+function resizeGlobe(){
+  if(!globe3d) return;
+  const target=$('globe-canvas');
+  const w=target.clientWidth||window.innerWidth||800;
+  const h=target.clientHeight||window.innerHeight||600;
+  globe3d.width(w).height(h);
+}
+
 function initGlobe(){
   globeInited=true;
-  globe3d=Globe()($('globe-canvas'))
-    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-    .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
-    .width($('globe-canvas').offsetWidth||800)
-    .height($('globe-canvas').offsetHeight||600)
-    .showAtmosphere(true)
-    .atmosphereColor('#43A047')
-    .atmosphereAltitude(0.15);
+  const target=$('globe-canvas');
+  target.innerHTML='';
+  if(typeof Globe!=='function'){
+    showGlobeFallback('The 3D globe library did not load. The live 2D route map remains available.');
+    return;
+  }
+  try{
+    const w=target.clientWidth||window.innerWidth||800;
+    const h=target.clientHeight||window.innerHeight||600;
+    globe3d=Globe({
+      animateIn:false,
+      rendererConfig:{
+        powerPreference:'high-performance',
+        antialias:(window.devicePixelRatio||1)>1,
+        logarithmicDepthBuffer:true,
+      },
+    })(target)
+      .globeImageUrl(GLOBE_TEXTURES.earth)
+      .backgroundImageUrl(GLOBE_TEXTURES.sky)
+      .width(w)
+      .height(h)
+      .showAtmosphere(true)
+      .atmosphereColor('#43A047')
+      .atmosphereAltitude(0.15);
 
-  // Trade route arcs
-  const arcs=ROUTES.map(r=>{
-    const pts=r.pts;
-    return {
-      startLat: pts[0][0], startLng: pts[0][1],
-      endLat:   pts[pts.length-1][0], endLng: pts[pts.length-1][1],
-      color:    r.color, label: r.name,
-    };
-  });
-  globe3d.arcsData(arcs)
-    .arcColor('color').arcDashLength(0.6).arcDashGap(0.3)
-    .arcDashAnimateTime(2500).arcStroke(0.5).arcLabel('label');
+    const canvas=target.querySelector('canvas');
+    if(canvas){
+      canvas.style.cssText='position:absolute;top:0;left:0;width:100% !important;height:100% !important;';
+      canvas.addEventListener('webglcontextlost',(e)=>{
+        e.preventDefault();
+        showGlobeFallback('WebGL context was lost. Close and reopen the globe, or use the live 2D map.');
+      });
+    }
 
-  // Port markers
-  const portData=Object.entries(PORTS_MAP).map(([n,p])=>({lat:p[0],lng:p[1],label:n,isOrigin:n==='Shanghai'}));
-  globe3d.pointsData(portData)
-    .pointLat('lat').pointLng('lng').pointLabel('label')
-    .pointColor(d=>d.isOrigin?'#C9A24B':'#43A047').pointRadius(0.5).pointAltitude(0.01);
+    // Trade route arcs
+    const arcs=ROUTES.map(r=>{
+      const pts=r.pts;
+      return {
+        startLat: pts[0][0], startLng: pts[0][1],
+        endLat:   pts[pts.length-1][0], endLng: pts[pts.length-1][1],
+        color:    r.color, label: r.name,
+      };
+    });
+    globe3d.arcsData(arcs)
+      .arcColor('color').arcDashLength(0.6).arcDashGap(0.3)
+      .arcDashAnimateTime(2500).arcStroke(0.5).arcLabel('label');
 
-  // Auto-rotate
-  globe3d.controls().autoRotate=true;
-  globe3d.controls().autoRotateSpeed=0.5;
-  globe3d.pointOfView({lat:10,lng:70,altitude:2});
+    // Port markers
+    const portData=Object.entries(PORTS_MAP).map(([n,p])=>({lat:p[0],lng:p[1],label:n,isOrigin:n==='Shanghai'}));
+    globe3d.pointsData(portData)
+      .pointLat('lat').pointLng('lng').pointLabel('label')
+      .pointColor(d=>d.isOrigin?'#C9A24B':'#43A047').pointRadius(0.5).pointAltitude(0.01);
+
+    const controls=globe3d.controls();
+    controls.autoRotate=true;
+    controls.autoRotateSpeed=0.3;
+    controls.enablePan=false;
+    controls.enableZoom=true;
+    controls.zoomSpeed=1.4;
+    controls.enableDamping=true;
+
+    globe3d.pointOfView({lat:10,lng:70,altitude:2});
+    window.__newVisionGlobe=globe3d;
+    if(!globeResizeBound){
+      globeResizeBound=true;
+      window.addEventListener('resize',resizeGlobe);
+    }
+    requestAnimationFrame(resizeGlobe);
+  }catch(err){
+    console.error('[New Vision] 3D globe init failed',err);
+    globe3d=null;
+    showGlobeFallback('The 3D globe could not start on this browser. The live 2D route map remains available.');
+  }
 }
 
 /* ── URL PARAMS (auto-search from ?id=) ──────────────────── */
 (function(){
-  const id=new URLSearchParams(location.search).get('id');
-  const role=new URLSearchParams(location.search).get('role');
-  if(role==='sales'){ $('backSalesBtn').style.display=''; $('backPortalBtn').style.display='none'; }
+  const id=MAP_PARAMS.get('id');
+  const role=MAP_ROLE;
+  if(role==='sales'||role==='andy'||role==='eissa'){ $('backSalesBtn').style.display=''; $('backPortalBtn').style.display='none'; }
   if(id){ $('qInput').value=id; search(); }
 })();
 

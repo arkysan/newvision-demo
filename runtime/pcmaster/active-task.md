@@ -1,10 +1,12 @@
 # Active Task
 
-Task id: `NEWVISION-EXPORT-DEAL-DESK-20260603`
+Task id: `NEWVISION-GITHUB-PAGES-WORLDMAP-GATE-20260605`
 
 Objective:
-- Keep GitHub Pages and Vercel as identical public buyer surfaces.
-- Upgrade the public buyer journey into an Export Deal Desk: inventory card -> vehicle detail page -> export quote preview -> `NVQ` quote capture -> WhatsApp sales handoff -> tracking link.
+- Repair the main public GitHub Pages gate at `https://arkysan.github.io/newvision-demo/`.
+- Publish the current world-map/watchboard entry path into GitHub source so `worldmap.html` is no longer missing from GitHub Pages.
+- Keep Vercel, Cloudflare Pages, mirror repo, jsDelivr, and `arksystem.ai` out of this pass until the owner explicitly asks for those deployments.
+- Preserve the existing Export Deal Desk buyer journey: inventory card -> vehicle detail page -> export quote preview -> `NVQ` quote capture -> WhatsApp sales handoff -> tracking link.
 - Preserve the green/white New Vision identity and public/private data separation.
 - Surface quote-preview fields in sales and owner portals without letting sales users access owner-only panels.
 
@@ -15,6 +17,11 @@ Allowed files:
 - `sales.html`
 - `portal.html`
 - `api/lead.js`
+- `api/worldmap.js`
+- `api/worldmap-watch.js`
+- `worldmap.html`
+- `vercel.json`
+- `scripts/newvision-deploy-drift-check.js`
 - `scripts/newvision-static-check.js`
 - `sitemap.xml`
 - `runtime/pcmaster/*`
@@ -34,11 +41,19 @@ Test commands:
 
 Rollback path:
 - Revert only the files listed in Allowed files for this task.
-- If public deployment is performed, restore the previous commit on GitHub Pages and redeploy the prior Vercel production deployment.
+- If GitHub Pages deployment is performed, restore the previous commit on `master` with a targeted revert.
+- Do not deploy or modify Vercel, Cloudflare Pages, mirror repo, jsDelivr, `newvision.pages.dev`, or `arksystem.ai` in this pass.
 - Do not use destructive git reset or checkout against unrelated dirty work.
 
 Status:
-- `PASS`: local syntax/static/PCMaster checks passed.
-- `PASS`: local desktop/phone rendered proof passed for inventory cards, vehicle detail page, quote preview, query prefill, mocked `NVQ` capture, validation, API-unavailable fallback, bad stock state, and role boundary.
-- `PASS`: `master` pushed to GitHub, Vercel production deployed, deploy-drift check passed, and live rendered proof passed on both public surfaces.
+- `PASS LOCAL`: Customer main page now places `#global-shipping-map` directly below `#vehicleGrid`.
+- `PASS LOCAL`: Customer/default world map hides the World Events panel and skips risk-zone overlays; back-room roles `sales`, `andy`, `eissa`, `owner`, `admin`, `master`, and `arky` keep world-event intelligence.
+- `PASS LOCAL`: Owner/admin portal links open `worldmap.html?role=admin`; Andy/Eissa sales links open `worldmap.html?role=sales`.
+- `PASS LOCAL`: 3D globe repaired locally with copied World Monitor `lib/globe.gl.min.js` and World Monitor texture assets.
+- `LOCAL ONLY`: Latest map-placement and role-split changes are not committed, pushed, or deployed yet.
+- `PASS`: GitHub Pages main gate is live and includes `worldmap.html`.
+- `PASS`: local `npm test` and worldmap syntax checks passed after removing emoji-style UI markers from `index.html`.
+- `PASS`: live fetch proof returned `200` for `/`, `/worldmap.html`, `/track.html`, and `/vehicle.html?id=NV-2026-0001` on GitHub Pages.
+- `PASS`: rendered browser proof passed on desktop and `390x844` phone for the GitHub Pages home and world-map page.
+- `LOCAL CLEANUP PENDING COMMIT`: `index.html` static-guard cleanup and PCMaster proof/status updates are local changes only until owner requests commit.
 - `BLOCKED`: CMS live editor publish still requires `NEWVISION_ADMIN_TOKEN` and Vercel Blob storage.

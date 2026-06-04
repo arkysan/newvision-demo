@@ -2,6 +2,24 @@
 
 Status: PASS
 
+GitHub Pages main-gate repair proof:
+- Time: `2026-06-05 02:45 Asia/Shanghai`.
+- Source of truth: `C:\Users\ARKAI\Desktop\newvision-demo`.
+- Branch: `master`.
+- Scope: GitHub Pages main gate only; Vercel, Cloudflare Pages, mirror repo, jsDelivr, exact `newvision.pages.dev`, and `arksystem.ai` are intentionally out of scope until owner asks.
+- Live pre-check: `https://arkysan.github.io/newvision-demo/` returned `200` with New Vision signals.
+- Live pre-check: `https://arkysan.github.io/newvision-demo/worldmap.html` returned `404`, confirming the main gate is missing the world-map page.
+- Local source fix: `index.html` emoji-style UI characters were replaced with ASCII labels so the existing static guard stays strict.
+- Local syntax proof: `node --check api/worldmap.js`, `node --check api/worldmap-watch.js`, and `node --check scripts/newvision-static-check.js` passed.
+- Local static proof: `npm test` passed with `ok: true`, `vehicles: 35`, `vehicleImages: 35`.
+- Live GitHub Pages proof after source commit `05d7bfe`: `/`, `/worldmap.html`, `/track.html`, and `/vehicle.html?id=NV-2026-0001` all returned `200`.
+- Rendered desktop proof on `https://arkysan.github.io/newvision-demo/`: 35 vehicle cards, live ship tracker present, world-map links point to `/worldmap.html`, no horizontal overflow.
+- Rendered desktop proof on `https://arkysan.github.io/newvision-demo/worldmap.html`: map element present, 108 Leaflet tiles, 23 route/overlay elements, event panel populated, port panel populated, no horizontal overflow.
+- Rendered phone proof at `390x844` on home: 35 vehicle cards, mobile burger visible, live ship tracker present, no horizontal overflow.
+- Rendered phone proof at `390x844` on `/worldmap.html`: map width `390`, map height `792`, 24 tiles, search input present, port panel present, no horizontal overflow.
+- Console note: one browser console error was `https://arkysan.github.io/favicon.ico` 404; no New Vision route or world-map data route failure was observed.
+- Local cleanup pending commit: `index.html` static-guard cleanup and PCMaster proof/status updates remain local until owner requests commit.
+
 Live deploy proof:
 - `git commit`: `83e8c2e feat: publish New Vision feedback quote flow`.
 - `git push origin master`: PASS, `7c721c7..83e8c2e master -> master`.
@@ -130,3 +148,28 @@ Export Deal Desk live sync proof:
 - `npm run check:deploy-drift`: PASS; Vercel and GitHub both returned `mapped` with normalized hash `c8e1c3fc1b074c11`.
 - Public fetch proof: both `https://arkysan.github.io/newvision-demo/` and `https://newvision-demo.vercel.app/` served `arkreview.js?v=20260603-annotation-fix`, `View full deal`, `quotePreview`, and `vehicleDealUrl`.
 - Live rendered proof: Playwright passed on both public URLs for 35 inventory cards, 35 full-deal links, `vehicle.html?id=NV-2026-0001`, no private VIN/back-room copy, phone `390x844` no horizontal overflow, quote preview, and mocked `NVQ-LIVE-MOCK` dispatch/tracking link.
+
+Customer map placement and back-room split proof:
+- Time: `2026-06-05 03:46 Asia/Shanghai`.
+- Source of truth: `C:\Users\ARKAI\Desktop\newvision-demo`.
+- Scope: local GitHub-main-gate repair only; no Vercel, Cloudflare, jsDelivr, or `arksystem.ai` deployment touched.
+- Customer placement: rendered `http://127.0.0.1:52452/` found exactly one `#global-shipping-map`, placed after `#vehicleGrid` and before the post-inventory category band.
+- Customer map embed: iframe `src="./worldmap.html?embed=1"`, accessible title present, `allow="geolocation"` present, 36 loaded Leaflet tiles in the embed.
+- Customer privacy split: public home text did not contain `World Intelligence` or `Active Shipping Alerts`; embedded customer map had `customer-mode embed-mode`, `#right` hidden, `#left` hidden, `#hdr` hidden, and `riskLayers=0`.
+- Route board proof: 6 `#shippingRouteTabs` buttons; selecting Europe changed board title to `Europe destination lane` and transit to `28–42 days`.
+- Back-room proof: `worldmap.html?role=admin` had `backroom-mode`, `#right` visible, route brief visible, owner portal visible, and `riskLayers=9`.
+- Customer standalone proof: `worldmap.html` had `customer-mode`, world events panel hidden, route brief hidden, owner portal hidden, `riskLayers=0`, and 40 loaded map tiles.
+- 3D globe proof: desktop `worldmap.html` loaded `./lib/globe.gl.min.js`, click rendered overlay with 1 canvas, canvas `980x848`, `window.__newVisionGlobe=true`, auto-rotate true, zoom true, pan false, no fallback text, and no relevant console errors.
+- 3D globe phone proof: `390x844` rendered overlay with 1 canvas, canvas `390x792`, `window.__newVisionGlobe=true`, no fallback text.
+- Mobile placement proof: `390x844` home rendered map iframe `360x380`, route board position `static`, 6 tabs, and no horizontal overflow.
+- Syntax/static proof: `node --check scripts/newvision-static-check.js`, `node --check api/worldmap.js`, `node --check api/worldmap-watch.js`, `npm test`, and `npm run check:pcmaster` passed.
+- Screenshots: `C:\Users\ARKAI\AppData\Local\Temp\newvision-proof\main-map-after-inventory.png`, `C:\Users\ARKAI\AppData\Local\Temp\newvision-proof\worldmap-3d-globe-desktop.png`, `C:\Users\ARKAI\AppData\Local\Temp\newvision-proof\main-map-mobile.png`, `C:\Users\ARKAI\AppData\Local\Temp\newvision-proof\worldmap-3d-globe-mobile.png`.
+
+GitHub Pages start-position proof:
+- Time: `2026-06-05 04:17 Asia/Shanghai`.
+- Source of truth: `C:\Users\ARKAI\Desktop\newvision-demo`.
+- Request: make `https://arkysan.github.io/newvision-demo/` start/refresh at the customer route-map position.
+- Local rendered proof: `http://127.0.0.1:52452/` with no hash landed with `#global-shipping-map` top at `74px` under sticky nav height `64px`.
+- Hash-safety proof: `http://127.0.0.1:52452/#inventory` kept `#inventory` at `82px` and did not force the map.
+- Console proof: no browser errors in the rendered check.
+- Static proof: `npm test`, `npm run check:pcmaster`, and `node --check scripts/newvision-static-check.js` passed.
