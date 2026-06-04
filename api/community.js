@@ -4,6 +4,7 @@
 
 const SB_URL  = process.env.SUPABASE_URL  || 'https://jzsfacnzztutqzlfkbqf.supabase.co';
 const SB_ANON = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6c2ZhY256enR1dHF6bGZrYnFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyNzY1NjIsImV4cCI6MjA4NTg1MjU2Mn0.NuZytQ94TkYGwk2wCr57wqRXSAV7pZ-Ag1YSfmxwl-0';
+const SB_SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const ADMIN   = process.env.NEWVISION_ADMIN_TOKEN || '';
 
 const CORS = {
@@ -14,12 +15,12 @@ const CORS = {
 };
 
 // ── Supabase REST helper ─────────────────────────────────────
-async function sb(path, opts = {}, jwt = null) {
+async function sb(path, opts = {}, jwt = null, apiKey = SB_ANON) {
   const hdrs = {
-    'apikey': SB_ANON,
+    'apikey': apiKey,
     'Content-Type': 'application/json',
     'Prefer': 'return=representation',
-    'Authorization': `Bearer ${jwt || SB_ANON}`,
+    'Authorization': `Bearer ${jwt || apiKey}`,
     ...opts.headers,
   };
   const r = await fetch(`${SB_URL}${path}`, { ...opts, headers: hdrs });
@@ -99,15 +100,22 @@ module.exports = async function handler(req, res) {
 
     // ── POSTS (create — admin only) ───────────────────────────
     if (action === 'posts' && req.method === 'POST') {
-      if (!body.admin_token || body.admin_token !== ADMIN) {
+      if (!ADMIN || !body.admin_token || body.admin_token !== ADMIN) {
         return res.status(403).json({ ok: false, error: 'Admin token required' });
+      }
+      if (!SB_SERVICE) {
+        return res.status(503).json({
+          ok: false,
+          code: 'missing_supabase_service_role',
+          error: 'Set SUPABASE_SERVICE_ROLE_KEY in the deployment environment for admin post writes. Do not read local .env service-role keys.',
+        });
       }
       const { title, content, category, author_name, cover_url } = body;
       if (!title || !content) return res.status(400).json({ ok: false, error: 'title and content required' });
       const r = await sb('/rest/v1/posts', {
         method: 'POST',
         body: JSON.stringify({ title, content, category: category || 'news', author_name: author_name || 'New Vision Team', cover_url: cover_url || null }),
-      });
+      }, null, SB_SERVICE);
       return res.status(r.ok ? 200 : 400).json(r.ok ? { ok: true, post: r.data?.[0] } : { ok: false, error: 'Failed to create post' });
     }
 

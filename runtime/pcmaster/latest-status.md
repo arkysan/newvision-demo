@@ -1,6 +1,6 @@
 # Latest Status
 
-Generated: `2026-06-05 04:56 Asia/Shanghai`
+Generated: `2026-06-05 05:04 Asia/Shanghai`
 
 Project:
 - New Vision vehicle website
@@ -12,6 +12,11 @@ Current branch:
 - `master`
 
 Status:
+- `PASS LOCAL`: Claude/community Supabase work was checked; no local `.env` service-role key read is needed or approved.
+- `PASS LOCAL`: `api/community.js` now uses `SUPABASE_SERVICE_ROLE_KEY` only from deployment environment for admin post writes and returns `missing_supabase_service_role` if that env is absent.
+- `PASS LOCAL`: `supabase-schema.sql` no longer leaves `posts` insert/update open to public anon writes; direct post writes require authenticated admin policy or server-side service-role env.
+- `BLOCKED BY DESIGN`: Do not flip automatic approval for Supabase service-role key reads. If the key is needed, set it as a deployment/GitHub/Vercel secret through CLI, not by reading local `.env`.
+- `CHINA MIRROR DRIFT FOUND`: GitHub Pages is current, but `arkysan/newvision@main` / jsDelivr and Seattle are missing the new `brands.html` page until ARKV2 `docs/newvision` is synced and pushed.
 - `PASS LOCAL`: Desktop and mobile Brands navigation now opens `brands.html` instead of only jumping into the inventory filter area.
 - `PASS LOCAL`: `brands.html` renders a premium brand catalog from `data/vehicles.json`, showing 23 brand cards, 35 public vehicles, 21 stocked premium picks, and 2 honest sourcing request lanes.
 - `PASS LOCAL`: Brand quote buttons hand off to the main quote form through `newvision.prefillQuote`; rendered proof filled `#qMsg` with the selected premium brand request.

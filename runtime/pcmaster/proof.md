@@ -199,3 +199,21 @@ Premium brands GitHub Pages live proof:
 - Live map proof: `https://arkysan.github.io/newvision-demo/worldmap.html?embed=1` loaded Leaflet from `https://arkysan.github.io/newvision-demo/lib/leaflet/leaflet.js`, rendered 60 tiles, and hid embed chrome.
 - Live 3D globe proof: `https://arkysan.github.io/newvision-demo/worldmap.html` click on `#view3dBtn` rendered 1 canvas, no fallback text, and no browser console errors.
 - Live phone proof: `390x844` on `/brands.html` rendered 23 cards with `scrollWidth=390`, no horizontal overflow, and edit link `./brands.html?arkedit=1`.
+
+Community/Supabase approval boundary proof:
+- Time: `2026-06-05 05:04 Asia/Shanghai`.
+- Source checked: `api/community.js`, `community.html`, `supabase-schema.sql`, `scripts/newvision-static-check.js`.
+- Finding: Claude/community work used a public Supabase anon key in code and did not require reading a local service-role key for normal register/login/posts/comments/follow flows.
+- Risk found: `supabase-schema.sql` previously allowed `posts` insert/update with `with check (true)` / `using (true)`, which could let public anon clients write directly if they bypassed the New Vision API.
+- Fix: `api/community.js` now reads `SUPABASE_SERVICE_ROLE_KEY` only from deployment environment for admin post writes and returns `missing_supabase_service_role` with the message `Do not read local .env service-role keys` when it is absent.
+- Fix: `supabase-schema.sql` now drops the old open `Service can insert/update posts` policies and replaces them with authenticated-admin policies; server-side service-role env can still perform admin writes without exposing the key to the browser.
+- Approval decision: local `.env` service-role key reads are not approved. The approved path is CLI-managed deployment secret setup when the owner provides the token/key explicitly for that purpose.
+- Verification: `node --check api/community.js`, `node --check scripts/newvision-static-check.js`, `npm test`, and `npm run check:pcmaster` passed.
+
+China mirror drift proof:
+- Time: `2026-06-05 05:04 Asia/Shanghai`.
+- `https://cdn.jsdelivr.net/gh/arkysan/newvision@main/index.html`: `200`, New Vision present, but no `brands.html`/Premium Brand Catalog signal.
+- `https://cdn.jsdelivr.net/gh/arkysan/newvision@main/brands.html`: missing/error.
+- `https://seattle-desktop-rtx5090.tail810c5e.ts.net/`: `200`, New Vision present, but no `brands.html` signal.
+- `https://seattle-desktop-rtx5090.tail810c5e.ts.net/brands.html`: missing/error.
+- Deduction: GitHub Pages is current, but China mirror surfaces need ARKV2 `docs/newvision` sync/push before they carry the new premium brand page.

@@ -40,8 +40,15 @@ create table if not exists public.posts (
 );
 alter table public.posts enable row level security;
 create policy "Posts viewable by all"      on public.posts for select using (true);
-create policy "Service can insert posts"   on public.posts for insert with check (true);
-create policy "Service can update posts"   on public.posts for update using (true);
+drop policy if exists "Service can insert posts" on public.posts;
+drop policy if exists "Service can update posts" on public.posts;
+create policy "Authenticated admins can insert posts" on public.posts
+  for insert
+  with check ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
+create policy "Authenticated admins can update posts" on public.posts
+  for update
+  using ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin')
+  with check ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
 
 -- ── COMMENTS ────────────────────────────────────────────────
 create table if not exists public.comments (

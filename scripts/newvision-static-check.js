@@ -9,6 +9,8 @@ const portal = fs.readFileSync(path.join(ROOT, 'portal.html'), 'utf8');
 const sales = fs.readFileSync(path.join(ROOT, 'sales.html'), 'utf8');
 const worldmap = fs.readFileSync(path.join(ROOT, 'worldmap.html'), 'utf8');
 const brands = fs.readFileSync(path.join(ROOT, 'brands.html'), 'utf8');
+const communityApi = fs.readFileSync(path.join(ROOT, 'api', 'community.js'), 'utf8');
+const supabaseSchema = fs.readFileSync(path.join(ROOT, 'supabase-schema.sql'), 'utf8');
 const review = fs.readFileSync(path.join(ROOT, 'arkreview.js'), 'utf8');
 const cms = fs.readFileSync(path.join(ROOT, 'api', 'cms.js'), 'utf8');
 const vehiclesApi = fs.readFileSync(path.join(ROOT, 'api', 'vehicles.js'), 'utf8');
@@ -338,6 +340,24 @@ const requiredBrandCatalogControls = [
 ];
 for (const [snippet, message] of requiredBrandCatalogControls) {
   if (!(html.includes(snippet) || brands.includes(snippet))) fail(message);
+}
+
+const requiredCommunitySafetyControls = [
+  ['SUPABASE_SERVICE_ROLE_KEY', 'Community admin post writes must use a deployment env service-role key, never a local .env read'],
+  ['missing_supabase_service_role', 'Community API must fail honestly when the server service-role env is not configured'],
+  ['Do not read local .env service-role keys', 'Community API must document that local service-role .env reads are not required'],
+  ['Authenticated admins can insert posts', 'Supabase schema must restrict direct post inserts instead of open anon writes'],
+  ['Authenticated admins can update posts', 'Supabase schema must restrict direct post updates instead of open anon writes'],
+];
+for (const [snippet, message] of requiredCommunitySafetyControls) {
+  if (!(communityApi.includes(snippet) || supabaseSchema.includes(snippet))) fail(message);
+}
+if (supabaseSchema.includes('create policy "Service can insert posts"   on public.posts for insert with check (true)')
+    || supabaseSchema.includes('create policy "Service can update posts"   on public.posts for update using (true)')) {
+  fail('Supabase posts policies must not allow open insert/update with public anon key');
+}
+if (/SUPABASE_SERVICE_ROLE_KEY\s*\|\|\s*['"][^'"]+/.test(communityApi)) {
+  fail('Community API must not contain a fallback literal Supabase service-role key');
 }
 
 const requiredVehicleApiControls = [
