@@ -11,9 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup wrangler auth
+        run: |
+          mkdir -p ~/.wrangler/config
+          printf 'oauth_token = "%s"\n' "$CF_OAUTH_TOKEN" > ~/.wrangler/config/default.toml
+        env:
+          CF_OAUTH_TOKEN: ${{ secrets.CF_OAUTH_TOKEN }}
+
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: a5c8672c9fe33eaf4fdd0a59d5be43e4
-          command: pages deploy . --project-name=newvision --branch=main
+        run: npx wrangler@4.95.0 pages deploy . --project-name=newvision --branch=main
