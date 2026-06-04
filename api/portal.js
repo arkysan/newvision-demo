@@ -31,6 +31,9 @@ function setCors(req, res) {
   const allowed = new Set([
     'https://arkysan.github.io',
     'https://newvision-demo.vercel.app',
+    'https://newvision-ao6.pages.dev',
+    'https://newvision.pages.dev',
+    'https://newvision-ark.vercel.app',
     'http://localhost:52452',
     'http://127.0.0.1:52452',
   ]);
