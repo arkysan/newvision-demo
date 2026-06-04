@@ -6,7 +6,8 @@
     { "source": "/api/lead",     "destination": "/api/lead.js"     },
     { "source": "/api/portal",         "destination": "/api/portal.js"        },
     { "source": "/api/worldmap",       "destination": "/api/worldmap.js"      },
-    { "source": "/api/worldmap-watch", "destination": "/api/worldmap-watch.js"}
+    { "source": "/api/worldmap-watch", "destination": "/api/worldmap-watch.js"},
+    { "source": "/api/community",     "destination": "/api/community.js"     }
   ],
   "crons": [
     { "path": "/api/worldmap-watch", "schedule": "0 8 * * *" }

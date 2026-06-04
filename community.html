@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>New Vision Community — Follow, Read, Connect</title>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#2E7D32;--green2:#1B5E20;--green3:#388E3C;--green4:#43A047;
+  --bg:#f7fbf7;--surface:#fff;--surface2:#f0f7f0;
+  --border:#D4E4D4;--border2:#B8D0B8;
+  --text:#1A2B1A;--muted:#6A7A6A;--muted2:#3A5A3A;
+  --orange:#E67E00;--red:#C62828;--radius:12px;
+  --gold:#C9A24B;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;min-height:100vh}
+a{color:var(--green);text-decoration:none}
+button{cursor:pointer;font-family:inherit}
+input,textarea,select{font-family:inherit}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+/* ── HEADER ── */
+header{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(46,125,50,.06)}
+.hdr-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.hdr-logo img{height:38px}
+.hdr-title{font-size:13px;font-weight:800;color:var(--green2);letter-spacing:1px}
+.hdr-sub{font-size:10px;color:var(--muted)}
+.hdr-gap{flex:1}
+.hdr-back{border:1px solid var(--border2);background:transparent;color:var(--muted2);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.hdr-back:hover{border-color:var(--green);color:var(--green)}
+.hdr-user{font-size:13px;color:var(--muted2);display:flex;align-items:center;gap:8px}
+.hdr-user strong{color:var(--green2)}
+.hdr-logout{border:none;background:none;color:var(--muted);font-size:12px;cursor:pointer;padding:4px 8px;border-radius:6px}
+.hdr-logout:hover{background:var(--surface2);color:var(--red)}
+
+/* ── LAYOUT ── */
+.page{max-width:1100px;margin:0 auto;padding:28px 20px 60px;display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start}
+@media(max-width:860px){.page{grid-template-columns:1fr;padding:16px 14px 80px}}
+
+/* ── FOLLOW HERO ── */
+.follow-hero{background:linear-gradient(135deg,#0f2518,#1a3a28);border-radius:16px;padding:24px;margin-bottom:22px;color:#e8f5e9}
+.fh-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.fh-info h2{font-size:18px;font-weight:800;color:#81C784;margin-bottom:4px}
+.fh-info p{font-size:13px;color:#7a9e7e;line-height:1.5;max-width:36ch}
+.fh-stats{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
+.fh-stat{text-align:center}
+.fh-stat .n{font-size:22px;font-weight:900;color:#81C784}
+.fh-stat .l{font-size:10px;color:#4a7a4a;text-transform:uppercase;letter-spacing:.5px}
+.btn-follow{padding:10px 22px;border-radius:10px;font-size:14px;font-weight:800;border:2px solid #43A047;background:rgba(67,160,71,.18);color:#81C784;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.btn-follow:hover,.btn-follow.on{background:#2E7D32;border-color:#2E7D32;color:#fff}
+.btn-follow.loading{opacity:.6;pointer-events:none}
+
+/* ── AUTH CARD ── */
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:20px}
+.auth-card h3{font-size:15px;font-weight:800;color:var(--green2);margin-bottom:16px}
+.auth-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:18px}
+.auth-tab{padding:8px 16px;font-size:13px;font-weight:700;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:all .2s}
+.auth-tab.active{color:var(--green);border-bottom-color:var(--green)}
+.form-group{margin-bottom:13px}
+.form-group label{display:block;font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.form-group input{width:100%;border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:14px;color:var(--text);background:var(--surface2);outline:none;transition:border-color .2s}
+.form-group input:focus{border-color:var(--green)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn-submit{width:100%;background:var(--green3);color:#fff;border:none;border-radius:10px;padding:11px;font-size:14px;font-weight:800;transition:background .2s;margin-top:4px}
+.btn-submit:hover{background:var(--green)}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed}
+.auth-msg{margin-top:10px;font-size:13px;padding:9px 12px;border-radius:8px;display:none}
+.auth-msg.ok{background:rgba(46,125,50,.1);color:var(--green2);border:1px solid rgba(46,125,50,.2)}
+.auth-msg.err{background:rgba(198,40,40,.08);color:var(--red);border:1px solid rgba(198,40,40,.15)}
+
+/* ── LOGGED IN PROFILE ── */
+.profile-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:20px}
+.pc-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.pc-avatar{width:44px;height:44px;border-radius:50%;background:var(--green3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;flex-shrink:0}
+.pc-name{font-size:15px;font-weight:800;color:var(--green2)}
+.pc-meta{font-size:11px;color:var(--muted)}
+.pc-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(67,160,71,.1);border:1px solid rgba(67,160,71,.2);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;color:var(--green2)}
+.pc-badge.following{background:rgba(46,125,50,.15);border-color:var(--green3)}
+
+/* ── POSTS FEED ── */
+.feed-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.feed-header h2{font-size:17px;font-weight:800;color:var(--green2)}
+.cat-filters{display:flex;gap:6px;flex-wrap:wrap}
+.cat-btn{border:1px solid var(--border2);background:var(--surface);color:var(--muted2);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700;transition:all .2s}
+.cat-btn.active,.cat-btn:hover{border-color:var(--green);color:var(--green);background:rgba(46,125,50,.06)}
+
+.post-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;transition:box-shadow .2s}
+.post-card:hover{box-shadow:0 6px 24px rgba(46,125,50,.1);border-color:var(--border2)}
+.post-head{padding:18px 18px 12px}
+.post-cat{display:inline-block;background:rgba(46,125,50,.1);color:var(--green2);border-radius:6px;padding:2px 9px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px}
+.post-cat.update{background:rgba(230,126,0,.1);color:var(--orange)}
+.post-cat.market{background:rgba(21,101,192,.1);color:#1565C0}
+.post-title{font-size:16px;font-weight:800;color:var(--text);margin-bottom:6px;line-height:1.3}
+.post-body{font-size:13px;color:var(--muted2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.post-footer{padding:10px 18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface2)}
+.post-meta{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:10px}
+.post-actions{display:flex;gap:8px;align-items:center}
+.btn-read{border:1px solid var(--border2);background:transparent;color:var(--green2);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;transition:all .2s}
+.btn-read:hover{border-color:var(--green);background:rgba(46,125,50,.06)}
+.comment-count{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px}
+
+/* ── POST DETAIL / COMMENTS ── */
+.post-detail{display:none}
+.post-detail.open{display:block}
+.pd-back{border:none;background:none;color:var(--green);font-size:13px;font-weight:700;cursor:pointer;padding:0;margin-bottom:16px;display:flex;align-items:center;gap:5px}
+.pd-full{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.pd-title{font-size:20px;font-weight:800;margin-bottom:8px}
+.pd-content{font-size:14px;color:var(--muted2);line-height:1.7;white-space:pre-wrap}
+.pd-author{font-size:12px;color:var(--muted);margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+
+.comments-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.cs-title{font-size:14px;font-weight:800;color:var(--muted2);margin-bottom:14px}
+.comment-item{padding:12px 0;border-bottom:1px solid var(--border)}
+.comment-item:last-child{border-bottom:none}
+.ci-name{font-size:12px;font-weight:800;color:var(--green2)}
+.ci-time{font-size:11px;color:var(--muted);margin-left:8px}
+.ci-body{font-size:13px;color:var(--text);margin-top:4px;line-height:1.5}
+.no-comments{font-size:13px;color:var(--muted);text-align:center;padding:20px}
+
+.comment-form{margin-top:16px;border-top:1px solid var(--border);padding-top:16px}
+.comment-form textarea{width:100%;border:1px solid var(--border);border-radius:9px;padding:10px 12px;font-size:13px;resize:vertical;min-height:80px;background:var(--surface2);outline:none;transition:border-color .2s}
+.comment-form textarea:focus{border-color:var(--green)}
+.comment-form textarea::placeholder{color:var(--muted)}
+.btn-comment{background:var(--green3);color:#fff;border:none;border-radius:9px;padding:9px 18px;font-size:13px;font-weight:800;margin-top:8px;transition:background .2s}
+.btn-comment:hover{background:var(--green)}
+.login-prompt{font-size:13px;color:var(--muted);background:var(--surface2);border-radius:9px;padding:12px 14px;text-align:center}
+.login-prompt a{color:var(--green);font-weight:700}
+
+/* ── LOADING / EMPTY ── */
+.loading-posts{text-align:center;padding:40px;color:var(--muted)}
+.spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-feed{text-align:center;padding:40px;color:var(--muted);font-size:14px}
+
+/* ── SIDE WIDGET ── */
+.widget{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:18px}
+.widget h3{font-size:13px;font-weight:800;color:var(--green2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.widget-link{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text)}
+.widget-link:last-child{border-bottom:none}
+.widget-link:hover{color:var(--green)}
+.wl-icon{font-size:16px;width:24px;text-align:center}
+.wa-btn{display:flex;align-items:center;gap:8px;background:#25D366;color:#fff;border:none;border-radius:9px;padding:10px 16px;font:700 13px inherit;width:100%;justify-content:center;transition:background .2s;margin-top:8px}
+.wa-btn:hover{background:#22BF5C}
+
+/* mobile app bar */
+.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);padding:8px 16px calc(8px + env(safe-area-inset-bottom));z-index:99}
+@media(max-width:860px){.mob-bar{display:flex;gap:10px;justify-content:center}}
+.mob-btn{flex:1;max-width:160px;background:var(--green3);color:#fff;border:none;border-radius:10px;padding:11px;font:700 14px inherit}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="hdr-logo" href="./">
+    <img src="./img/nvn-logo.webp" alt="New Vision" onerror="this.style.display='none'">
+    <div>
+      <div class="hdr-title">NEW VISION</div>
+      <div class="hdr-sub">Community</div>
+    </div>
+  </a>
+  <div class="hdr-gap"></div>
+  <div class="hdr-user" id="hdrUser" style="display:none">
+    Logged in as <strong id="hdrName"></strong>
+    <button class="hdr-logout" onclick="logout()">Sign out</button>
+  </div>
+  <a class="hdr-back" href="./">← Back to site</a>
+</header>
+
+<div class="page">
+  <!-- ── MAIN COLUMN ── -->
+  <div>
+
+    <!-- Follow Hero -->
+    <div class="follow-hero">
+      <div class="fh-top">
+        <div class="fh-info">
+          <h2>🚗 Follow New Vision</h2>
+          <p>Get updates on new arrivals, market news, shipping alerts, and EV deals — direct from our export team.</p>
+          <div class="fh-stats">
+            <div class="fh-stat"><div class="n" id="followerCount">—</div><div class="l">Followers</div></div>
+            <div class="fh-stat"><div class="n" id="postCount">—</div><div class="l">Posts</div></div>
+          </div>
+        </div>
+        <button class="btn-follow" id="followBtn" onclick="toggleFollow()">
+          <span id="followIcon">＋</span>
+          <span id="followLabel">Follow</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Post detail (hidden by default) -->
+    <div class="post-detail" id="postDetail">
+      <button class="pd-back" onclick="closePost()">← Back to feed</button>
+      <div class="pd-full">
+        <div class="post-cat" id="pdCat"></div>
+        <div class="pd-title" id="pdTitle"></div>
+        <div class="pd-content" id="pdContent"></div>
+        <div class="pd-author" id="pdAuthor"></div>
+      </div>
+      <div class="comments-section">
+        <div class="cs-title" id="csTitle">Comments</div>
+        <div id="commentsList"></div>
+        <div class="comment-form" id="commentForm">
+          <textarea id="commentInput" placeholder="Write a comment…" maxlength="1000"></textarea>
+          <button class="btn-comment" onclick="submitComment()">Post comment</button>
+        </div>
+        <div class="login-prompt" id="loginPrompt" style="display:none">
+          <a href="#" onclick="showAuth();return false">Sign in</a> to leave a comment.
+        </div>
+      </div>
+    </div>
+
+    <!-- Feed -->
+    <div id="feedView">
+      <div class="feed-header">
+        <h2>Latest from New Vision</h2>
+        <div class="cat-filters">
+          <button class="cat-btn active" data-cat="" onclick="filterCat('',this)">All</button>
+          <button class="cat-btn" data-cat="news" onclick="filterCat('news',this)">News</button>
+          <button class="cat-btn" data-cat="update" onclick="filterCat('update',this)">Updates</button>
+          <button class="cat-btn" data-cat="market" onclick="filterCat('market',this)">Markets</button>
+          <button class="cat-btn" data-cat="vehicles" onclick="filterCat('vehicles',this)">Vehicles</button>
+        </div>
+      </div>
+      <div id="postsFeed"><div class="loading-posts"><div class="spinner"></div>Loading posts…</div></div>
+    </div>
+
+  </div>
+
+  <!-- ── SIDEBAR ── -->
+  <div>
+
+    <!-- Auth or Profile card -->
+    <div class="auth-card" id="authCard">
+      <h3>Join the Community</h3>
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('register',this)">Register</button>
+        <button class="auth-tab" onclick="switchAuthTab('login',this)">Sign In</button>
+      </div>
+
+      <!-- Register form -->
+      <div id="registerForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input id="reg_name" type="text" placeholder="Display name" maxlength="60"/>
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <input id="reg_country" type="text" placeholder="e.g. Nigeria"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input id="reg_email" type="email" placeholder="your@email.com"/>
+        </div>
+        <div class="form-group">
+          <label>Password *</label>
+          <input id="reg_pass" type="password" placeholder="Min 6 characters"/>
+        </div>
+        <div class="form-group">
+          <label>WhatsApp (optional)</label>
+          <input id="reg_wa" type="tel" placeholder="+234…"/>
+        </div>
+        <button class="btn-submit" onclick="register()" id="regBtn">Create Account →</button>
+        <div class="auth-msg" id="regMsg"></div>
+      </div>
+
+      <!-- Login form -->
+      <div id="loginForm" style="display:none">
+        <div class="form-group">
+          <label>Email</label>
+          <input id="log_email" type="email" placeholder="your@email.com"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="log_pass" type="password" placeholder="Your password"/>
+        </div>
+        <button class="btn-submit" onclick="login()" id="logBtn">Sign In →</button>
+        <div class="auth-msg" id="logMsg"></div>
+      </div>
+    </div>
+
+    <!-- Logged-in profile card -->
+    <div class="profile-card" id="profileCard" style="display:none">
+      <div class="pc-top">
+        <div class="pc-avatar" id="pcAvatar">?</div>
+        <div>
+          <div class="pc-name" id="pcName">—</div>
+          <div class="pc-meta" id="pcMeta">—</div>
+        </div>
+      </div>
+      <div id="pcFollowBadge"></div>
+    </div>
+
+    <!-- Links widget -->
+    <div class="widget">
+      <h3>Quick Links</h3>
+      <a class="widget-link" href="./#inventory"><span class="wl-icon">🚗</span> Browse inventory</a>
+      <a class="widget-link" href="./track.html"><span class="wl-icon">🚢</span> Track my shipment</a>
+      <a class="widget-link" href="./#quote"><span class="wl-icon">💬</span> Request a quote</a>
+      <a class="widget-link" href="./#global-shipping-map"><span class="wl-icon">🗺️</span> Shipping routes</a>
+      <button class="wa-btn" onclick="window.open('https://wa.me/8613735611862?text=Hi New Vision, I found your community page and want to learn more.')">
+        WhatsApp Us →
+      </button>
+    </div>
+
+    <!-- About widget -->
+    <div class="widget">
+      <h3>About New Vision</h3>
+      <p style="font-size:12px;color:var(--muted2);line-height:1.6">New Vision 新视界 — China vehicle export company, founded 2019. 3,200+ vehicles · 20+ brands · 50+ countries. Based in Yiwu, Zhejiang.</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="mob-bar">
+  <button class="mob-btn" onclick="window.location.href='./#inventory'">Browse Cars</button>
+  <button class="mob-btn" style="background:var(--green2)" onclick="window.location.href='./#quote'">Get Quote</button>
+</div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────
+const IS_STATIC = ['localhost','127.0.0.1','arkysan.github.io'].includes(location.hostname) || location.hostname.endsWith('.pages.dev');
+const API_BASE  = IS_STATIC ? 'https://newvision-demo.vercel.app' : '';
+const API       = path => `${API_BASE}/api/community?action=${path}`;
+
+// ── STATE ────────────────────────────────────────────────────
+let TOKEN = localStorage.getItem('nv_community_token') || null;
+let USER  = null;
+let ALL_POSTS = [];
+let CURRENT_CAT = '';
+let ACTIVE_POST = null;
+
+// ── INIT ─────────────────────────────────────────────────────
+(async function init(){
+  loadPosts();
+  loadFollowStats();
+  if (TOKEN) await loadMe();
+})();
+
+// ── AUTH ──────────────────────────────────────────────────────
+function switchAuthTab(tab, btn){
+  document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('registerForm').style.display = tab === 'register' ? '' : 'none';
+  document.getElementById('loginForm').style.display    = tab === 'login'    ? '' : 'none';
+}
+
+function showAuth(){
+  document.getElementById('authCard').scrollIntoView({behavior:'smooth',block:'center'});
+  document.getElementById('log_email').focus();
+  switchAuthTab('login', document.querySelectorAll('.auth-tab')[1]);
+}
+
+async function register(){
+  const name = $('reg_name').value.trim();
+  const email = $('reg_email').value.trim();
+  const pass  = $('reg_pass').value;
+  const country = $('reg_country').value.trim();
+  const wa = $('reg_wa').value.trim();
+  if (!name || !email || !pass) return showMsg('regMsg','err','Name, email and password are required.');
+  if (pass.length < 6) return showMsg('regMsg','err','Password must be at least 6 characters.');
+  $('regBtn').disabled = true; $('regBtn').textContent = 'Creating…';
+  const r = await api('register','POST',{email,password:pass,display_name:name,country,whatsapp:wa});
+  $('regBtn').disabled = false; $('regBtn').textContent = 'Create Account →';
+  if (!r.ok) return showMsg('regMsg','err', r.error || 'Registration failed.');
+  showMsg('regMsg','ok','✅ Account created! Check your email to confirm, then sign in.');
+}
+
+async function login(){
+  const email = $('log_email').value.trim();
+  const pass  = $('log_pass').value;
+  if (!email || !pass) return showMsg('logMsg','err','Email and password required.');
+  $('logBtn').disabled = true; $('logBtn').textContent = 'Signing in…';
+  const r = await api('login','POST',{email,password:pass});
+  $('logBtn').disabled = false; $('logBtn').textContent = 'Sign In →';
+  if (!r.ok) return showMsg('logMsg','err', r.error || 'Invalid email or password.');
+  TOKEN = r.access_token;
+  localStorage.setItem('nv_community_token', TOKEN);
+  showMsg('logMsg','ok','✅ Signed in!');
+  setTimeout(() => loadMe(), 600);
+}
+
+function logout(){
+  TOKEN = null; USER = null;
+  localStorage.removeItem('nv_community_token');
+  $('authCard').style.display = '';
+  $('profileCard').style.display = 'none';
+  $('hdrUser').style.display = 'none';
+  updateFollowUI(false);
+  loadFollowStats();
+}
+
+async function loadMe(){
+  const r = await api('me','GET');
+  if (!r.ok){ TOKEN = null; localStorage.removeItem('nv_community_token'); return; }
+  USER = r.user;
+  const name = USER.user_metadata?.display_name || USER.email?.split('@')[0] || 'Member';
+  // Show profile card
+  $('authCard').style.display = 'none';
+  $('profileCard').style.display = '';
+  $('pcAvatar').textContent = name.charAt(0).toUpperCase();
+  $('pcName').textContent = name;
+  $('pcMeta').textContent = USER.email;
+  $('hdrUser').style.display = 'flex';
+  $('hdrName').textContent = name;
+  // Check follow
+  const fs = await api('follow','GET');
+  if (fs.ok) {
+    updateFollowUI(fs.following);
+    $('followerCount').textContent = fs.total;
+    $('pcFollowBadge').innerHTML = fs.following
+      ? '<span class="pc-badge following">✓ Following New Vision</span>'
+      : '';
+  }
+  // Update comment form
+  refreshCommentUI();
+}
+
+// ── FOLLOW ────────────────────────────────────────────────────
+async function loadFollowStats(){
+  const r = await api('follow','GET');
+  if (r.ok) $('followerCount').textContent = r.total;
+}
+
+async function toggleFollow(){
+  if (!TOKEN) { showAuth(); return; }
+  const btn = $('followBtn');
+  btn.classList.add('loading');
+  const r = await api('follow','POST');
+  btn.classList.remove('loading');
+  if (r.ok) {
+    updateFollowUI(r.following);
+    loadFollowStats();
+    if (USER) {
+      $('pcFollowBadge').innerHTML = r.following
+        ? '<span class="pc-badge following">✓ Following New Vision</span>'
+        : '';
+    }
+  }
+}
+
+function updateFollowUI(following){
+  const btn = $('followBtn');
+  $('followIcon').textContent = following ? '✓' : '＋';
+  $('followLabel').textContent = following ? 'Following' : 'Follow';
+  btn.classList.toggle('on', following);
+}
+
+// ── POSTS ─────────────────────────────────────────────────────
+async function loadPosts(){
+  const r = await api('posts','GET');
+  if (!r.ok){ $('postsFeed').innerHTML = '<div class="empty-feed">Could not load posts.</div>'; return; }
+  ALL_POSTS = r.posts || [];
+  $('postCount').textContent = ALL_POSTS.length;
+  renderPosts();
+}
+
+function filterCat(cat, btn){
+  CURRENT_CAT = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPosts();
+}
+
+function renderPosts(){
+  const posts = CURRENT_CAT ? ALL_POSTS.filter(p => p.category === CURRENT_CAT) : ALL_POSTS;
+  if (!posts.length){ $('postsFeed').innerHTML = '<div class="empty-feed">No posts yet in this category.</div>'; return; }
+  $('postsFeed').innerHTML = posts.map(p => `
+    <div class="post-card">
+      <div class="post-head">
+        <div class="post-cat ${p.category}">${cap(p.category||'news')}</div>
+        <div class="post-title">${esc(p.title)}</div>
+        <div class="post-body">${esc(p.content)}</div>
+      </div>
+      <div class="post-footer">
+        <div class="post-meta">
+          <span>✍️ ${esc(p.author_name||'New Vision')}</span>
+          <span>${fmtDate(p.created_at)}</span>
+        </div>
+        <div class="post-actions">
+          <button class="btn-read" onclick="openPost('${p.id}')">Read & Comment →</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ── POST DETAIL ───────────────────────────────────────────────
+async function openPost(id){
+  const post = ALL_POSTS.find(p => p.id === id);
+  if (!post) return;
+  ACTIVE_POST = post;
+  $('feedView').style.display = 'none';
+  $('postDetail').classList.add('open');
+  $('pdCat').textContent = cap(post.category||'news');
+  $('pdCat').className = `post-cat ${post.category}`;
+  $('pdTitle').textContent = post.title;
+  $('pdContent').textContent = post.content;
+  $('pdAuthor').textContent = `By ${post.author_name||'New Vision Team'} · ${fmtDate(post.created_at)}`;
+  loadComments(id);
+  window.scrollTo({top:0,behavior:'smooth'});
+  refreshCommentUI();
+}
+
+function closePost(){
+  $('postDetail').classList.remove('open');
+  $('feedView').style.display = '';
+  ACTIVE_POST = null;
+}
+
+async function loadComments(postId){
+  $('csTitle').textContent = 'Comments';
+  $('commentsList').innerHTML = '<div class="no-comments">Loading…</div>';
+  const r = await api(`comments&post_id=${postId}`,'GET');
+  const comments = r.ok ? (r.comments||[]) : [];
+  $('csTitle').textContent = `Comments (${comments.length})`;
+  if (!comments.length){
+    $('commentsList').innerHTML = '<div class="no-comments">No comments yet — be the first!</div>';
+    return;
+  }
+  $('commentsList').innerHTML = comments.map(c => `
+    <div class="comment-item">
+      <span class="ci-name">${esc(c.display_name)}</span>
+      <span class="ci-time">${fmtDate(c.created_at)}</span>
+      <div class="ci-body">${esc(c.content)}</div>
+    </div>`).join('');
+}
+
+function refreshCommentUI(){
+  if (!ACTIVE_POST) return;
+  if (TOKEN){
+    $('commentForm').style.display = '';
+    $('loginPrompt').style.display = 'none';
+  } else {
+    $('commentForm').style.display = 'none';
+    $('loginPrompt').style.display = '';
+  }
+}
+
+async function submitComment(){
+  if (!TOKEN || !ACTIVE_POST) return;
+  const content = $('commentInput').value.trim();
+  if (!content) return;
+  const btn = document.querySelector('.btn-comment');
+  btn.disabled = true; btn.textContent = 'Posting…';
+  const r = await api('comments','POST',{post_id:ACTIVE_POST.id, content});
+  btn.disabled = false; btn.textContent = 'Post comment';
+  if (r.ok){ $('commentInput').value = ''; loadComments(ACTIVE_POST.id); }
+}
+
+// ── UTILS ─────────────────────────────────────────────────────
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+function fmtDate(d){ try{ return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }catch(_){ return ''; } }
+
+function showMsg(id, type, text){
+  const el = $(id);
+  el.className = `auth-msg ${type}`;
+  el.textContent = text;
+  el.style.display = 'block';
+  if (type === 'ok') setTimeout(()=>{ el.style.display='none'; }, 5000);
+}
+
+async function api(action, method='GET', body=null){
+  const opts = {
+    method,
+    headers: { 'Content-Type':'application/json', ...(TOKEN ? {'Authorization':`Bearer ${TOKEN}`} : {}) },
+    ...(body ? {body: JSON.stringify(body)} : {}),
+  };
+  try {
+    const r = await fetch(API(action), opts);
+    const data = await r.json();
+    return data;
+  } catch(e) {
+    return { ok:false, error: e.message };
+  }
+}
+</script>
+</body>
+</html>
