@@ -1,6 +1,6 @@
 # Latest Status
 
-Generated: `2026-06-05 03:46 Asia/Shanghai`
+Generated: `2026-06-05 04:51 Asia/Shanghai`
 
 Project:
 - New Vision vehicle website
@@ -12,6 +12,12 @@ Current branch:
 - `master`
 
 Status:
+- `PASS LOCAL`: Desktop and mobile Brands navigation now opens `brands.html` instead of only jumping into the inventory filter area.
+- `PASS LOCAL`: `brands.html` renders a premium brand catalog from `data/vehicles.json`, showing 23 brand cards, 35 public vehicles, 21 stocked premium picks, and 2 honest sourcing request lanes.
+- `PASS LOCAL`: Brand quote buttons hand off to the main quote form through `newvision.prefillQuote`; rendered proof filled `#qMsg` with the selected premium brand request.
+- `PASS LOCAL`: `worldmap.html` now uses local `lib/leaflet/leaflet.css` and `lib/leaflet/leaflet.js`; 3D globe runtime/textures were already local.
+- `REMAINING EXTERNAL MAP DEPENDENCY`: 2D base/seamark tile images still come from CARTO/OpenStreetMap and OpenSeaMap. Full offline/local tiles require a later hosted tile-set pass.
+- `LOCAL ONLY`: Latest brand-catalog and local-Leaflet changes are not committed, pushed, or deployed yet.
 - `PASS LOCAL`: Customer main page map is now directly below the vehicle inventory results and before the post-inventory category band.
 - `PASS LOCAL`: Customer map embed uses `worldmap.html?embed=1`, hides map chrome, hides world-events/back-room panels, and renders 36 Leaflet tiles.
 - `PASS LOCAL`: Customer-facing page no longer exposes `World Intelligence` or `Active Shipping Alerts`; those remain for `role=sales` and `role=admin` back-room map views.

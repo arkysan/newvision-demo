@@ -8,6 +8,7 @@ const vehicleDeal = fs.readFileSync(path.join(ROOT, 'vehicle.html'), 'utf8');
 const portal = fs.readFileSync(path.join(ROOT, 'portal.html'), 'utf8');
 const sales = fs.readFileSync(path.join(ROOT, 'sales.html'), 'utf8');
 const worldmap = fs.readFileSync(path.join(ROOT, 'worldmap.html'), 'utf8');
+const brands = fs.readFileSync(path.join(ROOT, 'brands.html'), 'utf8');
 const review = fs.readFileSync(path.join(ROOT, 'arkreview.js'), 'utf8');
 const cms = fs.readFileSync(path.join(ROOT, 'api', 'cms.js'), 'utf8');
 const vehiclesApi = fs.readFileSync(path.join(ROOT, 'api', 'vehicles.js'), 'utf8');
@@ -273,6 +274,8 @@ const requiredShippingMapControls = [
   ['Santos', 'Shipping map must include Santos port'],
   ['Kingston', 'Shipping map must include Caribbean port coverage'],
   ['exact vessel schedules, freight, and ETA are confirmed', 'Shipping map must not pretend the route preview is live AIS tracking'],
+  ['id="mapDependencyNote"', 'Shipping map must disclose which map dependencies are local versus external'],
+  ['2D tile images still load from CARTO/OpenStreetMap and OpenSeaMap', 'Shipping map must honestly label remaining external tile dependency'],
 ];
 for (const [snippet, message] of requiredShippingMapControls) {
   if (!html.includes(snippet)) fail(message);
@@ -301,8 +304,17 @@ if (!worldmap.includes('BACK_ROOM_ROLES') || !worldmap.includes('customer-mode')
 if (!worldmap.includes('src="./lib/globe.gl.min.js"')) {
   fail('3D globe must use the local World Monitor globe.gl bundle, not a CDN-only runtime');
 }
+if (!worldmap.includes('href="./lib/leaflet/leaflet.css"') || !worldmap.includes('src="./lib/leaflet/leaflet.js"')) {
+  fail('World map must use the local Leaflet runtime instead of a CDN-only runtime');
+}
+if (/unpkg\.com\/leaflet/.test(worldmap)) {
+  fail('World map still hotlinks Leaflet from unpkg');
+}
 if (!fs.existsSync(path.join(ROOT, 'lib', 'globe.gl.min.js'))) {
   fail('3D globe runtime missing: lib/globe.gl.min.js');
+}
+for (const leafletFile of ['leaflet.css', 'leaflet.js']) {
+  if (!fs.existsSync(path.join(ROOT, 'lib', 'leaflet', leafletFile))) fail(`Leaflet runtime missing: lib/leaflet/${leafletFile}`);
 }
 for (const texture of ['earth-topo-bathy.jpg', 'night-sky.png']) {
   if (!fs.existsSync(path.join(ROOT, 'textures', texture))) fail(`3D globe texture missing: textures/${texture}`);
@@ -312,6 +324,20 @@ if (!fs.existsSync(path.join(ROOT, 'img', 'world-map-110m.svg'))) {
 }
 if (vercelConfig.includes('(?!api/)')) {
   fail('Vercel header sources must not use unsupported negative lookahead patterns');
+}
+
+const requiredBrandCatalogControls = [
+  ['href="./brands.html"', 'Main navigation must open the premium brands catalog page'],
+  ['id="premiumBrandGrid"', 'Premium brands page must render a brand catalog grid'],
+  ['BRAND_META', 'Premium brands page must define brand metadata'],
+  ['data/vehicles.json', 'Premium brands page must load the static public vehicle stock file'],
+  ["apiUrl('/api/vehicles')", 'Premium brands page must refresh through the Vercel-backed vehicle API on static hosts'],
+  ['Sourcing request lane', 'Premium brands page must label missing public stock as sourcing requests'],
+  ['newvision.prefillQuote', 'Premium brands page must hand brand quote requests back to the main quote form'],
+  ['brands.html?arkedit=1', 'Premium brands page must expose the owner review-editor entry'],
+];
+for (const [snippet, message] of requiredBrandCatalogControls) {
+  if (!(html.includes(snippet) || brands.includes(snippet))) fail(message);
 }
 
 const requiredVehicleApiControls = [

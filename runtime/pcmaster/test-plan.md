@@ -19,3 +19,6 @@ Current visual proof target:
 - Required quote fields produce WhatsApp links for New Vision Sales, Eissah, and Andy with the same completed buyer data.
 - Review editor exposes Redo, Annotate, Move Up, Move Down, and Publish.
 - Language buttons still translate visible quote text.
+- Brands navigation opens a real premium-brand catalog page.
+- Brand catalog quote buttons prefill the main quote form.
+- World map uses local Leaflet runtime while honestly labeling external tile services.

@@ -16,10 +16,12 @@ Allowed files:
 - `track.html`
 - `sales.html`
 - `portal.html`
+- `brands.html`
 - `api/lead.js`
 - `api/worldmap.js`
 - `api/worldmap-watch.js`
 - `worldmap.html`
+- `lib/leaflet/*`
 - `vercel.json`
 - `scripts/newvision-deploy-drift-check.js`
 - `scripts/newvision-static-check.js`

@@ -335,6 +335,7 @@
     .shipping-map-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); }
     .shipping-map-head h2 { font-size: clamp(22px,3vw,32px); line-height: 1.1; color: var(--green2); font-weight: 800; }
     .shipping-map-head p { color: var(--muted2); font-size: 13px; max-width: 58ch; line-height: 1.55; margin-top: 6px; }
+    .shipping-map-source { max-width: 70ch !important; color: var(--muted) !important; font-size: 12px !important; }
     .shipping-map-status { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; min-width: 220px; }
     .shipping-map-pill { border: 1px solid var(--border2); background: #fff; color: var(--green2); border-radius: 999px; padding: 7px 12px; font-size: 12px; font-weight: 800; white-space: nowrap; }
     .shipping-map-wrap { position: relative; height: 540px; background: #0a1510; overflow: hidden; }
@@ -812,7 +813,7 @@
   </div>
   <div class="nav-links">
     <a class="nav-link" href="#inventory" data-i18n="nav_inventory">Inventory</a>
-    <a class="nav-link" href="#brands" data-i18n="nav_brands">Brands</a>
+    <a class="nav-link" href="./brands.html" data-i18n="nav_brands">Brands</a>
     <a class="nav-link" href="#how" data-i18n="nav_process">Process</a>
     <a class="nav-link" href="#best-markets" data-i18n="nav_markets">Markets</a>
     <a class="nav-link" href="#about" data-i18n="nav_about">About Us</a>
@@ -877,7 +878,7 @@
 <!-- Mobile menu (phone): clear access to all pages + tracking + login -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#inventory" onclick="closeMobileMenu()" data-i18n="nav_inventory">Inventory</a>
-  <a href="#brands" onclick="closeMobileMenu()" data-i18n="nav_brands">Brands</a>
+  <a href="./brands.html" onclick="closeMobileMenu()" data-i18n="nav_brands">Brands</a>
   <a href="#estimator" onclick="closeMobileMenu()" data-i18n="est_menu">Shipping Estimator</a>
   <a href="#how" onclick="closeMobileMenu()" data-i18n="nav_process">How It Works</a>
   <a href="#about" onclick="closeMobileMenu()" data-i18n="nav_about">About Us</a>
@@ -1137,6 +1138,7 @@
       <div>
         <h2>Global shipping route map</h2>
         <p>New Vision exports from Shanghai to Jebel Ali, Mombasa, Lagos, Antwerp, Santos, and Kingston. This is a customer route preview; exact vessel schedules, freight, and ETA are confirmed with your CIF quote.</p>
+        <p class="shipping-map-source" id="mapDependencyNote">Map app, route logic, 3D globe runtime, and globe textures are local on this site. 2D tile images still load from CARTO/OpenStreetMap and OpenSeaMap; static GitHub/Cloudflare API data is Vercel-backed.</p>
       </div>
       <div class="shipping-map-status" aria-label="shipping route status">
         <span class="shipping-map-pill">6 active lanes</span>
@@ -2029,6 +2031,15 @@ function quoteMarketRoute(country, port, vehicleType) {
 }
 
 function applyQuoteQueryPrefill() {
+  try {
+    const stored = sessionStorage.getItem('newvision.prefillQuote');
+    if (stored) {
+      sessionStorage.removeItem('newvision.prefillQuote');
+      const prefill = JSON.parse(stored);
+      goToQuote(prefill && typeof prefill === 'object' ? prefill : { message: String(stored) });
+      return;
+    }
+  } catch (_) {}
   const params = new URLSearchParams(location.search);
   const requestedStock = (params.get('quote') || params.get('stock') || '').toUpperCase();
   if (!requestedStock) return;
@@ -2188,7 +2199,7 @@ function calcEst(){
         <h4 data-i18n="foot_col1">Vehicles</h4>
         <a href="#info-new-energy" data-i18n="fl_ev">New Energy (EV/PHEV)</a>
         <a href="#info-fuel" data-i18n="fl_fuel">Traditional Fuel</a>
-        <a href="#info-premium" data-i18n="fl_prem">Premium Brands</a>
+        <a href="./brands.html" data-i18n="fl_prem">Premium Brands</a>
         <a href="#info-motorcycles" data-i18n="fl_moto">Motorcycles</a>
         <a href="#info-engineering" data-i18n="fl_eng">Engineering Vehicles</a>
       </div>

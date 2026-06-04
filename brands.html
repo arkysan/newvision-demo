@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Premium Brand Catalog - New Vision China Car Export</title>
+<meta name="description" content="New Vision premium vehicle brand catalog with the strongest public stock match for each brand and sourcing request lanes for brands not currently listed." />
+<link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+<link rel="canonical" href="https://arkysan.github.io/newvision-demo/brands.html" />
+<style>
+:root{
+  --bg:#f5faf6;--surface:#fff;--surface2:#eef7f1;--line:#d6e6d9;
+  --green:#2E7D32;--green2:#145c25;--green3:#43A047;--gold:#C9A24B;
+  --ink:#102216;--muted:#647469;--muted2:#3f5b47;--shadow:0 18px 42px rgba(16,70,34,.1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.topbar{position:sticky;top:0;z-index:20;height:64px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:18px;padding:0 24px;backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--green2)}
+.brand img{width:72px;height:42px;object-fit:contain}
+.nav{margin-left:auto;display:flex;align-items:center;gap:8px}
+.nav a{font-size:14px;font-weight:800;color:var(--muted2);padding:9px 12px;border-radius:8px}
+.nav a:hover,.nav a.active{background:var(--surface2);color:var(--green2)}
+.quote-link{background:var(--green)!important;color:#fff!important}
+.hero{padding:56px 24px 28px;background:linear-gradient(180deg,#ffffff 0%,#eef8f1 100%);border-bottom:1px solid var(--line)}
+.hero-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:34px;align-items:end}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;color:var(--green2);border-radius:999px;padding:7px 12px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+h1{font-size:clamp(34px,5vw,62px);line-height:1.02;margin:18px 0 16px;letter-spacing:0;color:var(--green2)}
+.lead{font-size:17px;line-height:1.7;color:var(--muted2);max-width:70ch;margin:0}
+.source{margin-top:18px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:12px 14px;color:var(--muted2);font-size:13px;line-height:1.55}
+.hero-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px;min-height:92px;box-shadow:0 8px 24px rgba(46,125,50,.06)}
+.stat b{display:block;font-size:28px;color:var(--green2);line-height:1}
+.stat span{display:block;margin-top:8px;font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.controls{max-width:1180px;margin:0 auto;padding:22px 24px 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#fff;color:var(--muted2);border-radius:999px;padding:9px 13px;font-weight:900;font-size:13px;cursor:pointer}
+.chip.active{background:var(--green);border-color:var(--green);color:#fff}
+.catalog{max-width:1180px;margin:0 auto;padding:16px 24px 56px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:100%}
+.media{position:relative;aspect-ratio:16/10;background:#dfece2;overflow:hidden}
+.media img{width:100%;height:100%;object-fit:cover;display:block}
+.media .empty{height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;color:var(--green2);font-weight:900;background:linear-gradient(135deg,#e8f5eb,#f8fbf8)}
+.badge{position:absolute;top:12px;left:12px;background:rgba(16,34,22,.86);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900}
+.body{padding:17px;display:flex;flex-direction:column;gap:12px;flex:1}
+.brand-line{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.brand-line h2{font-size:22px;line-height:1.15;margin:0;color:var(--green2)}
+.origin{font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.model{font-size:15px;font-weight:900;line-height:1.35;color:var(--ink)}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.meta div{border:1px solid var(--line);background:var(--surface2);border-radius:8px;padding:9px 10px}
+.meta b{display:block;color:var(--green2);font-size:13px}
+.meta span{display:block;color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.note{font-size:13px;color:var(--muted2);line-height:1.55;margin:0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:auto}
+.actions a,.actions button{border:1px solid var(--line);border-radius:8px;padding:11px 10px;font-weight:900;font-size:13px;cursor:pointer;text-align:center;background:#fff;color:var(--green2)}
+.actions .primary{background:var(--green);border-color:var(--green);color:#fff}
+.edit-lane{max-width:1180px;margin:0 auto 56px;padding:0 24px}
+.edit-box{border:1px solid var(--line);border-radius:8px;background:#102216;color:#e7f5eb;padding:20px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.edit-box h2{font-size:20px;margin:0 0 6px;color:#fff}
+.edit-box p{margin:0;color:#b8d1bd;line-height:1.55;font-size:13px}
+.edit-box a{background:var(--gold);color:#102216;border-radius:8px;padding:12px 16px;font-weight:900;text-align:center}
+footer{border-top:1px solid var(--line);background:#fff;padding:24px;color:var(--muted);font-size:13px}
+.foot-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+@media(max-width:780px){
+  .topbar{height:auto;min-height:58px;padding:8px 14px;flex-wrap:wrap}
+  .nav{width:100%;margin-left:0;overflow-x:auto;padding-bottom:4px}
+  .hero{padding:32px 14px 20px}
+  .hero-inner{grid-template-columns:1fr}
+  .controls,.catalog,.edit-lane{padding-left:14px;padding-right:14px}
+  .hero-panel{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .actions{grid-template-columns:1fr}
+  .edit-box{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav class="topbar">
+  <a class="brand" href="./"><img src="logo-mark.png" alt="New Vision" /> <span>New Vision</span></a>
+  <div class="nav">
+    <a href="./#inventory">Inventory</a>
+    <a class="active" href="./brands.html">Premium Brands</a>
+    <a href="./#global-shipping-map">Ship Routes</a>
+    <a href="./track.html">Track</a>
+    <a href="./portal.html">Owner Login</a>
+    <a class="quote-link" href="./#quote">Quote</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">Premium brand board</span>
+      <h1>All brands and the strongest premium vehicle match.</h1>
+      <p class="lead">This page turns the New Vision public stock file into a brand-by-brand buying board. Each card shows the highest-value public match for that brand; brands without a current public card are marked as sourcing requests, not live stock.</p>
+      <div class="source" id="dataSourceNote">Loading brand catalog from the New Vision public stock file...</div>
+    </div>
+    <div class="hero-panel" aria-label="brand catalog stats">
+      <div class="stat"><b id="brandCount">0</b><span>Brands shown</span></div>
+      <div class="stat"><b id="stockCount">0</b><span>Public vehicles</span></div>
+      <div class="stat"><b id="premiumCount">0</b><span>Premium picks</span></div>
+      <div class="stat"><b id="requestCount">0</b><span>Sourcing lanes</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="controls" aria-label="brand filters">
+  <button class="chip active" type="button" data-filter="all">All</button>
+  <button class="chip" type="button" data-filter="China">China</button>
+  <button class="chip" type="button" data-filter="Germany">Germany</button>
+  <button class="chip" type="button" data-filter="Japan">Japan</button>
+  <button class="chip" type="button" data-filter="Korea">Korea</button>
+  <button class="chip" type="button" data-filter="USA">USA</button>
+  <button class="chip" type="button" data-filter="sourcing">Sourcing request</button>
+</div>
+
+<main class="catalog">
+  <div class="grid" id="premiumBrandGrid" aria-live="polite"></div>
+</main>
+
+<section class="edit-lane" aria-label="owner live edit lane">
+  <div class="edit-box">
+    <div>
+      <h2>Owner live edit lane</h2>
+      <p>Open this page with the review editor, select any brand card, annotate it, preview phone view, then publish through the New Vision CMS on the deployed site when the admin token is available.</p>
+    </div>
+    <a href="./brands.html?arkedit=1">Open Review Editor</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <span>New Vision China car export brand catalog - static stock plus Vercel-backed refresh.</span>
+    <span><a href="./">Main site</a> / <a href="./vehicle.html?id=NV-2026-0001">Vehicle deal page</a></span>
+  </div>
+</footer>
+
+<script>
+const VERCEL_API_ORIGIN='https://newvision-demo.vercel.app';
+const IS_GITHUB_PAGES=location.hostname==='arkysan.github.io';
+const IS_STATIC_PREVIEW=['localhost','127.0.0.1'].includes(location.hostname);
+const IS_STATIC_PUBLIC_HOST=IS_GITHUB_PAGES || location.hostname==='cdn.jsdelivr.net' || location.hostname.endsWith('.pages.dev');
+const API_BASE=(IS_STATIC_PUBLIC_HOST || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN : '';
+function apiUrl(path){return API_BASE+path;}
+
+const BRAND_META={
+  BYD:{origin:'China',lane:'NEV sedan and plug-in hybrid SUV lane'},
+  Tesla:{origin:'USA',lane:'Premium EV export lane'},
+  'Li Auto':{origin:'China',lane:'EREV family SUV premium lane'},
+  BMW:{origin:'Germany',lane:'German premium SUV and sedan lane'},
+  Toyota:{origin:'Japan',lane:'Toyota sedan and fleet reliability lane'},
+  Xiaomi:{origin:'China',lane:'Smart EV sedan lane'},
+  Changan:{origin:'China',lane:'SUV and pickup value lane'},
+  Geely:{origin:'China',lane:'SUV and family vehicle lane'},
+  Leapmotor:{origin:'China',lane:'PHEV and NEV value-performance lane'},
+  Jetour:{origin:'China',lane:'SUV and off-road travel lane'},
+  'Great Wall':{origin:'China',lane:'Tank platform premium 4WD lane'},
+  Tank:{origin:'China',lane:'Luxury 4WD PHEV SUV lane'},
+  MG:{origin:'China',lane:'Sedan and Gulf-market value lane'},
+  'Formula Leopard':{origin:'China',lane:'BYD off-road PHEV premium lane'},
+  Livan:{origin:'China',lane:'Entry SUV sourcing lane'},
+  Honda:{origin:'Japan',lane:'Honda CR-V / Accord sourcing request',sourcing:true},
+  'Mercedes-Benz':{origin:'Germany',lane:'Mercedes-Benz premium sedan lane'},
+  Volkswagen:{origin:'Germany',lane:'VW sedan, hatchback, and SUV lane'},
+  Audi:{origin:'Germany',lane:'Audi A6L / Q7 sourcing request',sourcing:true},
+  Hyundai:{origin:'Korea',lane:'Korean sedan value lane'},
+  Kia:{origin:'Korea',lane:'Korean SUV value lane'},
+  MAEXTRO:{origin:'China',lane:'Ultra-premium smart sedan lane'},
+  Trumpchi:{origin:'China',lane:'PHEV SUV sourcing lane'}
+};
+const BRAND_ORDER=['BYD','Tesla','Li Auto','BMW','Mercedes-Benz','MAEXTRO','Great Wall','Tank','Formula Leopard','Jetour','Xiaomi','Toyota','Volkswagen','Audi','Honda','Hyundai','Kia','MG','Changan','Geely','Leapmotor','Trumpchi','Livan'];
+let activeFilter='all';
+let currentRows=[];
+
+function money(n){return n ? '$'+Number(n).toLocaleString() : 'Confirm';}
+function esc(value){return String(value||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function stockIdForVehicle(v){if(!v)return'NV-2026-0000';if(v.stockId)return String(v.stockId).toUpperCase();const n=String(v.id||0).replace(/\D/g,'').padStart(4,'0').slice(-4);return`NV-2026-${n}`;}
+function scoreVehicle(v){return (v.premium?10000000:0)+(v.hot?1000000:0)+(Number(v.price)||0)+(Number(v.year)||0);}
+function pickVehicle(vehicles, brand){
+  return vehicles.filter(v=>v.make===brand).sort((a,b)=>scoreVehicle(b)-scoreVehicle(a))[0] || null;
+}
+function quoteHref(vehicle){
+  return vehicle ? `./?quote=${encodeURIComponent(stockIdForVehicle(vehicle))}#quote` : './#quote';
+}
+function requestBrand(brand, model){
+  const msg=`Premium brand request: ${brand}${model?` / ${model}`:''}. Please send current stock, FOB price, photos, inspection options, freight estimate, and CIF preview.`;
+  try{sessionStorage.setItem('newvision.prefillQuote',JSON.stringify({vehicle:model||brand,message:msg}));}catch(_){}
+  location.href='./#quote';
+}
+function cardFor(row){
+  const v=row.vehicle, meta=row.meta, brand=row.brand;
+  const hasStock=!!v;
+  const image=hasStock && v.img ? `<img src="${esc(v.img)}" alt="${esc(`${brand} ${v.model}`)}" loading="lazy" />` : '<div class="empty">Premium sourcing request</div>';
+  const title=hasStock ? `${v.year} ${v.model}` : meta.lane;
+  const price=hasStock ? money(v.price) : 'Request';
+  const stock=hasStock ? stockIdForVehicle(v) : 'Not public stock';
+  const power=hasStock ? (v.ev ? 'EV / Hybrid' : (v.fuel || v.type || 'Vehicle')) : 'Sourcing';
+  const body=hasStock ? (v.body || 'Vehicle') : 'Premium match';
+  const badge=hasStock ? 'Public stock pick' : 'Sourcing request lane';
+  return `<article class="card" data-origin="${esc(meta.origin)}" data-sourcing="${hasStock?'no':'yes'}">
+    <div class="media">${image}<span class="badge">${badge}</span></div>
+    <div class="body">
+      <div class="brand-line"><h2>${esc(brand)}</h2><span class="origin">${esc(meta.origin)}</span></div>
+      <div class="model">${esc(title)}</div>
+      <div class="meta">
+        <div><b>${esc(price)}</b><span>FOB guide</span></div>
+        <div><b>${esc(stock)}</b><span>Stock status</span></div>
+        <div><b>${esc(power)}</b><span>Power lane</span></div>
+        <div><b>${esc(body)}</b><span>Body / match</span></div>
+      </div>
+      <p class="note">${esc(meta.lane)}. ${hasStock?'Confirm live availability with New Vision before deposit.':'This is an honest sourcing request lane until a public stock card is added.'}</p>
+      <div class="actions">
+        ${hasStock?`<a href="./vehicle.html?id=${encodeURIComponent(stockIdForVehicle(v))}">View full deal</a>`:`<a href="./#inventory">See inventory</a>`}
+        <button class="primary" type="button" onclick="requestBrand('${esc(brand)}','${esc(hasStock ? `${v.year} ${v.make} ${v.model}` : '')}')">Quote premium</button>
+      </div>
+    </div>
+  </article>`;
+}
+function render(vehicles, sourceLabel){
+  const dynamicBrands=Array.from(new Set(vehicles.map(v=>v.make).filter(Boolean)));
+  const brands=Array.from(new Set([...BRAND_ORDER,...dynamicBrands]));
+  currentRows=brands.map(brand=>{
+    const meta=BRAND_META[brand] || {origin:'Other',lane:'Premium sourcing lane'};
+    return {brand,meta,vehicle:pickVehicle(vehicles,brand)};
+  }).sort((a,b)=>{
+    const aStock=a.vehicle?1:0,bStock=b.vehicle?1:0;
+    if(aStock!==bStock)return bStock-aStock;
+    return a.brand.localeCompare(b.brand);
+  });
+  const visible=currentRows.filter(row=>{
+    if(activeFilter==='all')return true;
+    if(activeFilter==='sourcing')return !row.vehicle;
+    return row.meta.origin===activeFilter;
+  });
+  document.getElementById('premiumBrandGrid').innerHTML=visible.map(cardFor).join('');
+  document.getElementById('brandCount').textContent=currentRows.length;
+  document.getElementById('stockCount').textContent=vehicles.length;
+  document.getElementById('premiumCount').textContent=currentRows.filter(r=>r.vehicle).length;
+  document.getElementById('requestCount').textContent=currentRows.filter(r=>!r.vehicle).length;
+  document.getElementById('dataSourceNote').textContent=sourceLabel;
+}
+async function loadCatalog(){
+  let local=[];
+  try{
+    const r=await fetch('./data/vehicles.json',{cache:'no-store'});
+    local=await r.json();
+    render(local,'Loaded from the static New Vision stock file on this site. A Vercel-backed refresh is checking for owner portal updates.');
+  }catch(err){
+    document.getElementById('dataSourceNote').textContent='Static stock file could not load: '+err.message;
+  }
+  try{
+    const r=await fetch(apiUrl('/api/vehicles'),{cache:'no-store'});
+    const live=await r.json();
+    if(Array.isArray(live)&&live.length)render(live,'Loaded from the Vercel-backed New Vision vehicle API. Static hosts use this API for current portal edits.');
+  }catch(_){}
+}
+document.querySelectorAll('.chip').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    activeFilter=btn.dataset.filter;
+    document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===btn));
+    render(currentRows.map(r=>r.vehicle).filter(Boolean),'Filtered brand catalog view.');
+  });
+});
+loadCatalog();
+</script>
+<script src="arkreview.js?v=20260605-brands"></script>
+</body>
+</html>

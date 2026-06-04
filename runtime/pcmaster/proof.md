@@ -173,3 +173,18 @@ GitHub Pages start-position proof:
 - Hash-safety proof: `http://127.0.0.1:52452/#inventory` kept `#inventory` at `82px` and did not force the map.
 - Console proof: no browser errors in the rendered check.
 - Static proof: `npm test`, `npm run check:pcmaster`, and `node --check scripts/newvision-static-check.js` passed.
+
+Premium brands and map dependency proof:
+- Time: `2026-06-05 04:51 Asia/Shanghai`.
+- Source of truth: `C:\Users\ARKAI\Desktop\newvision-demo`.
+- Request: make the Brands control useful, create a premium-vehicle brand page, keep live-edit review access, and move as much map runtime as possible onto the site.
+- Changed surface: `brands.html` added; desktop/mobile Brands nav now opens `./brands.html`; footer Premium Brands link now opens `./brands.html`.
+- Brand catalog proof: rendered `http://127.0.0.1:52452/brands.html` showed 23 brand cards, 35 public vehicles, 21 stocked premium picks, and 2 `Sourcing request lane` cards.
+- Brand filter proof: Germany filter rendered 4 cards.
+- Quote handoff proof: clicking the first `Quote premium` button landed at `http://127.0.0.1:52452/#quote`; `#qMsg` contained `Premium brand request: BMW / 2025 BMW X3 2025 xDrive30L M Sport...`.
+- Mobile proof: `390x844` rendered 23 cards, no horizontal overflow, and the owner edit link `./brands.html?arkedit=1`.
+- In-app Browser proof: Browser snapshot on `http://127.0.0.1:52452/brands.html` showed the Premium Brands nav, brand filters, brand cards, owner live edit lane, and review widget.
+- Map dependency proof: `worldmap.html?embed=1` loaded `window.L`, 60 Leaflet tiles, hidden embed chrome, and Leaflet script from `http://127.0.0.1:52452/lib/leaflet/leaflet.js`.
+- Remaining external dependency proof: map tile URLs still use CARTO/OpenStreetMap and OpenSeaMap; `#mapDependencyNote` now labels this honestly on the customer shipping-map section.
+- 3D globe proof: local `worldmap.html` click on `#view3dBtn` opened `#globe-wrap.show`, rendered 1 canvas, no fallback text, and no browser console errors.
+- Syntax/static proof: `node --check scripts/newvision-static-check.js`, `node --check api/worldmap.js`, `node --check api/worldmap-watch.js`, `npm test`, and `npm run check:pcmaster` passed.

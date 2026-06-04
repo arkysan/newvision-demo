@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex,nofollow" />
 <title>World Shipping Map — New Vision</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="./lib/leaflet/leaflet.css" />
 <style>
 /* ─── TOKENS ─────────────────────────────────────────────── */
 :root{
@@ -364,8 +364,8 @@ body.customer-mode #backPortalBtn{display:none!important}
   </div>
 </div>
 
-<!-- Leaflet -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Local Leaflet runtime; tile imagery remains CARTO/OSM + OpenSeaMap. -->
+<script src="./lib/leaflet/leaflet.js"></script>
 <!-- Globe.gl for 3D -->
 <script src="./lib/globe.gl.min.js"></script>
 
