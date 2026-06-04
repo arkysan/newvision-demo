@@ -470,6 +470,7 @@
     @media (max-width: 900px) {
       nav { gap: 12px; }
       .nav-search, .nav-links { display: none; }
+      .market-theme-wrap { display: none; }
       .nav-lang { margin-left: auto; }
       .btn-wa { margin-left: 0; }
       .trust { flex-wrap: wrap; overflow-x: visible; padding: 0 14px; }
@@ -500,7 +501,9 @@
       .nav-brand-zh { font-size: 10px; }
       .btn-wa, .btn-cn { display: none; }
       .lang-btn { padding: 5px 7px; font-size: 11px; }
-      .demo-banner, .china-strip { display: none !important; }
+      .demo-banner { display: none !important; }
+      .china-strip { padding: 6px 14px; font-size: 11px; gap: 8px; }
+      .market-theme-wrap { display: none; }
       .hero { padding: 16px 14px 18px; text-align: left; }
       .hero-logo { display: flex; justify-content: flex-start; margin: 0 0 12px; }
       .hero-logo-img { width: 150px; }
@@ -621,6 +624,125 @@
       .quote-submit { min-height: 52px; }
       .quote-preview-grid { grid-template-columns: 1fr 1fr; }
     }
+
+  /* ── MARKET THEME DROPDOWN ── */
+  .market-theme-wrap { position: relative; flex-shrink: 0; }
+  .market-theme-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 11px; border-radius: 8px; border: 1px solid var(--border2);
+    background: var(--surface); color: var(--muted2); font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: all .2s; white-space: nowrap; min-height: 36px;
+  }
+  .market-theme-btn:hover { border-color: var(--green); color: var(--green); background: rgba(76,175,80,.07); }
+  .market-theme-btn .mflag { font-size: 15px; line-height: 1; }
+  .market-theme-btn .marrow { font-size: 9px; color: var(--muted); margin-left: 2px; }
+  .market-theme-drop {
+    display: none; position: absolute; top: calc(100% + 6px); right: 0;
+    background: #fff; border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.13); z-index: 300;
+    min-width: 230px; max-height: 420px; overflow-y: auto; padding: 6px 0;
+  }
+  .market-theme-drop.open { display: block; }
+  .mtheme-group-label {
+    padding: 8px 14px 4px; font-size: 10px; font-weight: 900; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--muted); background: var(--surface2);
+  }
+  .mtheme-option {
+    display: flex; align-items: center; gap: 10px; padding: 9px 14px;
+    font-size: 13px; font-weight: 600; color: var(--text); cursor: pointer;
+    transition: background .15s; border: none; background: none; width: 100%; text-align: left;
+  }
+  .mtheme-option:hover { background: var(--surface2); color: var(--green2); }
+  .mtheme-option.active { color: var(--green); background: rgba(76,175,80,.07); }
+  .mtheme-option .mflag2 { font-size: 18px; line-height: 1; flex-shrink: 0; }
+  .mtheme-option .mcountry { flex: 1; }
+  .mtheme-option .mhint { font-size: 10px; color: var(--muted); font-weight: 500; }
+
+  /* ── COUNTRY THEME OVERRIDES ── */
+  /* Brand green (logo, buttons) is ALWAYS fixed — only surfaces/accents change */
+
+  [data-theme="iraq"] {
+    --bg: #F7F4EC; --surface: #EFECE0; --surface2: #E5E0D0;
+    --border: #C8BFA0; --border2: #B0A480;
+    --orange: #8B1A1A; --blue: #4A6741;
+  }
+  [data-theme="egypt"] {
+    --bg: #FAF6EE; --surface: #F3EDD8; --surface2: #EAE0C4;
+    --border: #D4C090; --border2: #C0A870;
+    --orange: #C0392B; --blue: #B8860B;
+  }
+  [data-theme="yemen"] {
+    --bg: #FFFFFF; --surface: #F8F8F8; --surface2: #F0F0F0;
+    --border: #E0D0D0; --border2: #C8B0B0;
+    --orange: #DC143C; --blue: #1B5E20;
+  }
+  [data-theme="iran"] {
+    --bg: #F5F0E8; --surface: #EDE6D4; --surface2: #E0D6C0;
+    --border: #C0AE90; --border2: #A89070;
+    --orange: #6B2D3E; --blue: #1A4731;
+  }
+  [data-theme="uae"] {
+    --bg: #FAF4E8; --surface: #F2E8D0; --surface2: #E8D8B0;
+    --border: #D0BC88; --border2: #B8A468;
+    --orange: #D4AF37; --blue: #00704A;
+    --text: #1A1200;
+  }
+  [data-theme="algeria"] {
+    --bg: #F5F8FF; --surface: #EAF0F8; --surface2: #DDE7F2;
+    --border: #B8CCDE; --border2: #96B0CC;
+    --orange: #E8C430; --blue: #4A90D9;
+  }
+  [data-theme="morocco-blue"] {
+    --bg: #F4F7FF; --surface: #E8EFF8; --surface2: #D8E4F2;
+    --border: #AABFD8; --border2: #88A4C4;
+    --orange: #E67E00; --blue: #3A6EA8;
+  }
+  [data-theme="morocco-red"] {
+    --bg: #FDF5F0; --surface: #F5E8E0; --surface2: #ECD8CC;
+    --border: #D4B0A0; --border2: #BC9080;
+    --orange: #C1440E; --blue: #1B5E20;
+  }
+  [data-theme="sudan"] {
+    --bg: #FDFBF0; --surface: #F5F0D8; --surface2: #EDE6C4;
+    --border: #D0C090; --border2: #B8A870;
+    --orange: #C8A020; --blue: #1B5E20;
+  }
+  [data-theme="nigeria"] {
+    --bg: #F8FFF8; --surface: #ECF8EC; --surface2: #DCF0DC;
+    --border: #A8D4A8; --border2: #80BC80;
+    --orange: #FF6600; --blue: #006600;
+  }
+  [data-theme="guinea"] {
+    --bg: #FFF8F5; --surface: #FFEEDC; --surface2: #FFE0BC;
+    --border: #F0C090; --border2: #E0A860;
+    --orange: #CE1126; --blue: #009460;
+  }
+  [data-theme="burkinafaso"] {
+    --bg: #FFFCF0; --surface: #FFF5D8; --surface2: #FFEDB8;
+    --border: #E8C878; --border2: #D4A848;
+    --orange: #EF2B2D; --blue: #009A00;
+  }
+  [data-theme="ethiopia"] {
+    --bg: #F5FFF5; --surface: #E8F8E8; --surface2: #D8F0D8;
+    --border: #A0D4A0; --border2: #78BC78;
+    --orange: #DA121A; --blue: #FCDD09;
+  }
+  [data-theme="centralasia"] {
+    --bg: #F5F8FF; --surface: #E8F0F8; --surface2: #D8E8F0;
+    --border: #B0C8D8; --border2: #8CAFC4;
+    --orange: #8B6914; --blue: #5B9BD5;
+  }
+  [data-theme="seasia-islamic"] {
+    --bg: #F5FFF8; --surface: #E8F8EE; --surface2: #D8F0E4;
+    --border: #A8D8B8; --border2: #80C09C;
+    --orange: #ADD8E6; --blue: #2D8653;
+  }
+  [data-theme="seasia-buddhist"] {
+    --bg: #FFFBF0; --surface: #FFF5D8; --surface2: #FFECB8;
+    --border: #E8C878; --border2: #D4A838;
+    --orange: #E34234; --blue: #00827F;
+  }
+
   </style>
 </head>
 <body>
@@ -644,8 +766,48 @@
     <a class="nav-link" href="#best-markets" data-i18n="nav_markets">Markets</a>
     <a class="nav-link" href="#about" data-i18n="nav_about">About Us</a>
     <a class="nav-link" href="#quote" data-i18n="nav_contact">Contact</a>
+    <a class="nav-link" href="./worldmap.html" style="color:var(--green3);font-weight:700">🌍 Ship Map</a>
     <a class="nav-link" href="./portal.html" data-i18n="nav_login" style="color:var(--green);font-weight:700">Login</a>
   </div>
+  <!-- Market color theme picker -->
+  <div class="market-theme-wrap" id="marketThemeWrap">
+    <button class="market-theme-btn" id="marketThemeBtn" onclick="toggleMarketDrop()" aria-haspopup="listbox" aria-expanded="false">
+      <span class="mflag" id="marketThemeFlag">🌍</span>
+      <span id="marketThemeLabel">Market</span>
+      <span class="marrow">▼</span>
+    </button>
+    <div class="market-theme-drop" id="marketThemeDrop" role="listbox">
+      <div class="mtheme-group-label">Global</div>
+      <button class="mtheme-option active" data-theme="" onclick="setMarketTheme('','🌍','Global',this)"><span class="mflag2">🌍</span><span class="mcountry">Global Default</span></button>
+
+      <div class="mtheme-group-label">Middle East — الشرق الأوسط</div>
+      <button class="mtheme-option" data-theme="iraq" onclick="setMarketTheme('iraq','🇮🇶','Iraq',this)"><span class="mflag2">🇮🇶</span><span class="mcountry">Iraq<span class="mhint"> · Olive + Off-white + Dark Red</span></span></button>
+      <button class="mtheme-option" data-theme="egypt" onclick="setMarketTheme('egypt','🇪🇬','Egypt',this)"><span class="mflag2">🇪🇬</span><span class="mcountry">Egypt<span class="mhint"> · Off-white + Warm Red + Gold</span></span></button>
+      <button class="mtheme-option" data-theme="yemen" onclick="setMarketTheme('yemen','🇾🇪','Yemen',this)"><span class="mflag2">🇾🇪</span><span class="mcountry">Yemen<span class="mhint"> · Pure White + Crimson + Green</span></span></button>
+      <button class="mtheme-option" data-theme="iran" onclick="setMarketTheme('iran','🇮🇷','Iran',this)"><span class="mflag2">🇮🇷</span><span class="mcountry">Iran<span class="mhint"> · Dark Green + Cream + Burgundy</span></span></button>
+      <button class="mtheme-option" data-theme="uae" onclick="setMarketTheme('uae','🇦🇪','UAE / Dubai',this)"><span class="mflag2">🇦🇪</span><span class="mcountry">UAE / Dubai<span class="mhint"> · Beige + Emerald + Gold</span></span></button>
+
+      <div class="mtheme-group-label">North Africa — شمال أفريقيا</div>
+      <button class="mtheme-option" data-theme="algeria" onclick="setMarketTheme('algeria','🇩🇿','Algeria',this)"><span class="mflag2">🇩🇿</span><span class="mcountry">Algeria<span class="mhint"> · Sky Blue + Off-white + Yellow</span></span></button>
+      <button class="mtheme-option" data-theme="morocco-blue" onclick="setMarketTheme('morocco-blue','🇲🇦','Morocco (Blue)',this)"><span class="mflag2">🇲🇦</span><span class="mcountry">Morocco Blue<span class="mhint"> · Chefchaouen Blue + White</span></span></button>
+      <button class="mtheme-option" data-theme="morocco-red" onclick="setMarketTheme('morocco-red','🇲🇦','Morocco (Red)',this)"><span class="mflag2">🇲🇦</span><span class="mcountry">Morocco Red<span class="mhint"> · Terracotta + Dark Green</span></span></button>
+      <button class="mtheme-option" data-theme="sudan" onclick="setMarketTheme('sudan','🇸🇩','Sudan',this)"><span class="mflag2">🇸🇩</span><span class="mcountry">Sudan<span class="mhint"> · Warm Yellow + White + Green</span></span></button>
+
+      <div class="mtheme-group-label">West Africa — غرب أفريقيا</div>
+      <button class="mtheme-option" data-theme="nigeria" onclick="setMarketTheme('nigeria','🇳🇬','Nigeria',this)"><span class="mflag2">🇳🇬</span><span class="mcountry">Nigeria<span class="mhint"> · Dark Green + White + Orange</span></span></button>
+      <button class="mtheme-option" data-theme="guinea" onclick="setMarketTheme('guinea','🇬🇳','Guinea',this)"><span class="mflag2">🇬🇳</span><span class="mcountry">Guinea<span class="mhint"> · Red + Yellow + Green</span></span></button>
+      <button class="mtheme-option" data-theme="burkinafaso" onclick="setMarketTheme('burkinafaso','🇧🇫','Burkina Faso',this)"><span class="mflag2">🇧🇫</span><span class="mcountry">Burkina Faso<span class="mhint"> · Red + Yellow + Green</span></span></button>
+      <button class="mtheme-option" data-theme="ethiopia" onclick="setMarketTheme('ethiopia','🇪🇹','Ethiopia',this)"><span class="mflag2">🇪🇹</span><span class="mcountry">Ethiopia<span class="mhint"> · Red + Emerald + Yellow</span></span></button>
+
+      <div class="mtheme-group-label">Central Asia — آسيا الوسطى</div>
+      <button class="mtheme-option" data-theme="centralasia" onclick="setMarketTheme('centralasia','🏔️','Central Asia',this)"><span class="mflag2">🏔️</span><span class="mcountry">Central Asia<span class="mhint"> · Sky Blue + Off-white + Earth Brown</span></span></button>
+
+      <div class="mtheme-group-label">Southeast Asia — آسيا الجنوبية الشرقية</div>
+      <button class="mtheme-option" data-theme="seasia-islamic" onclick="setMarketTheme('seasia-islamic','🕌','SE Asia (Islamic)',this)"><span class="mflag2">🕌</span><span class="mcountry">SE Asia Islamic<span class="mhint"> · Grass Green + White + Blue</span></span></button>
+      <button class="mtheme-option" data-theme="seasia-buddhist" onclick="setMarketTheme('seasia-buddhist','🛕','SE Asia (Buddhist)',this)"><span class="mflag2">🛕</span><span class="mcountry">SE Asia Buddhist<span class="mhint"> · Gold + Vermilion + Teal</span></span></button>
+    </div>
+  </div>
+
   <div class="nav-lang skiptranslate">
     <button class="lang-btn active" data-lang="EN" onclick="setLang('EN',this)">EN</button>
     <button class="lang-btn" data-lang="AR" onclick="setLang('AR',this)">AR</button>
@@ -671,6 +833,19 @@
   <a href="./track.html" target="_blank" rel="noopener" class="portal">Track My Vehicle</a>
   <a href="./portal.html" target="_blank" rel="noopener" class="portal">Owner / Staff Login</a>
   <a href="./sales.html" target="_blank" rel="noopener" class="portal">Andy / Eissa Sales Portal</a>
+  <div style="padding:10px 20px 4px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:var(--surface2);">Market Theme</div>
+  <div id="mobileThemePicker" style="display:flex;flex-wrap:wrap;gap:6px;padding:10px 14px 14px;">
+    <button onclick="setMarketTheme('','🌍','Global',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🌍 Global</button>
+    <button onclick="setMarketTheme('iraq','🇮🇶','Iraq',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇮🇶 Iraq</button>
+    <button onclick="setMarketTheme('egypt','🇪🇬','Egypt',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇪🇬 Egypt</button>
+    <button onclick="setMarketTheme('yemen','🇾🇪','Yemen',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇾🇪 Yemen</button>
+    <button onclick="setMarketTheme('iran','🇮🇷','Iran',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇮🇷 Iran</button>
+    <button onclick="setMarketTheme('uae','🇦🇪','UAE',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇦🇪 UAE</button>
+    <button onclick="setMarketTheme('nigeria','🇳🇬','Nigeria',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇳🇬 Nigeria</button>
+    <button onclick="setMarketTheme('algeria','🇩🇿','Algeria',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🇩🇿 Algeria</button>
+    <button onclick="setMarketTheme('centralasia','🏔️','C.Asia',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🏔️ C.Asia</button>
+    <button onclick="setMarketTheme('seasia-islamic','🕌','SE Asia',null);closeMobileMenu()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;">🕌 SE Asia</button>
+  </div>
 </div>
 
 <div class="mobile-lang-panel" id="mobileLangPanel" aria-hidden="true">
@@ -918,12 +1093,12 @@
 
 <!-- ── TRUST ── -->
 <div class="trust">
-  <div class="trust-item"><div class="trust-icon">CERT</div><div class="trust-text"><strong data-i18n="trust1_s">10 Integrity Certificates</strong><span data-i18n="trust1_p">Model Unit for Business Integrity</span></div></div>
-  <div class="trust-item"><div class="trust-icon">CN</div><div class="trust-text"><strong data-i18n="trust2_s">MOFCOM Licensed</strong><span data-i18n="trust2_p">Ministry of Commerce export license</span></div></div>
-  <div class="trust-item"><div class="trust-icon">QA</div><div class="trust-text"><strong data-i18n="trust3_s">200-Point Inspection</strong><span data-i18n="trust3_p">Third-party pre-export verification</span></div></div>
-  <div class="trust-item"><div class="trust-icon">SHIP</div><div class="trust-text"><strong data-i18n="trust4_s">Door-to-Port Logistics</strong><span data-i18n="trust4_p">Shanghai port, full customs handling</span></div></div>
-  <div class="trust-item"><div class="trust-icon">DOC</div><div class="trust-text"><strong data-i18n="trust5_s">Full Documentation</strong><span data-i18n="trust5_p">B/L, CoO, customs, invoice, insurance</span></div></div>
-  <div class="trust-item"><div class="trust-icon">GLB</div><div class="trust-text"><strong data-i18n="trust6_s">Global Network</strong><span data-i18n="trust6_p">Asia · Europe · Africa · Middle East · S. America</span></div></div>
+  <a class="trust-item" href="#about" style="cursor:pointer;color:inherit;text-decoration:none;" title="View certifications"><div class="trust-icon">CERT</div><div class="trust-text"><strong data-i18n="trust1_s">10 Integrity Certificates</strong><span data-i18n="trust1_p">Model Unit for Business Integrity</span></div></a>
+  <a class="trust-item" href="#certs" style="cursor:pointer;color:inherit;text-decoration:none;" title="View export license"><div class="trust-icon">CN</div><div class="trust-text"><strong data-i18n="trust2_s">MOFCOM Licensed</strong><span data-i18n="trust2_p">Ministry of Commerce export license</span></div></a>
+  <a class="trust-item" href="#how" style="cursor:pointer;color:inherit;text-decoration:none;" title="How inspection works"><div class="trust-icon">QA</div><div class="trust-text"><strong data-i18n="trust3_s">200-Point Inspection</strong><span data-i18n="trust3_p">Third-party pre-export verification</span></div></a>
+  <a class="trust-item" href="#routes" style="cursor:pointer;color:inherit;text-decoration:none;" title="View shipping routes"><div class="trust-icon">SHIP</div><div class="trust-text"><strong data-i18n="trust4_s">Door-to-Port Logistics</strong><span data-i18n="trust4_p">Shanghai port, full customs handling</span></div></a>
+  <a class="trust-item" href="#info" style="cursor:pointer;color:inherit;text-decoration:none;" title="Export documentation details"><div class="trust-icon">DOC</div><div class="trust-text"><strong data-i18n="trust5_s">Full Documentation</strong><span data-i18n="trust5_p">B/L, CoO, customs, invoice, insurance</span></div></a>
+  <a class="trust-item" href="#best-markets" style="cursor:pointer;color:inherit;text-decoration:none;" title="Our global markets"><div class="trust-icon">GLB</div><div class="trust-text"><strong data-i18n="trust6_s">Global Network</strong><span data-i18n="trust6_p">Asia · Europe · Africa · Middle East · S. America</span></div></a>
 </div>
 
 <!-- ── SHOWROOM ── -->
@@ -3437,6 +3612,98 @@ setCount('cShipping',138);
   }
 })();
 </script>
+<!-- ── MARKET THEME SYSTEM ── -->
+<script>
+(function(){
+  // Country code → theme key mapping for IP auto-detect
+  var COUNTRY_THEMES = {
+    IQ:'iraq', EG:'egypt', YE:'yemen', IR:'iran', AE:'uae', OM:'uae', QA:'uae', KW:'uae', BH:'uae',
+    DZ:'algeria', MA:'morocco-blue', SD:'sudan', LY:'algeria', TN:'algeria',
+    NG:'nigeria', GN:'guinea', BF:'burkinafaso', ET:'ethiopia', GH:'nigeria', CM:'nigeria', CI:'nigeria', SN:'nigeria', ML:'nigeria',
+    KZ:'centralasia', UZ:'centralasia', KG:'centralasia', TJ:'centralasia', TM:'centralasia',
+    ID:'seasia-islamic', MY:'seasia-islamic', PK:'seasia-islamic', BD:'seasia-islamic',
+    TH:'seasia-buddhist', VN:'seasia-buddhist', KH:'seasia-buddhist', MM:'seasia-buddhist', LA:'seasia-buddhist'
+  };
+
+  function applyTheme(key, flag, label) {
+    document.documentElement.setAttribute('data-theme', key || '');
+    var btn = document.getElementById('marketThemeBtn');
+    if (btn) {
+      document.getElementById('marketThemeFlag').textContent = flag || '🌍';
+      document.getElementById('marketThemeLabel').textContent = label || 'Market';
+    }
+    // Mark active option
+    document.querySelectorAll('.mtheme-option').forEach(function(o){
+      o.classList.toggle('active', (o.dataset.theme || '') === (key || ''));
+    });
+    // Persist
+    try { localStorage.setItem('nv_market_theme', JSON.stringify({key:key,flag:flag,label:label})); } catch(e){}
+  }
+
+  window.setMarketTheme = function(key, flag, label, el) {
+    applyTheme(key, flag, label);
+    closeMarketDrop();
+  };
+
+  window.toggleMarketDrop = function() {
+    var drop = document.getElementById('marketThemeDrop');
+    var btn = document.getElementById('marketThemeBtn');
+    if (!drop) return;
+    var open = drop.classList.toggle('open');
+    btn && btn.setAttribute('aria-expanded', open);
+    if (open) {
+      setTimeout(function(){
+        document.addEventListener('click', function handler(e){
+          if (!e.target.closest('#marketThemeWrap')) {
+            closeMarketDrop();
+            document.removeEventListener('click', handler);
+          }
+        });
+      }, 10);
+    }
+  };
+
+  window.closeMarketDrop = function() {
+    var drop = document.getElementById('marketThemeDrop');
+    var btn = document.getElementById('marketThemeBtn');
+    if (drop) drop.classList.remove('open');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  };
+
+  // Restore saved preference first
+  try {
+    var saved = JSON.parse(localStorage.getItem('nv_market_theme') || 'null');
+    if (saved && saved.key) { applyTheme(saved.key, saved.flag, saved.label); return; }
+  } catch(e){}
+
+  // Auto-detect via IP geolocation (free, no key)
+  try {
+    fetch('https://ipapi.co/json/', {signal: AbortSignal.timeout ? AbortSignal.timeout(4000) : undefined})
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var cc = d && d.country_code;
+        if (cc && COUNTRY_THEMES[cc]) {
+          var key = COUNTRY_THEMES[cc];
+          // Map key back to a flag + label
+          var flagMap = {
+            iraq:'🇮🇶', egypt:'🇪🇬', yemen:'🇾🇪', iran:'🇮🇷', uae:'🇦🇪',
+            algeria:'🇩🇿', 'morocco-blue':'🇲🇦', sudan:'🇸🇩',
+            nigeria:'🇳🇬', guinea:'🇬🇳', burkinafaso:'🇧🇫', ethiopia:'🇪🇹',
+            centralasia:'🏔️', 'seasia-islamic':'🕌', 'seasia-buddhist':'🛕'
+          };
+          var labelMap = {
+            iraq:'Iraq', egypt:'Egypt', yemen:'Yemen', iran:'Iran', uae:'UAE',
+            algeria:'Algeria', 'morocco-blue':'Morocco', sudan:'Sudan',
+            nigeria:'Nigeria', guinea:'Guinea', burkinafaso:'Burkina Faso', ethiopia:'Ethiopia',
+            centralasia:'Central Asia', 'seasia-islamic':'SE Asia', 'seasia-buddhist':'SE Asia'
+          };
+          applyTheme(key, flagMap[key] || '🌍', labelMap[key] || 'Market');
+        }
+      }).catch(function(){});
+  } catch(e){}
+})();
+</script>
+
 <script src="arkreview.js?v=20260603-annotation-fix"></script>
 <script src="admin.js"></script>
 <!-- Visitor analytics + interaction heatmap for the owner portal (fire-and-forget, both hosts) -->
