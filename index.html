@@ -818,7 +818,7 @@
     <a class="nav-link" href="#best-markets" data-i18n="nav_markets">Markets</a>
     <a class="nav-link" href="#about" data-i18n="nav_about">About Us</a>
     <a class="nav-link" href="#quote" data-i18n="nav_contact">Contact</a>
-    <a class="nav-link" href="#global-shipping-map" style="color:var(--green3);font-weight:700">Ship Routes</a>
+    <a class="nav-link" href="#global-shipping-map" style="color:var(--green3);font-weight:700" data-i18n="nav_ship_routes">Ship Routes</a>
     <a class="nav-link" href="./portal.html" data-i18n="nav_login" style="color:var(--green);font-weight:700">Login</a>
   </div>
   <!-- Market color theme picker -->
@@ -1136,45 +1136,45 @@
   <div class="shipping-map-shell">
     <div class="shipping-map-head">
       <div>
-        <h2>Global shipping route map</h2>
-        <p>New Vision exports from Shanghai to Jebel Ali, Mombasa, Lagos, Antwerp, Santos, and Kingston. This is a customer route preview; exact vessel schedules, freight, and ETA are confirmed with your CIF quote.</p>
-        <p class="shipping-map-source" id="mapDependencyNote">Map app, route logic, 3D globe runtime, and globe textures are local on this site. 2D tile images still load from CARTO/OpenStreetMap and OpenSeaMap; static GitHub/Cloudflare API data is Vercel-backed.</p>
+        <h2 data-i18n="ship_map_h">Global shipping route map</h2>
+        <p data-i18n="ship_map_p">New Vision exports from Shanghai to Jebel Ali, Mombasa, Lagos, Antwerp, Santos, and Kingston. This is a customer route preview; exact vessel schedules, freight, and ETA are confirmed with your CIF quote.</p>
+        <p class="shipping-map-source" id="mapDependencyNote" data-i18n="ship_map_source">Map app, route logic, 3D globe runtime, and globe textures are local on this site. 2D tile images still load from CARTO/OpenStreetMap and OpenSeaMap; static GitHub/Cloudflare API data is Vercel-backed.</p>
       </div>
       <div class="shipping-map-status" aria-label="shipping route status">
-        <span class="shipping-map-pill">6 active lanes</span>
-        <span class="shipping-map-pill">16–48 days FOB→CIF</span>
+        <span class="shipping-map-pill" data-i18n="ship_map_lanes">6 active lanes</span>
+        <span class="shipping-map-pill" data-i18n="ship_map_days">16–48 days FOB→CIF</span>
         <span class="shipping-map-pill" id="shippingClock">Route preview</span>
       </div>
     </div>
     <div class="shipping-map-wrap">
       <iframe src="./worldmap.html?embed=1" title="New Vision live world shipping route map" loading="lazy" allow="geolocation"></iframe>
       <div class="shipping-map-panel">
-        <div class="k">Advanced route board</div>
+        <div class="k" data-i18n="ship_map_board">Advanced route board</div>
         <b id="routeBoardTitle">China export loop with active destination lanes</b>
         <p id="routeBoardCopy">Animated shipping shows the route logic from Yiwu sourcing to Shanghai loading, then out to Gulf, Africa, Europe, Latin America, and Caribbean ports. This is a route preview; the quote team confirms the actual vessel, sailing date, freight, and ETA.</p>
         <div class="shipping-route-tabs" id="shippingRouteTabs" aria-label="shipping route selector">
-          <button class="shipping-route-tab active" onclick="selectShippingRoute('gulf',this)">Gulf</button>
-          <button class="shipping-route-tab" onclick="selectShippingRoute('eastAfrica',this)">East Africa</button>
-          <button class="shipping-route-tab" onclick="selectShippingRoute('westAfrica',this)">West Africa</button>
-          <button class="shipping-route-tab" onclick="selectShippingRoute('europe',this)">Europe</button>
-          <button class="shipping-route-tab" onclick="selectShippingRoute('latinAmerica',this)">Latin America</button>
-          <button class="shipping-route-tab" onclick="selectShippingRoute('caribbean',this)">Caribbean</button>
+          <button class="shipping-route-tab active" data-route="gulf" onclick="selectShippingRoute('gulf',this)" data-i18n="ship_tab_gulf">Gulf</button>
+          <button class="shipping-route-tab" data-route="eastAfrica" onclick="selectShippingRoute('eastAfrica',this)" data-i18n="ship_tab_east_africa">East Africa</button>
+          <button class="shipping-route-tab" data-route="westAfrica" onclick="selectShippingRoute('westAfrica',this)" data-i18n="ship_tab_west_africa">West Africa</button>
+          <button class="shipping-route-tab" data-route="europe" onclick="selectShippingRoute('europe',this)" data-i18n="ship_tab_europe">Europe</button>
+          <button class="shipping-route-tab" data-route="latinAmerica" onclick="selectShippingRoute('latinAmerica',this)" data-i18n="ship_tab_latin_america">Latin America</button>
+          <button class="shipping-route-tab" data-route="caribbean" onclick="selectShippingRoute('caribbean',this)" data-i18n="ship_tab_caribbean">Caribbean</button>
         </div>
         <div class="shipping-map-metrics">
           <span id="routePortCount">6 ports</span>
           <span id="routeTransit">12–48 days</span>
-          <span>FOB to CIF</span>
+          <span data-i18n="ship_metric_fob_cif">FOB to CIF</span>
         </div>
       </div>
     </div>
     <div class="shipping-map-legend">
-      <div><b>Shanghai</b><span>New Vision export loading through China port lanes.</span><button onclick="goToQuote({port:'Shanghai',message:'Please confirm FOB export readiness from Shanghai/Ningbo for my selected vehicle.'})">Quote this route</button></div>
-      <div><b>Jebel Ali</b><span>Gulf distribution and re-export hub.</span><button onclick="goToQuote({port:'Jebel Ali',message:'Please quote the Gulf route preview to Jebel Ali for my selected vehicle.'})">Quote this route</button></div>
-      <div><b>Mombasa</b><span>East Africa buyer and dealer lane.</span><button onclick="goToQuote({port:'Mombasa',message:'Please quote the East Africa route preview to Mombasa for my selected vehicle.'})">Quote this route</button></div>
-      <div><b>Lagos</b><span>West Africa vehicle import demand.</span><button onclick="goToQuote({port:'Lagos',message:'Please quote the West Africa route preview to Lagos for my selected vehicle.'})">Quote this route</button></div>
-      <div><b>Antwerp</b><span>Europe destination and onward logistics.</span><button onclick="goToQuote({port:'Antwerp',message:'Please quote the Europe route preview to Antwerp for my selected vehicle.'})">Quote this route</button></div>
-      <div><b>Santos</b><span>Brazil and Latin America quote lane.</span><button onclick="goToQuote({port:'Santos',message:'Please quote the Latin America route preview to Santos for my selected vehicle.'})">Quote this route</button></div>
-      <div><b>Kingston</b><span>Caribbean dealer and island-port quote lane.</span><button onclick="goToQuote({port:'Kingston',message:'Please quote the Caribbean route preview to Kingston for my selected vehicle.'})">Quote this route</button></div>
+      <div><b>Shanghai</b><span data-i18n="ship_legend_shanghai">New Vision export loading through China port lanes.</span><button onclick="goToQuote({port:'Shanghai',message:'Please confirm FOB export readiness from Shanghai/Ningbo for my selected vehicle.'})" data-i18n="ship_quote_route">Quote this route</button></div>
+      <div><b>Jebel Ali</b><span data-i18n="ship_legend_jebel">Gulf distribution and re-export hub.</span><button onclick="goToQuote({port:'Jebel Ali',message:'Please quote the Gulf route preview to Jebel Ali for my selected vehicle.'})" data-i18n="ship_quote_route">Quote this route</button></div>
+      <div><b>Mombasa</b><span data-i18n="ship_legend_mombasa">East Africa buyer and dealer lane.</span><button onclick="goToQuote({port:'Mombasa',message:'Please quote the East Africa route preview to Mombasa for my selected vehicle.'})" data-i18n="ship_quote_route">Quote this route</button></div>
+      <div><b>Lagos</b><span data-i18n="ship_legend_lagos">West Africa vehicle import demand.</span><button onclick="goToQuote({port:'Lagos',message:'Please quote the West Africa route preview to Lagos for my selected vehicle.'})" data-i18n="ship_quote_route">Quote this route</button></div>
+      <div><b>Antwerp</b><span data-i18n="ship_legend_antwerp">Europe destination and onward logistics.</span><button onclick="goToQuote({port:'Antwerp',message:'Please quote the Europe route preview to Antwerp for my selected vehicle.'})" data-i18n="ship_quote_route">Quote this route</button></div>
+      <div><b>Santos</b><span data-i18n="ship_legend_santos">Brazil and Latin America quote lane.</span><button onclick="goToQuote({port:'Santos',message:'Please quote the Latin America route preview to Santos for my selected vehicle.'})" data-i18n="ship_quote_route">Quote this route</button></div>
+      <div><b>Kingston</b><span data-i18n="ship_legend_kingston">Caribbean dealer and island-port quote lane.</span><button onclick="goToQuote({port:'Kingston',message:'Please quote the Caribbean route preview to Kingston for my selected vehicle.'})" data-i18n="ship_quote_route">Quote this route</button></div>
     </div>
 
     <!-- ── CUSTOMER SHIP TRACKER ── -->
@@ -1214,14 +1214,26 @@ const SHIPPING_ROUTE_BOARD = {
   latinAmerica: ['Latin America quote lane', 'Shanghai to Santos for Brazil and nearby markets. Confirm import rules before deposit.', '2 ports', '32–48 days'],
   caribbean: ['Caribbean dealer lane', 'Shanghai to Kingston for island-port distribution and dealer quote requests.', '2 ports', '30–46 days'],
 };
+const SHIPPING_ROUTE_BOARD_ZH = {
+  gulf: ['中国出口至海湾目的地航线', '上海装船至杰贝阿里，适合阿联酋交付、海湾分拨和快速经销商周转。', '2个港口', '12–24天'],
+  eastAfrica: ['东非买家航线', '上海至蒙巴萨，服务肯尼亚、乌干达、坦桑尼亚及周边经销商走廊。报价团队确认滚装或集装箱方案。', '2个港口', '18–35天'],
+  westAfrica: ['西非买家航线', '上海至拉各斯，服务尼日利亚及区域转售需求。运期取决于船公司排期和港口处理。', '2个港口', '28–45天'],
+  europe: ['欧洲目的地航线', '上海至安特卫普，服务欧盟及后续物流。报价团队确认最终港杂费和文件路径。', '2个港口', '28–42天'],
+  latinAmerica: ['拉美询价航线', '上海至桑托斯，服务巴西及周边市场。付款前请确认进口规则。', '2个港口', '32–48天'],
+  caribbean: ['加勒比经销商航线', '上海至金斯敦，服务岛港分销和经销商询价。', '2个港口', '30–46天'],
+};
+let selectedShippingRoute = 'gulf';
 function selectShippingRoute(key, btn) {
-  const data = SHIPPING_ROUTE_BOARD[key] || SHIPPING_ROUTE_BOARD.gulf;
+  selectedShippingRoute = key || selectedShippingRoute || 'gulf';
+  const board = lang === 'ZH' ? SHIPPING_ROUTE_BOARD_ZH : SHIPPING_ROUTE_BOARD;
+  const data = board[selectedShippingRoute] || board.gulf;
   document.getElementById('routeBoardTitle').textContent = data[0];
-  document.getElementById('routeBoardCopy').textContent = data[1] + ' This is a customer route preview; exact vessel schedules, freight, and ETA are confirmed by the quote team.';
+  document.getElementById('routeBoardCopy').textContent = data[1] + ' ' + (lang === 'ZH' ? '这是客户路线预览；准确船期、运费和ETA由报价团队确认。' : 'This is a customer route preview; exact vessel schedules, freight, and ETA are confirmed by the quote team.');
   document.getElementById('routePortCount').textContent = data[2];
   document.getElementById('routeTransit').textContent = data[3];
   document.querySelectorAll('#shippingRouteTabs .shipping-route-tab').forEach(tab => tab.classList.remove('active'));
-  if (btn) btn.classList.add('active');
+  const activeBtn = btn || document.querySelector(`#shippingRouteTabs .shipping-route-tab[data-route="${selectedShippingRoute}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
 }
 (function updateShippingClock(){
   const el = document.getElementById('shippingClock');
@@ -1419,21 +1431,21 @@ function selectShippingRoute(key, btn) {
 
       <div class="quote-row">
         <div>
-          <label class="quote-label" for="qInspection">Inspection / proof</label>
+          <label class="quote-label" for="qInspection" data-i18n="quote_inspection">Inspection / proof</label>
           <select id="qInspection" class="quote-input" onchange="updateQuotePreview()">
-            <option value="Photo/video inspection">Photo/video inspection</option>
-            <option value="Live video call">Live video call</option>
-            <option value="Full export inspection">Full export inspection</option>
-            <option value="No inspection yet">No inspection yet</option>
+            <option value="Photo/video inspection" data-i18n="qinspection_photo">Photo/video inspection</option>
+            <option value="Live video call" data-i18n="qinspection_live">Live video call</option>
+            <option value="Full export inspection" data-i18n="qinspection_full">Full export inspection</option>
+            <option value="No inspection yet" data-i18n="qinspection_none">No inspection yet</option>
           </select>
         </div>
         <div>
-          <label class="quote-label" for="qDocs">Docs option</label>
+          <label class="quote-label" for="qDocs" data-i18n="quote_docs">Docs option</label>
           <select id="qDocs" class="quote-input" onchange="updateQuotePreview()">
-            <option value="Export docs check">Export docs check</option>
-            <option value="Invoice + export clearance pack">Invoice + export clearance pack</option>
-            <option value="Dealer batch document pack">Dealer batch document pack</option>
-            <option value="Confirm documents later">Confirm documents later</option>
+            <option value="Export docs check" data-i18n="qdocs_export">Export docs check</option>
+            <option value="Invoice + export clearance pack" data-i18n="qdocs_invoice">Invoice + export clearance pack</option>
+            <option value="Dealer batch document pack" data-i18n="qdocs_dealer">Dealer batch document pack</option>
+            <option value="Confirm documents later" data-i18n="qdocs_later">Confirm documents later</option>
           </select>
         </div>
       </div>
@@ -1443,20 +1455,20 @@ function selectShippingRoute(key, btn) {
           <label class="quote-label" for="qColor"><span data-i18n="quote_color">Customized Color</span></label>
           <select id="qColor" class="quote-input">
             <option value="" data-i18n="qcolor_any">Any / Standard</option>
-            <option data-i18n="qcolor_white">White</option>
-            <option data-i18n="qcolor_black">Black</option>
-            <option data-i18n="qcolor_silver">Silver / Grey</option>
-            <option data-i18n="qcolor_red">Red</option>
-            <option data-i18n="qcolor_blue">Blue</option>
-            <option data-i18n="qcolor_custom">Custom color (specify in message)</option>
+            <option value="White" data-i18n="qcolor_white">White</option>
+            <option value="Black" data-i18n="qcolor_black">Black</option>
+            <option value="Silver / Grey" data-i18n="qcolor_silver">Silver / Grey</option>
+            <option value="Red" data-i18n="qcolor_red">Red</option>
+            <option value="Blue" data-i18n="qcolor_blue">Blue</option>
+            <option value="Custom color (specify in message)" data-i18n="qcolor_custom">Custom color (specify in message)</option>
           </select>
         </div>
         <div>
           <label class="quote-label" for="qCondition"><span data-i18n="quote_condition">New or Used</span></label>
           <select id="qCondition" class="quote-input">
             <option value="" data-i18n="qcond_any">Either</option>
-            <option data-i18n="qcond_new">Brand New</option>
-            <option data-i18n="qcond_used">Used</option>
+            <option value="Brand New" data-i18n="qcond_new">Brand New</option>
+            <option value="Used" data-i18n="qcond_used">Used</option>
           </select>
         </div>
       </div>
@@ -1467,9 +1479,9 @@ function selectShippingRoute(key, btn) {
       </div>
 
       <div class="quote-preview" id="quotePreview">
-        <div class="quote-preview-title">Export quote preview <span>Estimate until sales confirms live freight</span></div>
+        <div class="quote-preview-title"><span data-i18n="quote_preview_title">Export quote preview</span> <span data-i18n="quote_preview_status">Estimate until sales confirms live freight</span></div>
         <div class="quote-preview-grid" id="quotePreviewGrid"></div>
-        <div class="quote-preview-note" id="quotePreviewNote">Choose a vehicle and destination port to preview FOB, freight, inspection/docs options, and estimated CIF.</div>
+        <div class="quote-preview-note" id="quotePreviewNote" data-i18n="quote_preview_empty">Choose a vehicle and destination port to preview FOB, freight, inspection/docs options, and estimated CIF.</div>
       </div>
 
       <button class="quote-submit" type="submit">
@@ -1865,6 +1877,31 @@ function quoteFreightEstimate(port) {
   return { route:'Custom export lane', freight:950, days:'Confirm by quote' };
 }
 
+const QUOTE_ROUTE_KEYS = {
+  'Gulf lane': 'quote_route_gulf',
+  'Saudi lane': 'quote_route_saudi',
+  'West Africa lane': 'quote_route_west_africa',
+  'Ghana lane': 'quote_route_ghana',
+  'East Africa lane': 'quote_route_east_africa',
+  'North Africa lane': 'quote_route_north_africa',
+  'Latin America lane': 'quote_route_latin_america',
+  'Southeast Asia lane': 'quote_route_se_asia',
+  'Custom export lane': 'quote_route_custom',
+};
+
+function trQuoteRoute(route) {
+  const key = QUOTE_ROUTE_KEYS[route];
+  return key ? tr(key) : route;
+}
+
+function trQuoteDays(days) {
+  const text = String(days || '');
+  const m = text.match(/^(\d+)-(\d+) days$/);
+  if (m) return lang === 'ZH' ? `${m[1]}-${m[2]}${tr('quote_days_unit')}` : `${m[1]}-${m[2]} ${tr('quote_days_unit')}`;
+  if (text === 'Confirm by quote') return tr('quote_days_confirm');
+  return translateKnownPhrase(text) || text;
+}
+
 function quoteEstimate(v, port, inspectionOption, docsOption) {
   const freight = quoteFreightEstimate(port);
   const fob = Number(v && v.price) || 0;
@@ -1889,12 +1926,12 @@ function updateQuotePreview() {
   }
   const estimate = quoteEstimate(v, port, document.getElementById('qInspection')?.value, document.getElementById('qDocs')?.value);
   grid.innerHTML = [
-    ['Stock', v ? stockIdForVehicle(v) : 'Fleet/custom'],
-    ['FOB', estimate.fob ? fmt(estimate.fob) : 'Confirm vehicle'],
-    ['Freight est.', fmt(estimate.freight)],
-    ['CIF est.', estimate.fob ? fmt(estimate.cif) : 'Need FOB'],
+    [tr('quote_preview_stock'), v ? stockIdForVehicle(v) : tr('quote_preview_fleet')],
+    [tr('quote_preview_fob'), estimate.fob ? fmt(estimate.fob) : tr('quote_preview_confirm_vehicle')],
+    [tr('quote_preview_freight'), fmt(estimate.freight)],
+    [tr('quote_preview_cif'), estimate.fob ? fmt(estimate.cif) : tr('quote_preview_need_fob')],
   ].map(([k,val]) => `<div class="quote-preview-kv"><div class="k">${escapeHtml(k)}</div><div class="v">${escapeHtml(val)}</div></div>`).join('');
-  note.textContent = `${estimate.route} · ${estimate.days}. Includes selected proof/docs options and a simple insurance estimate. Final CIF is confirmed by New Vision sales before deposit.`;
+  note.textContent = `${trQuoteRoute(estimate.route)} · ${trQuoteDays(estimate.days)}. ${tr('quote_preview_note')}`;
   box.classList.add('active');
   return estimate;
 }
@@ -2317,14 +2354,14 @@ function calcEst(){
 // ── TRANSLATIONS ─────────────────────────────────────────────────────────────
 const T = {
   EN: {
-    nav_inventory:'Inventory', nav_process:'Process', nav_routes:'Routes', nav_about:'About',
+    nav_inventory:'Inventory', nav_brands:'Brands', nav_process:'Process', nav_markets:'Markets', nav_routes:'Routes', nav_ship_routes:'Ship Routes', nav_about:'About Us', nav_contact:'Contact', nav_login:'Login',
     demo_label:'Demo Site', demo_notice:'Sample inventory for illustration purposes.',
     demo_cta:'Contact us on WhatsApp for current stock & pricing →',
     mnav_cars:'Cars', mnav_filter:'Filter', mnav_quote:'Quote', mnav_trust:'Trust', mnav_lang:'Lang',
     hero_badge:'Demo inventory - contact for current stock',
     hero_h1:'Buy Cars <span>Direct from China</span><br>Delivered to Your Country',
     hero_sub:'Focusing on green and smart travel since 2019. Full-chain export solutions — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO and 16+ brands.',
-    filter_all:'All', filter_ev:'New Energy', filter_fuel:'Gas / Petrol', filter_suv:'SUV', filter_sedan:'Sedan', filter_premium:'Premium', filter_value:'Value', filter_new:'Brand New',
+    filter_all:'All', filter_ev:'New Energy', filter_fuel:'Gas / Petrol', filter_suv:'SUV', filter_sedan:'Sedan', filter_premium:'Premium', filter_value:'Value', filter_new:'Brand New', filter_used:'Used Cars',
     sort_latest:'Latest Arrivals', sort_price_asc:'Price: Low → High', sort_price_desc:'Price: High → Low', sort_mileage:'Lowest Mileage',
     step1_h:'Browse & Select', step1_p:'Search 3,200+ vehicles by brand, type, budget',
     step2_h:'Get Your Quote', step2_p:'FOB + CIF estimate to your port within 2 hours via WhatsApp',
@@ -2355,21 +2392,53 @@ const T = {
     inv_sub:'FOB Shanghai pricing · 180-day export eligible · Sample inventory — contact for current stock',
     showroom_h2b:'New Vision Car Export Company', showroom_desc:'Established in Yiwu, China in 2019. We specialize in green and smart travel solutions — connecting global buyers to China\'s top automotive brands with full-service export, documentation, and logistics support.',
     showroom_btn:'Contact Our Team →',
+    about_kicker:'About Us', about_h:'Yiwu New Vision Car Export Co., Ltd.',
+    about_p1:'Since 2019, New Vision has focused on green and smart travel — delivering the full new-energy and traditional vehicle export chain from Yiwu, Zhejiang to buyers in 50+ countries across Africa, the Middle East, Asia, Europe and South America.',
+    about_p2:'We partner with 20+ leading Chinese, German, Japanese and Korean brands and handle everything end-to-end: sourcing, inspection, export licensing, customs, vessel booking, loading and delivery — backed by 24-hour after-sales support and global parts supply.',
+    about_s1:'Exporting since', about_s2:'Brand partners', about_s3:'Countries served', about_s4:'After-sales support',
+    about_cta:'Talk to our export team →',
     ss_founded:'Founded in Yiwu', ss_countries:'Countries Reached', ss_brands:'Brand Partners', ss_certs:'Integrity Certificates',
     how_sub:'Shanghai to your port in 15–35 days',
+    est_menu:'Shipping Estimator', est_title:'Shipping <span>Cost Estimator</span>',
+    est_sub:'Pick your destination port and a vehicle price — get an instant FOB→CIF estimate and transit time.',
+    est_dest:'Destination port', est_fob:'Vehicle FOB price (USD)',
+    est_note:'Estimates only — final ocean freight depends on RoRo/container, vehicle size, and live carrier rates. Send a quote request for an exact CIF figure.',
+    ship_map_h:'Global shipping route map',
+    ship_map_p:'New Vision exports from Shanghai to Jebel Ali, Mombasa, Lagos, Antwerp, Santos, and Kingston. This is a customer route preview; exact vessel schedules, freight, and ETA are confirmed with your CIF quote.',
+    ship_map_source:'Map app, route logic, 3D globe runtime, and globe textures are local on this site. 2D tile images still load from CARTO/OpenStreetMap and OpenSeaMap; static GitHub/Cloudflare API data is Vercel-backed.',
+    ship_map_lanes:'6 active lanes', ship_map_days:'16–48 days FOB→CIF', ship_map_board:'Advanced route board',
+    ship_tab_gulf:'Gulf', ship_tab_east_africa:'East Africa', ship_tab_west_africa:'West Africa', ship_tab_europe:'Europe', ship_tab_latin_america:'Latin America', ship_tab_caribbean:'Caribbean',
+    ship_metric_fob_cif:'FOB to CIF', ship_quote_route:'Quote this route',
+    ship_legend_shanghai:'New Vision export loading through China port lanes.', ship_legend_jebel:'Gulf distribution and re-export hub.',
+    ship_legend_mombasa:'East Africa buyer and dealer lane.', ship_legend_lagos:'West Africa vehicle import demand.',
+    ship_legend_antwerp:'Europe destination and onward logistics.', ship_legend_santos:'Brazil and Latin America quote lane.',
+    ship_legend_kingston:'Caribbean dealer and island-port quote lane.',
     btn_wa_quote:'WhatsApp Quote Now', btn_email:'Email Us',
     footer_desc:'义乌新视界汽车销售有限公司 · Focusing on green and smart travel. Full-chain new energy vehicle export solutions since 2019.',
     foot_col1:'Vehicles', foot_col2:'Services', foot_col3:'Company',
     fl_ev:'New Energy (EV/PHEV)', fl_fuel:'Traditional Fuel', fl_prem:'Premium Brands', fl_moto:'Motorcycles', fl_eng:'Engineering Vehicles',
     fl_insp:'Pre-Export Inspection', fl_docs:'Export Documentation', fl_freight:'Ocean Freight', fl_customs:'Customs Clearance', fl_after:'After-Sales Support',
     fl_safety:'Safety & Licensing', fl_regs:'Export Regulations', fl_dealer:'Dealer Partnership',
-    tab_specs:'Specifications', tab_docs:'Documents', tab_ship:'Shipping',
+    tab_specs:'Specifications', tab_docs:'Documents', tab_ship:'Shipping', tab_video:'Video',
     quote_badge:'Request a Quote', quote_h:'Get Pricing in 24 Hours',
     quote_sub:'Fill in your details and we\'ll send FOB pricing, photos, and available stock directly to you.',
     quote_name:'Your Name', quote_country:'Country', quote_contact:'WhatsApp / Phone', quote_vehicle:'Vehicle of Interest',
     quote_port:'Destination Port', quote_msg:'Message / Quantity',
+    quote_inspection:'Inspection / proof', quote_docs:'Docs option', quote_color:'Customized Color', quote_condition:'New or Used',
     qph_name:'John Smith', qph_country:'Nigeria, UAE, Brazil...', qph_contact:'+234 800 000 0000', qph_port:'Lagos, Dubai, Mombasa, Santos...', qph_msg:'How many units? Any specific trim, color, or requirements?',
     qopt_select_vehicle:'Select vehicle or fleet order', qopt_fleet:'Multiple vehicles / Fleet order', qopt_other:'Other (specify in message)',
+    qinspection_photo:'Photo/video inspection', qinspection_live:'Live video call', qinspection_full:'Full export inspection', qinspection_none:'No inspection yet',
+    qdocs_export:'Export docs check', qdocs_invoice:'Invoice + export clearance pack', qdocs_dealer:'Dealer batch document pack', qdocs_later:'Confirm documents later',
+    qcolor_any:'Any / Standard', qcolor_white:'White', qcolor_black:'Black', qcolor_silver:'Silver / Grey', qcolor_red:'Red', qcolor_blue:'Blue', qcolor_custom:'Custom color (specify in message)',
+    qcond_any:'Either', qcond_new:'Brand New', qcond_used:'Used',
+    quote_preview_title:'Export quote preview', quote_preview_status:'Estimate until sales confirms live freight',
+    quote_preview_empty:'Choose a vehicle and destination port to preview FOB, freight, inspection/docs options, and estimated CIF.',
+    quote_preview_stock:'Stock', quote_preview_fleet:'Fleet/custom', quote_preview_fob:'FOB', quote_preview_confirm_vehicle:'Confirm vehicle',
+    quote_preview_freight:'Freight est.', quote_preview_cif:'CIF est.', quote_preview_need_fob:'Need FOB',
+    quote_preview_note:'Includes selected proof/docs options and a simple insurance estimate. Final CIF is confirmed by New Vision sales before deposit.',
+    quote_route_gulf:'Gulf lane', quote_route_saudi:'Saudi lane', quote_route_west_africa:'West Africa lane', quote_route_ghana:'Ghana lane',
+    quote_route_east_africa:'East Africa lane', quote_route_north_africa:'North Africa lane', quote_route_latin_america:'Latin America lane',
+    quote_route_se_asia:'Southeast Asia lane', quote_route_custom:'Custom export lane', quote_days_unit:'days', quote_days_confirm:'Confirm by quote',
     quote_submit:'Send Quote Request via WhatsApp',
     quote_footer:'Your request opens WhatsApp with a pre-filled message. We respond within 24 hours.',
     quote_dispatch:'Your completed request is ready for the sales team. Primary WhatsApp opens first; use the same completed request links below to notify Eissah and Andy too.',
@@ -2381,6 +2450,9 @@ const T = {
     pr_fob:'FOB Shanghai', pr_freight:'Ocean Freight (est.)', pr_insurance:'Insurance', pr_cif:'CIF Total (est.)',
     port_label:'Destination Port',
     mbtn_wa:'WhatsApp Quote', mbtn_inquiry:'Send Inquiry', mbtn_inspect:'Book Inspection ($120)',
+    vid_badge:'Video proof', vid_h:'See this exact vehicle on video',
+    vid_p:'Our team records a full walkaround — or does a live video call — of this vehicle so you buy with confidence before it ships.',
+    vid_cta:'Request a video walkaround →',
     mt1:'180-day MOFCOM export eligibility verified', mt2:'MOFCOM licensed export entity', mt3:'Full documentation package included', mt4:'Dedicated agent on every order',
     sec_brands:'Brand <span>Partners</span>', sec_how:'How It <span>Works</span>',
     sec_routes:'Active <span>Shipping Routes</span>', sec_certs:'Trust &amp; <span>Certifications</span>',
@@ -2406,14 +2478,14 @@ const T = {
     foot_cert:'MOFCOM Licensed · Enterprise Credit AAA'
   },
   FR: {
-    nav_inventory:'Inventaire', nav_process:'Processus', nav_routes:'Routes', nav_about:'À propos',
+    nav_inventory:'Inventaire', nav_brands:'Marques', nav_process:'Processus', nav_markets:'Marchés', nav_routes:'Routes', nav_ship_routes:'Routes maritimes', nav_about:'À propos', nav_contact:'Contact', nav_login:'Connexion',
     demo_label:'Site Démo', demo_notice:'Inventaire d\'exemple à titre illustratif.',
     demo_cta:'Contactez-nous sur WhatsApp pour le stock réel →',
     mnav_cars:'Voitures', mnav_filter:'Filtrer', mnav_quote:'Devis', mnav_trust:'Fiabilité', mnav_lang:'Langue',
     hero_badge:'Inventaire démo - contactez-nous pour le stock réel',
     hero_h1:'Achetez des voitures <span>Directement de Chine</span><br>Livrées dans votre pays',
     hero_sub:'Spécialiste de la mobilité verte depuis 2019. Solutions d\'export complètes — BYD, Tesla, BMW, Mercedes, Li Auto, MAEXTRO et 16+ marques.',
-    filter_all:'Tous', filter_ev:'Électrique', filter_fuel:'Essence', filter_suv:'SUV', filter_sedan:'Berline', filter_premium:'Premium', filter_value:'Valeur', filter_new:'Neuf',
+    filter_all:'Tous', filter_ev:'Électrique', filter_fuel:'Essence', filter_suv:'SUV', filter_sedan:'Berline', filter_premium:'Premium', filter_value:'Valeur', filter_new:'Neuf', filter_used:'Occasion',
     sort_latest:'Dernières arrivées', sort_price_asc:'Prix croissant', sort_price_desc:'Prix décroissant', sort_mileage:'Kilométrage min.',
     step1_h:'Parcourir & Choisir', step1_p:'Rechercher parmi 3 200+ véhicules par marque, type, budget',
     step2_h:'Obtenir un devis', step2_p:'Estimation FOB + CIF vers votre port sous 2h via WhatsApp',
@@ -2444,21 +2516,53 @@ const T = {
     inv_sub:'Prix FOB Shanghai · Export sous 180 jours · Stock démo — contactez-nous pour le stock réel',
     showroom_h2b:'New Vision — Exportateur de Véhicules', showroom_desc:'Fondée à Yiwu, Chine en 2019. Spécialistes des solutions de mobilité verte — connectant les acheteurs mondiaux aux meilleures marques chinoises avec un service export complet.',
     showroom_btn:'Contacter Notre Équipe →',
+    about_kicker:'À propos', about_h:'Yiwu New Vision Car Export Co., Ltd.',
+    about_p1:'Depuis 2019, New Vision se concentre sur la mobilité verte et intelligente, avec une chaîne complète d export de véhicules neufs énergie et traditionnels depuis Yiwu, Zhejiang, vers des acheteurs dans plus de 50 pays.',
+    about_p2:'Nous travaillons avec plus de 20 grandes marques chinoises, allemandes, japonaises et coréennes et gérons tout de bout en bout : sourcing, inspection, licence export, douane, réservation navire, chargement et livraison.',
+    about_s1:'Export depuis', about_s2:'Marques partenaires', about_s3:'Pays desservis', about_s4:'Support après-vente',
+    about_cta:'Parler à notre équipe export →',
     ss_founded:'Fondée à Yiwu', ss_countries:'Pays Atteints', ss_brands:'Marques Partenaires', ss_certs:'Certificats Intégrité',
     how_sub:'Shanghai à votre port en 15–35 jours',
+    est_menu:'Estimateur de fret', est_title:'Estimateur de <span>coût de fret</span>',
+    est_sub:'Choisissez le port de destination et le prix véhicule pour obtenir une estimation FOB→CIF et le temps de transit.',
+    est_dest:'Port de destination', est_fob:'Prix FOB véhicule (USD)',
+    est_note:'Estimations seulement — le fret final dépend du RoRo/conteneur, de la taille du véhicule et des tarifs transporteurs en direct. Envoyez une demande pour un CIF exact.',
+    ship_map_h:'Carte des routes maritimes mondiales',
+    ship_map_p:'New Vision exporte de Shanghai vers Jebel Ali, Mombasa, Lagos, Antwerp, Santos et Kingston. Ceci est un aperçu client; les horaires navires, le fret et l ETA exacts sont confirmés avec le devis CIF.',
+    ship_map_source:'Carte, logique de route, runtime globe 3D et textures globe sont locaux sur ce site. Les tuiles 2D chargent encore depuis CARTO/OpenStreetMap et OpenSeaMap; les données GitHub/Cloudflare statiques passent par Vercel.',
+    ship_map_lanes:'6 routes actives', ship_map_days:'16–48 jours FOB→CIF', ship_map_board:'Tableau routes avancé',
+    ship_tab_gulf:'Golfe', ship_tab_east_africa:'Afrique de l Est', ship_tab_west_africa:'Afrique de l Ouest', ship_tab_europe:'Europe', ship_tab_latin_america:'Amérique latine', ship_tab_caribbean:'Caraïbes',
+    ship_metric_fob_cif:'FOB vers CIF', ship_quote_route:'Demander cette route',
+    ship_legend_shanghai:'Chargement export New Vision via les ports chinois.', ship_legend_jebel:'Hub Golfe pour distribution et réexport.',
+    ship_legend_mombasa:'Route acheteurs et revendeurs Afrique de l Est.', ship_legend_lagos:'Demande import véhicule Afrique de l Ouest.',
+    ship_legend_antwerp:'Destination Europe et logistique suivante.', ship_legend_santos:'Route devis Brésil et Amérique latine.',
+    ship_legend_kingston:'Route revendeurs Caraïbes et ports insulaires.',
     btn_wa_quote:'Devis WhatsApp', btn_email:'Email',
     footer_desc:'义乌新视界汽车销售有限公司 · Spécialiste de la mobilité verte. Solutions d\'export complètes depuis 2019.',
     foot_col1:'Véhicules', foot_col2:'Services', foot_col3:'Entreprise',
     fl_ev:'Énergie Nouvelle (EV/PHEV)', fl_fuel:'Carburant Traditionnel', fl_prem:'Marques Premium', fl_moto:'Motos', fl_eng:'Véhicules Industriels',
     fl_insp:'Inspection Pré-Export', fl_docs:'Documentation Export', fl_freight:'Fret Maritime', fl_customs:'Dédouanement', fl_after:'Support Après-Vente',
     fl_safety:'Sécurité & Licences', fl_regs:'Réglementations Export', fl_dealer:'Partenariat Revendeur',
-    tab_specs:'Spécifications', tab_docs:'Documents', tab_ship:'Expédition',
+    tab_specs:'Spécifications', tab_docs:'Documents', tab_ship:'Expédition', tab_video:'Vidéo',
     quote_badge:'Demande de Devis', quote_h:'Recevez un Prix sous 24h',
     quote_sub:'Remplissez le formulaire et nous vous envoyons le prix FOB, les photos et le stock disponible.',
     quote_name:'Votre Nom', quote_country:'Pays', quote_contact:'WhatsApp / Téléphone', quote_vehicle:'Véhicule Souhaité',
     quote_port:'Port de Destination', quote_msg:'Message / Quantité',
+    quote_inspection:'Inspection / preuve', quote_docs:'Option documents', quote_color:'Couleur personnalisée', quote_condition:'Neuf ou occasion',
     qph_name:'Jean Martin', qph_country:'Nigeria, EAU, Brésil...', qph_contact:'+33 6 00 00 00 00', qph_port:'Lagos, Dubai, Mombasa, Santos...', qph_msg:'Combien d unités ? Finition, couleur ou demande spéciale ?',
     qopt_select_vehicle:'Choisir un véhicule ou une flotte', qopt_fleet:'Plusieurs véhicules / commande flotte', qopt_other:'Autre (précisez dans le message)',
+    qinspection_photo:'Inspection photo/vidéo', qinspection_live:'Appel vidéo en direct', qinspection_full:'Inspection export complète', qinspection_none:'Pas encore d inspection',
+    qdocs_export:'Vérification documents export', qdocs_invoice:'Facture + dossier dédouanement export', qdocs_dealer:'Dossier documents lot revendeur', qdocs_later:'Confirmer les documents plus tard',
+    qcolor_any:'Tout / standard', qcolor_white:'Blanc', qcolor_black:'Noir', qcolor_silver:'Argent / gris', qcolor_red:'Rouge', qcolor_blue:'Bleu', qcolor_custom:'Couleur personnalisée (précisez dans le message)',
+    qcond_any:'Les deux', qcond_new:'Neuf', qcond_used:'Occasion',
+    quote_preview_title:'Aperçu devis export', quote_preview_status:'Estimation jusqu a confirmation du fret',
+    quote_preview_empty:'Choisissez un véhicule et un port de destination pour prévisualiser FOB, fret, inspection/documents et CIF estimé.',
+    quote_preview_stock:'Stock', quote_preview_fleet:'Flotte/sur mesure', quote_preview_fob:'FOB', quote_preview_confirm_vehicle:'Confirmer le véhicule',
+    quote_preview_freight:'Fret estimé', quote_preview_cif:'CIF estimé', quote_preview_need_fob:'FOB requis',
+    quote_preview_note:'Inclut les options preuve/documents sélectionnées et une estimation simple d assurance. Le CIF final est confirmé par New Vision avant acompte.',
+    quote_route_gulf:'Route Golfe', quote_route_saudi:'Route Arabie saoudite', quote_route_west_africa:'Route Afrique de l Ouest', quote_route_ghana:'Route Ghana',
+    quote_route_east_africa:'Route Afrique de l Est', quote_route_north_africa:'Route Afrique du Nord', quote_route_latin_america:'Route Amérique latine',
+    quote_route_se_asia:'Route Asie du Sud-Est', quote_route_custom:'Route export sur mesure', quote_days_unit:'jours', quote_days_confirm:'Confirmer par devis',
     quote_submit:'Envoyer la Demande via WhatsApp',
     quote_footer:'Votre demande ouvre WhatsApp avec un message pré-rempli. Réponse sous 24h.',
     quote_dispatch:'Votre demande complète est prête pour l equipe commerciale. Le WhatsApp principal s ouvre d abord; utilisez les liens ci-dessous pour notifier aussi Eissah et Andy.',
@@ -2470,6 +2574,9 @@ const T = {
     pr_fob:'FOB Shanghai', pr_freight:'Fret Maritime (est.)', pr_insurance:'Assurance', pr_cif:'Total CIF (est.)',
     port_label:'Port de Destination',
     mbtn_wa:'Devis WhatsApp', mbtn_inquiry:'Envoyer Demande', mbtn_inspect:'Réserver Inspection (120$)',
+    vid_badge:'Preuve vidéo', vid_h:'Voir ce véhicule exact en vidéo',
+    vid_p:'Notre équipe enregistre une visite complète ou organise un appel vidéo en direct pour ce véhicule afin que vous achetiez en confiance avant l expédition.',
+    vid_cta:'Demander une vidéo →',
     mt1:'Éligibilité export MOFCOM 180 jours vérifiée', mt2:'Entité export agréée MOFCOM', mt3:'Package documentation complet inclus', mt4:'Agent dédié sur chaque commande',
     sec_brands:'Marques <span>Partenaires</span>', sec_how:'Comment ça <span>Marche</span>',
     sec_routes:'Routes de <span>Livraison</span>', sec_certs:'Confiance & <span>Certifications</span>',
@@ -2495,14 +2602,14 @@ const T = {
     foot_cert:'Agréé MOFCOM · Crédit Entreprise AAA'
   },
   AR: {
-    nav_inventory:'المخزون', nav_process:'العملية', nav_routes:'المسارات', nav_about:'عن الشركة',
+    nav_inventory:'المخزون', nav_brands:'العلامات', nav_process:'العملية', nav_markets:'الأسواق', nav_routes:'المسارات', nav_ship_routes:'مسارات الشحن', nav_about:'عن الشركة', nav_contact:'اتصل بنا', nav_login:'دخول',
     demo_label:'موقع تجريبي', demo_notice:'مخزون نموذجي للتوضيح.',
     demo_cta:'تواصل معنا عبر واتساب للمخزون الحقيقي →',
     mnav_cars:'سيارات', mnav_filter:'فلتر', mnav_quote:'عرض سعر', mnav_trust:'الثقة', mnav_lang:'اللغة',
     hero_badge:'مخزون تجريبي - تواصل للمخزون الحالي',
     hero_h1:'اشتر سيارات <span>مباشرة من الصين</span><br>توصيل إلى بلدك',
     hero_sub:'متخصصون في التنقل الأخضر منذ 2019. حلول تصدير متكاملة — BYD، تسلا، BMW، مرسيدس، لي أوتو، MAEXTRO و16+ علامة.',
-    filter_all:'الكل', filter_ev:'طاقة جديدة', filter_fuel:'بنزين', filter_suv:'SUV', filter_sedan:'سيدان', filter_premium:'فاخر', filter_value:'اقتصادي', filter_new:'جديد',
+    filter_all:'الكل', filter_ev:'طاقة جديدة', filter_fuel:'بنزين', filter_suv:'SUV', filter_sedan:'سيدان', filter_premium:'فاخر', filter_value:'اقتصادي', filter_new:'جديد', filter_used:'سيارات مستعملة',
     sort_latest:'أحدث الواردات', sort_price_asc:'السعر: الأقل أولاً', sort_price_desc:'السعر: الأعلى أولاً', sort_mileage:'أقل عداد',
     step1_h:'تصفح واختر', step1_p:'ابحث في 3,200+ مركبة حسب العلامة والنوع والميزانية',
     step2_h:'احصل على عرض', step2_p:'تقدير FOB + CIF لميناؤك خلال ساعتين عبر واتساب',
@@ -2533,21 +2640,53 @@ const T = {
     inv_sub:'تسعير FOB شنغهاي · صالح للتصدير 180 يوماً · مخزون نموذجي — تواصل للمخزون الحقيقي',
     showroom_h2b:'شركة نيو فيجن لتصدير السيارات', showroom_desc:'تأسست في يوو، الصين عام 2019. متخصصون في حلول التنقل الأخضر — نربط المشترين العالميين بأفضل العلامات الصينية بخدمة تصدير متكاملة.',
     showroom_btn:'تواصل مع فريقنا →',
+    about_kicker:'عن الشركة', about_h:'شركة ييوو نيو فيجن لتصدير السيارات',
+    about_p1:'منذ 2019 تركز New Vision على التنقل الأخضر والذكي وتقدم سلسلة تصدير كاملة للمركبات الجديدة الطاقة والتقليدية من ييوو، تشجيانغ، إلى مشترين في أكثر من 50 دولة.',
+    about_p2:'نتعاون مع أكثر من 20 علامة صينية وألمانية ويابانية وكورية وندير العملية كاملة: التوريد، الفحص، تراخيص التصدير، الجمارك، حجز السفن، التحميل والتسليم.',
+    about_s1:'التصدير منذ', about_s2:'شركاء العلامات', about_s3:'الدول المخدومة', about_s4:'دعم ما بعد البيع',
+    about_cta:'تحدث مع فريق التصدير →',
     ss_founded:'تأسست في يوو', ss_countries:'الدول المخدومة', ss_brands:'شركاء العلامات', ss_certs:'شهادات النزاهة',
     how_sub:'من شنغهاي إلى ميناؤك في 15–35 يوماً',
+    est_menu:'حاسبة الشحن', est_title:'حاسبة <span>تكلفة الشحن</span>',
+    est_sub:'اختر ميناء الوجهة وسعر السيارة لتحصل على تقدير فوري FOB→CIF ووقت العبور.',
+    est_dest:'ميناء الوجهة', est_fob:'سعر السيارة FOB بالدولار',
+    est_note:'تقديرات فقط — الشحن البحري النهائي يعتمد على RoRo/الحاوية وحجم السيارة والأسعار المباشرة. أرسل طلب عرض للحصول على CIF دقيق.',
+    ship_map_h:'خريطة مسارات الشحن العالمية',
+    ship_map_p:'تصدر New Vision من شنغهاي إلى جبل علي ومومباسا ولاغوس وأنتويرب وسانتوس وكينغستون. هذا عرض مسار للعميل؛ الجداول والشحن و ETA الدقيقة تؤكد مع عرض CIF.',
+    ship_map_source:'تطبيق الخريطة ومنطق المسار وتشغيل الكرة ثلاثية الأبعاد وخاماتها محلية على هذا الموقع. صور البلاطات 2D ما زالت تحمل من CARTO/OpenStreetMap وOpenSeaMap؛ بيانات GitHub/Cloudflare الثابتة مدعومة عبر Vercel.',
+    ship_map_lanes:'6 مسارات نشطة', ship_map_days:'16–48 يوم FOB→CIF', ship_map_board:'لوحة مسار متقدمة',
+    ship_tab_gulf:'الخليج', ship_tab_east_africa:'شرق أفريقيا', ship_tab_west_africa:'غرب أفريقيا', ship_tab_europe:'أوروبا', ship_tab_latin_america:'أمريكا اللاتينية', ship_tab_caribbean:'الكاريبي',
+    ship_metric_fob_cif:'FOB إلى CIF', ship_quote_route:'اطلب عرض هذا المسار',
+    ship_legend_shanghai:'تحميل تصدير New Vision عبر موانئ الصين.', ship_legend_jebel:'مركز توزيع وإعادة تصدير للخليج.',
+    ship_legend_mombasa:'مسار مشترين وموزعين شرق أفريقيا.', ship_legend_lagos:'طلب استيراد مركبات غرب أفريقيا.',
+    ship_legend_antwerp:'وجهة أوروبا واللوجستيات اللاحقة.', ship_legend_santos:'مسار عروض البرازيل وأمريكا اللاتينية.',
+    ship_legend_kingston:'مسار موزعي الكاريبي وموانئ الجزر.',
     btn_wa_quote:'عرض سعر واتساب', btn_email:'البريد الإلكتروني',
     footer_desc:'义乌新视界汽车销售有限公司 · متخصصون في التنقل الأخضر الذكي. حلول تصدير متكاملة منذ 2019.',
     foot_col1:'المركبات', foot_col2:'الخدمات', foot_col3:'الشركة',
     fl_ev:'طاقة جديدة (كهربائي/هجين)', fl_fuel:'وقود تقليدي', fl_prem:'علامات فاخرة', fl_moto:'دراجات نارية', fl_eng:'مركبات هندسية',
     fl_insp:'فحص ما قبل التصدير', fl_docs:'وثائق التصدير', fl_freight:'الشحن البحري', fl_customs:'التخليص الجمركي', fl_after:'خدمة ما بعد البيع',
     fl_safety:'الأمان والترخيص', fl_regs:'لوائح التصدير', fl_dealer:'شراكة الموزعين',
-    tab_specs:'المواصفات', tab_docs:'الوثائق', tab_ship:'الشحن',
+    tab_specs:'المواصفات', tab_docs:'الوثائق', tab_ship:'الشحن', tab_video:'الفيديو',
     quote_badge:'طلب عرض سعر', quote_h:'احصل على السعر خلال 24 ساعة',
     quote_sub:'أدخل بياناتك وسنرسل لك سعر FOB والصور والمخزون المتاح مباشرة.',
     quote_name:'اسمك', quote_country:'البلد', quote_contact:'واتساب / الهاتف', quote_vehicle:'السيارة المطلوبة',
     quote_port:'ميناء الوصول', quote_msg:'رسالة / الكمية',
+    quote_inspection:'الفحص / الإثبات', quote_docs:'خيار المستندات', quote_color:'لون مخصص', quote_condition:'جديد أو مستعمل',
     qph_name:'الاسم الكامل', qph_country:'نيجيريا، الإمارات، البرازيل...', qph_contact:'+971 50 000 0000', qph_port:'لاغوس، دبي، مومباسا، سانتوس...', qph_msg:'كم سيارة؟ أي فئة أو لون أو طلب خاص؟',
     qopt_select_vehicle:'اختر السيارة أو طلب الأسطول', qopt_fleet:'عدة سيارات / طلب أسطول', qopt_other:'أخرى (اكتبها في الرسالة)',
+    qinspection_photo:'فحص صور/فيديو', qinspection_live:'مكالمة فيديو مباشرة', qinspection_full:'فحص تصدير كامل', qinspection_none:'لا يوجد فحص الآن',
+    qdocs_export:'فحص مستندات التصدير', qdocs_invoice:'فاتورة + ملف تخليص التصدير', qdocs_dealer:'ملف مستندات دفعة موزع', qdocs_later:'تأكيد المستندات لاحقا',
+    qcolor_any:'أي لون / قياسي', qcolor_white:'أبيض', qcolor_black:'أسود', qcolor_silver:'فضي / رمادي', qcolor_red:'أحمر', qcolor_blue:'أزرق', qcolor_custom:'لون مخصص (اذكره في الرسالة)',
+    qcond_any:'كلاهما', qcond_new:'جديد', qcond_used:'مستعمل',
+    quote_preview_title:'معاينة عرض التصدير', quote_preview_status:'تقدير حتى يؤكد فريق المبيعات الشحن',
+    quote_preview_empty:'اختر سيارة وميناء وصول لمعاينة FOB والشحن والفحص/المستندات و CIF التقديري.',
+    quote_preview_stock:'المخزون', quote_preview_fleet:'أسطول/مخصص', quote_preview_fob:'FOB', quote_preview_confirm_vehicle:'تأكيد السيارة',
+    quote_preview_freight:'الشحن التقديري', quote_preview_cif:'CIF التقديري', quote_preview_need_fob:'يلزم FOB',
+    quote_preview_note:'يشمل خيارات الإثبات/المستندات المحددة وتقدير تأمين بسيط. يتم تأكيد CIF النهائي من New Vision قبل العربون.',
+    quote_route_gulf:'مسار الخليج', quote_route_saudi:'مسار السعودية', quote_route_west_africa:'مسار غرب أفريقيا', quote_route_ghana:'مسار غانا',
+    quote_route_east_africa:'مسار شرق أفريقيا', quote_route_north_africa:'مسار شمال أفريقيا', quote_route_latin_america:'مسار أمريكا اللاتينية',
+    quote_route_se_asia:'مسار جنوب شرق آسيا', quote_route_custom:'مسار تصدير مخصص', quote_days_unit:'يوم', quote_days_confirm:'يؤكد في العرض',
     quote_submit:'إرسال الطلب عبر واتساب',
     quote_footer:'سيفتح طلبك واتساب برسالة جاهزة. نرد خلال 24 ساعة.',
     quote_dispatch:'طلبك الكامل جاهز لفريق المبيعات. يفتح واتساب الرئيسي أولا؛ استخدم الروابط أدناه لإبلاغ Eissah و Andy أيضا.',
@@ -2559,6 +2698,9 @@ const T = {
     pr_fob:'سعر FOB شنغهاي', pr_freight:'الشحن البحري (تقديري)', pr_insurance:'التأمين', pr_cif:'إجمالي CIF (تقديري)',
     port_label:'ميناء الوجهة',
     mbtn_wa:'عرض واتساب', mbtn_inquiry:'إرسال استفسار', mbtn_inspect:'حجز فحص (120$)',
+    vid_badge:'إثبات فيديو', vid_h:'شاهد هذه السيارة نفسها بالفيديو',
+    vid_p:'يسجل فريقنا جولة كاملة أو ينظم مكالمة فيديو مباشرة لهذه السيارة حتى تشتري بثقة قبل الشحن.',
+    vid_cta:'اطلب فيديو للسيارة →',
     mt1:'أهلية تصدير MOFCOM 180 يوم موثقة', mt2:'جهة تصدير مرخصة من MOFCOM', mt3:'حزمة وثائق كاملة مشمولة', mt4:'مندوب مخصص لكل طلب',
     sec_brands:'شركاء <span>العلامات</span>', sec_how:'كيف <span>يعمل</span>',
     sec_routes:'مسارات <span>الشحن الفعالة</span>', sec_certs:'الثقة و<span>الشهادات</span>',
@@ -2584,14 +2726,14 @@ const T = {
     foot_cert:'مرخص MOFCOM · تصنيف ائتماني AAA'
   },
   ZH: {
-    nav_inventory:'车辆库存', nav_process:'购车流程', nav_routes:'航运路线', nav_about:'关于我们',
+    nav_inventory:'车辆库存', nav_brands:'品牌', nav_process:'购车流程', nav_markets:'市场', nav_routes:'航运路线', nav_ship_routes:'航线', nav_about:'关于我们', nav_contact:'联系', nav_login:'登录',
     demo_label:'演示网站', demo_notice:'示例库存，仅供参考。',
     demo_cta:'请通过WhatsApp联系我们确认当前库存 →',
     mnav_cars:'车辆', mnav_filter:'筛选', mnav_quote:'询价', mnav_trust:'资质', mnav_lang:'语言',
     hero_badge:'演示库存 - 请联系确认当前库存',
     hero_h1:'直接从中国<span>购买汽车</span><br>送达您的国家',
     hero_sub:'专注绿色智慧出行，自2019年起提供全链条新能源汽车出口服务——比亚迪、特斯拉、宝马、奔驰、理想及16+品牌。',
-    filter_all:'全部', filter_ev:'新能源', filter_fuel:'燃油车', filter_suv:'SUV', filter_sedan:'轿车', filter_premium:'豪华', filter_value:'高性价比', filter_new:'新车',
+    filter_all:'全部', filter_ev:'新能源', filter_fuel:'燃油车', filter_suv:'SUV', filter_sedan:'轿车', filter_premium:'豪华', filter_value:'高性价比', filter_new:'新车', filter_used:'二手车',
     sort_latest:'最新到港', sort_price_asc:'价格从低到高', sort_price_desc:'价格从高到低', sort_mileage:'最低里程',
     step1_h:'浏览选车', step1_p:'按品牌、类型、预算搜索3,200+辆车',
     step2_h:'获取报价', step2_p:'2小时内通过WhatsApp提供FOB+CIF到港报价',
@@ -2622,21 +2764,53 @@ const T = {
     inv_sub:'上海离岸价 · 180天出口资质 · 示例库存，联系确认当前车源',
     showroom_h2b:'新视界汽车出口公司', showroom_desc:'成立于2019年，总部位于中国义乌。专注绿色智慧出行，为全球买家提供中国顶级汽车品牌的全链条出口解决方案。',
     showroom_btn:'联系我们 →',
+    about_kicker:'关于我们', about_h:'义乌新视界汽车出口有限公司',
+    about_p1:'自2019年以来，新视界专注绿色智慧出行，从浙江义乌为非洲、中东、亚洲、欧洲和南美等50多个国家买家提供新能源汽车和传统汽车全链条出口服务。',
+    about_p2:'我们合作20多个中国、德国、日本和韩国主流品牌，提供从采购、验车、出口许可、清关、订舱、装车到交付的一站式服务，并提供24小时售后支持和全球配件供应。',
+    about_s1:'开始出口', about_s2:'合作品牌', about_s3:'服务国家', about_s4:'售后支持',
+    about_cta:'联系出口团队 →',
     ss_founded:'成立年份', ss_countries:'覆盖国家', ss_brands:'品牌伙伴', ss_certs:'诚信证书',
     how_sub:'上海至目的港 15–35天',
+    est_menu:'运费估算', est_title:'海运 <span>费用估算</span>',
+    est_sub:'选择目的港和车辆FOB价格，即可快速估算FOB→CIF价格和运输时间。',
+    est_dest:'目的港', est_fob:'车辆FOB价格（美元）',
+    est_note:'仅为估算 — 最终海运费取决于滚装/集装箱、车辆尺寸和实时船公司价格。请发送询价获取准确CIF。',
+    ship_map_h:'全球航运路线图',
+    ship_map_p:'New Vision 从上海发运至杰贝阿里、蒙巴萨、拉各斯、安特卫普、桑托斯和金斯敦。此为客户路线预览；准确船期、运费和ETA会随CIF报价确认。',
+    ship_map_source:'地图应用、路线逻辑、3D地球运行时和地球纹理均在本站本地加载。2D瓦片仍来自CARTO/OpenStreetMap和OpenSeaMap；静态GitHub/Cloudflare API数据由Vercel支持。',
+    ship_map_lanes:'6条活跃航线', ship_map_days:'16–48天 FOB→CIF', ship_map_board:'高级路线看板',
+    ship_tab_gulf:'海湾', ship_tab_east_africa:'东非', ship_tab_west_africa:'西非', ship_tab_europe:'欧洲', ship_tab_latin_america:'拉美', ship_tab_caribbean:'加勒比',
+    ship_metric_fob_cif:'FOB到CIF', ship_quote_route:'询价此路线',
+    ship_legend_shanghai:'New Vision通过中国港口通道装载出口。', ship_legend_jebel:'海湾分拨和再出口枢纽。',
+    ship_legend_mombasa:'东非买家与经销商航线。', ship_legend_lagos:'西非车辆进口需求航线。',
+    ship_legend_antwerp:'欧洲目的地和后续物流。', ship_legend_santos:'巴西及拉美询价航线。',
+    ship_legend_kingston:'加勒比经销商和岛港询价航线。',
     btn_wa_quote:'WhatsApp询价', btn_email:'发送邮件',
     footer_desc:'义乌新视界汽车销售有限公司 · 专注绿色智慧出行。全链条新能源汽车出口解决方案，自2019年。',
     foot_col1:'车辆', foot_col2:'服务', foot_col3:'公司',
     fl_ev:'新能源（纯电/插混）', fl_fuel:'传统燃油车', fl_prem:'豪华品牌', fl_moto:'摩托车', fl_eng:'工程车辆',
     fl_insp:'出口前检测', fl_docs:'出口文件', fl_freight:'海运服务', fl_customs:'清关服务', fl_after:'售后支持',
     fl_safety:'安全与许可', fl_regs:'出口法规', fl_dealer:'经销商合作',
-    tab_specs:'规格参数', tab_docs:'出口文件', tab_ship:'运输信息',
+    tab_specs:'规格参数', tab_docs:'出口文件', tab_ship:'运输信息', tab_video:'视频',
     quote_badge:'询价', quote_h:'24小时内获取报价',
     quote_sub:'填写信息，我们将直接发送FOB价格、车辆照片和现货库存给您。',
     quote_name:'您的姓名', quote_country:'国家/地区', quote_contact:'WhatsApp / 电话', quote_vehicle:'意向车型',
     quote_port:'目的港', quote_msg:'留言 / 数量',
+    quote_inspection:'验车 / 凭证', quote_docs:'文件选项', quote_color:'定制颜色', quote_condition:'新车或二手',
     qph_name:'您的姓名', qph_country:'尼日利亚、阿联酋、巴西...', qph_contact:'+86 137 0000 0000', qph_port:'拉各斯、迪拜、蒙巴萨、桑托斯...', qph_msg:'需要几台？配置、颜色或特殊要求？',
     qopt_select_vehicle:'选择车型或车队订单', qopt_fleet:'多辆车 / 车队订单', qopt_other:'其他（请在留言中说明）',
+    qinspection_photo:'照片/视频验车', qinspection_live:'实时视频连线', qinspection_full:'完整出口检测', qinspection_none:'暂不验车',
+    qdocs_export:'出口文件检查', qdocs_invoice:'发票+出口清关文件包', qdocs_dealer:'经销商批量文件包', qdocs_later:'稍后确认文件',
+    qcolor_any:'任意 / 标准', qcolor_white:'白色', qcolor_black:'黑色', qcolor_silver:'银色 / 灰色', qcolor_red:'红色', qcolor_blue:'蓝色', qcolor_custom:'定制颜色（请在留言中说明）',
+    qcond_any:'均可', qcond_new:'全新', qcond_used:'二手',
+    quote_preview_title:'出口报价预览', quote_preview_status:'销售确认实时海运前的估算',
+    quote_preview_empty:'请选择车型和目的港，预览FOB、海运、验车/文件选项和预计CIF。',
+    quote_preview_stock:'库存', quote_preview_fleet:'车队/定制', quote_preview_fob:'FOB', quote_preview_confirm_vehicle:'确认车型',
+    quote_preview_freight:'海运估算', quote_preview_cif:'CIF估算', quote_preview_need_fob:'需要FOB',
+    quote_preview_note:'包含所选验车/文件选项和简易保险估算。最终CIF价格由新视界销售在付款前确认。',
+    quote_route_gulf:'海湾航线', quote_route_saudi:'沙特航线', quote_route_west_africa:'西非航线', quote_route_ghana:'加纳航线',
+    quote_route_east_africa:'东非航线', quote_route_north_africa:'北非航线', quote_route_latin_america:'拉美航线',
+    quote_route_se_asia:'东南亚航线', quote_route_custom:'定制出口航线', quote_days_unit:'天', quote_days_confirm:'报价时确认',
     quote_submit:'通过WhatsApp发送询价',
     quote_footer:'点击后将在WhatsApp中自动填写您的询价内容，我们24小时内回复。',
     quote_dispatch:'完整询价已准备好发送给销售团队。主WhatsApp会先打开；也可使用下方同一询价链接通知Eissah和Andy。',
@@ -2648,6 +2822,9 @@ const T = {
     pr_fob:'上海离岸价', pr_freight:'海运费（估算）', pr_insurance:'保险费', pr_cif:'到岸总价（估算）',
     port_label:'目的港',
     mbtn_wa:'WhatsApp询价', mbtn_inquiry:'发送询盘', mbtn_inspect:'预约检测（$120）',
+    vid_badge:'视频凭证', vid_h:'观看这台实车视频',
+    vid_p:'我们的团队会录制完整绕车视频，或安排实时视频连线，帮助您在发运前放心购买。',
+    vid_cta:'索取绕车视频 →',
     mt1:'已核实180天商务部出口资质', mt2:'持有商务部出口许可', mt3:'包含完整文件包', mt4:'每单配专属服务顾问',
     sec_brands:'品牌 <span>合作伙伴</span>', sec_how:'购车 <span>流程</span>',
     sec_routes:'在途 <span>航运路线</span>', sec_certs:'资质 <span>认证</span>',
@@ -3604,7 +3781,7 @@ function openModal(id, startTab = 'specs') {
     ? (ytId
         ? `<div style="position:relative;padding-top:56.25%;border-radius:10px;overflow:hidden"><iframe src="https://www.youtube.com/embed/${ytId}" title="Walkaround" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe></div>`
         : `<video src="${vid}" controls playsinline preload="metadata" style="width:100%;border-radius:10px"></video>`)
-    : `<div style="text-align:center;padding:16px 10px"><div style="font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--green2);text-transform:uppercase">Video proof</div><div style="font-weight:700;color:var(--green2);margin:8px 0 4px" data-i18n="vid_h">See this exact vehicle on video</div><div style="color:var(--muted2);font-size:13px;margin-bottom:14px;line-height:1.6">Our team records a full walkaround — or does a <b>live video call</b> — of this ${vname} so you buy with confidence before it ships.</div><button class="btn-fw btn-fw-green" onclick="goToQuote({vehicle:'${vname}',message:'Please send a video walkaround (or schedule a live video call) for the ${vname}.'})" data-i18n="vid_cta">Request a video walkaround →</button></div>`;
+    : `<div style="text-align:center;padding:16px 10px"><div style="font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--green2);text-transform:uppercase">${escapeHtml(tr('vid_badge'))}</div><div style="font-weight:700;color:var(--green2);margin:8px 0 4px">${escapeHtml(tr('vid_h'))}</div><div style="color:var(--muted2);font-size:13px;margin-bottom:14px;line-height:1.6">${escapeHtml(tr('vid_p'))}</div><button class="btn-fw btn-fw-green" onclick="goToQuote({vehicle:'${vname}',message:'Please send a video walkaround (or schedule a live video call) for the ${vname}.'})">${escapeHtml(tr('vid_cta'))}</button></div>`;
   const specs=[
     ['Stock ID',stockIdForVehicle(v)],['Export lane',vehiclePublicLane(v)],
     ['Year',v.year],['Mileage',v.condition==='New'?'0 km':v.mileage.toLocaleString()+' km'],
@@ -3720,6 +3897,8 @@ function setLang(l, btn) {
     const key = el.getAttribute('data-i18n-placeholder');
     if (t[key] !== undefined) el.placeholder = t[key];
   });
+  updateQuotePreview();
+  if (typeof selectShippingRoute === 'function') selectShippingRoute(selectedShippingRoute || 'gulf');
   applyContentOverrides();
   // Re-render grid so card buttons use new language
   applyFilters();

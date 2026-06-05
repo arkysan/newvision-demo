@@ -39,6 +39,12 @@ const requiredLanguageGuards = [
   ['applyStaticPhraseTranslations', 'Missing static phrase translation pass for untagged text'],
   ["trTerm('fuel'", 'Vehicle cards/modal no longer translate fuel/body/spec terms'],
   ['modalWasOpen', 'Language switching must not reopen a closed vehicle modal'],
+  ['data-i18n="quote_inspection"', 'Quote proof/inspection label must be translated'],
+  ['data-i18n="quote_preview_title"', 'Quote preview title must be translated'],
+  ['trQuoteRoute', 'Generated quote route preview must translate route names'],
+  ['data-i18n="nav_ship_routes"', 'Ship Routes nav item must be translated'],
+  ['data-i18n="ship_map_h"', 'Shipping map heading must be translated'],
+  ['SHIPPING_ROUTE_BOARD_ZH', 'Shipping route board must have Chinese dynamic copy'],
 ];
 
 for (const [snippet, message] of requiredLanguageGuards) {
