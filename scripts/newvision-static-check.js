@@ -4,6 +4,7 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 const INDEX = path.join(ROOT, 'index.html');
 const html = fs.readFileSync(INDEX, 'utf8');
+const siteI18n = fs.readFileSync(path.join(ROOT, 'site-i18n.js'), 'utf8');
 const vehicleDeal = fs.readFileSync(path.join(ROOT, 'vehicle.html'), 'utf8');
 const portal = fs.readFileSync(path.join(ROOT, 'portal.html'), 'utf8');
 const sales = fs.readFileSync(path.join(ROOT, 'sales.html'), 'utf8');
@@ -20,6 +21,44 @@ const failures = [];
 
 function fail(message) {
   failures.push(message);
+}
+
+const publicHtmlPages = [
+  'index.html',
+  'brands.html',
+  'vehicle.html',
+  'track.html',
+  'community.html',
+  'worldmap.html',
+  'routemap.html',
+  'portal.html',
+  'sales.html',
+];
+
+for (const page of publicHtmlPages) {
+  const pageHtml = fs.readFileSync(path.join(ROOT, page), 'utf8');
+  if (!pageHtml.includes('site-i18n.js')) fail(`${page} must load the shared full-site language runtime`);
+  if (/translate\.google|google_translate_element|skiptranslate/i.test(pageHtml)) {
+    fail(`${page} must not depend on Google Translate widgets for language buttons`);
+  }
+}
+
+for (const lang of ['EN', 'FR', 'AR', 'ZH']) {
+  if (!siteI18n.includes(lang)) fail(`site-i18n.js must expose ${lang} language coverage`);
+}
+for (const snippet of [
+  'const STORE_KEY = \'newvision.lang\'',
+  'data-nv-lang',
+  'newvision:langchange',
+  'MutationObserver',
+  'document.documentElement.dir',
+  'document.documentElement.lang',
+  'placeholder',
+]) {
+  if (!siteI18n.includes(snippet)) fail(`site-i18n.js missing required language runtime guard: ${snippet}`);
+}
+if (/translate\.google|google_translate_element|skiptranslate/i.test(siteI18n)) {
+  fail('site-i18n.js must use local dictionaries, not Google Translate');
 }
 
 const forbidden = [

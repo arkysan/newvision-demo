@@ -97,7 +97,6 @@
     .nav-lang { display: flex; gap: 4px; }
     .lang-btn { min-width: 36px; min-height: 36px; padding: 5px 9px; border-radius: 6px; font-size: 12px; background: none; border: 1px solid var(--border); color: var(--muted2); transition: all .2s; }
     .lang-btn.active, .lang-btn:hover { border-color: var(--green); color: var(--green); background: rgba(76,175,80,0.08); }
-    #google_translate_element{position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden}
     iframe.goog-te-banner-frame{display:none!important}
     body{top:0!important}
     .btn-wa { display: flex; align-items: center; gap: 7px; padding: 8px 16px; background: #25D366; border: none; border-radius: 8px; color: #fff; font-weight: 600; font-size: 14px; transition: background .2s; flex-shrink: 0; }
@@ -861,7 +860,7 @@
     </div>
   </div>
 
-  <div class="nav-lang skiptranslate">
+  <div class="nav-lang">
     <button class="lang-btn active" data-lang="EN" onclick="setLang('EN',this)">EN</button>
     <button class="lang-btn" data-lang="AR" onclick="setLang('AR',this)">AR</button>
     <button class="lang-btn" data-lang="FR" onclick="setLang('FR',this)">FR</button>
@@ -3412,7 +3411,7 @@ function applyStaticPhraseTranslations() {
     acceptNode(node) {
       const parent = node.parentElement;
       if (!parent || !normalizePhrase(node.nodeValue)) return NodeFilter.FILTER_REJECT;
-      if (parent.closest('script,style,svg,#google_translate_element,.skiptranslate,[data-i18n],[data-i18n-html]')) return NodeFilter.FILTER_REJECT;
+      if (parent.closest('script,style,svg,[data-i18n],[data-i18n-html]')) return NodeFilter.FILTER_REJECT;
       return NodeFilter.FILTER_ACCEPT;
     }
   });
@@ -3437,11 +3436,6 @@ function applyStaticPhraseTranslations() {
     const translated = translateKnownPhrase(base);
     el.setAttribute('placeholder', translated || base);
   });
-}
-
-function googleTranslateElementInit(){
-  if (!window.google || !google.translate) return;
-  new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'en,ar,fr,zh-CN,es',autoDisplay:false},'google_translate_element');
 }
 
 function applyWholePageTranslation(language){
@@ -4068,6 +4062,6 @@ setCount('cShipping',138);
 <!-- Visitor analytics + interaction heatmap for the owner portal (fire-and-forget, both hosts) -->
 <script>try{fetch(apiUrl('/api/portal?action=track'),{method:'POST',keepalive:true}).catch(function(){});}catch(e){}</script>
 <script src="heatmap.js" defer></script>
-<div id="google_translate_element" class="skiptranslate" aria-hidden="true"></div>
+<script src="site-i18n.js?v=20260606-fullsite"></script>
 </body>
 </html>
