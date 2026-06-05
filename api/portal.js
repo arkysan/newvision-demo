@@ -56,6 +56,99 @@ function stockIdForVehicle(v) {
   const n = String(v?.id || 0).replace(/\D/g, '').padStart(4, '0').slice(-4);
   return `NV-2026-${n}`;
 }
+function cleanText(value, max) {
+  return String(value || '').replace(/\s+/g, ' ').trim().slice(0, max || 120);
+}
+function cleanMoney(value) {
+  return Math.max(0, Math.min(100000000, Math.round(Number(value) || 0)));
+}
+function cleanRate(value) {
+  return Math.max(0, Math.min(50, Number(value) || 0));
+}
+function maskedBankAccount(value) {
+  const raw = String(value || '').replace(/[^\dA-Za-z]/g, '');
+  if (!raw) return '';
+  const tail = raw.slice(-4);
+  return `${'*'.repeat(Math.min(8, Math.max(4, raw.length - 4)))}${tail}`;
+}
+function defaultSalesOps() {
+  return {
+    staff: [
+      { id: 'andy', name: 'Andy', status: 'active', role: 'Sales', commissionRate: 3, payoutBank: '', bankAccount: '', payoutNotes: '' },
+      { id: 'eissa', name: 'Eissa', status: 'active', role: 'Sales', commissionRate: 3, payoutBank: '', bankAccount: '', payoutNotes: '' },
+    ],
+    vehicleOverrides: {},
+    sales: [],
+  };
+}
+async function readSalesOps() {
+  const ops = await store.readData('salesOps', defaultSalesOps());
+  ops.staff = Array.isArray(ops.staff) && ops.staff.length ? ops.staff : defaultSalesOps().staff;
+  ops.vehicleOverrides = ops.vehicleOverrides && typeof ops.vehicleOverrides === 'object' ? ops.vehicleOverrides : {};
+  ops.sales = Array.isArray(ops.sales) ? ops.sales : [];
+  return ops;
+}
+function publicSalesOps(ops) {
+  return {
+    staff: ops.staff.map((s) => ({
+      id: s.id,
+      name: s.name,
+      status: s.status || 'active',
+      role: s.role || 'Sales',
+      whatsapp: s.whatsapp || '',
+      commissionRate: Number(s.commissionRate) || 0,
+      payoutBank: s.payoutBank || '',
+      maskedBankAccount: s.maskedBankAccount || maskedBankAccount(s.bankAccount),
+      payoutNotes: s.payoutNotes ? 'Saved encrypted' : '',
+      archivedAt: s.archivedAt || '',
+    })),
+    vehicleOverrides: ops.vehicleOverrides,
+    sales: ops.sales.slice(0, 1000),
+  };
+}
+function normalizeSalesperson(input, existing) {
+  const name = cleanText(input.name, 80);
+  const id = cleanText(input.id || name, 80).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || `sales-${Date.now().toString(36)}`;
+  const bankAccount = cleanText(input.bankAccount, 120) || existing?.bankAccount || '';
+  return {
+    id,
+    name: name || existing?.name || 'Salesperson',
+    status: input.status === 'archived' ? 'archived' : 'active',
+    role: cleanText(input.role, 40) || existing?.role || 'Sales',
+    whatsapp: cleanText(input.whatsapp, 40) || existing?.whatsapp || '',
+    commissionRate: cleanRate(input.commissionRate ?? existing?.commissionRate ?? 3),
+    payoutBank: cleanText(input.payoutBank, 80) || existing?.payoutBank || '',
+    bankAccount,
+    maskedBankAccount: maskedBankAccount(bankAccount),
+    payoutNotes: cleanText(input.payoutNotes, 160) || existing?.payoutNotes || '',
+    updatedAt: new Date().toISOString(),
+  };
+}
+function normalizeVehicleRecord(input, existing) {
+  const stockId = cleanText(input.stockId || input.id || existing?.stockId, 40).toUpperCase() || `NV-SALES-${Date.now().toString(36).toUpperCase()}`;
+  return Object.assign({}, existing || {}, {
+    id: Number.parseInt(input.id || existing?.id || Date.now(), 10) || Date.now(),
+    stockId,
+    year: Number.parseInt(input.year || existing?.year || new Date().getFullYear(), 10) || new Date().getFullYear(),
+    make: cleanText(input.make || existing?.make, 80) || 'New Vision',
+    model: cleanText(input.model || existing?.model, 160) || 'Vehicle',
+    price: cleanMoney(input.price ?? existing?.price),
+    condition: cleanText(input.condition || existing?.condition, 40) || 'New',
+    fuel: cleanText(input.fuel || existing?.fuel, 40) || 'Confirm',
+    body: cleanText(input.body || existing?.body, 40) || 'SUV',
+    drive: cleanText(input.drive || existing?.drive, 40),
+    location: cleanText(input.location || existing?.location, 100),
+    docsStatus: cleanText(input.docsStatus || existing?.docsStatus, 120) || 'Docs check available',
+    inspectionStatus: cleanText(input.inspectionStatus || existing?.inspectionStatus, 120) || 'Photo/video available',
+    vinPrivate: cleanText(input.vinPrivate || existing?.vinPrivate, 80),
+    shipmentId: cleanText(input.shipmentId || existing?.shipmentId, 40),
+    img: cleanText(input.img || existing?.img, 1000),
+    imgs: Array.isArray(input.imgs) ? input.imgs.map((x) => cleanText(x, 1000)).filter(Boolean).slice(0, 8) : (existing?.imgs || []),
+    status: cleanText(input.status || existing?.status || 'Available', 40),
+    source: existing?.source || 'sales-ops',
+    updatedAt: new Date().toISOString(),
+  });
+}
 function readStaticVehicles() {
   try { return JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'vehicles.json'), 'utf8')); }
   catch (_) { return []; }
@@ -203,6 +296,89 @@ module.exports = async (req, res) => {
       if (!isSalesRole(u)) return send(res, 403, { ok: false, error: 'Sales role required' });
       const leads = await store.readData('leads', []);
       return send(res, 200, { ok: true, user: u, leads: leads.slice(0, 200), leadCount: leads.length });
+    }
+
+    if (action === 'sales-ops') {
+      if (!isSalesRole(u)) return send(res, 403, { ok: false, error: 'Sales role required' });
+      const ops = await readSalesOps();
+      return send(res, 200, { ok: true, salesOps: publicSalesOps(ops) });
+    }
+
+    if (action === 'salesperson-save' && req.method === 'POST') {
+      if (!isSalesRole(u)) return send(res, 403, { ok: false, error: 'Sales role required' });
+      const b = await readBody(req);
+      const ops = await readSalesOps();
+      const id = cleanText(b.id || b.name, 80).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      const idx = ops.staff.findIndex((s) => s.id === id || s.id === b.id);
+      const staff = normalizeSalesperson(b, idx >= 0 ? ops.staff[idx] : null);
+      if (idx >= 0) ops.staff[idx] = Object.assign({}, ops.staff[idx], staff, { archivedAt: '' });
+      else ops.staff.unshift(Object.assign(staff, { createdAt: new Date().toISOString(), createdBy: u.name }));
+      await store.writeData('salesOps', ops);
+      return send(res, 200, { ok: true, salesperson: publicSalesOps(ops).staff.find((s) => s.id === staff.id) });
+    }
+
+    if (action === 'salesperson-archive' && req.method === 'POST') {
+      if (!isSalesRole(u)) return send(res, 403, { ok: false, error: 'Sales role required' });
+      const b = await readBody(req);
+      const ops = await readSalesOps();
+      const id = cleanText(b.id, 80);
+      const idx = ops.staff.findIndex((s) => s.id === id);
+      if (idx < 0) return send(res, 404, { ok: false, error: 'Salesperson not found' });
+      ops.staff[idx] = Object.assign({}, ops.staff[idx], { status: 'archived', archivedAt: new Date().toISOString(), archivedBy: u.name });
+      await store.writeData('salesOps', ops);
+      return send(res, 200, { ok: true });
+    }
+
+    if (action === 'vehicle-save' && req.method === 'POST') {
+      if (!isSalesRole(u)) return send(res, 403, { ok: false, error: 'Sales role required' });
+      const b = await readBody(req);
+      const ops = await readSalesOps();
+      const incoming = b.vehicle || b;
+      const stockId = cleanText(incoming.stockId || incoming.id, 40).toUpperCase();
+      const existing = stockId ? ops.vehicleOverrides[stockId] : null;
+      const vehicle = Object.assign(normalizeVehicleRecord(incoming, existing), { updatedBy: u.name });
+      ops.vehicleOverrides[stockIdForVehicle(vehicle)] = vehicle;
+      await store.writeData('salesOps', ops);
+      return send(res, 200, { ok: true, vehicle });
+    }
+
+    if (action === 'vehicle-archive' && req.method === 'POST') {
+      if (!isSalesRole(u)) return send(res, 403, { ok: false, error: 'Sales role required' });
+      const b = await readBody(req);
+      const ops = await readSalesOps();
+      const stockId = cleanText(b.stockId, 40).toUpperCase();
+      const existing = ops.vehicleOverrides[stockId] || { stockId };
+      ops.vehicleOverrides[stockId] = Object.assign({}, existing, { status: 'Archived', archivedAt: new Date().toISOString(), archivedBy: u.name });
+      await store.writeData('salesOps', ops);
+      return send(res, 200, { ok: true });
+    }
+
+    if (action === 'vehicle-sold' && req.method === 'POST') {
+      if (!isSalesRole(u)) return send(res, 403, { ok: false, error: 'Sales role required' });
+      const b = await readBody(req);
+      const ops = await readSalesOps();
+      const stockId = cleanText(b.stockId, 40).toUpperCase();
+      const staff = ops.staff.find((s) => s.id === b.salespersonId) || ops.staff.find((s) => s.status !== 'archived') || { id: 'unknown', name: cleanText(b.salespersonName, 80) || u.name, commissionRate: 0 };
+      const salePrice = cleanMoney(b.salePrice);
+      const rate = cleanRate(b.commissionRate ?? staff.commissionRate);
+      const vehicle = Object.assign({}, ops.vehicleOverrides[stockId] || { stockId }, b.vehicle || {});
+      const sale = {
+        id: `sale-${Date.now().toString(36)}`,
+        stockId,
+        vehicleName: cleanText(b.vehicleName || `${vehicle.year || ''} ${vehicle.make || ''} ${vehicle.model || ''}`, 160),
+        buyer: cleanText(b.buyer, 100),
+        salespersonId: staff.id,
+        salespersonName: staff.name,
+        salePrice,
+        commissionRate: rate,
+        commissionAmount: Math.round(salePrice * rate) / 100,
+        soldAt: new Date().toISOString(),
+        soldBy: u.name,
+      };
+      ops.vehicleOverrides[stockId] = Object.assign({}, vehicle, { stockId, status: 'Sold', soldAt: sale.soldAt, soldBy: u.name, salespersonId: staff.id, salespersonName: staff.name, salePrice, commissionAmount: sale.commissionAmount });
+      ops.sales.unshift(sale);
+      await store.writeData('salesOps', ops);
+      return send(res, 200, { ok: true, sale, vehicle: ops.vehicleOverrides[stockId] });
     }
 
     if (action === 'dashboard') {

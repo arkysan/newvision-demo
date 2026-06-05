@@ -383,10 +383,20 @@ for (const [snippet, message] of requiredUploadApiControls) {
 
 const requiredSalesPortalControls = [
   ['Andy / Eissa Sales Portal', 'Sales portal must be branded for Andy and Eissa'],
+  ['Sales Deal Cockpit', 'Sales portal must clearly explain that it is a deal cockpit'],
   ['id="staffMap"', 'Sales portal must include the advanced staff route map'],
   ['routeCounts', 'Sales portal must aggregate shipment counts by lane'],
   ['ROUTE_META', 'Sales portal must define staff route map lanes'],
   ['id="routeShipments"', 'Sales portal must list shipments for the selected lane'],
+  ['id="vehicleEditor"', 'Sales portal must let staff add and edit vehicle inventory'],
+  ['saveVehicleRecord', 'Sales portal must persist vehicle add/edit changes'],
+  ['archiveVehicleRecord', 'Sales portal must archive/delete vehicle records'],
+  ['markVehicleSold', 'Sales portal must mark older vehicles as SOLD from the page'],
+  ['id="soldInventory"', 'Sales portal must show sold inventory by salesperson'],
+  ['id="salesTeamList"', 'Sales portal must show salesperson profiles and payout references'],
+  ['saveSalesperson', 'Sales portal must let the team add/update salesperson profiles'],
+  ['archiveSalesperson', 'Sales portal must archive salesperson profiles instead of deleting commission history'],
+  ['maskedBankAccount', 'Sales portal must mask payout account data on screen'],
   ['Back-room location', 'Sales portal must show exact vehicle location only in staff back-room context'],
   ['vinPrivate', 'Sales portal must expose private VIN/frame only to staff'],
   ['copyScript', 'Sales portal must provide a copy-ready WhatsApp sales script'],
@@ -454,6 +464,18 @@ for (const [snippet, message] of [
   ['kind: \'vehicle\'', 'Tracking API must accept public stock IDs'],
   ['kind: \'quote\'', 'Tracking API must accept public quote IDs'],
 ]) {
+  if (!portalApi.includes(snippet)) fail(message);
+}
+const requiredSalesOpsApiControls = [
+  ['sales-ops', 'Portal API must expose encrypted sales ops data for the sales portal'],
+  ['salesperson-save', 'Portal API must save salesperson profiles'],
+  ['salesperson-archive', 'Portal API must archive salesperson profiles'],
+  ['vehicle-save', 'Portal API must save staff inventory edits'],
+  ['vehicle-archive', 'Portal API must archive/delete staff inventory records'],
+  ['vehicle-sold', 'Portal API must record sold vehicles and salesperson commission'],
+  ['maskedBankAccount', 'Portal API must mask payout account data before returning it'],
+];
+for (const [snippet, message] of requiredSalesOpsApiControls) {
   if (!portalApi.includes(snippet)) fail(message);
 }
 for (const [snippet, message] of [

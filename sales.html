@@ -30,20 +30,30 @@
   header img{height:34px}
   header strong{color:var(--green2)}
   .who{margin-left:auto;color:var(--muted);font-size:13px}
-  .wrap{max-width:1380px;margin:0 auto;padding:16px}
+  .wrap{max-width:1440px;margin:0 auto;padding:16px}
+  .cockpit-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end;margin-bottom:14px}
+  .cockpit-head h1{font-size:26px;line-height:1.05;color:var(--green2);letter-spacing:0;margin-bottom:5px}
+  .cockpit-head p{color:var(--muted);font-size:13px;max-width:720px}
+  .stat-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:14px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-height:66px}
+  .stat .k{font-size:10px;text-transform:uppercase;font-weight:900;color:var(--muted);letter-spacing:.04em}
+  .stat .v{font-size:24px;font-weight:900;color:var(--green2);line-height:1.05;margin-top:4px}
+  .stat.warn .v{color:#9a6400}
+  .op-note{background:#fff8e4;border:1px solid #ead8a9;border-radius:8px;color:#5d4212;font-size:12px;font-weight:750;padding:9px 11px;max-width:380px}
   .tabs{display:flex;gap:8px;flex-wrap:nowrap;margin-bottom:14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
   .tabs::-webkit-scrollbar{display:none}
   .tab{flex-shrink:0;border:1.5px solid var(--line);background:#fff;color:var(--green2);border-radius:999px;padding:9px 14px;font-weight:800;font-size:13px}
   .tab.active{background:var(--green2);color:#fff;border-color:var(--green2)}
   .desk{display:grid;grid-template-columns:330px minmax(0,1fr) 360px;gap:14px;align-items:start}
-  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 10px 26px rgba(18,69,31,.04)}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;box-shadow:0 10px 26px rgba(18,69,31,.04)}
   .panel h2{font-size:14px;color:var(--green2);display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
   .pill{display:inline-flex;align-items:center;border-radius:999px;background:#eaf4ec;color:var(--green2);font-size:11px;font-weight:900;padding:3px 8px}
   .search{display:flex;gap:8px;margin-bottom:10px}
   .search input{min-width:0}
   .list{display:flex;flex-direction:column;gap:8px;max-height:66vh;overflow:auto;padding-right:2px}
-  .row{border:1px solid var(--line);border-radius:11px;background:#fbfdfb;padding:10px;text-align:left}
+  .row{border:1px solid var(--line);border-radius:8px;background:#fbfdfb;padding:10px;text-align:left}
   .row.active{border-color:var(--green);box-shadow:0 0 0 2px rgba(46,125,50,.12)}
+  .row.sold{background:#fff8e4;border-color:#ead8a9}
   .row b{display:block;color:var(--ink);font-size:13px;margin-bottom:3px}
   .row span{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .brief{display:grid;grid-template-columns:170px minmax(0,1fr);gap:14px}
@@ -66,10 +76,22 @@
   .check input{width:auto;margin-top:2px}
   .vehicle-table{display:grid;gap:9px}
   .vehicle-card{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;background:#fff;padding:9px;text-align:left}
+  .vehicle-card.sold{background:#fff8e4;border-color:#d8bd69}
   .vehicle-card img{width:92px;height:68px;object-fit:cover;border-radius:9px;background:var(--soft)}
   .vehicle-card b{display:block;color:var(--green2);font-size:13px}
   .vehicle-card span{display:block;color:var(--muted);font-size:12px}
   .backroom{background:#fffaf0;border-color:#ead8a9}
+  .sold-badge{background:#5d4212;color:#fff}
+  .form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+  .form-grid label{margin:0}
+  .form-grid .wide{grid-column:span 2}
+  .form-grid .full{grid-column:1/-1}
+  .mini-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .team-grid{display:grid;grid-template-columns:minmax(280px,380px) minmax(0,1fr);gap:14px;align-items:start}
+  .team-card{border:1px solid var(--line);border-radius:8px;background:#fbfdfb;padding:10px;margin-bottom:8px}
+  .team-card.archived{opacity:.62;background:#f7f7f7}
+  .team-card b{display:block;color:var(--green2)}
+  .team-card span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
   .route-line{display:flex;align-items:center;gap:8px;color:var(--green2);font-weight:900;margin:8px 0}
   .route-line::before,.route-line::after{content:'';height:3px;background:var(--line);border-radius:99px;flex:1}
   .staff-map{width:100%;height:auto;border:1px solid var(--line);border-radius:13px;background:#e4f2f5;overflow:hidden}
@@ -84,9 +106,9 @@
   .route-stat b{display:block;color:var(--green2);font-size:14px}
   .route-stat span{display:block;color:var(--muted);font-size:11px}
   .hide{display:none!important}
-  @media(max-width:1100px){.desk{grid-template-columns:280px minmax(0,1fr)}.side{grid-column:1/-1}.grid{grid-template-columns:repeat(3,1fr)}}
-  @media(max-width:760px){header{height:auto;min-height:58px;flex-wrap:wrap;padding:10px 12px}.who{margin-left:0;width:100%}.wrap{padding:10px}.desk{grid-template-columns:1fr}.brief{grid-template-columns:1fr}.brief-img{max-height:230px}.grid{grid-template-columns:repeat(2,1fr)}.notes{grid-template-columns:1fr}.deal-actions{grid-template-columns:1fr}.list{max-height:42vh}.tabs{position:sticky;top:58px;background:var(--bg);padding:8px 0;z-index:10}}
-  @media(max-width:430px){.grid{grid-template-columns:1fr}.vehicle-card{grid-template-columns:74px minmax(0,1fr)}.vehicle-card img{width:74px;height:58px}.vehicle-card button{grid-column:1/-1}.tab{font-size:12px;padding:8px 11px}}
+  @media(max-width:1100px){.desk{grid-template-columns:280px minmax(0,1fr)}.side{grid-column:1/-1}.grid{grid-template-columns:repeat(3,1fr)}.team-grid{grid-template-columns:1fr}.stat-strip{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:760px){header{height:auto;min-height:58px;flex-wrap:wrap;padding:10px 12px}.who{margin-left:0;width:100%}.wrap{padding:10px}.cockpit-head{grid-template-columns:1fr}.desk{grid-template-columns:1fr}.brief{grid-template-columns:1fr}.brief-img{max-height:230px}.grid{grid-template-columns:repeat(2,1fr)}.notes{grid-template-columns:1fr}.deal-actions{grid-template-columns:1fr}.list{max-height:42vh}.tabs{position:sticky;top:58px;background:var(--bg);padding:8px 0;z-index:10}.form-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:430px){.stat-strip,.grid,.form-grid{grid-template-columns:1fr}.vehicle-card{grid-template-columns:74px minmax(0,1fr)}.vehicle-card img{width:74px;height:58px}.vehicle-card button{grid-column:1/-1}.tab{font-size:12px;padding:8px 11px}}
 </style>
 </head>
 <body>
@@ -109,22 +131,36 @@
 <div class="app" id="app">
   <header>
     <img src="logo-mark.png" alt="New Vision" />
-    <strong>Andy / Eissa Sales Portal</strong>
+    <strong>Sales Deal Cockpit</strong>
     <a class="btn alt" id="ownerPortalLink" href="./portal.html" style="display:none;text-decoration:none;padding:8px 11px">Owner Portal</a>
     <a class="btn alt" href="./" style="text-decoration:none;padding:8px 11px">Public Site</a>
     <span class="who" id="who"></span>
     <button class="btn alt" onclick="doLogout()">Sign out</button>
   </header>
   <main class="wrap">
+    <div class="cockpit-head">
+      <div>
+        <h1>Sales Deal Cockpit</h1>
+        <p>Use this page to move a buyer from lead data to vehicle proof, quote, route, close script, sold inventory, salesperson commission, and payout reference.</p>
+      </div>
+      <div class="op-note">Sensitive payout data is stored in the encrypted portal lane. The page shows maskedBankAccount values only.</div>
+    </div>
     <div class="tabs">
       <button class="tab active" onclick="showTab('desk',this)">Deal Desk</button>
       <button class="tab" onclick="showTab('leads',this)">Client Data</button>
       <button class="tab" onclick="showTab('inventory',this)">Vehicle List</button>
       <button class="tab" onclick="showTab('route',this)">Route & Close</button>
+      <button class="tab" onclick="showTab('team',this)">Team & Sold</button>
       <button class="tab" onclick="showTab('worldmap',this)" style="background:#0f2518;border-color:#2e5e35;color:#81C784">🌍 Ship Tracker</button>
     </div>
 
     <section id="tab-desk" class="section active">
+      <div class="stat-strip">
+        <div class="stat"><div class="k">Open leads</div><div class="v" id="statOpenLeads">0</div></div>
+        <div class="stat"><div class="k">Ready to quote</div><div class="v" id="statReadyQuote">0</div></div>
+        <div class="stat warn"><div class="k">Proof pending</div><div class="v" id="statProofPending">0</div></div>
+        <div class="stat"><div class="k">Sold vehicles</div><div class="v" id="statSoldVehicles">0</div></div>
+      </div>
       <div class="desk">
         <div class="panel">
           <h2>Clients <span class="pill" id="leadCount">0</span></h2>
@@ -164,15 +200,45 @@
     </section>
 
     <section id="tab-inventory" class="section">
-      <div class="panel">
-        <h2>Full Vehicle List <span class="pill" id="vehicleCount">0</span></h2>
-        <div class="search">
-          <input id="vehicleSearch" placeholder="Search stock ID, brand, model, fuel, location, docs" oninput="renderVehicles()" />
-          <select id="vehicleFilter" onchange="renderVehicles()">
-            <option value="">All</option><option value="ev">EV/PHEV</option><option value="fuel">Gas/Petrol</option><option value="premium">Premium</option><option value="ready">Docs ready/check</option>
-          </select>
+      <div class="team-grid">
+        <div class="panel" id="vehicleEditor">
+          <h2>Vehicle Editor <span class="pill">add / update</span></h2>
+          <div class="form-grid">
+            <label class="wide">Stock ID<input id="vf_stockId" placeholder="NV-2026-0099"></label>
+            <label>Year<input id="vf_year" type="number" min="1990" max="2035" value="2026"></label>
+            <label>FOB price<input id="vf_price" type="number" min="0" step="100" placeholder="28900"></label>
+            <label>Make<input id="vf_make" placeholder="Tesla"></label>
+            <label class="wide">Model<input id="vf_model" placeholder="Model Y L"></label>
+            <label>Condition<select id="vf_condition"><option>New</option><option>Used</option><option>Old stock</option></select></label>
+            <label>Fuel<input id="vf_fuel" placeholder="Electric"></label>
+            <label>Body<input id="vf_body" placeholder="SUV"></label>
+            <label>Drive<input id="vf_drive" placeholder="AWD"></label>
+            <label class="wide">Back-room location<input id="vf_location" placeholder="Yiwu / Shanghai yard"></label>
+            <label class="wide">Private VIN/frame<input id="vf_vin" placeholder="staff only"></label>
+            <label class="wide">Docs status<input id="vf_docs" placeholder="Docs check available"></label>
+            <label class="wide">Inspection status<input id="vf_inspection" placeholder="Photo/video available"></label>
+            <label class="wide">Image URL<input id="vf_img" placeholder="img/vehicle.webp"></label>
+            <label>Status<select id="vf_status"><option>Available</option><option>Old stock</option><option>Sold</option><option>Archived</option></select></label>
+            <label>Sold by<select id="soldSalesperson"></select></label>
+            <label>Sold price<input id="soldPrice" type="number" min="0" step="100" placeholder="Sale price"></label>
+            <label>Buyer<input id="soldBuyer" placeholder="Buyer / dealer"></label>
+          </div>
+          <div class="mini-actions">
+            <button class="btn" onclick="saveVehicleRecord()">Save Vehicle</button>
+            <button class="btn gold" onclick="markVehicleSold()">Mark old vehicle SOLD</button>
+            <button class="btn red" onclick="archiveVehicleRecord()">Archive Vehicle</button>
+          </div>
         </div>
-        <div class="vehicle-table" id="vehicleList"></div>
+        <div class="panel">
+          <h2>Full Vehicle List <span class="pill" id="vehicleCount">0</span></h2>
+          <div class="search">
+            <input id="vehicleSearch" placeholder="Search stock ID, brand, model, fuel, location, docs" oninput="renderVehicles()" />
+            <select id="vehicleFilter" onchange="renderVehicles()">
+              <option value="">All</option><option value="ev">EV/PHEV</option><option value="fuel">Gas/Petrol</option><option value="premium">Premium</option><option value="ready">Docs ready/check</option><option value="sold">Sold</option>
+            </select>
+          </div>
+          <div class="vehicle-table" id="vehicleList"></div>
+        </div>
       </div>
     </section>
 
@@ -203,6 +269,32 @@
         <div class="panel">
           <h2>Next Action</h2>
           <div id="nextAction" class="script-box">Waiting for selected deal.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-team" class="section">
+      <div class="team-grid">
+        <div class="panel">
+          <h2>Sales Team <span class="pill">encrypted payout lane</span></h2>
+          <div class="form-grid">
+            <label class="wide">Person name<input id="sp_name" placeholder="Andy"></label>
+            <label>WhatsApp<input id="sp_whatsapp" placeholder="+86..."></label>
+            <label>Commission %<input id="sp_commission" type="number" min="0" max="50" step="0.1" value="3"></label>
+            <label class="wide">Bank / payout provider<input id="sp_bank" placeholder="Bank name / Wise / Alipay"></label>
+            <label class="wide">Account number<input id="sp_account" placeholder="Encrypted on save"></label>
+            <label class="full">Payout notes<input id="sp_notes" placeholder="routing note, account holder, payment preference"></label>
+          </div>
+          <div class="mini-actions">
+            <button class="btn" onclick="saveSalesperson()">Add / Update Salesperson</button>
+            <button class="btn red" onclick="archiveSalesperson()">Store Archive Data</button>
+          </div>
+          <div id="salesTeamList" style="margin-top:12px"></div>
+        </div>
+        <div class="panel">
+          <h2>Sold Inventory & Commission <span class="pill" id="soldCount">0 sold</span></h2>
+          <div class="script-box" id="commissionSummary" style="min-height:80px"></div>
+          <div class="vehicle-table" id="soldInventory" style="margin-top:12px"></div>
         </div>
       </div>
     </section>
@@ -258,7 +350,7 @@ const API='/api/portal';
 const SESSION_KEY='newvision.portal.session';
 const $=id=>document.getElementById(id);
 const money=n=>'$'+Math.round(+n||0).toLocaleString();
-let currentUser=null, leads=[], vehicles=[], shipments=[], selectedLead=null, selectedVehicle=null, lastScript='', lastSummary='';
+let currentUser=null, leads=[], vehicles=[], baseVehicles=[], shipments=[], salesOps={staff:[],vehicleOverrides:{},sales:[]}, selectedLead=null, selectedVehicle=null, selectedSalespersonId='', lastScript='', lastSummary='';
 
 function apiUrl(path){ return API_BASE + path; }
 async function api(action, opts){
@@ -278,6 +370,18 @@ function vehicleName(v){ return v ? `${v.year} ${v.make} ${v.model}` : 'No vehic
 function imgFor(v){ return v?.img || (Array.isArray(v?.imgs) ? v.imgs.find(Boolean) : '') || ''; }
 function publicTrack(id){ return new URL('./track.html?id='+encodeURIComponent(id), location.href).href; }
 function publicVehicleUrl(v){ return new URL('./?stock='+encodeURIComponent(stockId(v)), location.href).href; }
+function isSoldVehicle(v){ return /sold/i.test(String(v?.status||'')); }
+function maskedBankAccount(v){ const s=String(v||'').replace(/[^\dA-Za-z]/g,''); return s ? '*'.repeat(Math.min(8,Math.max(4,s.length-4)))+s.slice(-4) : ''; }
+function staffName(id){ return (salesOps.staff||[]).find(s=>s.id===id)?.name || id || 'Unassigned'; }
+function activeStaff(){ return (salesOps.staff||[]).filter(s=>s.status!=='archived'); }
+function applySalesOpsVehicles(staticVehicles, ops){
+  const map=new Map((staticVehicles||[]).map(v=>[stockId(v),Object.assign({},v)]));
+  Object.values((ops&&ops.vehicleOverrides)||{}).forEach(o=>{
+    const id=stockId(o);
+    map.set(id,Object.assign({},map.get(id)||{},o));
+  });
+  return [...map.values()];
+}
 function matchLeadVehicle(lead){
   if(!lead) return vehicles[0] || null;
   const text=[lead.vehicle, lead.message].join(' ').toLowerCase();
@@ -330,19 +434,29 @@ async function showApp(user){
   await loadData();
 }
 async function loadData(){
-  const [dash, ship, veh] = await Promise.all([
+  const [dash, ship, veh, ops] = await Promise.all([
     api('sales-dashboard'),
     api('shipments'),
     fetch(apiUrl('/api/vehicles')).then(r=>r.ok?r.json():[]).catch(()=>[]),
+    api('sales-ops'),
   ]);
   leads = dash.ok ? (dash.leads||[]) : [];
   shipments = ship.ok ? (ship.shipments||[]) : [];
-  vehicles = Array.isArray(veh) ? veh : [];
+  baseVehicles = Array.isArray(veh) ? veh : [];
+  salesOps = ops.ok ? (ops.salesOps||salesOps) : {staff:[],vehicleOverrides:{},sales:[]};
+  vehicles = applySalesOpsVehicles(baseVehicles, salesOps);
   selectedLead = leads[0] || null;
   selectedVehicle = matchLeadVehicle(selectedLead);
   renderAll();
 }
-function renderAll(){ renderLeads(); renderLeadTable(); renderVehicles(); updateDeal(); }
+function renderAll(){ renderLeads(); renderLeadTable(); renderVehicles(); renderSalesOps(); renderStats(); updateDeal(); fillVehicleEditor(selectedVehicle); }
+function renderStats(){
+  if(!$('statOpenLeads')) return;
+  $('statOpenLeads').textContent=leads.length;
+  $('statReadyQuote').textContent=leads.filter(l=>l.quoteEstimate||l.vehicle).length;
+  $('statProofPending').textContent=leads.filter(l=>!/video|inspection|photo/i.test([l.inspectionOption,l.message].join(' '))).length;
+  $('statSoldVehicles').textContent=(salesOps.sales||[]).length;
+}
 function renderLeads(){
   const q=($('leadSearch').value||'').toLowerCase();
   const list=leads.filter(l=>[l.name,l.contact,l.vehicle,l.country,l.port,l.message,l.id].join(' ').toLowerCase().includes(q));
@@ -355,16 +469,17 @@ function renderLeadTable(){
 }
 function renderVehicles(){
   const q=($('vehicleSearch').value||'').toLowerCase(), f=$('vehicleFilter').value;
-  let list=vehicles.filter(v=>[stockId(v),v.make,v.model,v.fuel,v.body,v.location,v.docsStatus,v.inspectionStatus].join(' ').toLowerCase().includes(q));
+  let list=vehicles.filter(v=>[stockId(v),v.make,v.model,v.fuel,v.body,v.location,v.docsStatus,v.inspectionStatus,v.status,v.salespersonName].join(' ').toLowerCase().includes(q));
   if(f==='ev') list=list.filter(v=>v.ev || /electric|phev|erev/i.test(v.fuel||''));
   if(f==='fuel') list=list.filter(v=>!v.ev && !/electric|phev|erev/i.test(v.fuel||''));
   if(f==='premium') list=list.filter(v=>v.premium);
   if(f==='ready') list=list.filter(v=>/ready|check|available/i.test([v.docsStatus,v.inspectionStatus].join(' ')));
+  if(f==='sold') list=list.filter(isSoldVehicle); else list=list.filter(v=>!/archived/i.test(String(v.status||'')));
   $('vehicleCount').textContent=list.length;
-  $('vehicleList').innerHTML=list.map(v=>`<button class="vehicle-card ${selectedVehicle===v?'active':''}" onclick="selectVehicle(${vehicles.indexOf(v)});showTabByName('desk')">${imgFor(v)?`<img src="${esc(imgFor(v))}" alt="">`:'<div class="brief-img">No photo</div>'}<div><b>${esc(stockId(v))} · ${esc(vehicleName(v))}</b><span>${esc(v.condition||'')} · ${esc(v.fuel||'')} · ${esc(v.body||'')} · ${money(v.price)}</span><span class="backroom">${esc(v.location||'Back-room location not set')} · ${esc(v.docsStatus||'Docs check available')}</span></div><span class="pill">${esc(v.status||'sample')}</span></button>`).join('');
+  $('vehicleList').innerHTML=list.map(v=>`<button class="vehicle-card ${selectedVehicle===v?'active':''} ${isSoldVehicle(v)?'sold':''}" onclick="selectVehicle(${vehicles.indexOf(v)})">${imgFor(v)?`<img src="${esc(imgFor(v))}" alt="">`:'<div class="brief-img">No photo</div>'}<div><b>${esc(stockId(v))} · ${esc(vehicleName(v))}</b><span>${esc(v.condition||'')} · ${esc(v.fuel||'')} · ${esc(v.body||'')} · ${money(v.price)}</span><span class="backroom">${esc(v.location||'Back-room location not set')} · ${esc(v.docsStatus||'Docs check available')}</span>${isSoldVehicle(v)?`<span>Sold by ${esc(v.salespersonName||staffName(v.salespersonId))} · commission ${money(v.commissionAmount||0)}</span>`:''}</div><span class="pill ${isSoldVehicle(v)?'sold-badge':''}">${esc(v.status||'Available')}</span></button>`).join('');
 }
 function selectLead(i){ selectedLead=leads[i]||null; selectedVehicle=matchLeadVehicle(selectedLead); renderAll(); }
-function selectVehicle(i){ selectedVehicle=vehicles[i]||null; updateDeal(); renderVehicles(); }
+function selectVehicle(i){ selectedVehicle=vehicles[i]||null; fillVehicleEditor(selectedVehicle); updateDeal(); renderVehicles(); }
 function showTab(name,btn){ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); if(btn) btn.classList.add('active'); document.querySelectorAll('.section').forEach(s=>s.classList.remove('active')); $('tab-'+name).classList.add('active'); }
 function showTabByName(name){ const btn=[...document.querySelectorAll('.tab')].find(b=>b.textContent.toLowerCase().includes(name==='desk'?'deal':name)); showTab(name,btn); }
 
@@ -382,7 +497,7 @@ function updateDeal(){
   const docsChoice=l?.docsOption||'Confirm docs option';
   const vehiclePage=l?.vehiclePageUrl||track;
   $('dealState').textContent=l?.id || stockId(v);
-  $('dealBrief').innerHTML=`<div class="brief"><div class="brief-img">${imgFor(v)?`<img src="${esc(imgFor(v))}" alt="">`:'No photo'}</div><div><div class="pill">${esc(stockId(v))}</div><div class="title">${esc(vehicleName(v))}</div><div class="sub">${esc(v.condition||'')} · ${esc(v.fuel||'')} · ${esc(v.body||'')} · ${esc(v.drive||'')}</div><div class="price">${money(v.price)} <span style="font-size:12px;color:var(--muted)">FOB</span></div><div class="route-line">${esc(route[0])} · ${esc(route[1])}</div></div></div><div class="grid">${kv('Client',l?.name||'No lead selected')}${kv('Contact',l?.contact||'—')}${kv('Country / port',[l?.country,port].filter(Boolean).join(' / ')||'—')}${kv('Customer wants',l?.vehicle||'Match from inventory')}${kv('Quote estimate',quoteEstimate)}${kv('Freight estimate',freightEstimate)}${kv('Proof choice',proofChoice)}${kv('Docs choice',docsChoice)}${kv('Vehicle page',vehiclePage)}${kv('Back-room location',v.location||'Set in portal')}${kv('Docs',v.docsStatus||'Docs check available')}${kv('Inspection',v.inspectionStatus||'Photo/video available')}${kv('Photos',photos+' available')}${kv('Private VIN',v.vinPrivate||'Only after staff confirms')}${kv('Shipment link',v.shipmentId||'Create NVS after booking')}${kv('Public track',track)}${kv('Recommended unit',route[2])}</div>`;
+  $('dealBrief').innerHTML=`<div class="brief"><div class="brief-img">${imgFor(v)?`<img src="${esc(imgFor(v))}" alt="">`:'No photo'}</div><div><div class="pill ${isSoldVehicle(v)?'sold-badge':''}">${esc(isSoldVehicle(v)?'SOLD':stockId(v))}</div><div class="title">${esc(vehicleName(v))}</div><div class="sub">${esc(v.condition||'')} · ${esc(v.fuel||'')} · ${esc(v.body||'')} · ${esc(v.drive||'')}</div><div class="price">${money(v.price)} <span style="font-size:12px;color:var(--muted)">FOB</span></div><div class="route-line">${esc(route[0])} · ${esc(route[1])}</div></div></div><div class="grid">${kv('Client',l?.name||'No lead selected')}${kv('Contact',l?.contact||'—')}${kv('Country / port',[l?.country,port].filter(Boolean).join(' / ')||'—')}${kv('Customer wants',l?.vehicle||'Match from inventory')}${kv('Quote estimate',quoteEstimate)}${kv('Freight estimate',freightEstimate)}${kv('Proof choice',proofChoice)}${kv('Docs choice',docsChoice)}${kv('Vehicle page',vehiclePage)}${kv('Back-room location',v.location||'Set in portal')}${kv('Docs',v.docsStatus||'Docs check available')}${kv('Inspection',v.inspectionStatus||'Photo/video available')}${kv('Photos',photos+' available')}${kv('Private VIN',v.vinPrivate||'Only after staff confirms')}${kv('Shipment link',v.shipmentId||'Create NVS after booking')}${kv('Public track',track)}${kv('Recommended unit',route[2])}${isSoldVehicle(v)?kv('Sold by',v.salespersonName||staffName(v.salespersonId))+kv('Sale commission',money(v.commissionAmount||0)):''}</div>`;
   lastScript=buildScript(l,v,route,port,track);
   lastSummary=buildSummary(l,v,route,port,track);
   $('salesScript').textContent=lastScript;
@@ -403,6 +518,104 @@ function buildSummary(l,v,route,port,track){
 function copyText(text){ try{navigator.clipboard.writeText(text);}catch(_){} alert('Copied.'); }
 function copyScript(){ copyText(lastScript); }
 function copyDealSummary(){ copyText(lastSummary); }
+
+function fillVehicleEditor(v){
+  if(!$('vf_stockId') || !v) return;
+  $('vf_stockId').value=stockId(v);
+  $('vf_year').value=v.year||'';
+  $('vf_price').value=v.price||'';
+  $('vf_make').value=v.make||'';
+  $('vf_model').value=v.model||'';
+  $('vf_condition').value=v.condition||'New';
+  $('vf_fuel').value=v.fuel||'';
+  $('vf_body').value=v.body||'';
+  $('vf_drive').value=v.drive||'';
+  $('vf_location').value=v.location||'';
+  $('vf_vin').value=v.vinPrivate||'';
+  $('vf_docs').value=v.docsStatus||'';
+  $('vf_inspection').value=v.inspectionStatus||'';
+  $('vf_img').value=imgFor(v)||'';
+  $('vf_status').value=v.status||'Available';
+  $('soldPrice').value=v.salePrice||v.price||'';
+  $('soldBuyer').value=v.buyer||'';
+  if(v.salespersonId) $('soldSalesperson').value=v.salespersonId;
+}
+function vehiclePayload(){
+  return {
+    stockId:$('vf_stockId').value, year:$('vf_year').value, price:$('vf_price').value, make:$('vf_make').value, model:$('vf_model').value,
+    condition:$('vf_condition').value, fuel:$('vf_fuel').value, body:$('vf_body').value, drive:$('vf_drive').value,
+    location:$('vf_location').value, vinPrivate:$('vf_vin').value, docsStatus:$('vf_docs').value, inspectionStatus:$('vf_inspection').value,
+    img:$('vf_img').value, status:$('vf_status').value
+  };
+}
+async function saveVehicleRecord(){
+  const r=await api('vehicle-save',{method:'POST',body:JSON.stringify({vehicle:vehiclePayload()})});
+  if(!r.ok) return alert(r.error||'Vehicle save failed');
+  await loadData();
+  selectedVehicle=vehicles.find(v=>stockId(v)===stockId(r.vehicle))||selectedVehicle;
+  fillVehicleEditor(selectedVehicle);
+}
+async function archiveVehicleRecord(){
+  const id=$('vf_stockId').value || (selectedVehicle&&stockId(selectedVehicle));
+  if(!id) return alert('Select a vehicle first.');
+  const r=await api('vehicle-archive',{method:'POST',body:JSON.stringify({stockId:id})});
+  if(!r.ok) return alert(r.error||'Archive failed');
+  await loadData();
+}
+async function markVehicleSold(){
+  const payload=vehiclePayload();
+  const r=await api('vehicle-sold',{method:'POST',body:JSON.stringify({
+    stockId:payload.stockId, vehicle:payload, vehicleName:[payload.year,payload.make,payload.model].filter(Boolean).join(' '),
+    salespersonId:$('soldSalesperson').value, salePrice:$('soldPrice').value||payload.price, buyer:$('soldBuyer').value
+  })});
+  if(!r.ok) return alert(r.error||'Sold update failed');
+  await loadData();
+  selectedVehicle=vehicles.find(v=>stockId(v)===r.sale.stockId)||selectedVehicle;
+  fillVehicleEditor(selectedVehicle);
+  showTabByName('team');
+}
+
+function renderSalesOps(){
+  if(!$('salesTeamList')) return;
+  const staff=activeStaff();
+  $('soldSalesperson').innerHTML=staff.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${esc(s.commissionRate)}%</option>`).join('');
+  if(!selectedSalespersonId && staff[0]) selectedSalespersonId=staff[0].id;
+  $('salesTeamList').innerHTML=(salesOps.staff||[]).map(s=>`<div class="team-card ${s.status==='archived'?'archived':''}" onclick="selectSalesperson('${esc(s.id)}')"><b>${esc(s.name)} <span class="pill">${esc(s.status||'active')}</span></b><span>${esc(s.role||'Sales')} · WhatsApp ${esc(s.whatsapp||'not set')} · commission ${esc(s.commissionRate||0)}%</span><span>${esc(s.payoutBank||'No payout provider')} · ${esc(s.maskedBankAccount||maskedBankAccount(s.bankAccount)||'maskedBankAccount not set')}</span></div>`).join('');
+  const totals={};
+  (salesOps.sales||[]).forEach(s=>{ totals[s.salespersonName]=totals[s.salespersonName]||{count:0,commission:0,volume:0}; totals[s.salespersonName].count++; totals[s.salespersonName].commission+=Number(s.commissionAmount)||0; totals[s.salespersonName].volume+=Number(s.salePrice)||0; });
+  $('commissionSummary').textContent=Object.entries(totals).map(([name,t])=>`${name}: ${t.count} sold · volume ${money(t.volume)} · commission ${money(t.commission)}`).join('\n') || 'No sold vehicles yet.';
+  $('soldCount').textContent=(salesOps.sales||[]).length+' sold';
+  $('soldInventory').innerHTML=(salesOps.sales||[]).map(s=>`<div class="vehicle-card sold"><div class="pill sold-badge">SOLD</div><div><b>${esc(s.stockId)} · ${esc(s.vehicleName)}</b><span>${esc(s.salespersonName)} · sale ${money(s.salePrice)} · commission ${money(s.commissionAmount)}</span><span>Buyer: ${esc(s.buyer||'not recorded')} · ${esc((s.soldAt||'').slice(0,10))}</span></div><span class="pill">${esc(s.commissionRate)}%</span></div>`).join('') || '<div class="sub">No sold inventory recorded yet.</div>';
+}
+function selectSalesperson(id){
+  selectedSalespersonId=id;
+  const s=(salesOps.staff||[]).find(x=>x.id===id);
+  if(!s) return;
+  $('sp_name').value=s.name||'';
+  $('sp_whatsapp').value=s.whatsapp||'';
+  $('sp_commission').value=s.commissionRate||0;
+  $('sp_bank').value=s.payoutBank||'';
+  $('sp_account').value=s.maskedBankAccount||'';
+  $('sp_notes').value=s.payoutNotes||'';
+  if($('soldSalesperson')) $('soldSalesperson').value=s.id;
+}
+async function saveSalesperson(){
+  const r=await api('salesperson-save',{method:'POST',body:JSON.stringify({
+    id:selectedSalespersonId, name:$('sp_name').value, whatsapp:$('sp_whatsapp').value, commissionRate:$('sp_commission').value,
+    payoutBank:$('sp_bank').value, bankAccount:$('sp_account').value, payoutNotes:$('sp_notes').value
+  })});
+  if(!r.ok) return alert(r.error||'Salesperson save failed');
+  selectedSalespersonId=r.salesperson.id;
+  await loadData();
+  selectSalesperson(selectedSalespersonId);
+}
+async function archiveSalesperson(){
+  if(!selectedSalespersonId) return alert('Select a salesperson first.');
+  const r=await api('salesperson-archive',{method:'POST',body:JSON.stringify({id:selectedSalespersonId})});
+  if(!r.ok) return alert(r.error||'Archive failed');
+  selectedSalespersonId='';
+  await loadData();
+}
 
 function renderStaffRouteMap(port){
   const active=routeKey(port);
