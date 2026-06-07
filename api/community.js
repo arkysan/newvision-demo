@@ -2,8 +2,8 @@
 // Actions: register | login | me | posts | comments | follow
 // All Supabase calls go via REST — no SDK dependency needed.
 
-const SB_URL  = process.env.SUPABASE_URL  || 'https://jzsfacnzztutqzlfkbqf.supabase.co';
-const SB_ANON = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6c2ZhY256enR1dHF6bGZrYnFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyNzY1NjIsImV4cCI6MjA4NTg1MjU2Mn0.NuZytQ94TkYGwk2wCr57wqRXSAV7pZ-Ag1YSfmxwl-0';
+const SB_URL  = process.env.SUPABASE_URL  || 'https://gcootnvmfvktcgelipbu.supabase.co';
+const SB_ANON = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdjb290bnZtZnZrdGNnZWxpcGJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MjMyMTcsImV4cCI6MjA5NTk5OTIxN30.MaseafulifklB8Y4474QKjz6KY6ufaqpA0JtQ1-b6jc';
 const SB_SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const ADMIN   = process.env.NEWVISION_ADMIN_TOKEN || '';
 
