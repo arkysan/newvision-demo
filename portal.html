@@ -456,10 +456,13 @@
 
 <script>
 const API = '/api/portal';
-const VERCEL_API_ORIGIN = 'https://newvision-demo.vercel.app';
+// newvision.arkmodule.com is a static Cloudflare Pages host with no API; route
+// its API calls to nvs2.arkmodule.com — China-reachable (CF-proxied) with
+// wildcard CORS. The old newvision-demo.vercel.app is GFW-blocked + CORS-locked.
+const VERCEL_API_ORIGIN = 'https://nvs2.arkmodule.com';
 const IS_GITHUB_PAGES = location.hostname === 'arkysan.github.io';
 const IS_STATIC_PREVIEW = ['localhost', '127.0.0.1'].includes(location.hostname);
-const IS_STATIC_PUBLIC_HOST = IS_GITHUB_PAGES || location.hostname === 'cdn.jsdelivr.net' || location.hostname.endsWith('.pages.dev');
+const IS_STATIC_PUBLIC_HOST = IS_GITHUB_PAGES || location.hostname === 'cdn.jsdelivr.net' || location.hostname.endsWith('.pages.dev') || location.hostname === 'newvision.arkmodule.com';
 const API_BASE = (IS_STATIC_PUBLIC_HOST || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN : '';
 const SESSION_KEY = 'newvision.portal.session';
 const $ = (id) => document.getElementById(id);

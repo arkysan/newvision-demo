@@ -341,10 +341,11 @@
 function wmSalesTrack(){const q=(document.getElementById('wm_salesQ').value||'').trim();if(q)window.open('./worldmap.html?id='+encodeURIComponent(q)+'&role=sales','_blank');}
 </script>
 <script>
-const VERCEL_API_ORIGIN='https://newvision-demo.vercel.app';
+// See portal.html: route static-host API calls to the China-reachable backend.
+const VERCEL_API_ORIGIN='https://nvs2.arkmodule.com';
 const IS_GITHUB_PAGES=location.hostname==='arkysan.github.io';
 const IS_STATIC_PREVIEW=['localhost','127.0.0.1'].includes(location.hostname);
-const IS_STATIC_PUBLIC_HOST=IS_GITHUB_PAGES || location.hostname==='cdn.jsdelivr.net' || location.hostname.endsWith('.pages.dev');
+const IS_STATIC_PUBLIC_HOST=IS_GITHUB_PAGES || location.hostname==='cdn.jsdelivr.net' || location.hostname.endsWith('.pages.dev') || location.hostname==='newvision.arkmodule.com';
 const API_BASE=(IS_STATIC_PUBLIC_HOST || IS_STATIC_PREVIEW) ? VERCEL_API_ORIGIN : '';
 const API='/api/portal';
 const SESSION_KEY='newvision.portal.session';
