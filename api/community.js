@@ -2,8 +2,10 @@
 // Actions: register | login | me | posts | comments | follow
 // All Supabase calls go via REST — no SDK dependency needed.
 
-const SB_URL  = process.env.SUPABASE_URL  || 'https://gcootnvmfvktcgelipbu.supabase.co';
-const SB_ANON = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdjb290bnZtZnZrdGNnZWxpcGJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MjMyMTcsImV4cCI6MjA5NTk5OTIxN30.MaseafulifklB8Y4474QKjz6KY6ufaqpA0JtQ1-b6jc';
+const SB_URL  = 'https://gcootnvmfvktcgelipbu.supabase.co';
+// Anon key is public by design — env var only if it matches this project (old SUPABASE_ANON_KEY env may point to a different project)
+const KNOWN_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdjb290bnZtZnZrdGNnZWxpcGJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0MjMyMTcsImV4cCI6MjA5NTk5OTIxN30.MaseafulifklB8Y4474QKjz6KY6ufaqpA0JtQ1-b6jc';
+const SB_ANON = (process.env.SUPABASE_ANON_KEY || '').includes('gcootnvmfvktcgelipbu') ? process.env.SUPABASE_ANON_KEY : KNOWN_ANON;
 const SB_SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const ADMIN   = process.env.NEWVISION_ADMIN_TOKEN || '';
 
