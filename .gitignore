@@ -7,6 +7,7 @@ REQUIREMENTS_FROM_VIDEO.md
 .env.local
 node_modules
 package-lock.json
+*.vsix
 
 # internal meta / proofs — not production content
 artifacts/
